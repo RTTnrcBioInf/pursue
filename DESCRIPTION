@@ -1,0 +1,22 @@
+Package: PURSUE
+Type: Package
+Title: Reference-Normalized Two-Part Regression for Microbial Composition Assessment
+Version: 0.1.0.0
+Authors@R: 
+    person("RTT")
+Description: Two-part regression workflow for microbiome composition assessment
+    using reference-normalized abundance and prevalence modeling with
+    permutation-based inference.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports:
+    stats,
+    parallel
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
