@@ -3,7 +3,7 @@ Type: Package
 Title: Reference-Normalized Two-Part Regression for Microbial Composition Assessment
 Version: 0.1.0.0
 Authors@R: 
-    person("RTT")
+    person("Robert", "Tupikas", , "robertast.tupikas@gmail.com", role = c("aut", "cre"))
 Description: Two-part regression workflow for microbiome composition assessment
     using reference-normalized abundance and prevalence modeling with
     permutation-based inference.
