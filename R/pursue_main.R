@@ -1,3 +1,16 @@
+# -----------------------------------------------------------------------------
+# pursue_main.R -- top-level runner
+#
+# Entry point: run_pursue(). Calls the module functions in sequence:
+#   filter_taxa()                        utils.R
+#   select_reference_bootstrap_prefix()  reference_selection.R
+#   build_reference_normalized_responses(), build_prevalence_inputs_by_engine()
+#                                        response_construction.R
+#   run_component_permutations()         permutations.R
+#   compute_empirical_component_pvalues(), compute_union_layer()
+#                                        results_orchestration.R
+# -----------------------------------------------------------------------------
+
 #' Run the PURSUE workflow
 #'
 #' `run_pursue()` fits the full PURSUE workflow for microbial differential
