@@ -104,15 +104,21 @@ method_ldm <- function(counts, meta, formula, tested_term, args = list()) {
   on.exit({ if (had) assign("y", old_y, envir = globalenv()) else suppressWarnings(rm("y", envir = globalenv())) }, add = TRUE)
   a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 5000, verbose = FALSE), args)
   out <- .quiet(do.call(LDM::ldm, c(list(formula = stats::as.formula(fstr), data = meta), a)))
-  pick <- function(m) { m <- as.matrix(m); rn <- rownames(m)
+  # LDM returns a submodel x OTU matrix. Its dimnames are not guaranteed: the 2026-09-11 smoke
+  # test returned "ok" with zero finite p-values because the columns were unnamed, so every
+  # lookup by feature name missed. Fall back to column ORDER, which is the order of `y`.
+  pick <- function(m) { m <- as.matrix(m); rn <- rownames(m); cn_ <- colnames(m)
     k <- if (!is.null(rn) && tested_term %in% rn) tested_term else if (!is.null(rn) && "cov1" %in% rn) "cov1" else nrow(m)
-    v <- as.numeric(m[k, ]); names(v) <- colnames(m); v }
+    v <- as.numeric(m[k, ])
+    if (!is.null(cn_) && all(feats %in% cn_)) { names(v) <- cn_; v[feats] }
+    else if (length(v) == length(feats)) stats::setNames(v, feats)
+    else stats::setNames(rep(NA_real_, length(feats)), feats) }
   p <- pick(out$p.otu.omni)
-  q <- tryCatch(pick(out$q.otu.omni), error = function(e) stats::setNames(rep(NA_real_, length(p)), names(p)))
-  res <- .finish(data.frame(feature = feats, arm = "single", p = unname(p[feats]), q = NA, estimate = NA, se = NA,
-                            ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  q <- tryCatch(pick(out$q.otu.omni), error = function(e) stats::setNames(rep(NA_real_, length(feats)), feats))
+  res <- .finish(data.frame(feature = feats, arm = "single", p = unname(p), q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA,
+                            status = if (all(is.na(p))) "no_pvalues_returned" else NA, stringsAsFactors = FALSE))
   # LDM does its own FDR control on permutation p-values; prefer it over BH where available.
-  if (!all(is.na(q))) res$q <- unname(q[feats])
+  if (!all(is.na(q))) res$q <- unname(q)
   res
 }
 
@@ -222,7 +228,12 @@ method_fastemu <- function(counts, meta, formula, tested_term, args = list()) {
   # radEmu renamed `covariate_data` to `data`; 2.3.2 rejects the old name with
   # "both formula and data containing covariates ... must be provided" (smoke test 2026-09-11).
   dat_arg <- if ("data" %in% names(formals(fn))) "data" else "covariate_data"
+  # radEmu 2.x requires `test_kj` naming which (covariate k, taxon j) pairs to score-test;
+  # without it run_score_tests = TRUE errors out (smoke test 2026-09-11).
+  X <- stats::model.matrix(formula, meta); kk <- which(colnames(X) == cn)
   call_args <- c(list(formula = formula, Y = t(counts), run_score_tests = TRUE), stats::setNames(list(meta), dat_arg), args)
+  if ("test_kj" %in% names(formals(fn)) && !"test_kj" %in% names(args) && length(kk) == 1L)
+    call_args$test_kj <- data.frame(k = kk, j = seq_along(feats))
   out <- .quiet(do.call(fn, call_args))
   co <- out$coef; co <- co[co$covariate == cn, ]; co <- co[match(feats, co$category), ]
   .finish(data.frame(feature = feats, arm = "single", p = as.numeric(co$pval), q = NA, estimate = as.numeric(co$estimate) / log(2), se = as.numeric(co$se) / log(2),

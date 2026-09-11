@@ -116,7 +116,10 @@ simulate_mid <- function(template, regime, seed, cache_dir = NULL) {
 
 # ---- sparseDOSSA 2 [UNVERIFIED] -- fit_SparseDOSSA2 on the template (cached), spike-in via metadata_effects ----
 simulate_sd2 <- function(template, regime, seed, cache_dir = NULL) {
-  un <- .unsupported(regime, c("n_per_group", "m", "da_frac", "balance", "effect", "signal_type", "conf_phi"))
+  # `m` is absent from the supported set: new_features = FALSE keeps the template's own
+  # features (needed so spiked names resolve), so the simulated table has the template's
+  # feature count and the m sweep cannot be honoured. Recorded as skipped, never silently run.
+  un <- .unsupported(regime, c("n_per_group", "da_frac", "balance", "effect", "signal_type", "conf_phi"))
   if (identical(regime$signal_type, "prevalence")) un <- c(un, "signal_type")
   if (length(un)) return(list(unsupported = un))
   set.seed(seed)

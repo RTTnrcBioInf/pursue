@@ -30,7 +30,15 @@ and the SLURM logs are not (they are large and reproducible from the seed).
 
 ## 1. Environment
 
-Pick whichever the cluster supports.
+**Use route A.** The R version is not a detail: on R 4.3 / Bioconductor 3.18 the benchmark
+silently loses three comparators — **LOCOM2** (its dependency `Deriv` now requires R >= 4.5),
+**MaAsLin 3** and **ADAPT** (both Bioconductor >= 3.20). LOCOM2 is the direct competitor
+PURSUE is measured against and MaAsLin 3 is the closest rival to the two-part framing, so
+running without them would leave the headline comparison unanswerable. `environment.yml` pins
+R 4.5 / Bioc 3.21, which brings all three back.
+
+If the cluster has neither `conda` nor `module`, `setup_env.sh` prints a micromamba
+one-liner — a single static binary, no admin rights needed.
 
 ```bash
 # A) conda / mamba (self-contained; recommended)

@@ -1,6 +1,8 @@
 # Sourced by every sbatch script. Adapt to the cluster: either activate the conda env or
 # load the R module and point R_LIBS_USER at the library created by setup_env.sh.
-if command -v conda >/dev/null 2>&1 && conda env list 2>/dev/null | grep -q pursue-bench; then
+if command -v micromamba >/dev/null 2>&1 && micromamba env list 2>/dev/null | grep -q pursue-bench; then
+  eval "$(micromamba shell hook -s bash)"; micromamba activate pursue-bench
+elif command -v conda >/dev/null 2>&1 && conda env list 2>/dev/null | grep -q pursue-bench; then
   eval "$(conda shell.bash hook)"; conda activate pursue-bench
 else
   module load R 2>/dev/null || true

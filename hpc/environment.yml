@@ -1,28 +1,36 @@
+# R 4.5 / Bioconductor 3.21. The version matters: on R 4.3 / Bioc 3.18 the benchmark loses
+# three comparators outright — LOCOM2 (its dependency Deriv now requires R >= 4.5), MaAsLin 3
+# and ADAPT (both Bioc >= 3.20). LOCOM2 is the direct competitor PURSUE is measured against and
+# MaAsLin 3 is the closest rival to the two-part framing, so neither is optional.
+#
+# Only the heavy compiled packages are pinned here; everything else comes from
+# hpc/install_packages.R via CRAN/Bioconductor, which then resolve against Bioc 3.21.
 name: pursue-bench
 channels: [conda-forge, bioconda, nodefaults]
 dependencies:
-  - r-base=4.3
-  - r-essentials
+  - r-base=4.5
+  - c-compiler
+  - cxx-compiler
+  - fortran-compiler
+  - make
+  - pkg-config
+  - r-remotes
+  - r-biocmanager
   - r-optparse
   - r-jsonlite
-  - r-yaml
   - r-data.table
+  - r-matrixstats
   - r-sandwich
   - r-lme4
+  - r-lmerTest
   - r-pscl
   - r-ranger
   - r-arrow
-  - r-remotes
-  - r-biocmanager
   - r-vegan
   - r-ape
-  - r-matrixstats
-  - r-gunifrac
+  - r-deriv
   - bioconductor-limma
   - bioconductor-phyloseq
-  - bioconductor-ancombc
-  - bioconductor-aldex2
-  - bioconductor-spsimseq
   - bioconductor-summarizedexperiment
   - bioconductor-treesummarizedexperiment
   - curl

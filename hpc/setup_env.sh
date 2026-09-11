@@ -8,10 +8,31 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"; ROOT="$(cd "$HERE/.." && pwd)"
 MODE="${1:-conda}"
 if [ "$MODE" = "conda" ]; then
-  if command -v mamba >/dev/null; then CONDA=mamba; elif command -v conda >/dev/null; then CONDA=conda; else echo "no conda/mamba found; use: bash hpc/setup_env.sh module"; exit 1; fi
-  $CONDA env create -f "$HERE/environment.yml" -n pursue-bench || $CONDA env update -f "$HERE/environment.yml" -n pursue-bench
-  echo ">> activate with:  conda activate pursue-bench"
-  eval "$($CONDA shell.bash hook)"; conda activate pursue-bench
+  if command -v mamba >/dev/null; then CONDA=mamba
+  elif command -v micromamba >/dev/null; then CONDA=micromamba
+  elif command -v conda >/dev/null; then CONDA=conda
+  else
+    cat <<'MSG'
+No conda/mamba/micromamba on PATH, and no `module` command either.
+micromamba is a single static binary, needs no admin rights and works on any cluster:
+
+  cd ~ && curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+  export PATH="$HOME/bin:$PATH"          # add this to ~/.bashrc
+  eval "$(~/bin/micromamba shell hook -s bash)"
+
+then re-run:  bash hpc/setup_env.sh conda
+MSG
+    exit 1
+  fi
+  if [ "$CONDA" = "micromamba" ]; then
+    $CONDA create -y -n pursue-bench -f "$HERE/environment.yml" || $CONDA install -y -n pursue-bench -f "$HERE/environment.yml"
+    eval "$($CONDA shell hook -s bash)"; $CONDA activate pursue-bench
+  else
+    $CONDA env create -f "$HERE/environment.yml" -n pursue-bench || $CONDA env update -f "$HERE/environment.yml" -n pursue-bench
+    eval "$($CONDA shell.bash hook)"; conda activate pursue-bench
+  fi
+  echo ">> R now: $(Rscript -e 'cat(R.version.string)')"
+  echo ">> activate later with:  $CONDA activate pursue-bench"
   Rscript "$HERE/install_packages.R"
 else
   MOD="${2:-R}"; module load "$MOD" || true
