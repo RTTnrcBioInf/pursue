@@ -1,21 +1,5 @@
-install_packages.R 2026-09-11 14:28:07 
- R version 4.3.3 (2024-02-29) 
+install_packages.R 2026-09-11 17:20:11 
+ R version 4.5.3 (2026-03-11) 
 
-  ~  Deriv: package ‘Deriv’ is not available for this version of R
-‘Deriv’ version 4.3.5 is in the repositories but depends on R (>= 4.5)
-
-A version of this package for your version of R might be available elsewhere,
-see the ideas at
-https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages 
-  ~  LOCOM2: dependency ‘Deriv’ is not available 
-  ~  ADAPT: package ‘ADAPT’ is not available for Bioconductor version '3.18'
-
-A version of this package for your version of R might be available elsewhere,
-see the ideas at
-https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages 
-  ~  maaslin3: package ‘maaslin3’ is not available for Bioconductor version '3.18'
-
-A version of this package for your version of R might be available elsewhere,
-see the ideas at
-https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages 
-  ~  maaslin3: installation of package ‘/tmp/RtmponauFQ/file31258b252dc672/maaslin3_1.5.5.tar.gz’ had non-zero exit status 
+  ~  ANCOMBC: installation of package ‘ANCOMBC’ had non-zero exit status 
+  ~  ANCOMBC needs CVXR::solve, absent from CVXR 1.9.2 -- trying older CVXR 
