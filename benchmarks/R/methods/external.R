@@ -19,6 +19,28 @@
   X <- stats::model.matrix(formula, meta); a <- attr(X, "assign"); labs <- attr(stats::terms(formula), "term.labels")
   Z <- X[, a != which(labs == tested_term) & a != 0, drop = FALSE]; if (ncol(Z) == 0L) NULL else Z
 }
+# Per-feature p-values out of a result object whose shape varies between versions: a
+# submodel x feature matrix, a bare vector, named or unnamed. Returns NULL when nothing
+# usable is present, so the caller can report the shape instead of silently emitting NAs
+# (LDM and LOCOM2 both did exactly that on 2026-09-11: status "ok", zero finite p-values).
+.as_pvec <- function(x, feats, row = NULL) {
+  if (is.null(x) || length(x) == 0L) return(NULL)
+  m <- if (is.matrix(x) || is.data.frame(x)) as.matrix(x)
+       else matrix(suppressWarnings(as.numeric(x)), nrow = 1L, dimnames = list(NULL, names(x)))
+  if (!nrow(m) || !ncol(m)) return(NULL)
+  rn <- rownames(m)
+  k <- if (!is.null(row) && !is.null(rn) && row %in% rn) row
+       else if (!is.null(rn) && "cov1" %in% rn) "cov1" else nrow(m)
+  v <- suppressWarnings(as.numeric(m[k, ])); cn <- colnames(m)
+  if (!is.null(cn) && all(feats %in% cn)) return(unname(stats::setNames(v, cn)[feats]))
+  if (length(v) == length(feats)) return(v)
+  NULL
+}
+# What did the method actually return? Goes into `status` so the next smoke test explains the
+# failure by itself rather than costing another round trip.
+.shape_note <- function(out, feats) sprintf("returned[%s] nfeat=%d",
+  paste(utils::head(names(out), 10), collapse = "/"), length(feats))
+
 .quiet <- function(expr) { r <- NULL; suppressMessages(suppressWarnings(invisible(utils::capture.output(r <- expr, file = nullfile())))); r }
 
 # ---- LinDA (MicrobiomeStat) -- verified pattern ----
@@ -107,18 +129,15 @@ method_ldm <- function(counts, meta, formula, tested_term, args = list()) {
   # LDM returns a submodel x OTU matrix. Its dimnames are not guaranteed: the 2026-09-11 smoke
   # test returned "ok" with zero finite p-values because the columns were unnamed, so every
   # lookup by feature name missed. Fall back to column ORDER, which is the order of `y`.
-  pick <- function(m) { m <- as.matrix(m); rn <- rownames(m); cn_ <- colnames(m)
-    k <- if (!is.null(rn) && tested_term %in% rn) tested_term else if (!is.null(rn) && "cov1" %in% rn) "cov1" else nrow(m)
-    v <- as.numeric(m[k, ])
-    if (!is.null(cn_) && all(feats %in% cn_)) { names(v) <- cn_; v[feats] }
-    else if (length(v) == length(feats)) stats::setNames(v, feats)
-    else stats::setNames(rep(NA_real_, length(feats)), feats) }
-  p <- pick(out$p.otu.omni)
-  q <- tryCatch(pick(out$q.otu.omni), error = function(e) stats::setNames(rep(NA_real_, length(feats)), feats))
-  res <- .finish(data.frame(feature = feats, arm = "single", p = unname(p), q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA,
-                            status = if (all(is.na(p))) "no_pvalues_returned" else NA, stringsAsFactors = FALSE))
+  p <- NULL; pnm <- NA_character_
+  for (nm in c("p.otu.omni", "p.otu.freq", "p.otu.tran")) {
+    p <- .as_pvec(out[[nm]], feats, tested_term); if (!is.null(p)) { pnm <- nm; break } }
+  if (is.null(p)) return(.empty_result(feats, status = paste("no_pvalues:", .shape_note(out, feats))))
+  q <- .as_pvec(out[[sub("^p", "q", pnm)]], feats, tested_term)
+  res <- .finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = NA, se = NA,
+                            ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
   # LDM does its own FDR control on permutation p-values; prefer it over BH where available.
-  if (!all(is.na(q))) res$q <- unname(q)
+  if (!is.null(q) && !all(is.na(q))) res$q <- q
   res
 }
 
@@ -141,8 +160,14 @@ method_locom2 <- function(counts, meta, formula, tested_term, args = list()) {
   a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.cores = 1), args)
   fn <- get("locom2", envir = asNamespace("LOCOM2"))
   out <- .quiet(do.call(fn, c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), a)))
-  p <- as.numeric(out$p.otu[1, ]); names(p) <- colnames(out$p.otu)
-  .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  p <- NULL
+  for (nm in c("p.otu", "p.otu.omni", "p.otu.freq")) { p <- .as_pvec(out[[nm]], feats); if (!is.null(p)) break }
+  if (is.null(p)) return(.empty_result(feats, status = paste("no_pvalues:", .shape_note(out, feats))))
+  q <- .as_pvec(out$q.otu, feats)
+  res <- .finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = NA, se = NA,
+                            ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  if (!is.null(q) && !all(is.na(q))) res$q <- q
+  res
 }
 
 # ---- ALDEx2 -- verified pattern (Wilcoxon for binary w/o covariates, GLM otherwise) ----

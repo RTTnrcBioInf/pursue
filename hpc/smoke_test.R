@@ -63,7 +63,11 @@ for (i in seq_len(nrow(sreg))) {
   s <- sreg$id[i]; t0 <- Sys.time()
   st <- tryCatch({ if (!simulator_available(s)) paste0("not_installed (", sreg$package[i], ")") else {
         setTimeLimit(elapsed = sim_timeout, transient = TRUE)
-        o <- .quiet_sim(simulate_cell_data(s, tpl, regime, 1L, smoke_cache))
+        # sparseDOSSA2 declares the m sweep unsupported (it keeps the template's feature
+        # count so spiked names resolve), so a shrunken m would skip it and leave the wrapper
+        # untested. Give it the reference m; the 100-feature template keeps it small anyway.
+        rg <- regime; if (identical(s, "sd2")) rg$m <- reference_regime()$m
+        o <- .quiet_sim(simulate_cell_data(s, tpl, rg, 1L, smoke_cache))
         setTimeLimit(elapsed = Inf)
         if (!is.null(o$unsupported)) paste("unsupported:", paste(o$unsupported, collapse = ",")) else
           sprintf("ok: %d x %d, %d DA", nrow(o$counts), ncol(o$counts), sum(o$truth$truth_abs)) } },
