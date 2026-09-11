@@ -160,10 +160,16 @@ method_locom2 <- function(counts, meta, formula, tested_term, args = list()) {
   a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.cores = 1), args)
   fn <- get("locom2", envir = asNamespace("LOCOM2"))
   out <- .quiet(do.call(fn, c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), a)))
-  p <- NULL
-  for (nm in c("p.otu", "p.otu.omni", "p.otu.freq")) { p <- .as_pvec(out[[nm]], feats); if (!is.null(p)) break }
+  # LOCOM2 returns three parallel tests: p.otu.Wald, p.otu.perm and p.otu.asymptotic (the
+  # 2026-09-11 smoke test reported the names). The Wald test is the paper's contribution -- a
+  # Wald statistic whose null variance is estimated from ~1000 permutations, which removes the
+  # permutation resolution ceiling that limited LOCOM (and PURSUE 0.1). Use it, and fall back
+  # through the other two in case a future version drops one.
+  p <- NULL; pnm <- NA_character_
+  for (nm in c("p.otu.Wald", "p.otu.perm", "p.otu.asymptotic", "p.otu", "p.otu.omni")) {
+    p <- .as_pvec(out[[nm]], feats); if (!is.null(p)) { pnm <- nm; break } }
   if (is.null(p)) return(.empty_result(feats, status = paste("no_pvalues:", .shape_note(out, feats))))
-  q <- .as_pvec(out$q.otu, feats)
+  q <- .as_pvec(out[[sub("^p", "q", pnm)]], feats)
   res <- .finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = NA, se = NA,
                             ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
   if (!is.null(q) && !all(is.na(q))) res$q <- q

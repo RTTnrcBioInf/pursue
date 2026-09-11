@@ -206,7 +206,7 @@ wall-time cap (`--timeout`, default 1 h) is `timeout`.
 | ANCOM-BC2 | absolute (sampling fraction) | one (+ structural zeros) | pin |
 | LinDA | absolute (median/mode) | one | pin |
 | LDM | relative | one | pin |
-| LOCOM, LOCOM2 | relative (compositional logistic) | one | pin |
+| LOCOM, LOCOM2 | relative (compositional logistic) | one | pin. **[impl]** LOCOM2 returns three parallel tests (`p.otu.Wald`, `p.otu.perm`, `p.otu.asymptotic`); the wrapper scores the **Wald** test, which is the paper's contribution — a Wald statistic whose null variance is estimated from ~1000 permutations, removing the permutation resolution ceiling |
 | corncob | relative (beta-binomial) | one | pin |
 | ZicoSeq | relative (reference frame) | one | pin |
 | MaAsLin 3 | absolute (median) | two, reported separately | pin |
