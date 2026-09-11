@@ -57,7 +57,12 @@ load_template <- function(id, registry = read_template_registry(), min_prevalenc
     counts <- counts[, s, drop = FALSE]; meta <- meta[s, , drop = FALSE]
   }
   storage.mode(counts) <- "integer"
-  list(counts = counts, meta = meta, id = row$id, group_var = if (is.na(row$group_var)) NA else row$group_var)
+  # sps_group: the metadata variable SPsimSeq borrows real between-group differences from
+  # (see simulate_sps). Falls back to group_var; NA means sps cannot use this template.
+  sg <- if (!is.null(row$sps_group) && !is.na(row$sps_group) && nzchar(row$sps_group)) row$sps_group else
+        if (is.na(row$group_var)) NA_character_ else row$group_var
+  list(counts = counts, meta = meta, id = row$id,
+       group_var = if (is.na(row$group_var)) NA else row$group_var, sps_group = sg)
 }
 
 load_phyloseq_rda <- function(path) {

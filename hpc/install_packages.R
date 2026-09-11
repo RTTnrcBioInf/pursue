@@ -36,11 +36,16 @@ cat("\n>> 2. bootstrap\n")
 if (!has("BiocManager")) try_("BiocManager", install.packages("BiocManager"))
 if (!has("remotes")) try_("remotes", install.packages("remotes"))
 
-cran <- c("optparse", "jsonlite", "data.table", "sandwich", "lme4", "pscl", "ranger", "arrow",
-          "GUniFrac", "MIDASim", "MicrobiomeStat", "corncob", "LDM", "LOCOM2", "radEmu", "vegan", "ape", "matrixStats")
+# Deriv is a hard dependency of LOCOM2 that CRAN does not pull in automatically here; it must
+# be listed before LOCOM2 (smoke test 2026-09-11: "dependency 'Deriv' is not available").
+cran <- c("optparse", "jsonlite", "data.table", "sandwich", "lme4", "lmerTest", "pscl", "ranger", "arrow",
+          "Deriv", "GUniFrac", "MIDASim", "MicrobiomeStat", "corncob", "LDM", "LOCOM2", "radEmu",
+          "vegan", "ape", "matrixStats", "logging", "multcomp")
 bioc <- c("limma", "phyloseq", "ANCOMBC", "ALDEx2", "SPsimSeq", "ADAPT", "maaslin3", "SummarizedExperiment", "TreeSummarizedExperiment")
+# ADAPT and maaslin3 entered Bioconductor after 3.18, so on an R 4.3 cluster they can only come
+# from GitHub. If both keep failing, the real fix is a newer R module (see hpc/README.md).
 gh   <- c(SparseDOSSA2 = "biobakery/SparseDOSSA2", LOCOM = "yijuanhu/LOCOM", fastANCOM = "ZRChao/fastANCOM",
-          fastEmu = "statdivlab/fastEmu", maaslin3 = "biobakery/maaslin3")
+          fastEmu = "statdivlab/fastEmu", maaslin3 = "biobakery/maaslin3", ADAPT = "mkbwang/ADAPT")
 src <- c(setNames(rep("CRAN", length(cran)), cran), setNames(rep("Bioconductor", length(bioc)), bioc),
          setNames(paste0("GitHub:", gh), names(gh)), PURSUE = "this checkout")
 

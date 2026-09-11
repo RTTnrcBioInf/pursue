@@ -1,15 +1,15 @@
 # Template registry. path is relative to $PURSUE_DATA_ROOT (default benchmarks/data). subset is an R expression on the metadata.
 # pool: tuning | evaluation | axisD (biological truth) | axisE (replicability). group_var: a real binary/categorical grouping used by Axes C/E.
-id	pool	source	format	path	subset	min_prevalence	min_depth	group_var	notes
-hmp_stool	evaluation	MicrobeDS/HMPv35 (Qiita 1928)	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:feces"	0.05	1000	NA	high-complexity gut, 388 samples
-hmp_tongue	tuning	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:tongue"	0.05	1000	NA	oral, 365 samples
-hmp_gingiva	evaluation	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:gingiva"	0.05	1000	NA	oral, 359 samples
-hmp_skin_ear	evaluation	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:skin of external ear"	0.05	1000	NA	skin, 810 samples
-hmp_vagina	evaluation	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site %in% c("UBERON:central vagina","UBERON:posterior fornix of vagina","UBERON:vaginal introitus")	0.02	1000	NA	low-complexity Lactobacillus-dominated, 442 samples
-risk_stool	evaluation	MicrobeDS/RISK_CCFA (Qiita 1939)	phyloseq_rda	MicrobeDS/RISK_CCFA.rda	biopsy_location == "stool" & diagnosis == "CD"	0.05	2000	NA	paediatric CD stool, 166 samples, deep (median 31k): template only (only 7 controls in stool)
-risk_ileum	axisE	MicrobeDS/RISK_CCFA	phyloseq_rda	MicrobeDS/RISK_CCFA.rda	biopsy_location == "Terminal ileum" & diagnosis %in% c("CD","no")	0.05	2000	diagnosis	ileal biopsies, CD 324 vs no 190: Axis C/E real grouping; antibiotics (29 true) as confounder
-twinsuk_stool	tuning	MicrobeDS/TwinsUK (Qiita 2014)	phyloseq_rda	MicrobeDS/TwinsUK.rda		0.05	2000	NA	1024 stool samples; no metadata in the rda
-crc_genus	axisE	Zenodo 7382814 (Baxter+Zackular+Zeller, genus)	csv_samples_x_features	zenodo_crc/genus.csv		0.05	1000	NA	708 samples, three studies: cross-study replicability; metadata.csv has study and diagnosis
-mbd_gingival_v35	axisD	MicrobiomeBenchmarkData (Zenodo 6911027)	tsv_features_x_samples	mbd/HMP_2012_16S_gingival_V35_count_matrix.tsv		0.05	1000	body_subsite	aerobic vs anaerobic ground truth, 311 samples
-mbd_ravel_bv	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Ravel_2011_16S_BV_count_matrix.tsv		0.02	500	study_condition	BV vs healthy, low complexity
-mbd_stammler_spikein	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Stammler_2016_16S_spikein_count_matrix.tsv		0.02	500	NA	three spike-in taxa at constant load, only 17 samples: weak null check, not a primary Axis D signal
+id	pool	source	format	path	subset	min_prevalence	min_depth	group_var	sps_group	notes
+hmp_stool	evaluation	MicrobeDS/HMPv35 (Qiita 1928)	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:feces"	0.05	1000	NA	sequencecenter	high-complexity gut, 388 samples
+hmp_tongue	tuning	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:tongue"	0.05	1000	NA	sequencecenter	oral, 365 samples
+hmp_gingiva	evaluation	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:gingiva"	0.05	1000	NA	sequencecenter	oral, 359 samples
+hmp_skin_ear	evaluation	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:skin of external ear"	0.05	1000	NA	sequencecenter	skin, 810 samples
+hmp_vagina	evaluation	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site %in% c("UBERON:central vagina","UBERON:posterior fornix of vagina","UBERON:vaginal introitus")	0.02	1000	NA	sequencecenter	low-complexity Lactobacillus-dominated, 442 samples
+risk_stool	evaluation	MicrobeDS/RISK_CCFA (Qiita 1939)	phyloseq_rda	MicrobeDS/RISK_CCFA.rda	biopsy_location == "stool" & diagnosis == "CD"	0.05	2000	NA	sex	paediatric CD stool, 166 samples, deep (median 31k): template only (only 7 controls in stool)
+risk_ileum	axisE	MicrobeDS/RISK_CCFA	phyloseq_rda	MicrobeDS/RISK_CCFA.rda	biopsy_location == "Terminal ileum" & diagnosis %in% c("CD","no")	0.05	2000	diagnosis	diagnosis	ileal biopsies, CD 324 vs no 190: Axis C/E real grouping; antibiotics (29 true) as confounder
+twinsuk_stool	tuning	MicrobeDS/TwinsUK (Qiita 2014)	phyloseq_rda	MicrobeDS/TwinsUK.rda		0.05	2000	NA	NA	1024 stool samples; no metadata in the rda
+crc_genus	axisE	Zenodo 7382814 (Baxter+Zackular+Zeller, genus)	csv_samples_x_features	zenodo_crc/genus.csv		0.05	1000	NA	diagnosis	708 samples, three studies: cross-study replicability; metadata.csv has study and diagnosis
+mbd_gingival_v35	axisD	MicrobiomeBenchmarkData (Zenodo 6911027)	tsv_features_x_samples	mbd/HMP_2012_16S_gingival_V35_count_matrix.tsv		0.05	1000	body_subsite	body_subsite	aerobic vs anaerobic ground truth, 311 samples
+mbd_ravel_bv	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Ravel_2011_16S_BV_count_matrix.tsv		0.02	500	study_condition	study_condition	BV vs healthy, low complexity
+mbd_stammler_spikein	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Stammler_2016_16S_spikein_count_matrix.tsv		0.02	500	NA	NA	three spike-in taxa at constant load, only 17 samples: weak null check, not a primary Axis D signal

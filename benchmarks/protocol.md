@@ -67,7 +67,7 @@ classified by estimand in §6.
 | `msq` | GUniFrac::SimulateMSeq (≥ 1.8) | absolute | incumbent; stability-preserving construction |
 | `sd2` | sparseDOSSA 2 (Bioconductor, pin) | absolute (ZILN) | fits cached per template; slow |
 | `mid` | MIDASim (CRAN, pin), parametric mode | relative shift + cascade | fast; LOCOM2's simulator |
-| `sps` | SPsimSeq (Bioconductor, pin) | absolute (resampled) | least parametric; SpiecEasi correlation |
+| `sps` | SPsimSeq (Bioconductor, pin) | absolute (resampled) | least parametric; **[impl]** implants no effects of its own -- it selects features that genuinely differ between two groups it is shown and reuses their magnitudes, so it needs a template with real structure. `sps_group` in `templates.tsv` names that variable: a biological grouping where one exists, otherwise sequencing centre (real technical differences). On a template with neither, the cell is recorded `unsupported`. Shown a random grouping it silently returns zero differential features, which would score as every method having no true positives; both that and the analogous sparseDOSSA2 name mismatch now abort the cell instead |
 | `house` | in-house ZI lognormal–Poisson, `benchmarks/R/simulators/sim_house.R` | absolute | **[impl]** the only generator that expresses every regime factor of §4.3 (depth confounding, covariate confounding, repeated measures, bloom, heteroscedastic groups); parameters fitted per template |
 
 **[impl]** When an external simulator cannot express a regime factor, the cell is recorded as

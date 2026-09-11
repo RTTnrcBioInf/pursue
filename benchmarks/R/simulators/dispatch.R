@@ -131,10 +131,20 @@ simulate_sd2 <- function(template, regime, seed, cache_dir = NULL) {
   md <- cbind(group = x, confounder = conf)
   spike <- if (n_da > 0) data.frame(metadata_datum = 1, feature_spiked = rownames(template$counts)[da], associated_property = "abundance",
                                     effect_size = es$lfc2 * log(2) * ifelse(stats::runif(n_da) < p_up, 1, -1)) else NULL
-  sim <- SparseDOSSA2::SparseDOSSA2(template = fit, n_sample = n, n_feature = m, spike_metadata = if (is.null(spike)) "none" else spike,
+  # new_features = FALSE keeps the template's own features and names. With the default (TRUE)
+  # SparseDOSSA2 generates fresh features named Feature1..N, so the template-derived names in
+  # spike_metadata match nothing and it aborts with "feature_spiked in spike_metadata must
+  # provide the spiked feature names!" (smoke test 2026-09-11). Keeping real feature identity
+  # is also what the benchmark wants: truth should attach to a taxon, not to a synthetic slot.
+  sim <- SparseDOSSA2::SparseDOSSA2(template = fit, n_sample = n, n_feature = m, new_features = FALSE,
+                                    spike_metadata = if (is.null(spike)) "none" else spike,
                                     metadata_matrix = md, verbose = FALSE)
   X <- sim$simulated_data; N <- colSums(X); R <- sweep(X, 2L, N, "/")
   isda <- rownames(X) %in% (if (n_da > 0) spike$feature_spiked else character(0))
+  # Never let a silent name mismatch pass as a cell with no true positives.
+  if (n_da > 0 && sum(isda) == 0)
+    stop("sd2: none of the ", n_da, " spiked features appear in the simulated table -- ",
+         "feature naming mismatch between the fit and the template")
   rel <- log2((rowMeans(R[, x == 1, drop = FALSE]) + 1e-12) / (rowMeans(R[, x == 0, drop = FALSE]) + 1e-12))
   truth <- data.frame(feature = rownames(X), truth_type = ifelse(isda, "abundance", "none"), truth_abs = as.integer(isda),
                       truth_lfc2 = ifelse(isda, NA, 0), truth_rel_lfc2 = rel, truth_rel = as.integer(abs(rel) > 0.25), stringsAsFactors = FALSE)
@@ -149,15 +159,33 @@ simulate_sps <- function(template, regime, seed) {
   if (length(un)) return(list(unsupported = un))
   set.seed(seed)
   ct <- template$counts; m <- min(regime$m, nrow(ct)); n_per <- regime$n_per_group
-  g <- template$meta[[template$group_var]]
-  grp <- if (!is.na(template$group_var) && !is.null(g)) as.integer(factor(g)) else sample(rep(1:2, length.out = ncol(ct)))
+  # SPsimSeq does not invent effects: it selects features that genuinely differ between the
+  # two groups it is shown and reuses their magnitudes. A random grouping therefore yields
+  # ZERO differential features (silently, before the 2026-09-11 fix). `sps_group` in
+  # templates.tsv names the variable with real structure to borrow -- a biological grouping
+  # where one exists, otherwise sequencing centre, which carries genuine technical differences.
+  sg <- template$sps_group
+  if (is.null(sg) || is.na(sg) || !sg %in% names(template$meta)) return(list(unsupported = "no_sps_group"))
+  gv <- as.character(template$meta[[sg]]); tab <- sort(table(gv[!is.na(gv) & nzchar(gv)]), decreasing = TRUE)
+  if (length(tab) < 2L || tab[2] < 10L) return(list(unsupported = "no_sps_group"))
+  lv <- names(tab)[1:2]; keep <- gv %in% lv                 # two largest levels
+  ct <- ct[, keep, drop = FALSE]; grp <- as.integer(factor(gv[keep], levels = lv))
   es <- .effects_for(regime)
+  # SPsimSeq implants DE by borrowing features that are genuinely differential between the
+  # template's own groups. On a template with no real grouping variable the candidate filters
+  # (lfc/t/logLik thresholds) admit nothing and it silently returns a table with ZERO DE
+  # features -- which scores as every method having no true positives. Thresholds are relaxed
+  # here and the outcome is checked below; `sps` still needs a template with real structure.
   sim <- SPsimSeq::SPsimSeq(n.sim = 1, s.data = ct, group = grp, n.genes = m, batch.config = 1, group.config = c(0.5, 0.5),
-                            tot.samples = 2L * n_per, pDE = regime$da_frac, lfc.thrld = es$lfc2, t.thrld = 2.5, llStat.thrld = 5,
+                            tot.samples = 2L * n_per, pDE = regime$da_frac, lfc.thrld = max(0.5, es$lfc2 / 2), t.thrld = 1.0, llStat.thrld = 2,
                             model.zero.prob = TRUE, genewiseCor = TRUE, result.format = "list", return.details = TRUE, verbose = FALSE)
   d <- sim$sim.data.list[[1]]; X <- as.matrix(d$counts); md <- d$colData; rd <- d$rowData
   x <- as.integer(md$Group == levels(factor(md$Group))[2]); N <- colSums(X); R <- sweep(X, 2L, N, "/")
-  isda <- as.logical(rd$DE.ind)
+  isda <- as.logical(rd$DE.ind); isda[is.na(isda)] <- FALSE
+  if (regime$da_frac > 0 && sum(isda) == 0)
+    stop("sps: SPsimSeq implanted 0 differential features although da_frac = ", regime$da_frac,
+         ". Too little real signal in '", sg, "' to borrow from -- scoring this cell would ",
+         "credit every method with zero true positives.")
   rel <- log2((rowMeans(R[, x == 1, drop = FALSE]) + 1e-12) / (rowMeans(R[, x == 0, drop = FALSE]) + 1e-12))
   truth <- data.frame(feature = rownames(X), truth_type = ifelse(isda, "abundance", "none"), truth_abs = as.integer(isda),
                       truth_lfc2 = ifelse(isda, NA, 0), truth_rel_lfc2 = rel, truth_rel = as.integer(abs(rel) > 0.25), stringsAsFactors = FALSE)

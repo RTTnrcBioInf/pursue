@@ -95,14 +95,27 @@ method_ldm <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts); y <- t(counts); storage.mode(y) <- "numeric"
   labs <- attr(stats::terms(formula), "term.labels"); nuis <- setdiff(labs, tested_term)
   fstr <- if (length(nuis)) paste0("y | ", paste(nuis, collapse = " + "), " ~ ", tested_term) else paste0("y ~ ", tested_term)
-  env <- new.env(); assign("y", y, envir = env); fo <- stats::as.formula(fstr, env = env)
+  # LDM resolves the response by name from the GLOBAL environment -- not from `data`, and not
+  # from the formula's environment. The 2026-09-11 smoke test failed with "object 'y' not
+  # found" when it was only in a local env; this is the pattern the original benchmark used.
+  had <- exists("y", envir = globalenv(), inherits = FALSE)
+  old_y <- if (had) get("y", envir = globalenv()) else NULL
+  assign("y", y, envir = globalenv())
+  on.exit({ if (had) assign("y", old_y, envir = globalenv()) else suppressWarnings(rm("y", envir = globalenv())) }, add = TRUE)
   a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 5000, verbose = FALSE), args)
-  out <- .quiet(do.call(LDM::ldm, c(list(formula = fo, data = meta), a)))
-  p <- as.numeric(as.matrix(out$p.otu.omni)[1, ]); names(p) <- colnames(as.matrix(out$p.otu.omni))
-  .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  out <- .quiet(do.call(LDM::ldm, c(list(formula = stats::as.formula(fstr), data = meta), a)))
+  pick <- function(m) { m <- as.matrix(m); rn <- rownames(m)
+    k <- if (!is.null(rn) && tested_term %in% rn) tested_term else if (!is.null(rn) && "cov1" %in% rn) "cov1" else nrow(m)
+    v <- as.numeric(m[k, ]); names(v) <- colnames(m); v }
+  p <- pick(out$p.otu.omni)
+  q <- tryCatch(pick(out$q.otu.omni), error = function(e) stats::setNames(rep(NA_real_, length(p)), names(p)))
+  res <- .finish(data.frame(feature = feats, arm = "single", p = unname(p[feats]), q = NA, estimate = NA, se = NA,
+                            ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  # LDM does its own FDR control on permutation p-values; prefer it over BH where available.
+  if (!all(is.na(q))) res$q <- unname(q[feats])
+  res
 }
 
-# ---- LOCOM (binary exposure only) -- verified pattern ----
 method_locom <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts)
   if (!.tested_is_binary(meta, tested_term)) return(.empty_result(feats, status = "not_applicable_needs_binary"))
@@ -206,7 +219,11 @@ method_fastemu <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts); cn <- .coef_name(formula, meta, tested_term)
   if (length(cn) != 1L) return(.empty_result(feats, status = "not_applicable_multi_df"))
   fn <- if (requireNamespace("fastEmu", quietly = TRUE)) get("fastEmuFit", envir = asNamespace("fastEmu")) else radEmu::emuFit
-  out <- .quiet(do.call(fn, c(list(formula = formula, Y = t(counts), covariate_data = meta, run_score_tests = TRUE), args)))
+  # radEmu renamed `covariate_data` to `data`; 2.3.2 rejects the old name with
+  # "both formula and data containing covariates ... must be provided" (smoke test 2026-09-11).
+  dat_arg <- if ("data" %in% names(formals(fn))) "data" else "covariate_data"
+  call_args <- c(list(formula = formula, Y = t(counts), run_score_tests = TRUE), stats::setNames(list(meta), dat_arg), args)
+  out <- .quiet(do.call(fn, call_args))
   co <- out$coef; co <- co[co$covariate == cn, ]; co <- co[match(feats, co$category), ]
   .finish(data.frame(feature = feats, arm = "single", p = as.numeric(co$pval), q = NA, estimate = as.numeric(co$estimate) / log(2), se = as.numeric(co$se) / log(2),
                      ci_lo = as.numeric(co$lower) / log(2), ci_hi = as.numeric(co$upper) / log(2), status = NA, stringsAsFactors = FALSE))
