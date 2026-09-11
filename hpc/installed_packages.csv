@@ -1,7 +1,8 @@
 "package","source","installed","version"
-"ADAPT","Bioconductor",FALSE,NA
+"Deriv","CRAN",FALSE,NA
 "LOCOM2","CRAN",FALSE,NA
 "maaslin3","Bioconductor",FALSE,NA
+"ADAPT","Bioconductor",TRUE,"0.99.1"
 "ALDEx2","Bioconductor",TRUE,"1.34.0"
 "ANCOMBC","Bioconductor",TRUE,"2.4.0"
 "ape","CRAN",TRUE,"5.8.1"
@@ -15,10 +16,13 @@
 "LDM","CRAN",TRUE,"6.0.1"
 "limma","Bioconductor",TRUE,"3.58.1"
 "lme4","CRAN",TRUE,"1.1.37"
+"lmerTest","CRAN",TRUE,"3.1.3"
 "LOCOM","GitHub:yijuanhu/LOCOM",TRUE,"2.0"
+"logging","CRAN",TRUE,"0.10.111"
 "matrixStats","CRAN",TRUE,"1.5.0"
 "MicrobiomeStat","CRAN",TRUE,"1.4"
 "MIDASim","CRAN",TRUE,"2.0"
+"multcomp","CRAN",TRUE,"1.4.28"
 "optparse","CRAN",TRUE,"1.7.5"
 "phyloseq","Bioconductor",TRUE,"1.46.0"
 "pscl","CRAN",TRUE,"1.5.9"

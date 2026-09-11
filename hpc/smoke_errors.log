@@ -1,6 +1,3 @@
-smoke test 2026-09-11 13:16:31 
+smoke test 2026-09-11 14:32:47 
 R R version 4.3.3 (2024-02-29) 
-
-=== simulator sd2
-feature_spiked in spike_metadata must provide the spiked feature names!
 
