@@ -2,7 +2,8 @@
 # Create the benchmark environment on the HPC, then install every R package.
 #
 #   bash hpc/setup_env.sh                  # conda-family env named pursue-bench (recommended)
-#   (the env is always rebuilt from scratch; --fresh is accepted and is the default)
+#   --keep   reuse an existing pursue-bench instead of rebuilding it
+#   (default: the env is always rebuilt from scratch)
 #   bash hpc/setup_env.sh module R/4.5.0   # a cluster module instead, if one exists
 #
 # Solver preference is micromamba > mamba > conda. That order is deliberate: plain conda
@@ -13,7 +14,8 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"; ROOT="$(cd "$HERE/.." && pwd)"
 MODE="${1:-conda}"; FRESH=""
-for a in "$@"; do [ "$a" = "--fresh" ] && FRESH=1; done
+KEEP=""
+for a in "$@"; do [ "$a" = "--fresh" ] && FRESH=1; [ "$a" = "--keep" ] && KEEP=1; done
 ENVNAME="pursue-bench"
 
 bootstrap_micromamba() {
@@ -45,6 +47,10 @@ if [ "$MODE" = "conda" ]; then
   [ -z "${PREFIX:-}" ] && for base in "$HOME/.conda/envs" "$HOME/micromamba/envs" "${MAMBA_ROOT_PREFIX:-}/envs" "${CONDA_PREFIX:-}/envs"; do
     [ -n "$base" ] && [ -d "$base/$ENVNAME" ] && PREFIX="$base/$ENVNAME" && break
   done
+  if [ -n "${PREFIX:-}" ] && [ -d "$PREFIX" ] && [ -n "$KEEP" ]; then
+    echo ">> --keep: reusing the existing environment at $PREFIX (skipping rebuild)"
+    PREFIX=""
+  fi
   if [ -n "${PREFIX:-}" ] && [ -d "$PREFIX" ]; then
     echo ">> removing existing environment at $PREFIX"
     $SOLVER env remove -y -n "$ENVNAME" >/dev/null 2>&1 || true
@@ -54,12 +60,24 @@ if [ "$MODE" = "conda" ]; then
 
   if [ "$SOLVER" = "micromamba" ]; then
     micromamba create -y -n "$ENVNAME" -f "$HERE/environment.yml"
-    eval "$(micromamba shell hook -s bash)"; micromamba activate "$ENVNAME"
   else
     $SOLVER env create -n "$ENVNAME" -f "$HERE/environment.yml"
-    eval "$($SOLVER shell.bash hook)"; conda activate "$ENVNAME"
   fi
-  echo ">> activate later with:  $SOLVER activate $ENVNAME"
+
+  # Activation is NOT "$SOLVER shell.bash hook": that spelling is conda's alone. mamba rejects
+  # it ("invalid choice: 'shell.bash'"), the eval then yields nothing, and the bare activate
+  # fails with "Run 'conda init' before 'conda activate'". mamba v1/v2 create ordinary conda
+  # envs, so activate them through conda's hook; micromamba and standalone mamba v2 use
+  # `shell hook -s bash` instead.
+  if [ "$SOLVER" = "micromamba" ]; then
+    eval "$(micromamba shell hook -s bash)"; micromamba activate "$ENVNAME"
+  elif command -v conda >/dev/null 2>&1; then
+    eval "$(conda shell.bash hook)"; conda activate "$ENVNAME"
+  else
+    eval "$(mamba shell hook -s bash)"; mamba activate "$ENVNAME"
+  fi
+  ACT=$([ "$SOLVER" = "micromamba" ] && echo micromamba || echo conda)
+  echo ">> activate later with:  $ACT activate $ENVNAME"
 else
   MOD="${2:-R}"; module load "$MOD" || true
   # Keep the user's existing library on the path: R_LIBS_USER is a colon-separated list, and
