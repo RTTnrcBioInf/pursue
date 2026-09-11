@@ -1,6 +1,6 @@
-smoke test 2026-09-11 12:45:08 
+smoke test 2026-09-11 13:16:31 
 R R version 4.3.3 (2024-02-29) 
 
-=== simulator mid
-cannot open the connection
+=== simulator sd2
+feature_spiked in spike_metadata must provide the spiked feature names!
 

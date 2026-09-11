@@ -1,0 +1,15 @@
+install_packages.R 2026-09-11 13:13:53 
+ R version 4.3.3 (2024-02-29) 
+
+  ~  LOCOM2: dependency ‘Deriv’ is not available 
+  ~  ADAPT: package ‘ADAPT’ is not available for Bioconductor version '3.18'
+
+A version of this package for your version of R might be available elsewhere,
+see the ideas at
+https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages 
+  ~  maaslin3: package ‘maaslin3’ is not available for Bioconductor version '3.18'
+
+A version of this package for your version of R might be available elsewhere,
+see the ideas at
+https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages 
+  ~  maaslin3: installation of package ‘/tmp/RtmpUE6ULQ/file2fa95f3e4da63/maaslin3_1.5.5.tar.gz’ had non-zero exit status 

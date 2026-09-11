@@ -1,0 +1,23 @@
+feature	expected_direction
+Lactobacillus iners	-1
+Lactobacillus crispatus	-1
+Lactobacillus gasseri	-1
+Lactobacillus jensenii	-1
+Prevotella	1
+Megasphaera	1
+Sneathia	1
+Atopobium	1
+Dialister	1
+Peptoniphilus	1
+Eggerthella	1
+Ureaplasma	1
+Aerococcus	1
+Parvimonas	1
+Gardnerella	1
+Mobiluncus	1
+Lactobacillus_1	-1
+Gemella	1
+Lactobacillus_4	-1
+Lactobacillus_2	-1
+Lactobacillus_3	-1
+Leptotrichia	1

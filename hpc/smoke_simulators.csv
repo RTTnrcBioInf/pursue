@@ -1,6 +1,6 @@
-"simulator","status"
-"house","ok: 80 x 30, 8 DA"
-"msq","ok: 80 x 30, 8 DA"
-"mid","not installed"
-"sd2","not installed"
-"sps","ok: 80 x 30, 8 DA"
+"simulator","package","status","seconds","version"
+"house","","ok: 60 x 30, 6 DA",0.1,NA
+"msq","GUniFrac","ok: 60 x 30, 6 DA",2.7,"1.9"
+"mid","MIDASim","ok: 60 x 30, 6 DA",1,"2.0"
+"sd2","SparseDOSSA2","error: feature_spiked in spike_metadata must provide the spiked feature names!",1110.4,"0.99.2"
+"sps","SPsimSeq","ok: 54 x 30, 0 DA",5.2,"1.12.0"
