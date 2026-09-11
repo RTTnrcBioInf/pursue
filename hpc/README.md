@@ -112,6 +112,25 @@ the 2026-09-11 run caught exactly that in ANCOM-BC2. Anything reporting `error:`
 wrapper fixed before it goes into an array job; commit the three CSVs and
 `installed_packages.csv` — together they are the record of what was verified on this cluster.
 
+## 3b. Runtime probe — before committing to the full grid
+
+```bash
+Rscript hpc/probe_runtime.R          # ~40 min
+```
+
+Times every method across a small grid of feature counts and sample sizes and fits the log-log
+exponent, so the compute budget is measured rather than extrapolated. Writes
+`hpc/probe_runtime.csv` (raw timings) and `hpc/probe_scaling.csv` (slope in m, slope in n,
+projected seconds per cell at the reference regime, and projected CPU-hours across all 13 750
+Axis A cells).
+
+This exists because the smoke test put fastEmu at 70.9 s on 60 features x 30 samples while
+every other method sat between 0.02 s and 9.4 s. Whether that matters turns entirely on the
+exponent: linear in features projects to ~33 min per cell, quadratic to ~4.5 h — roughly 1 to 2
+CPU-years across the full grid for one method. Run the probe, then decide whether the slow
+methods run on the whole grid or a reduced regime set, and record the choice as a protocol
+amendment.
+
 ## 4. Warm the simulator caches — do not skip either
 
 ```bash
