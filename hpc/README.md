@@ -32,7 +32,18 @@ and the SLURM logs are not (they are large and reproducible from the seed).
 
 ```bash
 bash hpc/setup_env.sh                 # builds the pursue-bench env, then installs R packages
-bash hpc/setup_env.sh conda --fresh   # delete and rebuild it (use after a failed install)
+```
+
+The environment is **always rebuilt from scratch** — an existing `pursue-bench` prefix is
+deleted first. Updating one in place is what failed on 2026-09-11: the old env still held
+bioconda `bioconductor-*` builds from an R 4.3 attempt, raising `r-base` to 4.5 forced their
+rebuilds, and their post-link scripts ran `R CMD INSTALL` against a half-updated R
+(`ERROR: loading failed for 'R', 'R.c~'`). conda's own logger then crashed while formatting
+that error (`ValueError: unsupported format character 'T'`), hiding the real cause. If the
+script cannot delete the prefix it stops and says so — remove it by hand and re-run:
+
+```bash
+rm -rf ~/.conda/envs/pursue-bench
 ```
 
 **The R version is not a detail.** On R 4.3 / Bioconductor 3.18 the benchmark silently loses

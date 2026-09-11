@@ -1,0 +1,241 @@
+>> solver: mamba
+>> removing any existing pursue-bench
+
+CondaValueError: prefix already exists: /home/robertas_tupikas/.conda/envs/pursue-bench
+
+Channels:
+ - conda-forge
+ - bioconda
+Platform: linux-64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: - \ | / - \ | / - \ | / - \ | / done
+Verifying transaction: \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - done
+Executing transaction: | / WARNING conda.core.link:run_script(1581): pre-unlink script failed for package bioconda/noarch::bioconductor-go.db-3.18.0-r43hdfd78af_0
+consider notifying the package maintainer
+- \ WARNING conda.core.link:run_script(1581): pre-unlink script failed for package bioconda/noarch::bioconductor-genomeinfodbdata-1.2.11-r43hdfd78af_1
+consider notifying the package maintainer
+| / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - done
+ERROR conda.core.link:_execute(938): An error occurred while installing package 'bioconda::bioconductor-genomeinfodbdata-1.2.15-r45hdfd78af_0'.
+Rolling back transaction: | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / done
+class: LinkError
+message:
+post-link script failed for package bioconda::bioconductor-genomeinfodbdata-1.2.15-r45hdfd78af_0
+location of failed script: /home/robertas_tupikas/.conda/envs/pursue-bench/bin/.bioconductor-genomeinfodbdata-post-link.sh
+==> script messages <==
+<None>
+==> script output <==
+stdout: /home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15/"GenomeInfoDbData_1.2.15.tar.gz": OK
+ERROR: sub-architecture 'R' is not installed
+ERROR: sub-architecture 'R.c~' is not installed
+
+stderr: ++ dirname -- /home/robertas_tupikas/.conda/envs/pursue-bench/bin/installBiocDataPackage.sh
++ SCRIPT_DIR=/home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages
++ json=/home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
+++ yq '."genomeinfodbdata-1.2.15".fn' /home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
++ FN='"GenomeInfoDbData_1.2.15.tar.gz"'
++ IFS=
++ read -r value
+++ yq '."genomeinfodbdata-1.2.15".urls[]' /home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
++ URLS+=($value)
++ IFS=
++ read -r value
++ URLS+=($value)
++ IFS=
++ read -r value
++ URLS+=($value)
++ IFS=
++ read -r value
+++ yq '."genomeinfodbdata-1.2.15".md5' /home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
++ MD5='"70fe5d6fa0b71bfacb94dfbee477d0c9"'
++ STAGING=/home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15
++ mkdir -p /home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15
++ TARBALL='/home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15/"GenomeInfoDbData_1.2.15.tar.gz"'
++ SUCCESS=0
++ for URL in ${URLS[@]}
+++ echo '"https://bioconductor.org/packages/3.22/data/annotation/src/contrib/GenomeInfoDbData_1.2.15.tar.gz"'
+++ tr -d '"'
++ URL=https://bioconductor.org/packages/3.22/data/annotation/src/contrib/GenomeInfoDbData_1.2.15.tar.gz
+++ echo '"70fe5d6fa0b71bfacb94dfbee477d0c9"'
+++ tr -d '"'
++ MD5=70fe5d6fa0b71bfacb94dfbee477d0c9
++ curl -L https://bioconductor.org/packages/3.22/data/annotation/src/contrib/GenomeInfoDbData_1.2.15.tar.gz
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    416 100    416   0      0   1740      0                              0
+100    416 100    416   0      0   1738      0                              0
+
+  0      0   0      0   0      0      0      0                              0
+ 32 12.91M  32  4.18M   0      0  2.80M      0   00:04   00:01   00:03  4.17M
+100 12.91M 100 12.91M   0      0  7.17M      0   00:01   00:01          4.17M
+100 12.91M 100 12.91M   0      0  7.17M      0   00:01   00:01          4.17M
+100 12.91M 100 12.91M   0      0  7.17M      0   00:01   00:01          4.17M
++ [[ 0 == 0 ]]
+++ uname -s
++ [[ Linux == \L\i\n\u\x ]]
++ md5sum -c
++ SUCCESS=1
++ break
++ [[ 1 != 1 ]]
++ R CMD INSTALL --library=/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/library '/home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15/"GenomeInfoDbData_1.2.15.tar.gz"'
+* installing *source* package ‘GenomeInfoDbData’ ...
+** this is package ‘GenomeInfoDbData’ version ‘1.2.15’
+** using staged installation
+** data
+** inst
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+*** arch - R
+*** arch - R.c~
+ERROR: loading failed for ‘R’, ‘R.c~’
+* removing ‘/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/library/GenomeInfoDbData’
+
+return code: 1
+
+kwargs:
+{}
+
+Traceback (most recent call last):
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/exception_handler.py", line 18, in __call__
+    return func(*args, **kwargs)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda_env/cli/main.py", line 44, in do_call
+    exit_code = getattr(module, func_name)(arguments, parser)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/notices/core.py", line 132, in wrapper
+    return func(*args, **kwargs)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/cli/main_env_update.py", line 161, in execute
+    result[installer_type] = installer.install(prefix, specs, args, env)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/env/installers/conda.py", line 67, in install
+    unlink_link_transaction.execute()
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/core/link.py", line 348, in execute
+    self._execute(
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/core/link.py", line 954, in _execute
+    raise CondaMultiError(
+conda.CondaMultiErrorclass: LinkError
+message:
+post-link script failed for package bioconda::bioconductor-genomeinfodbdata-1.2.15-r45hdfd78af_0
+location of failed script: /home/robertas_tupikas/.conda/envs/pursue-bench/bin/.bioconductor-genomeinfodbdata-post-link.sh
+==> script messages <==
+<None>
+==> script output <==
+stdout: /home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15/"GenomeInfoDbData_1.2.15.tar.gz": OK
+ERROR: sub-architecture 'R' is not installed
+ERROR: sub-architecture 'R.c~' is not installed
+
+stderr: ++ dirname -- /home/robertas_tupikas/.conda/envs/pursue-bench/bin/installBiocDataPackage.sh
++ SCRIPT_DIR=/home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages
++ json=/home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
+++ yq '."genomeinfodbdata-1.2.15".fn' /home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
++ FN='"GenomeInfoDbData_1.2.15.tar.gz"'
++ IFS=
++ read -r value
+++ yq '."genomeinfodbdata-1.2.15".urls[]' /home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
++ URLS+=($value)
++ IFS=
++ read -r value
++ URLS+=($value)
++ IFS=
++ read -r value
++ URLS+=($value)
++ IFS=
++ read -r value
+++ yq '."genomeinfodbdata-1.2.15".md5' /home/robertas_tupikas/.conda/envs/pursue-bench/bin/../share/bioconductor-data-packages/dataURLs.json
++ MD5='"70fe5d6fa0b71bfacb94dfbee477d0c9"'
++ STAGING=/home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15
++ mkdir -p /home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15
++ TARBALL='/home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15/"GenomeInfoDbData_1.2.15.tar.gz"'
++ SUCCESS=0
++ for URL in ${URLS[@]}
+++ echo '"https://bioconductor.org/packages/3.22/data/annotation/src/contrib/GenomeInfoDbData_1.2.15.tar.gz"'
+++ tr -d '"'
++ URL=https://bioconductor.org/packages/3.22/data/annotation/src/contrib/GenomeInfoDbData_1.2.15.tar.gz
+++ echo '"70fe5d6fa0b71bfacb94dfbee477d0c9"'
+++ tr -d '"'
++ MD5=70fe5d6fa0b71bfacb94dfbee477d0c9
++ curl -L https://bioconductor.org/packages/3.22/data/annotation/src/contrib/GenomeInfoDbData_1.2.15.tar.gz
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+
+  0      0   0      0   0      0      0      0                              0
+100    416 100    416   0      0   1740      0                              0
+100    416 100    416   0      0   1738      0                              0
+
+  0      0   0      0   0      0      0      0                              0
+ 32 12.91M  32  4.18M   0      0  2.80M      0   00:04   00:01   00:03  4.17M
+100 12.91M 100 12.91M   0      0  7.17M      0   00:01   00:01          4.17M
+100 12.91M 100 12.91M   0      0  7.17M      0   00:01   00:01          4.17M
+100 12.91M 100 12.91M   0      0  7.17M      0   00:01   00:01          4.17M
++ [[ 0 == 0 ]]
+++ uname -s
++ [[ Linux == \L\i\n\u\x ]]
++ md5sum -c
++ SUCCESS=1
++ break
++ [[ 1 != 1 ]]
++ R CMD INSTALL --library=/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/library '/home/robertas_tupikas/.conda/envs/pursue-bench/share/genomeinfodbdata-1.2.15/"GenomeInfoDbData_1.2.15.tar.gz"'
+* installing *source* package ‘GenomeInfoDbData’ ...
+** this is package ‘GenomeInfoDbData’ version ‘1.2.15’
+** using staged installation
+** data
+** inst
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+*** arch - R
+*** arch - R.c~
+ERROR: loading failed for ‘R’, ‘R.c~’
+* removing ‘/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/library/GenomeInfoDbData’
+
+return code: 1
+
+kwargs:
+{}
+
+: <exception str() failed>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/workspace/miniconda3/condabin/mamba", line 11, in <module>
+    sys.exit(main())
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/mamba/mamba.py", line 937, in main
+    return mamba_env.main()
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/mamba/mamba_env.py", line 198, in main
+    return conda_env_main()
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda_env/cli/main.py", line 57, in main
+    return conda_exception_handler(do_call, args, parser)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/exception_handler.py", line 386, in conda_exception_handler
+    return_value = exception_handler(func, *args, **kwargs)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/exception_handler.py", line 21, in __call__
+    return self.handle_exception(exc_val, exc_tb)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/exception_handler.py", line 62, in handle_exception
+    return self.handle_application_exception(exc_val, exc_tb)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/exception_handler.py", line 78, in handle_application_exception
+    self._print_conda_exception(exc_val, exc_tb)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/exception_handler.py", line 84, in _print_conda_exception
+    print_conda_exception(exc_val, exc_tb)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/exceptions.py", line 1270, in print_conda_exception
+    stderrlog.error("\n%r\n", exc_val)
+  File "/mnt/workspace/miniconda3/lib/python3.10/logging/__init__.py", line 1506, in error
+    self._log(ERROR, msg, args, **kwargs)
+  File "/mnt/workspace/miniconda3/lib/python3.10/logging/__init__.py", line 1624, in _log
+    self.handle(record)
+  File "/mnt/workspace/miniconda3/lib/python3.10/logging/__init__.py", line 1633, in handle
+    if (not self.disabled) and self.filter(record):
+  File "/mnt/workspace/miniconda3/lib/python3.10/logging/__init__.py", line 821, in filter
+    result = f.filter(record)
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/gateways/logging.py", line 64, in filter
+    record.msg = record.msg % record.args
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/__init__.py", line 125, in __repr__
+    errs.append(e.__repr__())
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/__init__.py", line 79, in __repr__
+    return f"{self.__class__.__name__}: {self}"
+  File "/mnt/workspace/miniconda3/lib/python3.10/site-packages/conda/__init__.py", line 83, in __str__
+    return str(self.message % self._kwargs)
+ValueError: unsupported format character 'T' (0x54) at index 2223

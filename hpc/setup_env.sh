@@ -2,7 +2,7 @@
 # Create the benchmark environment on the HPC, then install every R package.
 #
 #   bash hpc/setup_env.sh                  # conda-family env named pursue-bench (recommended)
-#   bash hpc/setup_env.sh conda --fresh    # delete and rebuild the env first
+#   (the env is always rebuilt from scratch; --fresh is accepted and is the default)
 #   bash hpc/setup_env.sh module R/4.5.0   # a cluster module instead, if one exists
 #
 # Solver preference is micromamba > mamba > conda. That order is deliberate: plain conda
@@ -31,19 +31,32 @@ if [ "$MODE" = "conda" ]; then
   else bootstrap_micromamba; SOLVER=micromamba; fi
   echo ">> solver: $SOLVER"
 
-  if [ -n "$FRESH" ]; then
-    echo ">> removing any existing $ENVNAME"
-    $SOLVER env remove -y -n "$ENVNAME" 2>/dev/null || $SOLVER remove -y -n "$ENVNAME" --all 2>/dev/null || true
+  # The env is ALWAYS built from scratch, never updated in place.
+  # Updating an existing pursue-bench is what broke on 2026-09-11: the old env still held
+  # bioconda bioconductor-* builds from the R 4.3 attempt, bumping r-base to 4.5 forced their
+  # r45 rebuilds, and their post-link scripts ran `R CMD INSTALL` against a half-updated R
+  # ("ERROR: loading failed for 'R', 'R.c~'"). conda's own logger then crashed formatting the
+  # error ("unsupported format character 'T'"), hiding the real cause. A clean env built from
+  # this conda-forge-only file never runs a bioconda post-link script at all.
+  #
+  # `$SOLVER env remove` is not trusted here: it reported success while leaving the prefix in
+  # place, after which `env create` failed with "prefix already exists". Delete the directory.
+  PREFIX="$($SOLVER env list 2>/dev/null | awk -v n="$ENVNAME" '$1 == n {print $NF}' | head -1)"
+  [ -z "${PREFIX:-}" ] && for base in "$HOME/.conda/envs" "$HOME/micromamba/envs" "${MAMBA_ROOT_PREFIX:-}/envs" "${CONDA_PREFIX:-}/envs"; do
+    [ -n "$base" ] && [ -d "$base/$ENVNAME" ] && PREFIX="$base/$ENVNAME" && break
+  done
+  if [ -n "${PREFIX:-}" ] && [ -d "$PREFIX" ]; then
+    echo ">> removing existing environment at $PREFIX"
+    $SOLVER env remove -y -n "$ENVNAME" >/dev/null 2>&1 || true
+    rm -rf "$PREFIX"
+    [ -d "$PREFIX" ] && { echo ">> ERROR: could not delete $PREFIX -- remove it by hand and re-run"; exit 1; }
   fi
 
-  # "prefix already exists" is not an error: update the existing env instead of failing.
   if [ "$SOLVER" = "micromamba" ]; then
-    micromamba create -y -n "$ENVNAME" -f "$HERE/environment.yml" \
-      || micromamba install -y -n "$ENVNAME" -f "$HERE/environment.yml"
+    micromamba create -y -n "$ENVNAME" -f "$HERE/environment.yml"
     eval "$(micromamba shell hook -s bash)"; micromamba activate "$ENVNAME"
   else
-    $SOLVER env create -n "$ENVNAME" -f "$HERE/environment.yml" \
-      || $SOLVER env update -n "$ENVNAME" -f "$HERE/environment.yml"
+    $SOLVER env create -n "$ENVNAME" -f "$HERE/environment.yml"
     eval "$($SOLVER shell.bash hook)"; conda activate "$ENVNAME"
   fi
   echo ">> activate later with:  $SOLVER activate $ENVNAME"
