@@ -96,6 +96,31 @@ st <- st[order(st$installed, st$package), ]
 cat("\n"); print(st, row.names = FALSE)
 dir.create(file.path(root, "hpc"), showWarnings = FALSE)
 write.csv(st, file.path(root, "hpc", "installed_packages.csv"), row.names = FALSE)
+# Re-run each remaining failure in a subprocess with ALL output captured. "installation of
+# package 'X' failed" on its own is not actionable and has cost a full round trip more than
+# once; the real reason is in R CMD INSTALL's output, which install.packages() only warns about.
+miss0 <- st$package[!st$installed & st$package != "PURSUE"]
+if (length(miss0)) {
+  cat("\n>> 7. diagnosing ", length(miss0), " failure(s) -- full build output -> hpc/install_log.txt\n", sep = "")
+  pre <- 'if (requireNamespace("BiocManager", quietly=TRUE)) options(repos = BiocManager::repositories());'
+  for (pk in miss0) {
+    kind <- unname(src[pk])
+    cmd <- if (identical(kind, "CRAN")) sprintf('install.packages("%s")', pk)
+           else if (identical(kind, "Bioconductor")) sprintf('BiocManager::install("%s", ask=FALSE, update=FALSE)', pk)
+           else sprintf('remotes::install_github("%s", upgrade="never")', sub("^GitHub:", "", kind))
+    out <- suppressWarnings(system2(file.path(R.home("bin"), "Rscript"),
+                                    c("-e", shQuote(paste(pre, cmd))), stdout = TRUE, stderr = TRUE))
+    cat("\n=== ", pk, " (", kind, ")\n", sep = "", file = logf, append = TRUE)
+    cat(paste0("   ", out, collapse = "\n"), "\n", file = logf, append = TRUE)
+    err <- grep("^(ERROR|Error|error:|\\*\\* .*ERROR)", out, value = TRUE)
+    cat("   ", pk, ": ", if (length(err)) trimws(paste(utils::head(err, 2), collapse = " | ")) else "see hpc/install_log.txt", "\n", sep = "")
+  }
+  # a diagnosis run can also succeed; refresh the table so the CSV is not stale
+  st$installed <- vapply(st$package, has, logical(1))
+  st$version <- vapply(st$package, function(q) if (has(q)) as.character(utils::packageVersion(q)) else NA_character_, character(1))
+  write.csv(st, file.path(root, "hpc", "installed_packages.csv"), row.names = FALSE)
+}
+
 miss <- st$package[!st$installed]
 cat(sprintf("\n%d of %d installed. Missing: %s\n", sum(st$installed), nrow(st), if (length(miss)) paste(miss, collapse = ", ") else "none"))
 if (length(miss)) cat("A missing package is not fatal -- its method/simulator is recorded as not_installed.\n",
