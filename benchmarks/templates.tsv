@@ -12,4 +12,4 @@ twinsuk_stool	tuning	MicrobeDS/TwinsUK (Qiita 2014)	phyloseq_rda	MicrobeDS/Twins
 crc_genus	axisE	Zenodo 7382814 (Baxter+Zackular+Zeller, genus)	csv_samples_x_features	zenodo_crc/genus.csv		0.05	1000	NA	708 samples, three studies: cross-study replicability; metadata.csv has study and diagnosis
 mbd_gingival_v35	axisD	MicrobiomeBenchmarkData (Zenodo 6911027)	tsv_features_x_samples	mbd/HMP_2012_16S_gingival_V35_count_matrix.tsv		0.05	1000	body_subsite	aerobic vs anaerobic ground truth, 311 samples
 mbd_ravel_bv	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Ravel_2011_16S_BV_count_matrix.tsv		0.02	500	study_condition	BV vs healthy, low complexity
-mbd_stammler_spikein	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Stammler_2016_16S_spikein_count_matrix.tsv		0.02	500	NA	three spike-in taxa at constant load, 394 samples
+mbd_stammler_spikein	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Stammler_2016_16S_spikein_count_matrix.tsv		0.02	500	NA	three spike-in taxa at constant load, only 17 samples: weak null check, not a primary Axis D signal

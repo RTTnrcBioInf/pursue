@@ -1,0 +1,18 @@
+"method","status","runtime_s","version"
+"wilcoxon_tss","ok","0.0519999999999996","4.3.3"
+"lm_logtss","ok","0.0330000000000013","4.3.3"
+"limma_logtss","ok","0.0300000000000011","3.58.1"
+"logistic_presence","ok/no_detection_variation","0.0700000000000003","4.3.3"
+"pursue","not_installed","0",NA
+"linda","not_installed","0",NA
+"ancombc2","error: unused arguments (taxa_are_rows = TRUE, meta_data = list(c(1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 1, 2, 1, 2, 1, 2, 2, 2","0.0229999999999961","2.4.0"
+"maaslin3","not_installed","0",NA
+"aldex2","ok","1.513","1.34.0"
+"corncob","not_installed","0",NA
+"ldm","not_installed","0",NA
+"locom","not_installed","0",NA
+"locom2","not_installed","0",NA
+"zicoseq","ok","4.366","1.9"
+"fastancom","not_installed","0",NA
+"adapt","not_installed","0",NA
+"fastemu","not_installed","0",NA

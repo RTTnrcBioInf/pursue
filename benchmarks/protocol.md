@@ -242,9 +242,15 @@ MicrobiomeBenchmarkData datasets:
   fraction of calls in the expected direction.
 - `Ravel_2011_16S_BV`: *Lactobacillus* decrease / BV-associated increase — same metric; this
   is the low-complexity CLR stress test.
-- `Stammler_2016_16S_spikein`: three spike-in taxa at constant load across 394 samples —
-  metric: number of spike-in taxa called at q ≤ 0.05 (any call is a false positive), across
-  50 random binary groupings of the samples.
+- `Stammler_2016_16S_spikein`: three spike-in taxa at constant load - metric: number of
+  spike-in taxa called at q <= 0.05 (any call is a false positive), across 50 random binary
+  groupings of the samples. **[impl]** This dataset has **17 samples**, not the 394 stated in
+  v0.9 (394 is Ravel's count, carried over in error; confirmed against the
+  MicrobiomeBenchmarkData vignette, 2026-09-11). Groupings are therefore 8 vs 9, at which
+  size few methods call anything, so this is a **weak supporting null check rather than a
+  primary Axis D signal** and must not be ranked on. `make_expected.R` hard-fails unless it
+  matches exactly three spike-in ids, because an empty spike-in set would score as zero false
+  positives for every method.
 - QMP datasets with flow-cytometry totals (Vandeputte 2017 and successors, if
   redistributable): compare each method's log fold changes with load-scaled log fold
   changes; report correlation and sign agreement, separately for absolute- and
@@ -331,5 +337,14 @@ and end times, and the protocol version.
 - 2026-09-10 — v1.0: implementation record (all **[impl]** notes above). Open items to
   amend when filled: environmental and infant-gut evaluation templates (§4.2); QMP
   load-truth datasets (§8); additional Axis E datasets (§9); stability metric (§10).
+- 2026-09-11 — first cluster smoke test (R 4.3.3, Bioconductor 3.18), recorded in
+  `hpc/smoke_*.csv`. Consequences: (a) the ANCOM-BC2 wrapper was rewritten — ANCOMBC 2.4
+  dropped the `taxa_are_rows` / `meta_data` calling convention the original benchmark used —
+  and its sensitivity flag now gates only the call (q), leaving p raw so that calibration and
+  pAUC measure the model (deviation declared under §6); (b) the Stammler sample count is
+  corrected in §8 and that check demoted to supporting evidence; (c) `hpc/install_packages.R`
+  reordered so PURSUE installs first and every later failure is non-fatal. All 12 templates
+  load. Simulators verified on the cluster: `house`, `msq`, `sps`; `mid` and `sd2` remain
+  unverified pending installation.
 - (freeze date, first evaluation-pool submission, smoke-test CSVs committed) — to be entered
   by Robert.

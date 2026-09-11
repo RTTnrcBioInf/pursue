@@ -31,8 +31,15 @@ write.table(b, file.path(root, "expected", "bv_taxa.tsv"), sep = "\t", quote = F
 cat("BV:", nrow(b), "annotated taxa\n")
 
 # 3. Stammler spike-ins: Salinibacter ruber, Rhizobium radiobacter, Alicyclobacillus acidiphilus
+# The three are S. ruber, R. radiobacter and A. acidiphilus; in this release their feature ids
+# are the accessions AF323500*, AB247615*, AB076660*. Match on either the genus or the accession.
 tx <- rd("Stammler_2016_16S_spikein_taxonomy_table.tsv"); feat_col <- if ("taxon" %in% colnames(tx)) "taxon" else colnames(tx)[1]
-hit <- apply(tx, 1, function(r) any(grepl("Salinibacter|Rhizobium|Agrobacterium|Alicyclobacillus", r, ignore.case = TRUE)))
-ids <- tx[[feat_col]][hit]
+pat <- "Salinibacter|Rhizobium|Agrobacterium|Alicyclobacillus|AF323500|AB247615|AB076660"
+hit <- apply(tx, 1, function(r) any(grepl(pat, r, ignore.case = TRUE)))
+ids <- unique(tx[[feat_col]][hit])
+# Fail loudly: an empty spike-in list would make the Axis D false-positive metric vacuously zero.
+if (length(ids) != 3L) stop("expected 3 Stammler spike-in taxa, matched ", length(ids),
+                            " (", paste(ids, collapse = ", "), "). Check the taxonomy table columns: ",
+                            paste(colnames(tx), collapse = ", "))
 writeLines(paste(ids, collapse = ","), file.path(root, "expected", "stammler_spikein_ids.txt"))
 cat("spike-ins:", length(ids), "feature ids:", paste(ids, collapse = ", "), "\n")

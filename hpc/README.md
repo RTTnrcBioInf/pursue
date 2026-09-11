@@ -21,11 +21,22 @@ bash hpc/setup_env.sh module R/4.3.3   # second argument = the module name on yo
 export R_LIBS_USER=$HOME/R/pursue-bench-lib
 ```
 
-Both routes end with `hpc/install_packages.R`, which installs every CRAN, Bioconductor and
-GitHub package the benchmark can use — including PURSUE itself from this checkout — and
-writes `hpc/installed_packages.csv`. Packages that fail to install are reported, not fatal:
-a missing method or simulator is recorded as `not_installed` in the results rather than
-crashing a cell. Re-run the script after fixing anything.
+Both routes end with `hpc/install_packages.R`. It installs **PURSUE first**, from this
+checkout with base R, so it lands even on a node with no outbound network (it needs only
+limma, sandwich, parallel); then every CRAN, Bioconductor and GitHub package the benchmark
+can use, each best-effort. It always writes `hpc/installed_packages.csv` — package, where it
+comes from, installed, version — even when steps fail. A package that will not install is
+reported, not fatal: its method or simulator is recorded as `not_installed` in the results
+rather than crashing a cell. Re-run the script after fixing anything.
+
+Route B builds `$HOME/R/pursue-bench-lib` and puts it **in front of** your existing library
+rather than replacing it, so packages you already have on the cluster stay visible. Export
+the same `R_LIBS_USER` before submitting (`hpc/slurm/env.sh` does it for you).
+
+If a whole class of packages fails at once, the node has no outbound network — install from a
+login node, or ask for a local CRAN/Bioconductor mirror. Note that MaAsLin 3 is only in
+Bioconductor 3.20+; on an older R it has to come from GitHub (`biobakery/maaslin3`), which
+the script already attempts.
 
 ## 2. Data
 
@@ -56,12 +67,13 @@ Rscript hpc/smoke_test.R
 ```
 
 Loads every template, runs every simulator on a tiny regime, runs every method on a tiny
-dataset, and writes `hpc/smoke_{templates,simulators,methods}.csv`. The external simulator
-and method wrappers marked `[UNVERIFIED]` in the source were written against package
-documentation without being executed (the development container has no CRAN access), so
-this is where API drift shows up. Anything reporting `error:` needs its wrapper fixed
-before it goes into an array job; commit the three CSVs — they are the record of what was
-verified on this cluster.
+dataset, and writes `hpc/smoke_{templates,simulators,methods}.csv` plus
+`hpc/smoke_errors.log` with the full messages (the CSVs carry a truncated one-line status,
+the package each method needs, and the number of finite p-values returned). External wrappers
+written against package documentation rather than executed are where API drift shows up —
+the 2026-09-11 run caught exactly that in ANCOM-BC2. Anything reporting `error:` needs its
+wrapper fixed before it goes into an array job; commit the three CSVs and
+`installed_packages.csv` — together they are the record of what was verified on this cluster.
 
 ## 4. Task lists
 

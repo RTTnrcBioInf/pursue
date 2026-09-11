@@ -33,17 +33,48 @@ method_linda <- function(counts, meta, formula, tested_term, args = list()) {
                      ci_lo = tab$log2FoldChange - 1.96 * tab$lfcSE, ci_hi = tab$log2FoldChange + 1.96 * tab$lfcSE, status = NA, stringsAsFactors = FALSE))
 }
 
-# ---- ANCOM-BC2 -- verified pattern; decision uses the sensitivity-robust flag as in the original benchmark ----
+# ---- ANCOM-BC2 ----
+# Calling convention drifted: ANCOMBC <= 2.2 took (data = matrix, taxa_are_rows, meta_data);
+# 2.4 dropped both and wants a TreeSummarizedExperiment / phyloseq in `data`. The cluster smoke
+# test of 2026-09-11 (ANCOMBC 2.4.0) failed on the old form, so the call is built from the
+# installed version's formals.
+.ancombc2_data_args <- function(counts, meta) {
+  fm <- names(formals(ANCOMBC::ancombc2))
+  if ("taxa_are_rows" %in% fm) return(list(data = counts, taxa_are_rows = TRUE, meta_data = meta))
+  if (requireNamespace("TreeSummarizedExperiment", quietly = TRUE))
+    return(list(data = TreeSummarizedExperiment::TreeSummarizedExperiment(
+      assays = list(counts = as.matrix(counts)), colData = meta), assay_name = "counts"))
+  if (requireNamespace("phyloseq", quietly = TRUE))
+    return(list(data = phyloseq::phyloseq(phyloseq::otu_table(as.matrix(counts), taxa_are_rows = TRUE),
+                                          phyloseq::sample_data(meta))))
+  stop("ANCOMBC >= 2.4 needs TreeSummarizedExperiment or phyloseq to carry the count table")
+}
+
 method_ancombc2 <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts); cn <- .coef_name(formula, meta, tested_term)
   if (length(cn) != 1L) return(.empty_result(feats, status = "not_applicable_multi_df"))
-  a <- utils::modifyList(list(p_adj_method = "BH", prv_cut = 0, lib_cut = 0, alpha = 0.05, n_cl = 1, verbose = FALSE, pseudo_sens = TRUE), args)
-  out <- .quiet(do.call(ANCOMBC::ancombc2, c(list(data = counts, taxa_are_rows = TRUE, meta_data = meta, fix_formula = .rhs_chr(formula)), a)))
-  r <- out$res; r <- r[match(feats, r$taxon), ]
-  robust <- as.logical(r[[paste0("diff_robust_", cn)]]); p <- as.numeric(r[[paste0("p_", cn)]])
-  lfc <- as.numeric(r[[paste0("lfc_", cn)]]) / log(2); se <- as.numeric(r[[paste0("se_", cn)]]) / log(2)
-  .finish(data.frame(feature = feats, arm = "single", p = ifelse(robust & !is.na(p), p, 1), q = NA, estimate = lfc, se = se,
-                     ci_lo = lfc - 1.96 * se, ci_hi = lfc + 1.96 * se, status = ifelse(is.na(p), "not_returned", NA), stringsAsFactors = FALSE))
+  a <- utils::modifyList(list(p_adj_method = "BH", pseudo_sens = TRUE, prv_cut = 0, lib_cut = 0, s0_perc = 0.05,
+                              struc_zero = FALSE, neg_lb = FALSE, alpha = 0.05, n_cl = 1, verbose = FALSE,
+                              global = FALSE, pairwise = FALSE, dunnet = FALSE, trend = FALSE), args)
+  out <- .quiet(do.call(ANCOMBC::ancombc2,
+                        c(.ancombc2_data_args(counts, meta), list(fix_formula = .rhs_chr(formula)), a)))
+  r <- as.data.frame(out$res); r <- r[match(feats, r$taxon), , drop = FALSE]
+  get <- function(pfx) if (paste0(pfx, cn) %in% names(r)) r[[paste0(pfx, cn)]] else NULL
+  p <- as.numeric(get("p_")); qa <- as.numeric(get("q_"))
+  lfc <- as.numeric(get("lfc_")) / log(2); se <- as.numeric(get("se_")) / log(2)
+  # the authors' recommended call is "differential AND passed the pseudo-count sensitivity check":
+  # 2.2 exposed that jointly as diff_robust_*, 2.4 exposes diff_* and passed_ss_* separately.
+  rob <- get("diff_robust_")
+  if (is.null(rob)) { d <- get("diff_"); ss <- get("passed_ss_")
+    rob <- if (is.null(d)) rep(TRUE, nrow(r)) else if (is.null(ss)) as.logical(d) else as.logical(d) & as.logical(ss) }
+  rob <- as.logical(rob); rob[is.na(rob)] <- FALSE
+  res <- .finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = lfc, se = se,
+                            ci_lo = lfc - 1.96 * se, ci_hi = lfc + 1.96 * se,
+                            status = ifelse(is.na(p), "not_returned", NA), stringsAsFactors = FALSE))
+  # Deviation from the original benchmark wrapper, declared under protocol section 6: p is left raw so
+  # that calibration (KS) and pAUC measure the model, and the sensitivity filter gates only the call (q).
+  res$q <- ifelse(rob, ifelse(is.na(qa), res$q, qa), 1)
+  res
 }
 
 # ---- corncob -- verified pattern ----

@@ -15,8 +15,14 @@ if [ "$MODE" = "conda" ]; then
   Rscript "$HERE/install_packages.R"
 else
   MOD="${2:-R}"; module load "$MOD" || true
-  export R_LIBS_USER="${R_LIBS_USER:-$HOME/R/pursue-bench-lib}"; mkdir -p "$R_LIBS_USER"
-  echo ">> R user library: $R_LIBS_USER (export R_LIBS_USER before running jobs)"
+  # Keep the user's existing library on the path: R_LIBS_USER is a colon-separated list, and
+  # replacing it outright hides packages already installed on this cluster (that is what hid
+  # MicrobiomeStat / corncob / LDM / LOCOM in the 2026-09-11 smoke test). New installs go to
+  # the first entry; everything already installed stays visible.
+  BENCH_LIB="$HOME/R/pursue-bench-lib"; mkdir -p "$BENCH_LIB"
+  BASE_LIB="$(R --no-echo -e 'cat(Sys.getenv("R_LIBS_USER"))' 2>/dev/null | tr ':' '\n' | grep -v "pursue-bench-lib" | paste -sd: -)"
+  export R_LIBS_USER="$BENCH_LIB${BASE_LIB:+:$BASE_LIB}"
+  echo ">> R library path: $R_LIBS_USER (export R_LIBS_USER before running jobs)"
   Rscript "$HERE/install_packages.R"
 fi
 echo ">> now: bash hpc/download_templates.sh && Rscript hpc/smoke_test.R"
