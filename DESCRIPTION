@@ -1,27 +1,28 @@
 Package: PURSUE
 Type: Package
-Title: Reference-Normalized Two-Part Regression Model for Microbial Composition Assessment
-Version: 0.1.0
-Authors@R:
-    person(given = "RTT",
-           email = "robertast.tupikas@gmail.com",
-           role = c("aut", "cre"))
-Description: Two-part regression workflow for microbiome composition assessment
-    using reference-normalized abundance and prevalence modeling with
-    permutation-based inference.
+Title: Two-Part Differential Abundance Analysis for Microbiome Count Data
+Version: 0.2.0
+Authors@R: c(
+    person(given = "Robertas", family = "Tupikas", email = "robertast.tupikas@gmail.com", role = c("aut", "cre")))
+Description: Differential abundance analysis for 16S OTU/ASV count tables with two
+    separately reported components. The abundance component is a linear model on log
+    relative abundance over detected cells with a log-depth covariate, empirical-Bayes
+    variance moderation (limma) and empirical-null mixture centring of effect estimates
+    across features. The presence component is a per-feature zero-inflated negative
+    binomial with a depth offset, cross-feature dispersion shrinkage and a ridge-penalised
+    presence logit, tested by likelihood ratio. Both components accept arbitrary
+    model formulas.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+RoxygenNote: 7.3.1
+Depends: R (>= 4.1)
 Imports:
-    ACAT,
+    limma,
+    sandwich,
+    stats,
     parallel,
-    permute,
-    stats
+    methods
 Suggests:
-    knitr,
-    rmarkdown,
     testthat (>= 3.0.0)
-Remotes:
-    yaowuliu/ACAT
 Config/testthat/edition: 3

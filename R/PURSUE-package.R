@@ -1,10 +1,6 @@
-#' PURSUE: Reference-Normalized Two-Part Regression Model for Microbial Composition Assessment
+#' PURSUE: two-part differential abundance analysis
 #'
-#' Two-part regression workflow for microbiome composition assessment
-#' using reference-normalized abundance and prevalence modeling with
-#' permutation-based inference.
-#'
-#' The main user-facing function is [run_pursue()].
-#'
+#' See [pursue()].
 #' @keywords internal
 "_PACKAGE"
+NULL

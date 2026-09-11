@@ -1,0 +1,16 @@
+# benchmark runtime state (regenerated on the cluster)
+results/
+cache/
+logs/
+hpc/tasks/
+hpc/tasks_pilot/
+hpc/installed_packages.csv
+benchmarks/data/*
+!benchmarks/data/SHA256SUMS
+benchmarks/cache/
+benchmarks/results_test/
+*.tar.gz
+# R
+.Rhistory
+.RData
+.Rproj.user/

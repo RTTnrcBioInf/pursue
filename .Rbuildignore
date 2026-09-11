@@ -1,0 +1,12 @@
+^\.git.*
+^\.Rbuildignore$
+^README\.md$
+^benchmarks$
+^benchmark scripts$
+^hpc$
+^design-experiments$
+^examples$
+^results$
+^cache$
+^logs$
+^.*\.tar\.gz$

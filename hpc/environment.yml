@@ -1,0 +1,29 @@
+name: pursue-bench
+channels: [conda-forge, bioconda, nodefaults]
+dependencies:
+  - r-base=4.3
+  - r-essentials
+  - r-optparse
+  - r-jsonlite
+  - r-yaml
+  - r-data.table
+  - r-sandwich
+  - r-lme4
+  - r-pscl
+  - r-ranger
+  - r-arrow
+  - r-remotes
+  - r-biocmanager
+  - r-vegan
+  - r-ape
+  - r-matrixstats
+  - r-gunifrac
+  - bioconductor-limma
+  - bioconductor-phyloseq
+  - bioconductor-ancombc
+  - bioconductor-aldex2
+  - bioconductor-spsimseq
+  - bioconductor-summarizedexperiment
+  - bioconductor-treesummarizedexperiment
+  - curl
+  - git

@@ -4,17 +4,12 @@
 \name{PURSUE-package}
 \alias{PURSUE}
 \alias{PURSUE-package}
-\title{PURSUE: Reference-Normalized Two-Part Regression Model for Microbial Composition Assessment}
+\title{PURSUE: two-part differential abundance analysis}
 \description{
-Two-part regression workflow for microbiome composition assessment
-using reference-normalized abundance and prevalence modeling with
-permutation-based inference.
-}
-\details{
-The main user-facing function is \code{\link[=run_pursue]{run_pursue()}}.
+See \code{\link[=pursue]{pursue()}}.
 }
 \author{
-\strong{Maintainer}: RTT \email{robertast.tupikas@gmail.com}
+\strong{Maintainer}: Robertas Tupikas \email{robertast.tupikas@gmail.com}
 
 }
 \keyword{internal}

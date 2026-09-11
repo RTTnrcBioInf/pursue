@@ -1,0 +1,16 @@
+# Axis B implantation specs (protocol section 5). effect: small|medium|large|graded. signal_type: abundance|prevalence|mixed.
+spec_id	n_per_group	da_frac	effect	signal_type	balance	conf_phi	exposure	n_rep
+B_ref	50	0.10	medium	mixed	balanced	0	binary	20
+B_n20	20	0.10	medium	mixed	balanced	0	binary	20
+B_n100	100	0.10	medium	mixed	balanced	0	binary	20
+B_abund	50	0.10	medium	abundance	balanced	0	binary	20
+B_prev	50	0.10	medium	prevalence	balanced	0	binary	20
+B_small	50	0.10	small	mixed	balanced	0	binary	20
+B_large	50	0.10	large	mixed	balanced	0	binary	20
+B_graded	50	0.10	graded	mixed	balanced	0	binary	20
+B_da05	50	0.05	medium	mixed	balanced	0	binary	20
+B_allup	50	0.10	medium	mixed	100_0	0	binary	20
+B_conf04	50	0.10	medium	mixed	balanced	0.4	binary	20
+B_conf07	50	0.10	medium	mixed	balanced	0.7	binary	20
+B_cont	50	0.10	medium	abundance	balanced	0	continuous	20
+B_null	50	0	medium	mixed	balanced	0	binary	50
