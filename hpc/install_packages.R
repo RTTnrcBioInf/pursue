@@ -72,6 +72,34 @@ cat("\n>> 5. GitHub\n")
 if (has("remotes")) { for (p in names(gh)) if (!has(p)) try_(p, remotes::install_github(gh[[p]], upgrade = "never"))
 } else message("  !! remotes unavailable: skipping ", length(gh), " GitHub packages")
 
+cat("\n>> 5b. known incompatibilities\n")
+# --- known incompatibility: ANCOMBC <-> CVXR --------------------------------------------
+# ANCOMBC (2.12.0 on Bioc 3.22) has importFrom(CVXR, solve) in its NAMESPACE, but current CVXR
+# no longer exports `solve` -- it was renamed `psolve` to stop colliding with base::solve. The
+# install dies at "object 'solve' is not exported by 'namespace:CVXR'" during lazy loading.
+# CVXR is used by nothing else here, so stepping it back is safe. Versions are tried newest
+# first and the export is checked directly rather than trusted from a version number.
+cvxr_ok <- function() has("CVXR") && "solve" %in% getNamespaceExports("CVXR")
+if (!has("ANCOMBC")) {
+  if (!cvxr_ok()) {
+    cur <- if (has("CVXR")) as.character(utils::packageVersion("CVXR")) else "none"
+    say("  ~  ANCOMBC needs CVXR::solve, absent from CVXR ", cur, " -- trying older CVXR")
+    if (!has("remotes")) try_("remotes", install.packages("remotes"))
+    for (v in c("1.0.15", "1.0.14", "1.0.12", "1.0.11")) {
+      if (cvxr_ok()) break
+      cat("   trying CVXR ", v, "\n", sep = "")
+      try_(paste0("CVXR ", v), remotes::install_version("CVXR", version = v, upgrade = "never", quiet = TRUE))
+      try(unloadNamespace("CVXR"), silent = TRUE)   # stale namespace would mask the new install
+    }
+  }
+  if (cvxr_ok()) {
+    cat(">> CVXR ", as.character(utils::packageVersion("CVXR")), " exports solve; retrying ANCOMBC\n", sep = "")
+    try_("ANCOMBC", BiocManager::install("ANCOMBC", ask = FALSE, update = FALSE))
+  } else say("  !! no CVXR version exporting `solve` could be installed; ANCOMBC stays unavailable")
+  if (!has("ANCOMBC"))
+    try_("ANCOMBC from GitHub", remotes::install_github("FrederickHuangLin/ANCOMBC", upgrade = "never"))
+}
+
 # PURSUE is attempted FIRST so that it lands even with no network, but R CMD INSTALL refuses a
 # package whose Imports are absent -- in a brand-new environment limma and sandwich do not exist
 # yet, which is exactly why it failed on 2026-09-11. Retry now that everything else is in.
