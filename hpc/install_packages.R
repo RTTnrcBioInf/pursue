@@ -27,10 +27,17 @@ try_ <- function(what, expr) tryCatch({ expr; TRUE },
 cat(">> R", R.version.string, "\n>> library:", .libPaths()[1], "\n>> repo root:", root, "\n\n>> 1. PURSUE (from this checkout)\n")
 if (!file.exists(file.path(root, "DESCRIPTION")))
   say("  !! no DESCRIPTION at ", root, " -- is this the repository root? PURSUE cannot install.")
-if (!try_("PURSUE", install.packages(root, repos = NULL, type = "source")))
+# Run R CMD INSTALL directly and keep every line: "had non-zero exit status" on its own is
+# useless, and PURSUE is the one package whose failure stops the whole benchmark.
+pi_out <- suppressWarnings(system2(file.path(R.home("bin"), "R"), c("CMD", "INSTALL", shQuote(root)),
+                                   stdout = TRUE, stderr = TRUE))
+if (!is.null(attr(pi_out, "status")) && attr(pi_out, "status") != 0) {
+  say("  !! PURSUE: R CMD INSTALL exited ", attr(pi_out, "status"), ". Full output:")
+  cat(paste0("     ", pi_out, collapse = "\n"), "\n", file = logf, append = TRUE)
+  cat(paste(utils::tail(pi_out, 25), collapse = "\n"), "\n")
   try_("PURSUE via remotes", { if (!has("remotes")) install.packages("remotes"); remotes::install_local(root, upgrade = "never", force = TRUE) })
-if (!has("PURSUE")) say("  !! PURSUE did not install. It is the method under test -- nothing can be measured without it.\n",
-                        "     Try by hand and read the output:  R CMD INSTALL ", root)
+} else cat("   PURSUE installed\n")
+if (!has("PURSUE")) say("  !! PURSUE did not install. It is the method under test -- nothing can be measured without it.")
 
 cat("\n>> 2. bootstrap\n")
 if (!has("BiocManager")) try_("BiocManager", install.packages("BiocManager"))
@@ -49,6 +56,13 @@ gh   <- c(SparseDOSSA2 = "biobakery/SparseDOSSA2", LOCOM = "yijuanhu/LOCOM", fas
 src <- c(setNames(rep("CRAN", length(cran)), cran), setNames(rep("Bioconductor", length(bioc)), bioc),
          setNames(paste0("GitHub:", gh), names(gh)), PURSUE = "this checkout")
 
+# CRAN and Bioconductor in ONE repository list. LDM and LOCOM2 are CRAN packages that depend
+# on BiocParallel; with only CRAN in `repos` they fail with "dependency 'BiocParallel' is not
+# available" even though BiocManager is installed (smoke test 2026-09-11).
+if (has("BiocManager")) {
+  options(repos = BiocManager::repositories())
+  cat("\n>> repositories: ", paste(names(getOption("repos")), collapse = ", "), "\n", sep = "")
+}
 cat("\n>> 3. CRAN\n");         for (p in cran) if (!has(p)) try_(p, install.packages(p))
 cat("\n>> 4. Bioconductor\n")
 if (has("BiocManager")) { cat("   Bioconductor", as.character(BiocManager::version()), "\n")
@@ -57,6 +71,22 @@ if (has("BiocManager")) { cat("   Bioconductor", as.character(BiocManager::versi
 cat("\n>> 5. GitHub\n")
 if (has("remotes")) { for (p in names(gh)) if (!has(p)) try_(p, remotes::install_github(gh[[p]], upgrade = "never"))
 } else message("  !! remotes unavailable: skipping ", length(gh), " GitHub packages")
+
+# PURSUE is attempted FIRST so that it lands even with no network, but R CMD INSTALL refuses a
+# package whose Imports are absent -- in a brand-new environment limma and sandwich do not exist
+# yet, which is exactly why it failed on 2026-09-11. Retry now that everything else is in.
+if (!has("PURSUE")) {
+  cat("\n>> 6. PURSUE (retry, now that its dependencies are installed)\n")
+  miss_dep <- Filter(function(d) !has(d), c("limma", "sandwich"))
+  if (length(miss_dep)) say("  !! PURSUE needs ", paste(miss_dep, collapse = ", "), ", which did not install")
+  pi2 <- suppressWarnings(system2(file.path(R.home("bin"), "R"), c("CMD", "INSTALL", shQuote(root)),
+                                  stdout = TRUE, stderr = TRUE))
+  if (!is.null(attr(pi2, "status")) && attr(pi2, "status") != 0) {
+    say("  !! PURSUE retry: R CMD INSTALL exited ", attr(pi2, "status"), ". Full output:")
+    cat(paste0("     ", pi2, collapse = "\n"), "\n", file = logf, append = TRUE)
+    cat(paste(utils::tail(pi2, 25), collapse = "\n"), "\n")
+  } else cat("   PURSUE installed on retry\n")
+}
 
 all <- unique(c("PURSUE", cran, bioc, names(gh)))
 st <- data.frame(package = all, source = unname(src[all]), installed = vapply(all, has, logical(1)),

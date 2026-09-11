@@ -18,10 +18,40 @@ dependencies:
   - cxx-compiler
   - fortran-compiler
   - make
+  - cmake
   - pkg-config
+  # build dependencies for packages that bundle a C library: nloptr and highs need cmake,
+  # igraph needs glpk, RcppParallel needs TBB. Missing cmake was why nloptr/igraph/RcppParallel
+  # failed on 2026-09-11, which then cascaded into lme4 -> MicrobiomeStat/ANCOMBC/maaslin3,
+  # phyloseq -> SPsimSeq/ADAPT, and Rfast -> ALDEx2.
+  - glpk
+  - nlopt
+  - tbb-devel
   - r-remotes
   - r-biocmanager
   - r-arrow
+  # Prebuilt conda-forge binaries for the compile-heavy CRAN packages. These are the roots
+  # whose failure cascaded through fifteen packages; taking them as binaries removes the whole
+  # class of problem. All conda-forge, no bioconda -- bioconda's post-link scripts are what
+  # broke the earlier attempt.
+  - r-fs
+  - r-nloptr
+  - r-lme4
+  - r-lmertest
+  - r-igraph
+  - r-rcppparallel
+  - r-rfast
+  - r-hmisc
+  - r-rmarkdown
+  - r-htmlwidgets
+  - r-sass
+  - r-bslib
+  - r-desctools
+  - r-cvxr
+  - r-huge
+  - r-wgcna
+  - r-ggplot2
+  - r-dplyr
   - curl
   - git
   # system libraries R packages commonly link against
