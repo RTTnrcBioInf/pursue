@@ -30,42 +30,39 @@ and the SLURM logs are not (they are large and reproducible from the seed).
 
 ## 1. Environment
 
-**Use route A.** The R version is not a detail: on R 4.3 / Bioconductor 3.18 the benchmark
-silently loses three comparators — **LOCOM2** (its dependency `Deriv` now requires R >= 4.5),
-**MaAsLin 3** and **ADAPT** (both Bioconductor >= 3.20). LOCOM2 is the direct competitor
-PURSUE is measured against and MaAsLin 3 is the closest rival to the two-part framing, so
-running without them would leave the headline comparison unanswerable. `environment.yml` pins
-R 4.5 / Bioc 3.21, which brings all three back.
-
-If the cluster has neither `conda` nor `module`, `setup_env.sh` prints a micromamba
-one-liner — a single static binary, no admin rights needed.
-
 ```bash
-# A) conda / mamba (self-contained; recommended)
-bash hpc/setup_env.sh conda            # creates env "pursue-bench", then installs R packages
-conda activate pursue-bench
-
-# B) cluster R module (>= 4.3) + a user library
-bash hpc/setup_env.sh module R/4.3.3   # second argument = the module name on your cluster
-export R_LIBS_USER=$HOME/R/pursue-bench-lib
+bash hpc/setup_env.sh                 # builds the pursue-bench env, then installs R packages
+bash hpc/setup_env.sh conda --fresh   # delete and rebuild it (use after a failed install)
 ```
 
-Both routes end with `hpc/install_packages.R`. It installs **PURSUE first**, from this
-checkout with base R, so it lands even on a node with no outbound network (it needs only
-limma, sandwich, parallel); then every CRAN, Bioconductor and GitHub package the benchmark
-can use, each best-effort. It always writes `hpc/installed_packages.csv` — package, where it
-comes from, installed, version — even when steps fail. A package that will not install is
-reported, not fatal: its method or simulator is recorded as `not_installed` in the results
-rather than crashing a cell. Re-run the script after fixing anything.
+**The R version is not a detail.** On R 4.3 / Bioconductor 3.18 the benchmark silently loses
+three comparators — **LOCOM2** (its dependency `Deriv` now requires R >= 4.5), **MaAsLin 3**
+and **ADAPT** (both Bioconductor >= 3.20). LOCOM2 is the direct competitor PURSUE is measured
+against and MaAsLin 3 is the closest rival to the two-part framing, so running without them
+leaves the headline comparison unanswerable. `environment.yml` pins **R 4.5 / Bioc 3.21**, and
+the script warns loudly if it ends up on anything older.
 
-Route B builds `$HOME/R/pursue-bench-lib` and puts it **in front of** your existing library
-rather than replacing it, so packages you already have on the cluster stay visible. Export
-the same `R_LIBS_USER` before submitting (`hpc/slurm/env.sh` does it for you).
+Solver preference is **micromamba > mamba > conda**, and with none present micromamba is
+bootstrapped into `~/.local/bin` (a single static binary, no admin rights). That order is
+deliberate: plain conda crashed here linking a bioconda package with `ValueError: unsupported
+format character 'T'` — a bug in conda's own prefix-replacement path that mamba and micromamba
+do not share. "prefix already exists" is handled too: the script updates the existing
+environment rather than failing.
+
+`environment.yml` is deliberately minimal — R, a compiler toolchain, and the system libraries
+that are painful to build. Every R package comes from `hpc/install_packages.R` via
+CRAN/Bioconductor, which resolve against Bioc 3.21. Pulling the `bioconductor-*` builds
+through conda instead made the solve large and fragile for no benefit.
+
+`install_packages.R` installs **PURSUE first**, from this checkout with base R, so it lands
+even on a node with no outbound network; then every other package, each best-effort. It always
+writes `hpc/installed_packages.csv` (package, source, installed, version) and
+`hpc/install_log.txt` with the reason for every failure, even when steps fail. A package that
+will not install is reported, not fatal: its method or simulator is recorded as
+`not_installed` in the results rather than crashing a cell.
 
 If a whole class of packages fails at once, the node has no outbound network — install from a
-login node, or ask for a local CRAN/Bioconductor mirror. Note that MaAsLin 3 is only in
-Bioconductor 3.20+; on an older R it has to come from GitHub (`biobakery/maaslin3`), which
-the script already attempts.
+login node, or ask for a local CRAN/Bioconductor mirror.
 
 ## 2. Data
 
