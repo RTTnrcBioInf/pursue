@@ -30,26 +30,23 @@ dependencies:
   - r-remotes
   - r-biocmanager
   - r-arrow
-  # Prebuilt conda-forge binaries for the compile-heavy CRAN packages. These are the roots
-  # whose failure cascaded through fifteen packages; taking them as binaries removes the whole
-  # class of problem. All conda-forge, no bioconda -- bioconda's post-link scripts are what
-  # broke the earlier attempt.
+  # Prebuilt conda-forge binaries for the compile-heavy CRAN packages whose failure cascaded
+  # through fifteen others. Only names known to exist on conda-forge are listed: one missing
+  # name fails the whole solve (r-wgcna, 2026-09-11 — it is bioconda-only). Anything not here
+  # is built from source by install_packages.R, which works now that cmake, glpk, nlopt and
+  # tbb are present. All conda-forge, no bioconda — bioconda post-link scripts broke an
+  # earlier attempt.
   - r-fs
   - r-nloptr
   - r-lme4
   - r-lmertest
   - r-igraph
   - r-rcppparallel
-  - r-rfast
   - r-hmisc
   - r-rmarkdown
   - r-htmlwidgets
   - r-sass
   - r-bslib
-  - r-desctools
-  - r-cvxr
-  - r-huge
-  - r-wgcna
   - r-ggplot2
   - r-dplyr
   - curl

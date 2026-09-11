@@ -32,6 +32,9 @@ ids <- if (opt$templates != "all") strsplit(opt$templates, ",")[[1]] else
   reg$id[reg$pool %in% (if (opt$pool == "all") unique(reg$pool) else strsplit(opt$pool, ",")[[1]])]
 sims <- strsplit(opt$simulators, ",")[[1]]
 ms <- as.integer(strsplit(opt$m, ",")[[1]])
+cat("R:", R.version.string, "| library:", .libPaths()[1], "\n")
+if (getRversion() < "4.5")
+  cat("!! R < 4.5 -- did you forget `conda activate pursue-bench`?\n")
 cat("cache:", cache, "\ntemplates:", paste(ids, collapse = ", "), "\nsimulators:", paste(sims, collapse = ", "), "\n\n")
 
 rows <- list()

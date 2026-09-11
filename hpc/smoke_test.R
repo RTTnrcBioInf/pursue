@@ -10,6 +10,22 @@ for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R", 
             "R/simulators/sim_house.R", "R/simulators/implant.R", "R/simulators/nullperm.R", "R/simulators/dispatch.R",
             "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R")) source(f)
 
+# Which R is this? setup_env.sh activates the environment only inside its own shell, so an
+# interactive session that has not run `conda activate pursue-bench` gets the system R and none
+# of the benchmark packages -- which looks like a catastrophic regression rather than a missing
+# activation. Say plainly which R and which library are in use.
+cat("R:        ", R.version.string, "\n", sep = "")
+cat("library:  ", .libPaths()[1], "\n", sep = "")
+cat("PURSUE:   ", if (requireNamespace("PURSUE", quietly = TRUE))
+      as.character(utils::packageVersion("PURSUE")) else "NOT INSTALLED", "\n\n", sep = "")
+if (getRversion() < "4.5")
+  cat("!! R is older than 4.5. If you meant to use the conda environment, activate it first:\n",
+      "!!   conda activate pursue-bench   (or micromamba activate pursue-bench)\n",
+      "!! Without it LOCOM2, MaAsLin 3 and ADAPT cannot be installed.\n\n", sep = "")
+if (!requireNamespace("PURSUE", quietly = TRUE))
+  cat("!! PURSUE is not installed in this library -- the method under test cannot be measured.\n",
+      "!! Either the environment is not activated, or hpc/install_packages.R has not succeeded.\n\n", sep = "")
+
 errlog <- file.path(hpc, "smoke_errors.log")
 cat("smoke test", format(Sys.time()), "\nR", R.version.string, "\n\n", file = errlog)
 trunc1 <- function(x, n = 120L) { x <- gsub("[\r\n]+", " ", paste(x, collapse = " ")); if (nchar(x) > n) paste0(substr(x, 1L, n), " [...]") else x }

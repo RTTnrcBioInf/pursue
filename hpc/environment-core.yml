@@ -1,0 +1,33 @@
+# Fallback used automatically by setup_env.sh when environment.yml fails to solve (usually
+# because a convenience binary is unavailable for this platform). This is the irreducible
+# core: R 4.5, a compiler toolchain, cmake, and the system libraries that bundled C libraries
+# link against. Every R package is then built from source by hpc/install_packages.R, which is
+# slower but has no package-availability risk at all.
+name: pursue-bench
+channels: [conda-forge, nodefaults]
+dependencies:
+  - r-base=4.5
+  - c-compiler
+  - cxx-compiler
+  - fortran-compiler
+  - make
+  - cmake
+  - pkg-config
+  - glpk
+  - nlopt
+  - tbb-devel
+  - r-remotes
+  - r-biocmanager
+  - curl
+  - git
+  - libcurl
+  - openssl
+  - libxml2
+  - zlib
+  - bzip2
+  - xz
+  - gsl
+  - gmp
+  - mpfr
+  - libpng
+  - freetype

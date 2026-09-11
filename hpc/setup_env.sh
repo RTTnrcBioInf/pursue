@@ -51,6 +51,11 @@ if [ "$MODE" = "conda" ]; then
     echo ">> --keep: reusing the existing environment at $PREFIX (skipping rebuild)"
     PREFIX=""
   fi
+  if [ -n "${PREFIX:-}" ] && [ "${CONDA_PREFIX:-}" = "$PREFIX" ]; then
+    echo ">> ERROR: $ENVNAME is currently ACTIVE in this shell, and this script rebuilds it."
+    echo ">>        Deactivate first, then re-run:   conda deactivate && bash hpc/setup_env.sh"
+    exit 1
+  fi
   if [ -n "${PREFIX:-}" ] && [ -d "$PREFIX" ]; then
     echo ">> removing existing environment at $PREFIX"
     $SOLVER env remove -y -n "$ENVNAME" >/dev/null 2>&1 || true
@@ -58,10 +63,20 @@ if [ "$MODE" = "conda" ]; then
     [ -d "$PREFIX" ] && { echo ">> ERROR: could not delete $PREFIX -- remove it by hand and re-run"; exit 1; }
   fi
 
-  if [ "$SOLVER" = "micromamba" ]; then
-    micromamba create -y -n "$ENVNAME" -f "$HERE/environment.yml"
-  else
-    $SOLVER env create -n "$ENVNAME" -f "$HERE/environment.yml"
+  # Fall back to the minimal core if the full file will not solve. One unavailable convenience
+  # binary must not cost a round trip: r-wgcna (bioconda-only) failed the whole solve on
+  # 2026-09-11. The core has no optional packages, so install_packages.R builds them instead.
+  create_env() {
+    local yml="$1"
+    if [ "$SOLVER" = "micromamba" ]; then micromamba create -y -n "$ENVNAME" -f "$yml"
+    else $SOLVER env create -n "$ENVNAME" -f "$yml"; fi
+  }
+  if ! create_env "$HERE/environment.yml"; then
+    echo ">> full environment.yml did not solve — retrying with the minimal core"
+    echo ">> (every R package will be built from source; slower, but nothing can be missing)"
+    $SOLVER env remove -y -n "$ENVNAME" >/dev/null 2>&1 || true
+    [ -n "${PREFIX:-}" ] && rm -rf "$PREFIX"
+    create_env "$HERE/environment-core.yml"
   fi
 
   # Activation is NOT "$SOLVER shell.bash hook": that spelling is conda's alone. mamba rejects
@@ -96,4 +111,14 @@ case "$RV" in
     echo ">>          will not install. Those are three of the comparators the benchmark needs." ;;
 esac
 Rscript "$HERE/install_packages.R"
-echo ">> now: bash hpc/download_templates.sh && Rscript benchmarks/expected/make_expected.R && Rscript hpc/smoke_test.R"
+cat <<MSG
+
+>> IMPORTANT: this script activated the environment only inside its own shell. Your prompt is
+>> still on the system R. Activate it yourself before running anything else, or you will run
+>> the benchmark against the wrong R and see every package as missing:
+>>
+>>   ${ACT:-conda} activate $ENVNAME
+>>   bash hpc/download_templates.sh
+>>   Rscript benchmarks/expected/make_expected.R
+>>   Rscript hpc/smoke_test.R
+MSG
