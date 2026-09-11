@@ -15,6 +15,8 @@ cat("smoke test", format(Sys.time()), "\nR", R.version.string, "\n\n", file = er
 trunc1 <- function(x, n = 120L) { x <- gsub("[\r\n]+", " ", paste(x, collapse = " ")); if (nchar(x) > n) paste0(substr(x, 1L, n), " [...]") else x }
 note <- function(what, e) { cat("=== ", what, "\n", conditionMessage(e), "\n\n", sep = "", file = errlog, append = TRUE)
                            paste("error:", trunc1(conditionMessage(e))) }
+# dirmult (inside GUniFrac) and friends print an iteration per line; keep the console readable.
+.quiet_sim <- function(expr) { r <- NULL; invisible(utils::capture.output(r <- suppressMessages(expr), file = nullfile())); r }
 
 cat("== templates ==\n")
 reg <- read_template_registry(); rows <- list()
@@ -29,23 +31,37 @@ for (i in seq_len(nrow(reg))) {
 }
 write.csv(do.call(rbind, rows), file.path(hpc, "smoke_templates.csv"), row.names = FALSE)
 
-tpl <- load_template("hmp_tongue", max_samples = 120)
-regime <- reference_regime(); regime$n_per_group <- 15L; regime$m <- 80L
-cat("\n== simulators (reference regime, 15/group, 80 features) ==\n")
+# Deliberately tiny: sparseDOSSA2 and MIDASim fit the template they are handed, and on a full
+# one that is minutes to hours. This pass answers "does the wrapper work", not "is it fast";
+# the real per-template fits are warmed once by hpc/prep_caches.R.
+tpl <- load_template("hmp_tongue", max_samples = 60)
+keep <- order(rowMeans(tpl$counts > 0), decreasing = TRUE)[seq_len(min(100L, nrow(tpl$counts)))]
+tpl$counts <- tpl$counts[sort(keep), , drop = FALSE]
+regime <- reference_regime(); regime$n_per_group <- 15L; regime$m <- 60L
+smoke_cache <- file.path(hpc, "smoke_cache"); dir.create(smoke_cache, recursive = TRUE, showWarnings = FALSE)
+sim_timeout <- as.integer(Sys.getenv("PURSUE_SMOKE_TIMEOUT", unset = "600"))
+cat("\n== simulators (", nrow(tpl$counts), " template features x ", ncol(tpl$counts),
+    " samples; 15/group, 60 features; ", sim_timeout, "s limit each) ==\n", sep = "")
 sreg <- simulator_registry(); rows <- list()
 for (i in seq_len(nrow(sreg))) {
-  s <- sreg$id[i]
+  s <- sreg$id[i]; t0 <- Sys.time()
   st <- tryCatch({ if (!simulator_available(s)) paste0("not_installed (", sreg$package[i], ")") else {
-        o <- simulate_cell_data(s, tpl, regime, 1L, file.path(root, "cache"))
+        setTimeLimit(elapsed = sim_timeout, transient = TRUE)
+        o <- .quiet_sim(simulate_cell_data(s, tpl, regime, 1L, smoke_cache))
+        setTimeLimit(elapsed = Inf)
         if (!is.null(o$unsupported)) paste("unsupported:", paste(o$unsupported, collapse = ",")) else
           sprintf("ok: %d x %d, %d DA", nrow(o$counts), ncol(o$counts), sum(o$truth$truth_abs)) } },
-    error = function(e) note(paste("simulator", s), e))
-  cat(sprintf("  %-8s %s\n", s, st))
-  rows[[i]] <- data.frame(simulator = s, package = sreg$package[i], status = st,
+    error = function(e) { setTimeLimit(elapsed = Inf)
+      if (grepl("reached elapsed time limit|reached CPU time limit", conditionMessage(e)))
+        sprintf("timeout (>%ds) -- warm it with hpc/prep_caches.R", sim_timeout) else note(paste("simulator", s), e) })
+  setTimeLimit(elapsed = Inf)
+  el <- as.numeric(Sys.time() - t0, units = "secs")
+  cat(sprintf("  %-8s %7.1fs  %s\n", s, el, st))
+  rows[[i]] <- data.frame(simulator = s, package = sreg$package[i], status = st, seconds = round(el, 1),
                           version = tryCatch(as.character(utils::packageVersion(sreg$package[i])), error = function(e) NA),
                           stringsAsFactors = FALSE)
+  write.csv(do.call(rbind, rows), file.path(hpc, "smoke_simulators.csv"), row.names = FALSE)  # after each, so a kill still leaves a record
 }
-write.csv(do.call(rbind, rows), file.path(hpc, "smoke_simulators.csv"), row.names = FALSE)
 
 sim <- simulate_house(tpl, regime, 2L); keep <- rowMeans(sim$counts > 0) >= 0.1; ct <- sim$counts[keep, ]
 cat("\n== methods (house data, ", nrow(ct), " features x ", ncol(ct), " samples) ==\n", sep = "")
@@ -60,6 +76,8 @@ for (i in seq_len(nrow(mreg))) {
   cat(sprintf("  %-18s %7.1fs  %s\n", m, if (is.na(run$runtime_s)) 0 else run$runtime_s, st))
   rows[[i]] <- data.frame(method = m, package = mreg$package[i], status = st, n_p_finite = n_p,
                           runtime_s = run$runtime_s, version = run$version, stringsAsFactors = FALSE)
+  write.csv(do.call(rbind, rows), file.path(hpc, "smoke_methods.csv"), row.names = FALSE)
 }
 write.csv(do.call(rbind, rows), file.path(hpc, "smoke_methods.csv"), row.names = FALSE)
 cat("\nwrote hpc/smoke_{templates,simulators,methods}.csv and smoke_errors.log\n")
+cat("simulator caches from this run are in hpc/smoke_cache/ and can be deleted.\n")

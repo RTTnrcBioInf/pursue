@@ -16,6 +16,21 @@ simulator_registry <- function() data.frame(stringsAsFactors = FALSE,
 
 simulator_available <- function(id) { pk <- simulator_registry()$package[simulator_registry()$id == id]; !nzchar(pk) || requireNamespace(pk, quietly = TRUE) }
 
+# Cached per-template fits (MIDASim setup, sparseDOSSA2 fit). Creates the directory, writes
+# atomically via a temp file so concurrent array tasks cannot read a half-written object, and
+# treats a failed write as a cache miss rather than an error -- a read-only or absent cache
+# directory must never kill a cell. Warm these once with hpc/prep_caches.R before submitting:
+# without a warm cache every array task refits the template at the same time.
+.cache_get <- function(f, compute) {
+  if (is.null(f)) return(compute())
+  if (file.exists(f)) { got <- tryCatch(readRDS(f), error = function(e) NULL); if (!is.null(got)) return(got) }
+  dir.create(dirname(f), recursive = TRUE, showWarnings = FALSE)
+  obj <- compute()
+  tryCatch({ tmp <- paste0(f, ".tmp", Sys.getpid()); saveRDS(obj, tmp); file.rename(tmp, f) },
+           error = function(e) message("cache write failed (continuing): ", conditionMessage(e)))
+  obj
+}
+
 simulate_cell_data <- function(simulator, template, regime, seed, cache_dir = NULL) {
   switch(simulator,
     house = simulate_house(template, regime, seed),
@@ -76,8 +91,9 @@ simulate_mid <- function(template, regime, seed, cache_dir = NULL) {
   keep <- order(colMeans(ct > 0), decreasing = TRUE)[seq_len(min(regime$m, m_avail))]
   ct <- ct[, keep, drop = FALSE]
   setup <- template$mid_setup
-  if (is.null(setup)) { f <- if (!is.null(cache_dir)) file.path(cache_dir, paste0("midasim_", template$id, "_", regime$m, ".rds")) else NULL
-    if (!is.null(f) && file.exists(f)) setup <- readRDS(f) else { setup <- MIDASim::MIDASim.setup(ct, mode = "parametric", n.break.ties = 10); if (!is.null(f)) saveRDS(setup, f) } }
+  if (is.null(setup)) setup <- .cache_get(
+    if (!is.null(cache_dir)) file.path(cache_dir, paste0("midasim_", template$id, "_", regime$m, ".rds")) else NULL,
+    function() MIDASim::MIDASim.setup(ct, mode = "parametric", n.break.ties = 10))
   n_per <- regime$n_per_group; n <- 2L * n_per; m <- ncol(ct)
   es <- .effects_for(regime); n_da <- round(regime$da_frac * m); da <- sample.int(m, n_da)
   p_up <- switch(regime$balance, balanced = 0.5, "80_20" = 0.8, "100_0" = 1.0)
@@ -105,8 +121,9 @@ simulate_sd2 <- function(template, regime, seed, cache_dir = NULL) {
   if (length(un)) return(list(unsupported = un))
   set.seed(seed)
   fit <- template$sd2_fit
-  if (is.null(fit)) { f <- if (!is.null(cache_dir)) file.path(cache_dir, paste0("sd2_", template$id, ".rds")) else NULL
-    if (!is.null(f) && file.exists(f)) fit <- readRDS(f) else { fit <- SparseDOSSA2::fit_SparseDOSSA2(data = template$counts, control = list(verbose = FALSE)); if (!is.null(f)) saveRDS(fit, f) } }
+  if (is.null(fit)) fit <- .cache_get(
+    if (!is.null(cache_dir)) file.path(cache_dir, paste0("sd2_", template$id, ".rds")) else NULL,
+    function() SparseDOSSA2::fit_SparseDOSSA2(data = template$counts, control = list(verbose = FALSE)))
   n_per <- regime$n_per_group; n <- 2L * n_per; m <- min(regime$m, nrow(template$counts))
   es <- .effects_for(regime); n_da <- round(regime$da_frac * m); da <- sample.int(m, n_da)
   p_up <- switch(regime$balance, balanced = 0.5, "80_20" = 0.8, "100_0" = 1.0)

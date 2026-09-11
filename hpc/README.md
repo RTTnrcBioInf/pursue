@@ -1,11 +1,32 @@
 # Running the benchmark on the HPC
 
 Everything below runs from the repository root on the cluster. Steps 1–4 are one-time
-setup; 5–7 are the benchmark. Nothing needs a login to any data service.
+setup; 5–8 are the benchmark. Nothing needs a login to any data service.
 
 ```bash
 git clone https://github.com/RTTnrcBioInf/pursue.git && cd pursue
 ```
+
+Everything below runs from **that clone's root** — the directory holding `DESCRIPTION`.
+A partial copy of `benchmarks/` and `hpc/` is not enough: PURSUE is installed from this
+directory, so without `DESCRIPTION` at the top it cannot install and there is no method under
+test.
+
+## The loop
+
+Code goes cluster-ward and results come back through git, so neither side hand-copies files:
+
+| where | what |
+|---|---|
+| laptop | `git add -A && git commit && git push` |
+| cluster | `git pull` → run the step below |
+| cluster | `git add -A && git commit && git push` — the verification record travels back |
+| laptop | `git pull` |
+
+`.gitignore` is set up for exactly this: `hpc/installed_packages.csv`, `hpc/install_log.txt`,
+`hpc/prep_caches.csv`, `hpc/smoke_*.csv`, `hpc/smoke_errors.log` and `results/summary/` are
+tracked on purpose, while the per-cell results, the downloaded templates, the simulator caches
+and the SLURM logs are not (they are large and reproducible from the seed).
 
 ## 1. Environment
 
@@ -75,10 +96,26 @@ the 2026-09-11 run caught exactly that in ANCOM-BC2. Anything reporting `error:`
 wrapper fixed before it goes into an array job; commit the three CSVs and
 `installed_packages.csv` — together they are the record of what was verified on this cluster.
 
-## 4. Task lists
+## 4. Warm the simulator caches — do not skip either
 
 ```bash
-# pilot (protocol 5.12): 2 simulators x evaluation templates x 7 regimes x 5 reps
+Rscript hpc/prep_caches.R                     # evaluation pool, mid + sd2
+Rscript hpc/prep_caches.R --pool all --timeout 21600
+```
+
+MIDASim needs a setup object per (template, feature count) and sparseDOSSA2 a fit per
+template; the sparseDOSSA2 fit is minutes to hours on a full template. These are cached under
+`cache/`, but the cache has to exist **before** the array jobs start — otherwise all 200
+concurrent tasks miss at the same instant and refit the same template in parallel, which is
+the most expensive mistake available here. Writes `hpc/prep_caches.csv`.
+
+Run it on one node (a compute node with a long wall time, or an interactive session). It is
+idempotent: re-running skips whatever is already cached.
+
+## 5. Task lists
+
+```bash
+# pilot (protocol §5.12): 2 simulators x evaluation templates x 7 regimes x 5 reps
 Rscript hpc/make_tasklist.R --pool evaluation --simulators house,mid \
         --regimes R00,R01,R03,R09,R13,R16,R19 --max-rep 5 --out hpc/tasks
 
@@ -88,7 +125,7 @@ Rscript hpc/make_tasklist.R --pool evaluation --simulators house,msq,mid,sd2,sps
 
 Prints the cell counts. One line per cell; the array index is the line number.
 
-## 5. Submit
+## 6. Submit
 
 ```bash
 # all at once, in dependency order (realism/caching first, then A; B, C, D/E independent)
@@ -107,7 +144,7 @@ Seeds: every cell's seed is derived from `PURSUE_MASTER_SEED` (default **1**) an
 coordinates, so a re-run reproduces the same data. Set the variable before submitting if
 you ever need a second independent draw.
 
-## 6. What comes back
+## 7. What comes back
 
 Per cell, under `results/axis*/`:
 
@@ -120,7 +157,7 @@ Per cell, under `results/axis*/`:
 
 `results/realism/*.csv` holds the realism gate per (simulator, template).
 
-## 7. Aggregate
+## 8. Aggregate
 
 ```bash
 Rscript benchmarks/R/analysis/aggregate.R results

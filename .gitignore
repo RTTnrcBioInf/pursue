@@ -1,16 +1,33 @@
-# benchmark runtime state (regenerated on the cluster)
-results/
+# --- Runtime state that must NOT travel (big, or regenerated on the cluster) ---
+# NOTE: git has no trailing comments in this file. A comment must be on its own line,
+# or it becomes part of the pattern and the rule silently stops matching.
+
+# per-template simulator fits (hundreds of MB)
 cache/
+benchmarks/cache/
+hpc/smoke_cache/
+# SLURM stdout/stderr
 logs/
+# generated task lists
 hpc/tasks/
 hpc/tasks_pilot/
-hpc/installed_packages.csv
+benchmarks/results_test/
+
+# downloaded templates; SHA256SUMS is the record that travels instead
 benchmarks/data/*
 !benchmarks/data/SHA256SUMS
-benchmarks/cache/
-benchmarks/results_test/
+
+# Per-cell benchmark output is far too large to track. The summary tables ARE the
+# deliverable and do travel back from the cluster (protocol section 12).
+results/*
+!results/summary/
+
+# --- Verification record: these DO travel back from the cluster (protocol section 13) ---
+# hpc/installed_packages.csv, hpc/install_log.txt, hpc/prep_caches.csv,
+# hpc/smoke_*.csv and hpc/smoke_errors.log are tracked on purpose. Do not ignore them.
+
+# --- R ---
 *.tar.gz
-# R
 .Rhistory
 .RData
 .Rproj.user/

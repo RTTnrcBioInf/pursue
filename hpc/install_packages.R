@@ -13,13 +13,24 @@ options(repos = c(CRAN = "https://cloud.r-project.org"), Ncpus = max(1L, paralle
 libs <- Filter(nzchar, strsplit(Sys.getenv("R_LIBS_USER", unset = ""), .Platform$path.sep)[[1]])
 if (length(libs)) { dir.create(libs[1], recursive = TRUE, showWarnings = FALSE); .libPaths(c(libs, .libPaths())) }
 has <- function(p) requireNamespace(p, quietly = TRUE)
-try_ <- function(what, expr) tryCatch({ expr; TRUE }, error = function(e) { message("  !! ", what, ": ", conditionMessage(e)); FALSE },
-                                                              warning = function(w) { message("  ~  ", what, ": ", conditionMessage(w)); has(what) })
 root <- normalizePath(file.path(dirname(sub("--file=", "", grep("--file=", commandArgs(), value = TRUE)[1])), ".."), mustWork = FALSE)
+# Every failure also goes to hpc/install_log.txt -- console output scrolls away on a cluster,
+# and "package X did not install" is useless without the reason.
+logf <- file.path(root, "hpc", "install_log.txt")
+dir.create(dirname(logf), showWarnings = FALSE)
+cat("install_packages.R", format(Sys.time()), "\n", R.version.string, "\n\n", file = logf)
+say <- function(...) { msg <- paste0(...); message(msg); cat(msg, "\n", file = logf, append = TRUE) }
+try_ <- function(what, expr) tryCatch({ expr; TRUE },
+  error   = function(e) { say("  !! ", what, ": ", conditionMessage(e)); FALSE },
+  warning = function(w) { say("  ~  ", what, ": ", conditionMessage(w)); has(what) })
 
-cat(">> R", R.version.string, "\n>> library:", .libPaths()[1], "\n\n>> 1. PURSUE (from this checkout)\n")
+cat(">> R", R.version.string, "\n>> library:", .libPaths()[1], "\n>> repo root:", root, "\n\n>> 1. PURSUE (from this checkout)\n")
+if (!file.exists(file.path(root, "DESCRIPTION")))
+  say("  !! no DESCRIPTION at ", root, " -- is this the repository root? PURSUE cannot install.")
 if (!try_("PURSUE", install.packages(root, repos = NULL, type = "source")))
   try_("PURSUE via remotes", { if (!has("remotes")) install.packages("remotes"); remotes::install_local(root, upgrade = "never", force = TRUE) })
+if (!has("PURSUE")) say("  !! PURSUE did not install. It is the method under test -- nothing can be measured without it.\n",
+                        "     Try by hand and read the output:  R CMD INSTALL ", root)
 
 cat("\n>> 2. bootstrap\n")
 if (!has("BiocManager")) try_("BiocManager", install.packages("BiocManager"))
@@ -54,4 +65,4 @@ miss <- st$package[!st$installed]
 cat(sprintf("\n%d of %d installed. Missing: %s\n", sum(st$installed), nrow(st), if (length(miss)) paste(miss, collapse = ", ") else "none"))
 if (length(miss)) cat("A missing package is not fatal -- its method/simulator is recorded as not_installed.\n",
                       "If many failed at once the node most likely has no outbound network; install from a login node or ask for a local mirror.\n", sep = "")
-cat("wrote hpc/installed_packages.csv\n")
+cat("wrote hpc/installed_packages.csv and hpc/install_log.txt\n")
