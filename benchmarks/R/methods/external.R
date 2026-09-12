@@ -337,27 +337,20 @@ method_fastemu <- function(counts, meta, formula, tested_term, args = list()) {
   call_args <- c(list(formula = formula, Y = t(counts), run_score_tests = TRUE), stats::setNames(list(meta), dat_arg), args)
   if ("test_kj" %in% ffml && !"test_kj" %in% names(args) && length(kk) == 1L)
     call_args$test_kj <- data.frame(k = kk, j = seq_along(feats))
-  # fastEmu's whole advantage over radEmu is score-testing against a small REFERENCE SET rather
-  # than every taxon. Which argument carries it has moved between versions, so take whichever the
-  # installed one declares. Passing neither leaves fastEmu doing radEmu's work: the 2026-09-12
-  # probe measured 72.5 min per cell at 500 features, projecting to ~43 000 CPU-hours over the
-  # grid -- more than the other sixteen methods combined by 18x. Note this fixes the estimand as
-  # "log fold change relative to the reference set", which is what fastEmu is; protocol section 6.
-  rs <- if (!is.null(args$ref_size)) as.integer(args$ref_size) else 30L
-  ref_arg <- NA_character_
-  if (is_fe && !any(c("reference_set", "reference_set_size") %in% names(args))) {
-    if ("reference_set_size" %in% ffml) {
-      ref_arg <- "reference_set_size"; call_args$reference_set_size <- rs
-    } else if ("reference_set" %in% ffml) {
-      # the installed version takes the set itself: the most prevalent `rs` features, which is
-      # both a defensible reference (well-estimated taxa) and deterministic across cells.
-      ref_arg <- "reference_set"
-      call_args$reference_set <- sort(order(rowMeans(counts > 0), decreasing = TRUE)[seq_len(min(rs, length(feats)))])
-    }
+  # fastEmu's advantage over radEmu is score-testing against a small REFERENCE SET rather than
+  # every taxon. MEASURED 2026-09-12 (hpc/fastemu_probe2.txt), fastEmu 2.0.1: `reference_set`
+  # defaults to "data_driven" and `reference_set_size` to 30 -- so passing 30, as this wrapper
+  # used to, is a no-op: estimates matched the defaults to 4 dp and runtimes to 1.4%. Shrinking
+  # the set does cut cost, but weakly (a 16x smaller set buys 3.2x), because most of the work is
+  # the penalized full fit, which the reference set does not touch. We therefore run fastEmu at
+  # its authors' defaults rather than reconfiguring someone else's method to fit our budget, and
+  # restrict the CELLS it runs on instead (protocol section 6). `args` still overrides either
+  # argument if a task list asks for it.
+  rs <- NA_integer_; ref_arg <- NA_character_
+  if (is_fe && !is.null(args$ref_size)) {
+    rs <- as.integer(args$ref_size); ref_arg <- "reference_set_size"; call_args$reference_set_size <- rs
+    call_args$ref_size <- NULL
   }
-  # A silently dropped reference set is the difference between fastEmu and radEmu: on
-  # 2026-09-12 an apparent 13x speedup turned out to be a fitting artifact because the fallback
-  # below had quietly removed the argument. Every way of losing it is recorded in `status`.
   ref_note <- NA_character_
   out <- tryCatch(.quiet(do.call(fn, call_args)),
                   error = function(e) {
