@@ -160,7 +160,45 @@ Rscript hpc/make_tasklist.R --pool evaluation --simulators house,msq,mid,sd2,sps
 
 Prints the cell counts. One line per cell; the array index is the line number.
 
-## 6. Submit
+## 6. Run
+
+### No scheduler (single machine)
+
+```bash
+bash hpc/run_local.sh hpc/tasks_pilot/axisA.txt 32     # 32 cells at a time
+bash hpc/run_local.sh hpc/tasks/axisA.txt              # defaults to nproc
+DRY=1 bash hpc/run_local.sh hpc/tasks/axisA.txt        # list what would run
+```
+
+Each cell is an independent `Rscript`, so concurrency is simply how many run at once.
+`run_local.sh` pins every cell to **one** BLAS thread — without that, N concurrent R processes
+each spawn their own threads and oversubscribe the machine, which is the usual way 32 jobs end
+up slower than 8. It is **resumable**: a cell whose manifest exists is skipped, so re-running
+after an interruption or a failure only does the missing work. Per-cell output goes to
+`logs/<cell>.log`.
+
+Pick N from cores *and* memory: peak RSS per cell times N must fit in RAM with room to spare.
+Measure one cell first:
+
+```bash
+/usr/bin/time -v Rscript benchmarks/R/engine/run_cell.R --axis A --simulator house \
+  --template hmp_stool --regime R00 --replicate 1 --out results/axisA --cache cache 2>&1 | grep Maximum
+```
+
+Axes D and E are a handful of commands rather than a grid:
+
+```bash
+R=benchmarks/R/engine/run_axisDE.R; O=results/axisDE; mkdir -p $O
+Rscript $R --axis D --template mbd_gingival_v35 --group body_subsite --expected expected/gingival_aerobes.tsv --out $O
+Rscript $R --axis D --template mbd_ravel_bv --group study_condition --expected expected/bv_taxa.tsv --out $O
+Rscript $R --axis D --template mbd_stammler_spikein --spikein "$(cat benchmarks/expected/stammler_spikein_ids.txt)" --out $O
+Rscript $R --axis E --template crc_genus --group diagnosis --levels control,CRC --splits 5 --out $O
+Rscript $R --axis E --template risk_ileum --group diagnosis --levels no,CD --splits 5 --out $O
+```
+
+### With SLURM
+
+
 
 ```bash
 # all at once, in dependency order (realism/caching first, then A; B, C, D/E independent)
