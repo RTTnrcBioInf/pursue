@@ -1,0 +1,11 @@
+radEmu  2.3.2.0
+fastEmu 2.0.1
+
+fastEmuFit formals:
+  reference_set, reference_set_size, Y, X, formula, data, test_kj, cluster, penalize, B, fitted_model, refit, fastEmu_refit, return_wald_p, compute_cis, run_score_tests, verbose, ...
+
+reference-set arguments in the signature: reference_set, reference_set_size, refit, fastEmu_refit
+Error in as.environment(pos) : 
+  no item called "package:fastEmu" on the search list
+Calls: cat -> paste -> grep -> is.factor -> ls
+Execution halted
