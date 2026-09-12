@@ -1,6 +1,6 @@
 "simulator","package","status","seconds","version"
 "house","","ok: 60 x 30, 6 DA",0.1,NA
-"msq","GUniFrac","ok: 60 x 30, 6 DA",2.9,"1.9"
+"msq","GUniFrac","ok: 60 x 30, 6 DA",2.8,"1.9"
 "mid","MIDASim","ok: 60 x 30, 6 DA",0.4,"2.0"
-"sd2","SparseDOSSA2","ok: 100 x 30, 10 DA",0.2,"0.99.2"
-"sps","SPsimSeq","ok: 60 x 30, 6 DA",4.9,"1.20.0"
+"sd2","SparseDOSSA2","ok: 100 x 30, 10 DA",0.1,"0.99.2"
+"sps","SPsimSeq","ok: 60 x 30, 6 DA",5,"1.20.0"

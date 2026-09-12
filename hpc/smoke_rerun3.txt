@@ -1,0 +1,52 @@
+R:        R version 4.5.3 (2026-03-11)
+library:  /home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5
+PURSUE:   0.2.0
+
+== templates ==
+  hmp_stool              ok       1295 features x   353 samples, depth median 4266
+  hmp_tongue             ok        403 features x   350 samples, depth median 4646
+  hmp_gingiva            ok        364 features x   333 samples, depth median 4585
+  hmp_skin_ear           ok        307 features x   701 samples, depth median 4353
+  hmp_vagina             ok        374 features x   434 samples, depth median 4789
+  risk_stool             ok       2044 features x   166 samples, depth median 30873
+  risk_ileum             ok       1426 features x   514 samples, depth median 26084
+  twinsuk_stool          ok       3223 features x  1017 samples, depth median 65045
+  crc_genus              ok        191 features x   708 samples, depth median 43479
+  mbd_gingival_v35       ok       5511 features x   308 samples, depth median 5292
+  mbd_ravel_bv           ok        131 features x   394 samples, depth median 2144
+  mbd_stammler_spikein   ok       2485 features x    17 samples, depth median 31754
+
+== simulators (100 template features x 60 samples; 15/group, 60 features; 600s limit each) ==
+  house        0.1s  ok: 60 x 30, 6 DA
+  msq          2.8s  ok: 60 x 30, 6 DA
+  mid          0.4s  ok: 60 x 30, 6 DA
+  sd2          0.1s  ok: 100 x 30, 10 DA
+  sps          5.0s  ok: 60 x 30, 6 DA
+
+== methods (house data, 60 features x 30 samples) ==
+  wilcoxon_tss           0.1s  ok
+  lm_logtss              0.0s  ok
+  limma_logtss           0.0s  ok
+  logistic_presence      0.1s  ok/no_detection_variation
+  pursue                 1.3s  ok/too_few_detected/no_variation_in_detection
+  linda                  0.1s  ok
+Registered S3 method overwritten by 'httr':
+  method         from  
+  print.response rmutil
+  ancombc2               9.8s  ok
+  maaslin3               2.2s  ok
+  aldex2                 1.1s  ok
+  corncob                1.3s  ok
+  ldm                    4.0s  ok
+  locom                  7.7s  ok
+Registered S3 method overwritten by 'car':
+  method           from
+  na.action.merMod lme4
+  locom2                 1.2s  ok
+  zicoseq                6.2s  ok
+  fastancom              0.0s  ok
+  adapt                  0.2s  ok
+  fastemu               77.7s  ok
+
+wrote hpc/smoke_{templates,simulators,methods}.csv and smoke_errors.log
+simulator caches from this run are in hpc/smoke_cache/ and can be deleted.

@@ -1,0 +1,39 @@
+radEmu  2.3.2.0
+fastEmu 2.0.1
+
+A. defaults of the reference-set arguments
+   reference_set        = "data_driven"
+   reference_set_size   = 30
+   fastEmu_refit        = FALSE
+   refit                = TRUE
+   penalize             = TRUE
+   return_wald_p        = FALSE
+   compute_cis          = TRUE
+   exported: fastEmuTest, fastEmuFit
+
+B. defaults, scaling in the number of features
+   defaults                   J=40       24.2 s
+   defaults                   J=80       59.8 s
+   -> t(80)/t(40) = 2.47, exponent 1.31  (1 = linear, 2 = quadratic)
+
+C. reference-set size at fixed J = 80
+   reference_set_size = 80    J=80       88.6 s
+   reference_set_size = 30    J=80       59.0 s
+   reference_set_size = 5     J=80       27.5 s
+   -> size 30 is 0.67x the cost of the full reference set
+   -> size  5 is 0.31x the cost of the full reference set
+
+D. what the fitted objects say
+   names(fit): call, coef, B, penalized, Y_augmented, z_hat, I, Dy, cluster, reference_set, reference_set_names, constraint_diff, included_categories, score_test_hyperparams
+   default fit $reference_set: 49 60 67 19 61 66 8 28 32 55 13 12
+   default fit $reference_set_names: t49 t60 t67 t19 t61 t66 t8 t28 t32 t55 t13 t12
+   default fit $constraint_diff: 0.00938120549198489 -0.0073162083160144
+   estimates default vs size 30: max |diff| = 0.0000  (0 = the argument did nothing)
+
+E. projection to a grid cell (m = 500 features)
+   defaults   ~11 min per cell at m = 500  (exponent 1.31, 60 samples)
+   size 30    ~11 min per cell at m = 500  (exponent 1.31, 60 samples)
+   Grid is ~4 400 axis-A/B cells. Multiply.
+
+Decision rule: if `size 30` is not at least ~4x cheaper than the full reference set,
+fastEmu is radEmu with extra steps at our feature counts and comes out of the run.
