@@ -10,4 +10,4 @@ set -euo pipefail
 source hpc/slurm/env.sh
 ARGS=$(sed -n "${SLURM_ARRAY_TASK_ID}p" hpc/tasks/axisB.txt)
 echo "[$(date)] task $SLURM_ARRAY_TASK_ID: $ARGS"
-Rscript benchmarks/R/engine/run_cell.R $ARGS --out results/axisB --cache cache --n-cores "$SLURM_CPUS_PER_TASK" --master-seed "${PURSUE_MASTER_SEED:-1}"
+Rscript benchmarks/R/engine/run_cell.R $ARGS --out results/axisB --cache cache --n-cores "$SLURM_CPUS_PER_TASK" --master-seed "${PURSUE_MASTER_SEED:-1}" --tag "${TAG:-}"

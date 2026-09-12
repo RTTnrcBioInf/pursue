@@ -19,7 +19,8 @@ op <- OptionParser(option_list = list(
   make_option("--replicate", type = "integer", default = 1L), make_option("--methods", type = "character", default = "all"),
   make_option("--out", type = "character", default = "results"), make_option("--master-seed", type = "integer", default = 1L),
   make_option("--cache", type = "character", default = "cache"), make_option("--min-prevalence", type = "double", default = 0.10),
-  make_option("--timeout", type = "integer", default = 3600L), make_option("--bench-root", type = "character", default = NULL),
+  make_option("--timeout", type = "integer", default = 3600L),
+  make_option("--tag", type = "character", default = "", help = "suffix for output files; use when re-running a subset of methods so existing results are not overwritten"), make_option("--bench-root", type = "character", default = NULL),
   make_option("--n-cores", type = "integer", default = 1L)))
 opt <- parse_args(op)
 if (!is.null(opt$`bench-root`)) Sys.setenv(PURSUE_BENCH_ROOT = opt$`bench-root`)
@@ -70,5 +71,5 @@ contract <- do.call(rbind, contract); metrics <- cbind(axis = cell$axis, simulat
                                                        regime_id = cell$regime_id, replicate = cell$replicate, do.call(rbind, metrics))
 extra <- list(n_samples = ncol(sim$counts), n_features_total = nrow(sim$counts), n_features_tested = nrow(counts),
               tested_term = sim$tested_term, formula = paste(deparse(sim$formula), collapse = ""), min_prevalence = opt$`min-prevalence`)
-id <- write_cell(cell, contract, metrics, extra, opt$out)
+id <- write_cell(cell, contract, metrics, extra, opt$out, tag = opt$tag)
 cat("wrote", id, "\n")

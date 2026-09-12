@@ -13,6 +13,16 @@ out <- file.path(res_dir, "summary"); dir.create(out, recursive = TRUE, showWarn
 fs <- list.files(res_dir, pattern = "\\.metrics\\.csv$", full.names = TRUE, recursive = TRUE)
 if (!length(fs)) stop("no metrics files under ", res_dir)
 M <- do.call(rbind, lapply(fs, read.csv, stringsAsFactors = FALSE))
+# A method re-run at a new version (PURSUE iterations) must not be averaged together with the
+# old one. Disambiguate only where more than one version is present, so ordinary runs are
+# unaffected and the column set stays the same.
+nv <- tapply(M$method_version, M$method, function(v) length(unique(v[!is.na(v)])))
+multi <- names(nv)[!is.na(nv) & nv > 1]
+if (length(multi)) {
+  cat("multiple versions present for:", paste(multi, collapse = ", "), "-- labelling as method@version\n")
+  i <- M$method %in% multi & !is.na(M$method_version)
+  M$method[i] <- paste0(M$method[i], "@", M$method_version[i])
+}
 write.csv(M, file.path(out, "metrics_long.csv"), row.names = FALSE)
 cat(sprintf("%d cells, %d rows\n", length(fs), nrow(M)))
 
