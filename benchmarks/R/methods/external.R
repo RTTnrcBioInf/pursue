@@ -51,7 +51,7 @@ method_linda <- function(counts, meta, formula, tested_term, args = list()) {
                               is.winsor = TRUE, outlier.pct = 0.03, adaptive = TRUE, p.adj.method = "BH", alpha = 0.05, n.cores = 1, verbose = FALSE), args)
   out <- .quiet(do.call(MicrobiomeStat::linda, c(list(feature.dat = counts, meta.dat = meta, formula = .formula_chr(formula)), a)))
   tab <- out$output[[cn]]; tab <- tab[match(feats, rownames(tab)), ]
-  .finish(data.frame(feature = feats, arm = "single", p = tab$pvalue, q = NA, estimate = tab$log2FoldChange, se = tab$lfcSE,
+  .finish(data.frame(feature = feats, arm = "single", p = tab$pvalue, q = tab$padj, estimate = tab$log2FoldChange, se = tab$lfcSE,
                      ci_lo = tab$log2FoldChange - 1.96 * tab$lfcSE, ci_hi = tab$log2FoldChange + 1.96 * tab$lfcSE, status = NA, stringsAsFactors = FALSE))
 }
 
@@ -104,11 +104,14 @@ method_corncob <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts)
   labs <- attr(stats::terms(formula), "term.labels"); nuis <- setdiff(labs, tested_term)
   f_null <- stats::as.formula(paste("~", if (length(nuis)) paste(nuis, collapse = " + ") else "1"))
-  a <- utils::modifyList(list(test = "LRT", boot = FALSE, fdr_cutoff = 0.05), args)
+  # test = "Wald" matches the original benchmark. The asymptotic LRT without a parametric
+  # bootstrap is anti-conservative in small samples -- the 2026-09-12 pilot measured FDR 0.295
+  # at the reference regime with test = "LRT".
+  a <- utils::modifyList(list(test = "Wald", boot = FALSE, fdr_cutoff = 0.05, fdr = "BH"), args)
   out <- .quiet(do.call(corncob::differentialTest, c(list(formula = formula, phi.formula = formula, formula_null = f_null, phi.formula_null = formula,
                                                           data = counts, sample_data = meta, taxa_are_rows = TRUE), a)))
-  p <- out$p[feats]
-  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(p), q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA,
+  p <- out$p[feats]; q <- tryCatch(as.numeric(out$p_fdr[feats]), error = function(e) NA_real_)
+  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(p), q = q, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA,
                      status = ifelse(feats %in% c(out$discriminant_taxa_DA, out$discriminant_taxa_DV), "discriminant_excluded", NA), stringsAsFactors = FALSE))
 }
 
@@ -149,7 +152,8 @@ method_locom <- function(counts, meta, formula, tested_term, args = list()) {
   call <- c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), a)
   out <- .quiet(do.call(LOCOM::locom, call))
   p <- as.numeric(out$p.otu[1, ]); names(p) <- colnames(out$p.otu); es <- as.numeric(out$effect.size); names(es) <- colnames(out$p.otu)
-  .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = NA, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  q <- .q_named(out$q.otu, feats)
+  .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = if (is.null(q)) NA_real_ else q, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
 }
 
 # ---- LOCOM2 [UNVERIFIED] -- CRAN package LOCOM2; assumed API mirrors LOCOM (otu.table, Y, C) ----
@@ -184,8 +188,10 @@ method_aldex2 <- function(counts, meta, formula, tested_term, args = list()) {
     clr <- .quiet(ALDEx2::aldex.clr(counts, conds, mc.samples = mc, denom = "all", verbose = FALSE))
     tt <- .quiet(ALDEx2::aldex.ttest(clr, paired.test = FALSE, hist.plot = FALSE, verbose = FALSE))
     ef <- tryCatch(.quiet(ALDEx2::aldex.effect(clr, verbose = FALSE)), error = function(e) NULL)
-    p <- tt$wi.ep[match(feats, rownames(tt))]; est <- if (!is.null(ef)) ef$diff.btw[match(feats, rownames(ef))] else NA
-    return(.finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = est, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE)))
+    i <- match(feats, rownames(tt)); p <- tt$wi.ep[i]
+    q <- if ("wi.eBH" %in% colnames(tt)) tt$wi.eBH[i] else NA_real_   # ALDEx2's own expected BH
+    est <- if (!is.null(ef)) ef$diff.btw[match(feats, rownames(ef))] else NA
+    return(.finish(data.frame(feature = feats, arm = "single", p = p, q = q, estimate = est, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE)))
   }
   mm <- stats::model.matrix(formula, meta); cn <- .coef_name(formula, meta, tested_term)
   clr <- .quiet(ALDEx2::aldex.clr(counts, mm, mc.samples = mc, denom = "all", verbose = FALSE))
@@ -211,9 +217,14 @@ method_maaslin3 <- function(counts, meta, formula, tested_term, args = list()) {
   res <- res[res$name == cn, , drop = FALSE]
   pick <- function(model) { r <- res[res$model == model, ]; r <- r[match(feats, r$feature), ]
     data.frame(feature = feats, arm = if (model == "abundance") "abundance" else "presence", p = as.numeric(r$pval_individual), q = NA,
-               estimate = as.numeric(r$coef), se = as.numeric(r$stderr), ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE) }
+               estimate = as.numeric(r$coef), se = as.numeric(r$stderr), ci_lo = NA, ci_hi = NA,
+               q2 = if ("qval_individual" %in% names(r)) as.numeric(r$qval_individual) else NA_real_,
+               status = NA, stringsAsFactors = FALSE) |> (function(d) { d$q <- d$q2; d$q2 <- NULL; d })() }
   ab <- .finish(pick("abundance")); pr <- .finish(pick("prevalence"))
-  rj <- res[match(feats, res$feature), ]; cb <- data.frame(feature = feats, arm = "combined", p = as.numeric(rj$pval_joint), q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE)
+  rj <- res[match(feats, res$feature), ]
+  cb <- data.frame(feature = feats, arm = "combined", p = as.numeric(rj$pval_joint),
+                   q = if ("qval_joint" %in% names(rj)) as.numeric(rj$qval_joint) else NA_real_,
+                   estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE)
   rbind(ab, pr, .finish(cb))
 }
 
@@ -222,10 +233,10 @@ method_zicoseq <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts); labs <- attr(stats::terms(formula), "term.labels"); nuis <- setdiff(labs, tested_term)
   a <- utils::modifyList(list(feature.dat.type = "count", prev.filter = 0, mean.abund.filter = 0, max.abund.filter = 0, min.prop = 0,
                               is.winsor = TRUE, outlier.pct = 0.03, is.post.sample = TRUE, post.sample.no = 25, link.func = list(function(x) sign(x) * sqrt(abs(x))),
-                              stats.combine.func = max, perm.no = 999, strata = NULL, ref.pct = 0.5, stage.no = 6, excl.pct = 0.2, is.fwer = FALSE, verbose = FALSE, return.feature.dat = FALSE), args)
+                              stats.combine.func = max, perm.no = 1999, strata = NULL, ref.pct = 0.5, stage.no = 6, excl.pct = 0.2, is.fwer = FALSE, verbose = FALSE, return.feature.dat = FALSE), args)
   out <- .quiet(do.call(GUniFrac::ZicoSeq, c(list(meta.dat = meta, feature.dat = counts, grp.name = tested_term, adj.name = if (length(nuis)) nuis else NULL), a)))
-  p <- out$p.raw[feats]
-  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(p), q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  p <- out$p.raw[feats]; q <- tryCatch(as.numeric(out$p.adj.fdr[feats]), error = function(e) NA_real_)
+  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(p), q = q, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
 }
 
 # ---- fastANCOM [UNVERIFIED] -- fastANCOM(Y = samples x features, x = exposure, Z = covariates) ----
@@ -235,7 +246,9 @@ method_fastancom <- function(counts, meta, formula, tested_term, args = list()) 
   Z <- .nuisance_matrix(formula, meta, tested_term)
   out <- .quiet(do.call(fastANCOM::fastANCOM, c(list(Y = t(counts), x = x), if (!is.null(Z)) list(Z = Z), args)))
   r <- out$results$final; r <- r[match(feats, rownames(r)), ]
-  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(r$log2FC.pval), q = NA, estimate = as.numeric(r$log2FC), se = as.numeric(r$log2FC.SD),
+  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(r$log2FC.pval),
+                     q = if ("log2FC.qval" %in% names(r)) as.numeric(r$log2FC.qval) else NA_real_,
+                     estimate = as.numeric(r$log2FC), se = as.numeric(r$log2FC.SD),
                      ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
 }
 
@@ -248,7 +261,9 @@ method_adapt <- function(counts, meta, formula, tested_term, args = list()) {
   g <- factor(meta[[tested_term]])
   out <- .quiet(do.call(ADAPT::adapt, c(list(input_data = ps, cond.var = tested_term, base.cond = levels(g)[1], adj.var = if (length(nuis)) nuis else NULL), args)))
   r <- as.data.frame(out@details); r <- r[match(feats, r$Taxa), ]
-  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(r$pval), q = NA, estimate = as.numeric(r$log10foldchange) * log2(10), se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  qcol <- intersect(c("adjusted.pval", "padj", "qval", "adj.pval", "FDR"), names(r))[1]
+  .finish(data.frame(feature = feats, arm = "single", p = as.numeric(r$pval),
+                     q = if (!is.na(qcol)) as.numeric(r[[qcol]]) else NA_real_, estimate = as.numeric(r$log10foldchange) * log2(10), se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
 }
 
 # ---- radEmu / fastEmu [UNVERIFIED] -- emuFit(formula, Y = samples x features, covariate_data) with robust score tests ----

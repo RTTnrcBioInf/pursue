@@ -189,7 +189,15 @@ Full Axis B: 5 templates × 310 = 1 550 cells.
 Every wrapper: pinned version, published defaults, same prevalence filter (≥ 10% of
 samples) applied *before* the wrapper so filtering is not a method difference, same
 metadata, wall-time and memory recorded, one fixed toy table as a unit test to catch API
-drift. **[impl]** The registry is `benchmarks/R/methods/registry.R` (17 methods, uniform
+drift. **[impl]** Each method's **own multiple-testing procedure is used** where it provides
+one — ALDEx2's expected-BH across Monte-Carlo instances, ZicoSeq's permutation FDR, LOCOM's,
+LDM's, corncob's, LinDA's, MaAsLin 3's, ADAPT's, fastANCOM's, ANCOM-BC2's sensitivity-gated q,
+and PURSUE's own. A method's FDR control is part of the method; substituting plain BH would
+benchmark something its authors never published. Plain BH on the reported p is the fallback
+only where a method offers no q of its own (radEmu/fastEmu). Declared deviation: corncob is run
+with `test = "Wald"` as in the original PURSUE benchmark — the unbootstrapped asymptotic LRT is
+anti-conservative at these sample sizes (FDR 0.295 at the reference regime in the 2026-09-12
+pilot), and the parametric bootstrap that would fix it is prohibitively slow. **[impl]** The registry is `benchmarks/R/methods/registry.R` (17 methods, uniform
 wrapper signature); the toy-table test is `hpc/smoke_test.R`; memory is R heap after the
 call (`gc()`), not peak RSS. A method whose package is absent is recorded `not_installed`
 per cell rather than failing the cell; a wrapper error is `failed`; exceeding the per-method

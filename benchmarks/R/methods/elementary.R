@@ -11,7 +11,16 @@
   data.frame(feature = features, arm = arm, p = NA_real_, q = NA_real_, estimate = NA_real_, se = NA_real_,
              ci_lo = NA_real_, ci_hi = NA_real_, status = status, stringsAsFactors = FALSE)
 }
-.finish <- function(df) { df$q <- stats::p.adjust(df$p, "BH"); df$status[is.na(df$status)] <- "ok"; rownames(df) <- NULL; df }
+# A method's own multiple-testing procedure is PART OF THE METHOD (ALDEx2's expected-BH across
+# Monte-Carlo instances, ZicoSeq's permutation FDR, LOCOM's, corncob's...). Overwriting it with
+# plain BH benchmarks a method the authors never published. So: keep `q` when the wrapper
+# supplies one, and fall back to BH only when the method offers nothing.
+.finish <- function(df) {
+  if (!"q" %in% names(df) || all(is.na(df$q))) df$q <- stats::p.adjust(df$p, "BH")
+  df$status[is.na(df$status)] <- "ok"; rownames(df) <- NULL; df
+}
+# Pull a q-vector out of a result object, trying several column names; NULL -> caller uses BH.
+.q_named <- function(x, feats) { v <- .as_pvec(x, feats); if (is.null(v) || all(is.na(v))) NULL else v }
 .tested_is_binary <- function(meta, tested_term) {
   v <- meta[[tested_term]]; !is.null(v) && (is.factor(v) || is.character(v) || length(unique(v)) == 2L) && length(unique(v)) == 2L
 }
@@ -79,15 +88,15 @@ method_pursue <- function(counts, meta, formula, tested_term, args = list()) {
                                         min_prevalence = 0, verbose = FALSE), args))
   r <- fit$results; r <- r[match(feats, r$feature), ]
   one_col <- "abund_lfc2" %in% names(r)
-  ab <- data.frame(feature = feats, arm = "abundance", p = r$abund_p, q = NA,
+  ab <- data.frame(feature = feats, arm = "abundance", p = r$abund_p, q = r$abund_q,
                    estimate = if (one_col) r$abund_lfc2 else NA, se = if (one_col) r$abund_se2 else NA,
                    ci_lo = if (one_col) r$abund_ci2_lo else NA, ci_hi = if (one_col) r$abund_ci2_hi else NA,
                    status = r$abund_status, stringsAsFactors = FALSE)
-  pr <- data.frame(feature = feats, arm = "presence", p = r$pres_p, q = NA,
+  pr <- data.frame(feature = feats, arm = "presence", p = r$pres_p, q = r$pres_q,
                    estimate = if ("pres_logor" %in% names(r)) r$pres_logor else NA, se = if ("pres_se" %in% names(r)) r$pres_se else NA,
                    ci_lo = if ("pres_ci_lo" %in% names(r)) r$pres_ci_lo else NA, ci_hi = if ("pres_ci_hi" %in% names(r)) r$pres_ci_hi else NA,
                    status = r$pres_status, stringsAsFactors = FALSE)
-  cb <- data.frame(feature = feats, arm = "combined", p = r$any_p, q = NA, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = "ok", stringsAsFactors = FALSE)
+  cb <- data.frame(feature = feats, arm = "combined", p = r$any_p, q = r$any_q, estimate = NA, se = NA, ci_lo = NA, ci_hi = NA, status = "ok", stringsAsFactors = FALSE)
   out <- rbind(.finish(ab), .finish(pr), .finish(cb))
   attr(out, "centre") <- fit$centre
   out
