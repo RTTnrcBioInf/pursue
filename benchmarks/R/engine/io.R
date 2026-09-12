@@ -21,9 +21,12 @@ assemble_contract <- function(cell, method_id, run, truth, version) {
 
 cell_id <- function(cell) sprintf("%s__%s__%s__%s__r%03d", cell$axis, cell$simulator, cell$template, cell$regime_id, cell$replicate)
 
-write_cell <- function(cell, contract, metrics, extra = list(), out_dir) {
+# `tag` suffixes the output file names. Re-running a cell for a subset of methods -- which is
+# the whole point of the PURSUE iteration loop, since the 16 comparators never change -- would
+# otherwise write the same file names and DESTROY the other methods' results for that cell.
+write_cell <- function(cell, contract, metrics, extra = list(), out_dir, tag = "") {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
-  id <- cell_id(cell)
+  id <- paste0(cell_id(cell), if (nzchar(tag)) paste0("__", tag) else "")
   if (requireNamespace("arrow", quietly = TRUE)) {
     arrow::write_parquet(contract, file.path(out_dir, paste0(id, ".features.parquet")))
   } else {
@@ -31,7 +34,7 @@ write_cell <- function(cell, contract, metrics, extra = list(), out_dir) {
   }
   utils::write.csv(metrics, file.path(out_dir, paste0(id, ".metrics.csv")), row.names = FALSE)
   manifest <- c(list(cell = cell, written = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z"), r_version = R.version.string,
-                     protocol_version = "0.9", git_commit = tryCatch(system("git rev-parse HEAD", intern = TRUE, ignore.stderr = TRUE), error = function(e) NA),
+                     protocol_version = "1.0", tag = tag, git_commit = tryCatch(system("git rev-parse HEAD", intern = TRUE, ignore.stderr = TRUE), error = function(e) NA),
                      hostname = Sys.info()[["nodename"]]), extra)
   writeLines(jsonlite::toJSON(manifest, auto_unbox = TRUE, pretty = TRUE, null = "null", na = "null"), file.path(out_dir, paste0(id, ".manifest.json")))
   invisible(id)

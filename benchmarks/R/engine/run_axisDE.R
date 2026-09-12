@@ -22,6 +22,7 @@ op <- OptionParser(option_list = list(
   make_option("--expected", type = "character", default = NULL), make_option("--spikein", type = "character", default = NULL),
   make_option("--splits", type = "integer", default = 5L), make_option("--n-groupings", type = "integer", default = 50L),
   make_option("--methods", type = "character", default = "all"), make_option("--out", type = "character", default = "results"),
+  make_option("--tag", type = "character", default = "", help = "suffix for output files when re-running a subset of methods"),
   make_option("--master-seed", type = "integer", default = 1L), make_option("--min-prevalence", type = "double", default = 0.10),
   make_option("--bench-root", type = "character", default = NULL), make_option("--n-cores", type = "integer", default = 1L)))
 opt <- parse_args(op)
@@ -31,6 +32,7 @@ for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R", 
             "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R")) source(file.path(root, f))
 methods <- if (opt$methods == "all") method_registry()$id else strsplit(opt$methods, ",")[[1]]
 dir.create(opt$out, recursive = TRUE, showWarnings = FALSE)
+tagsfx <- if (nzchar(opt$tag)) paste0("__", opt$tag) else ""
 set.seed(opt$`master-seed`)
 tpl <- load_template(opt$template)
 gv <- if (!is.null(opt$group)) opt$group else tpl$group_var
@@ -60,7 +62,7 @@ if (opt$axis == "D" && is.null(opt$spikein)) {
       }
       rows[[length(rows) + 1L]] <- row }
   }
-  res <- do.call(rbind, rows); write.csv(res, file.path(opt$out, paste0("D__", opt$template, "__biotruth.csv")), row.names = FALSE); print(res, row.names = FALSE)
+  res <- do.call(rbind, rows); write.csv(res, file.path(opt$out, paste0("D__", opt$template, tagsfx, "__biotruth.csv")), row.names = FALSE); print(res, row.names = FALSE)
 }
 
 if (opt$axis == "D" && !is.null(opt$spikein)) {
@@ -75,7 +77,7 @@ if (opt$axis == "D" && !is.null(opt$spikein)) {
           n_calls = sum(sig), spikein_calls = sum(sig & ra$feature %in% spk), spikein_tested = sum(ra$feature %in% spk & is.finite(ra$p)), runtime_s = run$runtime_s) } }
     cat("grouping", g, "done\n")
   }
-  res <- do.call(rbind, rows); write.csv(res, file.path(opt$out, paste0("D__", opt$template, "__spikein.csv")), row.names = FALSE)
+  res <- do.call(rbind, rows); write.csv(res, file.path(opt$out, paste0("D__", opt$template, tagsfx, "__spikein.csv")), row.names = FALSE)
   print(aggregate(cbind(n_calls, spikein_calls) ~ method + arm, res, mean), row.names = FALSE)
 }
 
@@ -101,6 +103,6 @@ if (opt$axis == "E") {
     }
     cat("split", s, "done\n")
   }
-  res <- do.call(rbind, rows); write.csv(res, file.path(opt$out, paste0("E__", opt$template, "__replicability.csv")), row.names = FALSE)
+  res <- do.call(rbind, rows); write.csv(res, file.path(opt$out, paste0("E__", opt$template, tagsfx, "__replicability.csv")), row.names = FALSE)
   print(aggregate(cbind(nhits, replication_pct, conflict_pct) ~ method + arm, res, function(x) mean(x, na.rm = TRUE)), row.names = FALSE)
 }

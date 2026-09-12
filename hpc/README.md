@@ -192,6 +192,27 @@ Per cell, under `results/axis*/`:
 
 `results/realism/*.csv` holds the realism gate per (simulator, template).
 
+## 7b. Iterating on PURSUE without re-running the benchmark
+
+The sixteen comparator methods are fixed, and every cell's data is regenerated exactly from
+`PURSUE_MASTER_SEED` plus the cell coordinates. So the full grid is run **once**; each PURSUE
+iteration re-runs PURSUE alone, which the runtime probe puts at about **99 CPU-hours** against
+roughly 12 700 for the whole benchmark.
+
+Re-run with `--methods pursue` and a `--tag`, which suffixes the output file names:
+
+```bash
+Rscript hpc/make_tasklist.R --pool evaluation --simulators house,msq,mid,sd2,sps \
+        --methods pursue --out hpc/tasks_pursue
+TAG=pursue-0.3 sbatch --array=1-$(wc -l < hpc/tasks_pursue/axisA.txt)%200 hpc/slurm/axisA.sbatch
+```
+
+**The tag is not optional.** Cell output is named by cell coordinates only, so re-running a
+cell for a subset of methods without one overwrites that cell's file and destroys the other
+sixteen methods' results. `aggregate.R` reads every `*.metrics.csv` under the results tree, so
+tagged re-runs are picked up automatically, and where a method appears at more than one version
+it is labelled `method@version` so the old and new PURSUE are never averaged together.
+
 ## 8. Aggregate
 
 ```bash
