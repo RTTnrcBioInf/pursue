@@ -1,13 +1,4 @@
 "method","m","n","seconds","usable"
-"fastemu",23,30,21.818,TRUE
-"fastemu",52,30,214.492,TRUE
-"fastemu",67,30,118.387,TRUE
-"fastemu",88,30,157.986,TRUE
-"fastemu",25,60,25.005,TRUE
-"fastemu",41,60,66.623,TRUE
-"fastemu",66,60,122.974,TRUE
-"fastemu",84,60,239.377,TRUE
-"fastemu",22,100,25.1769999999999,TRUE
-"fastemu",43,100,168.248,TRUE
-"fastemu",65,100,152.29,TRUE
-"fastemu",87,100,228.784,TRUE
+"fastemu",87,100,227.29,TRUE
+"fastemu",171,100,284.689,TRUE
+"fastemu",276,100,516.621,TRUE
