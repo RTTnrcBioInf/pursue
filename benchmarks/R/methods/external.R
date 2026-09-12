@@ -41,6 +41,20 @@
 .shape_note <- function(out, feats) sprintf("returned[%s] nfeat=%d",
   paste(utils::head(names(out), 10), collapse = "/"), length(feats))
 
+# A wrapper's default arguments are a claim about the installed version's signature, and that
+# claim goes stale: LOCOM2 1.0 rejected `filter.thresh` with "unused argument" on 2026-09-12,
+# losing the whole method for a cell. Pass only what the function declares, and record what had
+# to be dropped plus the signature we saw, so the next run says which knob replaced it.
+.keep_formals <- function(fn, a) {
+  f <- names(formals(fn))
+  if ("..." %in% f) return(list(args = a, note = NA_character_))
+  keep <- names(a) %in% f
+  list(args = a[keep],
+       note = if (all(keep)) NA_character_ else
+         sprintf("dropped_args[%s] signature[%s]", paste(names(a)[!keep], collapse = "/"),
+                 paste(utils::head(setdiff(f, c("otu.table", "Y", "C")), 12), collapse = "/")))
+}
+
 .quiet <- function(expr) { r <- NULL; suppressMessages(suppressWarnings(invisible(utils::capture.output(r <- expr, file = nullfile())))); r }
 
 # ---- LinDA (MicrobiomeStat) -- verified pattern ----
@@ -153,13 +167,13 @@ method_locom <- function(counts, meta, formula, tested_term, args = list()) {
   g <- factor(meta[[tested_term]]); Y <- as.integer(g == levels(g)[2]); C <- .nuisance_matrix(formula, meta, tested_term)
   # filter.thresh = 0: the protocol applies one common prevalence filter before every wrapper,
   # so a method must not filter again or it is tested on a different feature set than the rest.
-  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 20000, filter.thresh = 0, n.cores = 1), args)
-  call <- c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), a)
+  kf <- .keep_formals(LOCOM::locom, utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 20000, filter.thresh = 0, n.cores = 1), args))
+  call <- c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), kf$args)
   out <- .quiet(do.call(LOCOM::locom, call))
   p <- as.numeric(out$p.otu[1, ]); names(p) <- colnames(out$p.otu); es <- as.numeric(out$effect.size); names(es) <- colnames(out$p.otu)
   q <- .q_named(out$q.otu, feats)
   .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = if (is.null(q)) NA_real_ else q,
-                     .st = if (is.null(q)) "bh_fallback_no_method_q" else NA_character_, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+                     .st = if (is.null(q)) "bh_fallback_no_method_q" else NA_character_, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = kf$note, stringsAsFactors = FALSE))
 }
 
 # ---- LOCOM2 [UNVERIFIED] -- CRAN package LOCOM2; assumed API mirrors LOCOM (otu.table, Y, C) ----
@@ -167,9 +181,12 @@ method_locom2 <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts)
   if (!.tested_is_binary(meta, tested_term)) return(.empty_result(feats, status = "not_applicable_needs_binary"))
   g <- factor(meta[[tested_term]]); Y <- as.integer(g == levels(g)[2]); C <- .nuisance_matrix(formula, meta, tested_term)
-  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, filter.thresh = 0, n.cores = 1), args)
   fn <- get("locom2", envir = asNamespace("LOCOM2"))
-  out <- .quiet(do.call(fn, c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), a)))
+  # filter.thresh = 0: the protocol applies one common prevalence filter before every wrapper,
+  # so a method must not filter again or it is tested on a different feature set than the rest.
+  # LOCOM2 1.0 does not declare it; .keep_formals drops it and names the signature in `status`.
+  kf <- .keep_formals(fn, utils::modifyList(list(fdr.nominal = 0.05, seed = 1, filter.thresh = 0, n.cores = 1), args))
+  out <- .quiet(do.call(fn, c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), kf$args)))
   # LOCOM2 returns three parallel tests: p.otu.Wald, p.otu.perm and p.otu.asymptotic (the
   # 2026-09-11 smoke test reported the names). The Wald test is the paper's contribution -- a
   # Wald statistic whose null variance is estimated from ~1000 permutations, which removes the
@@ -181,7 +198,7 @@ method_locom2 <- function(counts, meta, formula, tested_term, args = list()) {
   if (is.null(p)) return(.empty_result(feats, status = paste("no_pvalues:", .shape_note(out, feats))))
   q <- .as_pvec(out[[sub("^p", "q", pnm)]], feats)
   res <- .finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = NA, se = NA,
-                            ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+                            ci_lo = NA, ci_hi = NA, status = kf$note, stringsAsFactors = FALSE))
   if (!is.null(q) && !all(is.na(q))) res$q <- q
   res
 }
@@ -269,7 +286,11 @@ method_adapt <- function(counts, meta, formula, tested_term, args = list()) {
   g <- factor(meta[[tested_term]])
   out <- .quiet(do.call(ADAPT::adapt, c(list(input_data = ps, cond.var = tested_term, base.cond = levels(g)[1], adj.var = if (length(nuis)) nuis else NULL), args)))
   r <- as.data.frame(out@details); r <- r[match(feats, r$Taxa), ]
-  qcol <- intersect(c("adjusted.pval", "padj", "qval", "adj.pval", "FDR"), names(r))[1]
+  # ADAPT 1.4 names it `adjusted_pval` (underscore). The 2026-09-12 smoke run caught the wrapper
+  # falling back to our own BH because the candidate list only had the dotted spelling; match on a
+  # pattern so a future rename does not silently substitute a different multiplicity correction.
+  qcol <- intersect(c("adjusted_pval", "adjusted.pval", "padj", "qval", "adj.pval", "FDR"), names(r))[1]
+  if (is.na(qcol)) qcol <- grep("^(adj|padj|q|fdr)", names(r), value = TRUE, ignore.case = TRUE)[1]
   .finish(data.frame(feature = feats, arm = "single", p = as.numeric(r$pval),
                      q = if (!is.na(qcol)) as.numeric(r[[qcol]]) else NA_real_,
                      .st = if (is.na(qcol)) paste0("bh_fallback_no_method_q[", paste(utils::head(names(r), 8), collapse = "/"), "]") else NA_character_, estimate = as.numeric(r$log10foldchange) * log2(10), se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))

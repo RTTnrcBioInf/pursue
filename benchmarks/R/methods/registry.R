@@ -22,7 +22,7 @@ method_registry <- function() {
     c("zicoseq",           "ZicoSeq",                        "relative",  "single",   "GUniFrac",        "method_zicoseq"),
     c("fastancom",         "fastANCOM",                      "absolute",  "single",   "fastANCOM",       "method_fastancom"),
     c("adapt",             "ADAPT",                          "absolute",  "single",   "ADAPT",           "method_adapt"),
-    c("fastemu",           "fastEmu / radEmu",               "absolute",  "single",   "radEmu",          "method_fastemu")))
+    c("fastemu",           "fastEmu / radEmu",               "absolute",  "single",   "fastEmu",         "method_fastemu")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr
