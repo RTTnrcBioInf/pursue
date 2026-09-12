@@ -127,7 +127,10 @@ method_ldm <- function(counts, meta, formula, tested_term, args = list()) {
   old_y <- if (had) get("y", envir = globalenv()) else NULL
   assign("y", y, envir = globalenv())
   on.exit({ if (had) assign("y", old_y, envir = globalenv()) else suppressWarnings(rm("y", envir = globalenv())) }, add = TRUE)
-  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 5000, verbose = FALSE), args)
+  # 20000 as in the original benchmark. Permutation resolution floors p at 1/(1+n.perm), so with
+  # ~276 features after filtering, 5000 permutations would floor BH-style q at 276/5001 = 0.055 --
+  # the same resolution ceiling that made PURSUE 0.1 unable to reject at q = 0.05.
+  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 20000, verbose = FALSE), args)
   out <- .quiet(do.call(LDM::ldm, c(list(formula = stats::as.formula(fstr), data = meta), a)))
   # LDM returns a submodel x OTU matrix. Its dimnames are not guaranteed: the 2026-09-11 smoke
   # test returned "ok" with zero finite p-values because the columns were unnamed, so every
@@ -148,12 +151,15 @@ method_locom <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts)
   if (!.tested_is_binary(meta, tested_term)) return(.empty_result(feats, status = "not_applicable_needs_binary"))
   g <- factor(meta[[tested_term]]); Y <- as.integer(g == levels(g)[2]); C <- .nuisance_matrix(formula, meta, tested_term)
-  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 20000, n.cores = 1), args)
+  # filter.thresh = 0: the protocol applies one common prevalence filter before every wrapper,
+  # so a method must not filter again or it is tested on a different feature set than the rest.
+  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 20000, filter.thresh = 0, n.cores = 1), args)
   call <- c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), a)
   out <- .quiet(do.call(LOCOM::locom, call))
   p <- as.numeric(out$p.otu[1, ]); names(p) <- colnames(out$p.otu); es <- as.numeric(out$effect.size); names(es) <- colnames(out$p.otu)
   q <- .q_named(out$q.otu, feats)
-  .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = if (is.null(q)) NA_real_ else q, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+  .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = if (is.null(q)) NA_real_ else q,
+                     .st = if (is.null(q)) "bh_fallback_no_method_q" else NA_character_, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
 }
 
 # ---- LOCOM2 [UNVERIFIED] -- CRAN package LOCOM2; assumed API mirrors LOCOM (otu.table, Y, C) ----
@@ -161,7 +167,7 @@ method_locom2 <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts)
   if (!.tested_is_binary(meta, tested_term)) return(.empty_result(feats, status = "not_applicable_needs_binary"))
   g <- factor(meta[[tested_term]]); Y <- as.integer(g == levels(g)[2]); C <- .nuisance_matrix(formula, meta, tested_term)
-  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.cores = 1), args)
+  a <- utils::modifyList(list(fdr.nominal = 0.05, seed = 1, filter.thresh = 0, n.cores = 1), args)
   fn <- get("locom2", envir = asNamespace("LOCOM2"))
   out <- .quiet(do.call(fn, c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), a)))
   # LOCOM2 returns three parallel tests: p.otu.Wald, p.otu.perm and p.otu.asymptotic (the
@@ -246,8 +252,10 @@ method_fastancom <- function(counts, meta, formula, tested_term, args = list()) 
   Z <- .nuisance_matrix(formula, meta, tested_term)
   out <- .quiet(do.call(fastANCOM::fastANCOM, c(list(Y = t(counts), x = x), if (!is.null(Z)) list(Z = Z), args)))
   r <- out$results$final; r <- r[match(feats, rownames(r)), ]
+  qq <- if ("log2FC.qval" %in% names(r)) as.numeric(r$log2FC.qval) else NULL
   .finish(data.frame(feature = feats, arm = "single", p = as.numeric(r$log2FC.pval),
-                     q = if ("log2FC.qval" %in% names(r)) as.numeric(r$log2FC.qval) else NA_real_,
+                     q = if (is.null(qq)) NA_real_ else qq,
+                     .st = if (is.null(qq)) "bh_fallback_no_method_q" else NA_character_,
                      estimate = as.numeric(r$log2FC), se = as.numeric(r$log2FC.SD),
                      ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
 }
@@ -263,39 +271,61 @@ method_adapt <- function(counts, meta, formula, tested_term, args = list()) {
   r <- as.data.frame(out@details); r <- r[match(feats, r$Taxa), ]
   qcol <- intersect(c("adjusted.pval", "padj", "qval", "adj.pval", "FDR"), names(r))[1]
   .finish(data.frame(feature = feats, arm = "single", p = as.numeric(r$pval),
-                     q = if (!is.na(qcol)) as.numeric(r[[qcol]]) else NA_real_, estimate = as.numeric(r$log10foldchange) * log2(10), se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
+                     q = if (!is.na(qcol)) as.numeric(r[[qcol]]) else NA_real_,
+                     .st = if (is.na(qcol)) paste0("bh_fallback_no_method_q[", paste(utils::head(names(r), 8), collapse = "/"), "]") else NA_character_, estimate = as.numeric(r$log10foldchange) * log2(10), se = NA, ci_lo = NA, ci_hi = NA, status = NA, stringsAsFactors = FALSE))
 }
 
 # ---- radEmu / fastEmu [UNVERIFIED] -- emuFit(formula, Y = samples x features, covariate_data) with robust score tests ----
 method_fastemu <- function(counts, meta, formula, tested_term, args = list()) {
   feats <- rownames(counts); cn <- .coef_name(formula, meta, tested_term)
   if (length(cn) != 1L) return(.empty_result(feats, status = "not_applicable_multi_df"))
-  fn <- if (requireNamespace("fastEmu", quietly = TRUE)) get("fastEmuFit", envir = asNamespace("fastEmu")) else radEmu::emuFit
+  is_fe <- requireNamespace("fastEmu", quietly = TRUE)
+  fn <- if (is_fe) get("fastEmuFit", envir = asNamespace("fastEmu")) else radEmu::emuFit
+  ffml <- names(formals(fn))
   # radEmu renamed `covariate_data` to `data`; 2.3.2 rejects the old name with
   # "both formula and data containing covariates ... must be provided" (smoke test 2026-09-11).
-  dat_arg <- if ("data" %in% names(formals(fn))) "data" else "covariate_data"
+  dat_arg <- if ("data" %in% ffml) "data" else "covariate_data"
   # radEmu 2.x requires `test_kj` naming which (covariate k, taxon j) pairs to score-test;
   # without it run_score_tests = TRUE errors out (smoke test 2026-09-11).
   X <- stats::model.matrix(formula, meta); kk <- which(colnames(X) == cn)
   call_args <- c(list(formula = formula, Y = t(counts), run_score_tests = TRUE), stats::setNames(list(meta), dat_arg), args)
-  if ("test_kj" %in% names(formals(fn)) && !"test_kj" %in% names(args) && length(kk) == 1L)
+  if ("test_kj" %in% ffml && !"test_kj" %in% names(args) && length(kk) == 1L)
     call_args$test_kj <- data.frame(k = kk, j = seq_along(feats))
   # fastEmu's whole advantage over radEmu is score-testing against a small REFERENCE SET rather
-  # than every taxon. Passing neither `reference_set` nor `reference_set_size` leaves it doing
-  # radEmu's work: the 2026-09-12 probe measured 72.5 min per cell at 500 features, projecting
-  # to ~43 000 CPU-hours over the grid — more than the other sixteen methods combined by 18x.
-  # Note this fixes the estimand as "log fold change relative to the reference set", which is
-  # what fastEmu is; declared in protocol section 6.
-  fe <- !identical(fn, radEmu::emuFit) && "reference_set_size" %in% names(formals(fn))
-  if (fe && !any(c("reference_set", "reference_set_size") %in% names(args)))
-    call_args$reference_set_size <- if (!is.null(args$ref_size)) args$ref_size else 30L
+  # than every taxon. Which argument carries it has moved between versions, so take whichever the
+  # installed one declares. Passing neither leaves fastEmu doing radEmu's work: the 2026-09-12
+  # probe measured 72.5 min per cell at 500 features, projecting to ~43 000 CPU-hours over the
+  # grid -- more than the other sixteen methods combined by 18x. Note this fixes the estimand as
+  # "log fold change relative to the reference set", which is what fastEmu is; protocol section 6.
+  rs <- if (!is.null(args$ref_size)) as.integer(args$ref_size) else 30L
+  ref_arg <- NA_character_
+  if (is_fe && !any(c("reference_set", "reference_set_size") %in% names(args))) {
+    if ("reference_set_size" %in% ffml) {
+      ref_arg <- "reference_set_size"; call_args$reference_set_size <- rs
+    } else if ("reference_set" %in% ffml) {
+      # the installed version takes the set itself: the most prevalent `rs` features, which is
+      # both a defensible reference (well-estimated taxa) and deterministic across cells.
+      ref_arg <- "reference_set"
+      call_args$reference_set <- sort(order(rowMeans(counts > 0), decreasing = TRUE)[seq_len(min(rs, length(feats)))])
+    }
+  }
+  # A silently dropped reference set is the difference between fastEmu and radEmu: on
+  # 2026-09-12 an apparent 13x speedup turned out to be a fitting artifact because the fallback
+  # below had quietly removed the argument. Every way of losing it is recorded in `status`.
+  ref_note <- NA_character_
   out <- tryCatch(.quiet(do.call(fn, call_args)),
                   error = function(e) {
-                    # a rejected reference-set argument must not lose the cell: retry without it
-                    call_args$reference_set_size <- NULL
+                    if (!is.na(ref_arg)) call_args[[ref_arg]] <<- NULL
+                    ref_note <<- paste0("reference_set rejected (", ref_arg, "): ",
+                                        trimws(substr(conditionMessage(e), 1, 70)))
+                    ref_arg <<- NA_character_
                     .quiet(do.call(fn, call_args))
                   })
   co <- out$coef; co <- co[co$covariate == cn, ]; co <- co[match(feats, co$category), ]
+  st <- if (!is.na(ref_note)) ref_note
+        else if (is_fe && is.na(ref_arg)) "fastemu_no_reference_set_arg"
+        else if (!is_fe) "radEmu_fallback_fastEmu_absent"
+        else NA_character_
   .finish(data.frame(feature = feats, arm = "single", p = as.numeric(co$pval), q = NA, estimate = as.numeric(co$estimate) / log(2), se = as.numeric(co$se) / log(2),
-                     ci_lo = as.numeric(co$lower) / log(2), ci_hi = as.numeric(co$upper) / log(2), status = NA, stringsAsFactors = FALSE))
+                     ci_lo = as.numeric(co$lower) / log(2), ci_hi = as.numeric(co$upper) / log(2), status = st, stringsAsFactors = FALSE))
 }

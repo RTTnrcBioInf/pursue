@@ -197,7 +197,20 @@ benchmark something its authors never published. Plain BH on the reported p is t
 only where a method offers no q of its own (radEmu/fastEmu). Declared deviation: corncob is run
 with `test = "Wald"` as in the original PURSUE benchmark — the unbootstrapped asymptotic LRT is
 anti-conservative at these sample sizes (FDR 0.295 at the reference regime in the 2026-09-12
-pilot), and the parametric bootstrap that would fix it is prohibitively slow. **[impl]** The registry is `benchmarks/R/methods/registry.R` (17 methods, uniform
+pilot), and the parametric bootstrap that would fix it is prohibitively slow.
+
+**[impl]** Two further wiring decisions from the pre-launch audit. **Permutation budgets are
+set so the resolution ceiling cannot bind**: a permutation p floors at 1/(1+n.perm), so with
+~276 features after filtering, LDM at the 5 000 permutations first coded would have floored a
+BH-style q at 276/5001 = 0.055 and been unable to reject at q = 0.05 — the same ceiling that
+limited PURSUE 0.1. LDM and LOCOM run at 20 000, ZicoSeq at 1 999 (as in the original
+benchmark). **One prevalence filter only**: the engine filters at 10 % before every wrapper and
+each method's internal filter is disabled (`prev.filter`, `prv_cut`, `min_prevalence`,
+`filter.thresh` = 0), so no method is tested on a different feature set than the others.
+limma is run with `trend = TRUE, robust = TRUE` — not limma's bare defaults, but its documented
+recommendation for mean-variance-trended data. MaAsLin 3 includes log read depth as a
+covariate, which its manual explicitly recommends, with `median_comparison_abundance = TRUE`
+and `median_comparison_prevalence = FALSE` (both package defaults). **[impl]** The registry is `benchmarks/R/methods/registry.R` (17 methods, uniform
 wrapper signature); the toy-table test is `hpc/smoke_test.R`; memory is R heap after the
 call (`gc()`), not peak RSS. A method whose package is absent is recorded `not_installed`
 per cell rather than failing the cell; a wrapper error is `failed`; exceeding the per-method

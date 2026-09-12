@@ -16,6 +16,9 @@
 # plain BH benchmarks a method the authors never published. So: keep `q` when the wrapper
 # supplies one, and fall back to BH only when the method offers nothing.
 .finish <- function(df) {
+  # `.st` lets a wrapper flag how it got its q (e.g. "bh_fallback_no_method_q") without
+  # hard-coding the column order; folded into status so the smoke test reports it.
+  if (".st" %in% names(df)) { i <- !is.na(df$.st) & is.na(df$status); df$status[i] <- df$.st[i]; df$.st <- NULL }
   if (!"q" %in% names(df) || all(is.na(df$q))) df$q <- stats::p.adjust(df$p, "BH")
   df$status[is.na(df$status)] <- "ok"; rownames(df) <- NULL; df
 }
