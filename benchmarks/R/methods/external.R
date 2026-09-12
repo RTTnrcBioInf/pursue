@@ -45,6 +45,28 @@
 # claim goes stale: LOCOM2 1.0 rejected `filter.thresh` with "unused argument" on 2026-09-12,
 # losing the whole method for a cell. Pass only what the function declares, and record what had
 # to be dropped plus the signature we saw, so the next run says which knob replaced it.
+# The protocol applies ONE common prevalence filter before every wrapper (section 6), so a
+# method that filters again is scored on a different feature set than the other sixteen and its
+# power and FDR are not comparable. The knob's name and type vary: LOCOM 2.0 has a numeric
+# `filter.thresh`, LOCOM2 1.0 a `filter` (smoke test 2026-09-12). Read the installed version's
+# own default and match its type rather than guessing -- a wrong type is an error, a wrong value
+# is a silent bias. Anything we cannot type is left alone and named in `status`.
+.no_internal_filter <- function(fn, a, names = c("filter.thresh", "filter", "prev.cut", "freq.cut")) {
+  ffl <- formals(fn); nm <- intersect(names, base::names(ffl))[1]
+  if (is.na(nm)) return(list(args = a, note = "no_prevalence_filter_argument"))
+  if (nm %in% base::names(a)) return(list(args = a, note = NA_character_))
+  d <- ffl[[nm]]
+  v <- tryCatch(if (is.logical(d) && length(d) == 1L) FALSE
+                else if (is.numeric(d) && length(d) == 1L) 0
+                else NULL, error = function(e) NULL)
+  if (is.null(v)) return(list(args = a, note = sprintf("filter_arg[%s] default_unhandled[%s]", nm,
+    tryCatch(paste(deparse(d), collapse = " "), error = function(e) "<no default>"))))
+  a[[nm]] <- v
+  list(args = a, note = NA_character_)
+}
+
+.note2 <- function(...) { n <- c(...); n <- n[!is.na(n)]; if (!length(n)) NA_character_ else paste(n, collapse = "; ") }
+
 .keep_formals <- function(fn, a) {
   f <- names(formals(fn))
   if ("..." %in% f) return(list(args = a, note = NA_character_))
@@ -167,13 +189,14 @@ method_locom <- function(counts, meta, formula, tested_term, args = list()) {
   g <- factor(meta[[tested_term]]); Y <- as.integer(g == levels(g)[2]); C <- .nuisance_matrix(formula, meta, tested_term)
   # filter.thresh = 0: the protocol applies one common prevalence filter before every wrapper,
   # so a method must not filter again or it is tested on a different feature set than the rest.
-  kf <- .keep_formals(LOCOM::locom, utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 20000, filter.thresh = 0, n.cores = 1), args))
+  nf <- .no_internal_filter(LOCOM::locom, utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.perm.max = 20000, n.cores = 1), args))
+  kf <- .keep_formals(LOCOM::locom, nf$args)
   call <- c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), kf$args)
   out <- .quiet(do.call(LOCOM::locom, call))
   p <- as.numeric(out$p.otu[1, ]); names(p) <- colnames(out$p.otu); es <- as.numeric(out$effect.size); names(es) <- colnames(out$p.otu)
   q <- .q_named(out$q.otu, feats)
   .finish(data.frame(feature = feats, arm = "single", p = p[feats], q = if (is.null(q)) NA_real_ else q,
-                     .st = if (is.null(q)) "bh_fallback_no_method_q" else NA_character_, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = kf$note, stringsAsFactors = FALSE))
+                     .st = if (is.null(q)) "bh_fallback_no_method_q" else NA_character_, estimate = es[feats], se = NA, ci_lo = NA, ci_hi = NA, status = .note2(nf$note, kf$note), stringsAsFactors = FALSE))
 }
 
 # ---- LOCOM2 [UNVERIFIED] -- CRAN package LOCOM2; assumed API mirrors LOCOM (otu.table, Y, C) ----
@@ -184,8 +207,10 @@ method_locom2 <- function(counts, meta, formula, tested_term, args = list()) {
   fn <- get("locom2", envir = asNamespace("LOCOM2"))
   # filter.thresh = 0: the protocol applies one common prevalence filter before every wrapper,
   # so a method must not filter again or it is tested on a different feature set than the rest.
-  # LOCOM2 1.0 does not declare it; .keep_formals drops it and names the signature in `status`.
-  kf <- .keep_formals(fn, utils::modifyList(list(fdr.nominal = 0.05, seed = 1, filter.thresh = 0, n.cores = 1), args))
+  # LOCOM2 1.0 declares `filter`, not `filter.thresh`; .no_internal_filter finds whichever the
+  # installed version has and .keep_formals is the net for anything else that moved.
+  nf <- .no_internal_filter(fn, utils::modifyList(list(fdr.nominal = 0.05, seed = 1, n.cores = 1), args))
+  kf <- .keep_formals(fn, nf$args)
   out <- .quiet(do.call(fn, c(list(otu.table = t(counts), Y = Y), if (!is.null(C)) list(C = C), kf$args)))
   # LOCOM2 returns three parallel tests: p.otu.Wald, p.otu.perm and p.otu.asymptotic (the
   # 2026-09-11 smoke test reported the names). The Wald test is the paper's contribution -- a
@@ -198,7 +223,7 @@ method_locom2 <- function(counts, meta, formula, tested_term, args = list()) {
   if (is.null(p)) return(.empty_result(feats, status = paste("no_pvalues:", .shape_note(out, feats))))
   q <- .as_pvec(out[[sub("^p", "q", pnm)]], feats)
   res <- .finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = NA, se = NA,
-                            ci_lo = NA, ci_hi = NA, status = kf$note, stringsAsFactors = FALSE))
+                            ci_lo = NA, ci_hi = NA, status = .note2(nf$note, kf$note), stringsAsFactors = FALSE))
   if (!is.null(q) && !all(is.na(q))) res$q <- q
   res
 }
