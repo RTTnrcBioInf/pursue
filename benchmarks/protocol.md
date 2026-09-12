@@ -211,7 +211,7 @@ wall-time cap (`--timeout`, default 1 h) is `timeout`.
 | ZicoSeq | relative (reference frame) | one | pin |
 | MaAsLin 3 | absolute (median) | two, reported separately | pin |
 | ADAPT | absolute (median reference) | one | pin |
-| radEmu / fastEmu | absolute (typical taxon) | one | pin |
+| radEmu / fastEmu | absolute (typical taxon) | one | pin. **[impl]** Run as **fastEmu** with a reference set of 30 taxa (`reference_set_size`), so the estimand is the log fold change relative to that set rather than radEmu's typical taxon. Without a reference set fastEmu does radEmu's work: the 2026-09-12 probe measured 72.5 min per cell at 500 features, projecting to ~43 000 CPU-hours across the grid against 2 414 for the other sixteen methods combined |
 | PURSUE 0.2 | absolute (empirical-null centre) | two, reported separately + Cauchy union | this repository |
 
 **[impl]** PURSUE 0.1 is not in the roster (decision of 2026-09-09: slow, and superseded by

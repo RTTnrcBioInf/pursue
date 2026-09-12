@@ -265,7 +265,21 @@ method_fastemu <- function(counts, meta, formula, tested_term, args = list()) {
   call_args <- c(list(formula = formula, Y = t(counts), run_score_tests = TRUE), stats::setNames(list(meta), dat_arg), args)
   if ("test_kj" %in% names(formals(fn)) && !"test_kj" %in% names(args) && length(kk) == 1L)
     call_args$test_kj <- data.frame(k = kk, j = seq_along(feats))
-  out <- .quiet(do.call(fn, call_args))
+  # fastEmu's whole advantage over radEmu is score-testing against a small REFERENCE SET rather
+  # than every taxon. Passing neither `reference_set` nor `reference_set_size` leaves it doing
+  # radEmu's work: the 2026-09-12 probe measured 72.5 min per cell at 500 features, projecting
+  # to ~43 000 CPU-hours over the grid — more than the other sixteen methods combined by 18x.
+  # Note this fixes the estimand as "log fold change relative to the reference set", which is
+  # what fastEmu is; declared in protocol section 6.
+  fe <- !identical(fn, radEmu::emuFit) && "reference_set_size" %in% names(formals(fn))
+  if (fe && !any(c("reference_set", "reference_set_size") %in% names(args)))
+    call_args$reference_set_size <- if (!is.null(args$ref_size)) args$ref_size else 30L
+  out <- tryCatch(.quiet(do.call(fn, call_args)),
+                  error = function(e) {
+                    # a rejected reference-set argument must not lose the cell: retry without it
+                    call_args$reference_set_size <- NULL
+                    .quiet(do.call(fn, call_args))
+                  })
   co <- out$coef; co <- co[co$covariate == cn, ]; co <- co[match(feats, co$category), ]
   .finish(data.frame(feature = feats, arm = "single", p = as.numeric(co$pval), q = NA, estimate = as.numeric(co$estimate) / log(2), se = as.numeric(co$se) / log(2),
                      ci_lo = as.numeric(co$lower) / log(2), ci_hi = as.numeric(co$upper) / log(2), status = NA, stringsAsFactors = FALSE))
