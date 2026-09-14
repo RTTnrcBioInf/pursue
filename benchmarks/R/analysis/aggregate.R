@@ -23,6 +23,79 @@ if (length(multi)) {
   i <- M$method %in% multi & !is.na(M$method_version)
   M$method[i] <- paste0(M$method[i], "@", M$method_version[i])
 }
+# --- cell-level design audit (protocol section 4) -----------------------------------------
+# Every simulator clamps the requested feature count to the template's own: `min(regime$m,
+# nrow(counts))`. So R04 / R00 / R05 -- the m = 200 / 500 / 1000 levels of the feature-count
+# factor -- can deliver the SAME m. On hmp_gingiva (364 features) they are 200 / 364 / 364, and
+# an m effect fitted across all templates would be reading a difference that is not there.
+# Cells written before 2026-09-14 carry no m_clamped field in their manifest, so DERIVE it from
+# n_features_total and regimes.tsv rather than trusting the field; that covers every cell ever
+# written and needs nothing re-run.
+script <- sub("--file=", "", grep("--file=", commandArgs(), value = TRUE)[1])
+bench <- tryCatch(normalizePath(file.path(dirname(script), "..", "..")), error = function(e) getwd())
+mf <- list.files(res_dir, pattern = "\\.manifest\\.json$", full.names = TRUE, recursive = TRUE)
+cells <- NULL
+if (length(mf) && requireNamespace("jsonlite", quietly = TRUE)) {
+  one <- function(f) {
+    j <- tryCatch(jsonlite::fromJSON(f, simplifyVector = TRUE), error = function(e) NULL)
+    if (is.null(j) || is.null(j$cell)) return(NULL)
+    g <- function(k) { v <- j[[k]]; if (is.null(v) || !length(v) || is.na(v[[1]])) NA else v[[1]] }
+    data.frame(axis = j$cell$axis, simulator = j$cell$simulator, template = j$cell$template,
+               regime_id = j$cell$regime_id, replicate = as.integer(j$cell$replicate),
+               n_samples = as.integer(g("n_samples")), n_features_total = as.integer(g("n_features_total")),
+               n_features_tested = as.integer(g("n_features_tested")), stringsAsFactors = FALSE)
+  }
+  cells <- do.call(rbind, lapply(mf, one))
+}
+if (!is.null(cells) && nrow(cells)) {
+  rp <- file.path(bench, "regimes.tsv")
+  if (file.exists(rp)) {
+    reg <- read.delim(rp, comment.char = "#", stringsAsFactors = FALSE)
+    cells$m_requested <- ifelse(cells$axis == "A", reg$m[match(cells$regime_id, reg$regime_id)], NA)
+    cells$m_clamped <- !is.na(cells$m_requested) & cells$n_features_total < cells$m_requested
+  }
+  write.csv(cells, file.path(out, "cells.csv"), row.names = FALSE)
+  sub <- cells[cells$axis == "A" & cells$regime_id %in% c("R04", "R00", "R05"), ]
+  if (nrow(sub) && "m_clamped" %in% names(cells)) {
+    mt <- tapply(sub$n_features_total, list(sub$template, sub$regime_id), function(x) round(mean(x, na.rm = TRUE)))
+    mt <- mt[, intersect(c("R04", "R00", "R05"), colnames(mt)), drop = FALSE]
+    cat("\nrealised feature count, m factor (R04/R00/R05 requested 200/500/1000):\n"); print(mt)
+    collapsed <- rownames(mt)[apply(mt, 1, function(r) { r <- r[!is.na(r)]; length(r) > 1 && length(unique(r)) < length(r) })]
+    if (length(collapsed))
+      cat("  !! m is NOT estimable on: ", paste(collapsed, collapse = ", "),
+          "\n     (levels collapse to the same feature count). Drop these from any m contrast.\n", sep = "")
+    cat(sprintf("  %d of %d axis-A cells ran at a clamped m.\n",
+                sum(cells$m_clamped[cells$axis == "A"], na.rm = TRUE), sum(cells$axis == "A")))
+  }
+  key <- c("axis", "simulator", "template", "regime_id", "replicate")
+  M <- merge(M, cells, by = key, all.x = TRUE, sort = FALSE)
+}
+
+# --- design coverage: which cells are structurally absent, and why -------------------------
+# Not every simulator can produce every regime (msq cannot model depth confounding; only the
+# in-house simulator does bloom/hetero/repeated designs; msq cannot draw more samples than the
+# template has). Those cells write <id>.skipped.json instead of a manifest. A reader needs to
+# see them: an empty cell in the Axis A table is a design fact, not a missing result.
+sk <- list.files(res_dir, pattern = "\\.skipped\\.json$", full.names = TRUE, recursive = TRUE)
+if (length(sk) && requireNamespace("jsonlite", quietly = TRUE)) {
+  ones <- function(f) {
+    j <- tryCatch(jsonlite::fromJSON(f, simplifyVector = TRUE), error = function(e) NULL)
+    if (is.null(j) || is.null(j$cell)) return(NULL)
+    data.frame(axis = j$cell$axis, simulator = j$cell$simulator, template = j$cell$template,
+               regime_id = j$cell$regime_id, replicate = as.integer(j$cell$replicate),
+               reason = paste(unlist(j$unsupported), collapse = "+"), stringsAsFactors = FALSE)
+  }
+  S <- do.call(rbind, lapply(sk, ones))
+  if (!is.null(S) && nrow(S)) {
+    write.csv(S, file.path(out, "coverage_gaps.csv"), row.names = FALSE)
+    cat(sprintf("\n%d cells not producible, by reason:\n", nrow(S)))
+    print(sort(table(S$reason), decreasing = TRUE))
+    cat("\nsimulators x regimes NOT producible (axis A, cell = replicates missing):\n")
+    A <- S[S$axis == "A", ]
+    if (nrow(A)) print(table(A$simulator, A$regime_id))
+  }
+}
+
 write.csv(M, file.path(out, "metrics_long.csv"), row.names = FALSE)
 cat(sprintf("%d cells, %d rows\n", length(fs), nrow(M)))
 

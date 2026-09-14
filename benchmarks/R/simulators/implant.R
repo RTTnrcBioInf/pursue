@@ -14,7 +14,11 @@ implant <- function(template, spec, seed = 1L) {
   set.seed(seed)
   ct <- template$counts; m <- nrow(ct); n_avail <- ncol(ct)
   n <- 2L * spec$n_per_group
-  if (n > n_avail) stop("template has ", n_avail, " samples; need ", n)
+  # Axis B subsamples real samples, so a spec needing more than the template has is not
+  # producible -- spec B_n100 (200 samples) against risk_stool (166) is the live case. Return it
+  # as unsupported, the way the Axis A simulators do, rather than crashing the cell: run_cell
+  # writes a .skipped.json and the coverage audit counts it.
+  if (n > n_avail) return(list(unsupported = sprintf("n_exceeds_template[%d>%d]", n, n_avail)))
   s <- sample.int(n_avail, n); X <- ct[, s, drop = FALSE]
   u <- stats::rnorm(n)
   continuous <- identical(spec$exposure, "continuous")

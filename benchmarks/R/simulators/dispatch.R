@@ -56,7 +56,15 @@ simulate_cell_data <- function(simulator, template, regime, seed, cache_dir = NU
 simulate_msq <- function(template, regime, seed) {
   un <- .unsupported(regime, c("n_per_group", "m", "da_frac", "balance", "effect", "depth_conf", "conf_phi", "exposure", "signal_type"))
   if (identical(regime$signal_type, "prevalence")) un <- c(un, "signal_type")
-  if (length(un)) return(list(unsupported = un))
+  # SimulateMSeq draws its samples from the reference table WITHOUT replacement, so unlike the
+  # three generative simulators it cannot produce more samples than the template has. On
+  # 2026-09-14 that killed 80 cells: R03 (n = 400) on hmp_stool (353), hmp_gingiva (333) and
+  # risk_stool (166), and R02 (n = 200) on risk_stool. Declaring it unsupported is the honest
+  # representation -- clamping n would silently collapse the n factor's levels, and resampling
+  # with replacement would manufacture pseudo-replication that inflates every method's type-I
+  # error. The cell is recorded as structurally absent, like the regimes msq cannot model.
+  if (2L * regime$n_per_group > ncol(template$counts)) un <- c(un, "n_per_group_exceeds_template")
+  if (length(un)) return(list(unsupported = unique(un)))
   set.seed(seed)
   ref <- template$counts; storage.mode(ref) <- "numeric"
   # SimulateMSeq cannot draw more OTUs than the reference table has, and unlike mid/sd2/sps this
