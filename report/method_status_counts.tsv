@@ -1,0 +1,58 @@
+  10370	maaslin3	ok
+  10370	ldm	ok
+  10370	fastancom	ok
+  10370	ancombc2	ok
+  10370	aldex2	ok
+  10364	lm_logtss	ok
+  10364	limma_logtss	ok
+  10343	zicoseq	ok
+  10343	linda	ok
+  10170	adapt	ok
+  10164	locom	ok
+  10162	locom2	ok
+   9570	wilcoxon_tss	ok
+   8636	corncob	ok
+   5033	logistic_presence	ok
+   4260	pursue	ok/no_variation_in_detection
+   4247	pursue	ok
+   3971	logistic_presence	ok/no_detection_variation
+   1715	corncob	ok/discriminant_excluded
+   1366	logistic_presence	no_detection_variation/ok
+    800	wilcoxon_tss	not_applicable_needs_binary_no_covariates
+    634	pursue	ok/design_rank_deficient/no_variation_in_detection
+    587	pursue	ok/design_rank_deficient
+    232	pursue	ok/too_few_detected/no_variation_in_detection
+    200	locom	not_applicable_needs_binary
+    200	locom2	not_applicable_needs_binary
+    200	adapt	not_applicable_needs_binary
+    175	fastemu	ok
+     82	pursue	too_few_detected/ok/no_variation_in_detection
+     76	pursue	ok/too_few_detected
+     65	pursue	ok/no_variation_in_detection/lrt_invalid
+     44	pursue	too_few_detected/ok
+     35	pursue	ok/lrt_invalid
+     27	zicoseq	error: missing value where TRUE/FALSE needed
+     22	pursue	ok/too_few_detected/design_rank_deficient/no_variation_in_detection
+     21	linda	error: NA/NaN/Inf in 'y'
+     19	corncob	discriminant_excluded/ok
+     15	pursue	ok/too_few_detected/design_rank_deficient
+     11	pursue	too_few_detected/ok/design_rank_deficient/no_variation_in_detection
+     10	pursue	ok/lrt_invalid/no_variation_in_detection
+     10	pursue	design_rank_deficient/ok
+      8	pursue	too_few_detected/ok/design_rank_deficient
+      7	pursue	ok/design_rank_deficient/no_variation_in_detection/lrt_invalid
+      6	pursue	error: Every sample must have a positive library size.
+      6	locom	error: non-conformable arrays
+      6	locom2	error: Some samples have zero total counts in otu.table
+      6	lm_logtss	error: NA/NaN/Inf in 'y'
+      6	linda	error: missing value where TRUE/FALSE needed
+      6	limma_logtss	error: covariate contains NA or infinite values
+      4	pursue	ok/design_rank_deficient/too_few_detected/no_variation_in_detection
+      4	pursue	ok/design_rank_deficient/lrt_invalid/no_variation_in_detection
+      4	pursue	ok/design_rank_deficient/lrt_invalid
+      3	pursue	ok/too_few_detected/lrt_invalid/no_variation_in_detection
+      2	locom2	error: attempt to set an attribute on NULL
+      1	pursue	too_few_detected/ok/no_variation_in_detection/lrt_invalid
+      1	pursue	ok/too_few_detected/no_variation_in_detection/lrt_invalid
+      1	pursue	ok/too_few_detected/lrt_invalid
+      1	pursue	design_rank_deficient/ok/no_variation_in_detection

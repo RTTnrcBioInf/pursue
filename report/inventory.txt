@@ -1,0 +1,20 @@
+== results inventory ==
+axisA             10370 manifests    3380 not-producible   10370 metrics
+
+== disk ==
+2,0G	results
+57M	logs
+40M	cache
+
+== git ==
+8e0e88dcc922def901720186bdc2db563118b1cd
+ M results/summary/interaction.txt
+ M results/summary/metrics_long.csv
+ M results/summary/table_axisA.csv
+?? hpc/fastemu_m500.txt
+?? report/
+?? results/summary/aggregate.log
+?? results/summary/cells.csv
+
+== R ==
+R version 4.5.3 (2026-03-11) 

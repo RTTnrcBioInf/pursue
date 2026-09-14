@@ -1,0 +1,21 @@
+== peak RSS MB by template ==
+risk_stool             max  10732  mean   2361  n    49
+hmp_gingiva            max   1114  mean   1114  n    20
+hmp_stool              max   1123  mean   1122  n    20
+
+== 15 heaviest cells ==
+A,sd2,risk_stool,R00,008,10732
+A,sd2,risk_stool,R06,022,10441
+A,sd2,risk_stool,R00,006,10318
+A,sd2,risk_stool,R00,007,10306
+A,sd2,risk_stool,R06,028,10120
+A,sd2,risk_stool,R06,021,10105
+A,sd2,risk_stool,R06,042,9357
+A,sd2,risk_stool,R06,019,9340
+A,sd2,risk_stool,R06,023,9030
+A,msq,hmp_stool,R03,016,1123
+A,msq,hmp_stool,R03,014,1123
+A,msq,hmp_stool,R03,006,1123
+A,msq,hmp_stool,R03,020,1122
+A,msq,hmp_stool,R03,019,1122
+A,msq,hmp_stool,R03,018,1122
