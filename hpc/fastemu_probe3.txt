@@ -1,0 +1,23 @@
+nohup: ignoring input
+fastEmu 2.0.1 | fastEmu_refit in signature: TRUE
+
+A. n = 100, J = 80
+  defaults                               J=80      76.3 s
+  fastEmu_refit = TRUE                   J=80      75.1 s
+  fastEmu_refit = TRUE, ref size 5       J=80      50.1 s
+
+B. n = 100, J = 160  (does anything that helped still help?)
+  defaults                               J=160    167.5 s
+  fastEmu_refit = TRUE                   J=160    168.1 s
+
+C. speedups and whether the estimand moved (J = 80)
+   fastEmu_refit = TRUE                   1.02x faster | max |estimate diff| = 0.0000
+   fastEmu_refit = TRUE, ref size 5       1.52x faster | max |estimate diff| = 0.0008
+
+D. projection to a grid cell (m = 500, n = 100)
+   defaults                 exponent 1.13 -> ~10 min per cell; 17 300 cells = 2927 CPU-hours
+   fastEmu_refit = TRUE     exponent 1.16 -> ~11 min per cell; 17 300 cells = 3038 CPU-hours
+
+The other sixteen methods together are budgeted near 3 300 CPU-hours. Anything here that
+does not land in the same order of magnitude means fastEmu runs on a declared slice of the
+grid, not the whole of it.
