@@ -37,7 +37,10 @@ runner() {
   tag="${TAG:-}"
   id=$(printf "%s__%s__%s__%s__r%03d%s" "$ax" "$sim" "$tpl" "$reg" "$rep" "${tag:+__$tag}")
   out="results/axis$ax"
-  if [ -f "$out/$id.manifest.json" ]; then echo "skip  $id"; return 0; fi
+  # A cell whose regime the simulator cannot produce writes <id>.skipped.json and no manifest.
+  # Checking only for the manifest meant every resume re-ran all ~3125 of them at ~80s of R
+  # startup each (~70 CPU-h per resume) and they could never become "done".
+  if [ -f "$out/$id.manifest.json" ] || [ -f "$out/$id.skipped.json" ]; then echo "skip  $id"; return 0; fi
   if [ -n "${DRY:-}" ]; then echo "would run  $id"; return 0; fi
   start=$SECONDS
   if Rscript benchmarks/R/engine/run_cell.R $line --out "$out" --cache cache \
@@ -56,4 +59,6 @@ echo ">> started $(date '+%F %T')"
 grep -ve '^\s*$' "$TASKS" | xargs -d '\n' -P "$NJOBS" -I{} bash -c 'runner "$@"' _ {}
 echo ">> finished $(date '+%F %T')"
 done_n=$(ls results/axis*/ 2>/dev/null | grep -c 'manifest.json' || true)
-echo ">> $done_n cells have results. Re-run this command to retry anything that failed."
+skip_n=$(ls results/axis*/ 2>/dev/null | grep -c 'skipped.json' || true)
+echo ">> $done_n cells have results; $skip_n regimes that simulator cannot produce."
+echo ">> Re-run this command to retry anything that failed."

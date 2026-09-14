@@ -59,6 +59,13 @@ simulate_msq <- function(template, regime, seed) {
   if (length(un)) return(list(unsupported = un))
   set.seed(seed)
   ref <- template$counts; storage.mode(ref) <- "numeric"
+  # SimulateMSeq cannot draw more OTUs than the reference table has, and unlike mid/sd2/sps this
+  # wrapper passed regime$m straight through. hmp_gingiva (364), hmp_skin_ear (307) and
+  # hmp_vagina (374) all have fewer than 500 features, so every m = 500 / 1000 regime on those
+  # three templates died: 1410 of the 13750 axis-A cells in the 2026-09-12 run. Clamp, as the
+  # other three simulators already do -- and see run_cell.R, which now records the clamp, because
+  # a silently clamped m makes R00/R04/R05 the SAME feature count on such a template.
+  m_req <- regime$m; regime$m <- min(regime$m, nrow(ref))
   paras <- template$msq_paras; if (is.null(paras)) paras <- GUniFrac:::EstPara(ref)
   es <- .effects_for(regime); ef <- es$lfc2 * log(2)
   sim <- GUniFrac::SimulateMSeq(ref.otu.tab = ref, model.paras = paras, nSam = 2L * regime$n_per_group, nOTU = regime$m,

@@ -69,7 +69,13 @@ for (mid in methods) {
 }
 contract <- do.call(rbind, contract); metrics <- cbind(axis = cell$axis, simulator = cell$simulator, template = cell$template,
                                                        regime_id = cell$regime_id, replicate = cell$replicate, do.call(rbind, metrics))
+# Axis A regimes R04/R00/R05 are the m = 200 / 500 / 1000 levels of the feature-count factor,
+# but every simulator clamps m to the template's own feature count. On a template with 364
+# features all three levels deliver 364, so the m factor is NOT estimable there and the
+# aggregate must not read one. Record both numbers and let the analysis drop clamped cells.
+m_req <- if (opt$axis == "A") as.integer(reg$m) else NA_integer_
 extra <- list(n_samples = ncol(sim$counts), n_features_total = nrow(sim$counts), n_features_tested = nrow(counts),
+              m_requested = m_req, m_clamped = !is.na(m_req) && nrow(sim$counts) < m_req,
               tested_term = sim$tested_term, formula = paste(deparse(sim$formula), collapse = ""), min_prevalence = opt$`min-prevalence`)
 id <- write_cell(cell, contract, metrics, extra, opt$out, tag = opt$tag)
 cat("wrote", id, "\n")
