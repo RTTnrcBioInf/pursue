@@ -57,9 +57,14 @@ if (!is.null(cells) && nrow(cells)) {
   write.csv(cells, file.path(out, "cells.csv"), row.names = FALSE)
   sub <- cells[cells$axis == "A" & cells$regime_id %in% c("R04", "R00", "R05"), ]
   if (nrow(sub) && "m_clamped" %in% names(cells)) {
-    mt <- tapply(sub$n_features_total, list(sub$template, sub$regime_id), function(x) round(mean(x, na.rm = TRUE)))
+    # BY SIMULATOR, not averaged over them: each simulator clamps differently (sd2 ignores m
+    # entirely and uses the template's features), so a mean across simulators shows numbers no
+    # cell ever had. The 2026-09-14 run printed hmp_gingiva R05 = 523 that way, on a template
+    # with 364 features.
+    sub$sim_tpl <- paste(sub$simulator, sub$template, sep = " / ")
+    mt <- tapply(sub$n_features_total, list(sub$sim_tpl, sub$regime_id), function(x) round(mean(x, na.rm = TRUE)))
     mt <- mt[, intersect(c("R04", "R00", "R05"), colnames(mt)), drop = FALSE]
-    cat("\nrealised feature count, m factor (R04/R00/R05 requested 200/500/1000):\n"); print(mt)
+    cat("\nrealised feature count per simulator/template, m factor (requested 200/500/1000):\n"); print(mt)
     collapsed <- rownames(mt)[apply(mt, 1, function(r) { r <- r[!is.na(r)]; length(r) > 1 && length(unique(r)) < length(r) })]
     if (length(collapsed))
       cat("  !! m is NOT estimable on: ", paste(collapsed, collapse = ", "),
