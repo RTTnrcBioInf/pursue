@@ -3,6 +3,11 @@
 # where no scheduler exists; the task lists and the engine are identical either way.
 #
 #   bash hpc/run_local.sh hpc/tasks_pilot/axisA.txt            # N = all cores
+#
+# Cells are NOT equal in memory: a 2044-feature template costs many times a 300-feature one, and
+# ZicoSeq is the peak. Split a task list by template and give the heavy half a smaller N:
+#   grep -E 'risk_stool|hmp_stool' hpc/tasks/axisA.txt > hpc/tasks/axisA_big.txt
+#   grep -vE 'risk_stool|hmp_stool' hpc/tasks/axisA.txt > hpc/tasks/axisA_small.txt
 #   bash hpc/run_local.sh hpc/tasks/axisA.txt 32               # N = 32 concurrent cells
 #   DRY=1 bash hpc/run_local.sh hpc/tasks/axisA.txt 32         # show what would run
 #
@@ -18,6 +23,12 @@ cd "$ROOT"
 
 # ONE thread per cell. Without this each of N concurrent R processes spawns its own BLAS
 # threads and the machine thrashes -- the classic way to make 32 jobs slower than 8.
+# GNU time gives peak RSS per cell. Without it the ok/FAIL lines carry no memory information,
+# which is what left the 2026-09-12 silent kills undiagnosable.
+TIME_BIN=""; [ -x /usr/bin/time ] && /usr/bin/time -f '%M' true 2>/dev/null && TIME_BIN=/usr/bin/time
+[ -n "$TIME_BIN" ] || echo ">> note: /usr/bin/time not usable; per-cell memory will not be reported"
+export TIME_BIN
+
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 export PURSUE_BENCH_ROOT="$ROOT/benchmarks" PURSUE_DATA_ROOT="$ROOT/benchmarks/data"
 mkdir -p logs results cache
@@ -43,12 +54,26 @@ runner() {
   if [ -f "$out/$id.manifest.json" ] || [ -f "$out/$id.skipped.json" ]; then echo "skip  $id"; return 0; fi
   if [ -n "${DRY:-}" ]; then echo "would run  $id"; return 0; fi
   start=$SECONDS
-  if Rscript benchmarks/R/engine/run_cell.R $line --out "$out" --cache cache \
-       --master-seed "${PURSUE_MASTER_SEED:-1}" --timeout "${CELL_TIMEOUT:-3600}" \
-       ${tag:+--tag "$tag"} > "logs/$id.log" 2>&1; then
-    echo "ok    $id  $((SECONDS-start))s"
+  mf="logs/$id.mem"
+  # `rc=$?` on its own line would abort under `set -e`; capture it through the if instead.
+  if [ -n "$TIME_BIN" ]; then
+    if "$TIME_BIN" -f '%M' -o "$mf" Rscript benchmarks/R/engine/run_cell.R $line --out "$out" --cache cache \
+         --master-seed "${PURSUE_MASTER_SEED:-1}" --timeout "${CELL_TIMEOUT:-3600}" \
+         ${tag:+--tag "$tag"} > "logs/$id.log" 2>&1; then rc=0; else rc=$?; fi
   else
-    echo "FAIL  $id  $((SECONDS-start))s  (see logs/$id.log)"
+    if Rscript benchmarks/R/engine/run_cell.R $line --out "$out" --cache cache \
+         --master-seed "${PURSUE_MASTER_SEED:-1}" --timeout "${CELL_TIMEOUT:-3600}" \
+         ${tag:+--tag "$tag"} > "logs/$id.log" 2>&1; then rc=0; else rc=$?; fi
+  fi
+  # peak RSS in MB; a killed process still leaves the line GNU time already wrote
+  mem=$( [ -f "$mf" ] && awk 'END{if($1+0>0) printf "%.0fMB", $1/1024; else print "?"}' "$mf" || echo "?" )
+  if [ "$rc" -eq 0 ]; then
+    echo "ok    $id  $((SECONDS-start))s  $mem"
+  else
+    # exit 137 = SIGKILL (the OOM killer); 139 = segfault. Both die with no R error in the log,
+    # which is exactly what the 44 sd2/mid failures on risk_stool looked like.
+    case "$rc" in 137) why=" KILLED(oom?)";; 139) why=" SEGFAULT";; *) why="";; esac
+    echo "FAIL  $id  $((SECONDS-start))s  $mem  rc=$rc$why  (see logs/$id.log)"
   fi
 }
 export -f runner
