@@ -10,7 +10,7 @@ List of 2
  $ : chr [1:30] "t14" "t28" "t43" "t95" ...
 taxa in reference set: 60 of 100
 
---- m = 400 (6.2 min) ---
+--- m = 400 (6.0 min) ---
 str(fit$reference_set):
 List of 2
  $ : int [1:30] 24 139 30 147 208 253 78 198 285 313 ...

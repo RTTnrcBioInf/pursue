@@ -1,14 +1,37 @@
 
-realised feature count, m factor (R04/R00/R05 requested 200/500/1000):
-             R04 R00  R05
-hmp_gingiva  200 391  523
-hmp_skin_ear 200 345  480
-hmp_stool    200 659 1000
-hmp_vagina   200 399  530
-risk_stool   200 809 1000
+realised feature count per simulator/template, m factor (requested 200/500/1000):
+                     R04  R00  R05
+house / hmp_gingiva  200  500 1000
+house / hmp_skin_ear 200  500 1000
+house / hmp_stool    200  500 1000
+house / hmp_vagina   200  500 1000
+house / risk_stool   200  500 1000
+mid / hmp_gingiva    200  364  364
+mid / hmp_skin_ear   200  307  307
+mid / hmp_stool      200  500 1000
+mid / hmp_vagina     200  374  374
+mid / risk_stool     200  500 1000
+msq / hmp_gingiva    200  364  364
+msq / hmp_skin_ear   200  307  307
+msq / hmp_stool      200  500 1000
+msq / hmp_vagina     200  374  374
+msq / risk_stool     200  500 1000
+sd2 / hmp_gingiva     NA  364   NA
+sd2 / hmp_skin_ear    NA  307   NA
+sd2 / hmp_stool       NA 1295   NA
+sd2 / hmp_vagina      NA  374   NA
+sd2 / risk_stool      NA 2044   NA
+sps / hmp_gingiva    200  363  363
+sps / hmp_skin_ear   200  306  306
+sps / hmp_stool      200  500 1000
+sps / hmp_vagina     200  373  373
+sps / risk_stool     200  500 1000
+  !! m is NOT estimable on: mid / hmp_gingiva, mid / hmp_skin_ear, mid / hmp_vagina, msq / hmp_gingiva, msq / hmp_skin_ear, msq / hmp_vagina, sps / hmp_gingiva, sps / hmp_skin_ear, sps / hmp_vagina
+     (levels collapse to the same feature count). Drop these from any m contrast.
   4420 of 10370 axis-A cells ran at a clamped m.
-10370 cells, 415126 rows
+11900 cells, 476326 rows
 axis A : 1950 summary rows
+axis B : 280 summary rows
 fixed-effect model matrix is rank deficient so dropping 25 columns / coefficients
 fixed-effect model matrix is rank deficient so dropping 22 columns / coefficients
 fixed-effect model matrix is rank deficient so dropping 31 columns / coefficients

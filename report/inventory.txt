@@ -8,20 +8,14 @@ axisB              1530 manifests      20 not-producible    1530 metrics
 40M	cache
 
 == git ==
-cac739aaaf0992f244321fca1d175a88f2436940
+e8adcbb1becaca9d55a26f1fdae41b2cc00885b1
  D report/fastemu_refset.txt
  M report/inventory.txt
- M report/memory_by_cell.csv
- M report/memory_summary.txt
- M report/method_runtime.txt
- M report/method_status_counts.tsv
- M results/summary/interaction.txt
- M results/summary/metrics_long.csv
+ M report/summary/table_axisA.csv
+ M report/summary/table_axisB.csv
  M results/summary/table_axisA.csv
+ M results/summary/table_axisB.csv
 ?? hpc/fastemu_m500.txt
-?? report/axisB.run.gz
-?? results/summary/aggregate.log
-?? results/summary/cells.csv
 
 == R ==
 R version 4.5.3 (2026-03-11) 
