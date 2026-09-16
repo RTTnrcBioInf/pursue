@@ -1,18 +1,25 @@
 == results inventory ==
 axisA             10370 manifests    3380 not-producible   10370 metrics
+axisB              1530 manifests      20 not-producible    1530 metrics
 
 == disk ==
-2,0G	results
-57M	logs
+2,5G	results
+69M	logs
 40M	cache
 
 == git ==
-8e0e88dcc922def901720186bdc2db563118b1cd
+cac739aaaf0992f244321fca1d175a88f2436940
+ D report/fastemu_refset.txt
+ M report/inventory.txt
+ M report/memory_by_cell.csv
+ M report/memory_summary.txt
+ M report/method_runtime.txt
+ M report/method_status_counts.tsv
  M results/summary/interaction.txt
  M results/summary/metrics_long.csv
  M results/summary/table_axisA.csv
 ?? hpc/fastemu_m500.txt
-?? report/
+?? report/axisB.run.gz
 ?? results/summary/aggregate.log
 ?? results/summary/cells.csv
 
