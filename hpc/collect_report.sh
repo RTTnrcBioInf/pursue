@@ -24,10 +24,15 @@ for f in results/summary/*.csv results/summary/*.txt results/summary/*.log; do
   b=$(basename "$f"); sz=$(stat -c%s "$f" 2>/dev/null || echo 0)
   # metrics_long is the one big file; ship it compressed, and only if it stays sane
   if [ "$b" = "metrics_long.csv" ]; then
-    gzip -c "$f" > "$R/summary/$b.gz"
-    gz=$(stat -c%s "$R/summary/$b.gz" 2>/dev/null || echo 0)
-    if [ "$gz" -gt 18000000 ]; then rm -f "$R/summary/$b.gz"; say "$b" "SKIPPED (${gz}B gzipped, too big)"
-    else say "$b" "$((sz/1048576))MB -> $((gz/1048576))MB gzipped"; fi
+    # ~90 MB raw, ~17 MB gzipped, and it changes every cycle -- committing it grows the repo by
+    # that much each time, forever. table_axis*.csv now carries n_pos / tp_05 / fp_05, which was
+    # the only thing the long table was needed for. Ship it only when asked: LONG=1 bash ...
+    if [ -n "${LONG:-}" ]; then
+      gzip -c "$f" > "$R/summary/$b.gz"
+      gz=$(stat -c%s "$R/summary/$b.gz" 2>/dev/null || echo 0)
+      if [ "$gz" -gt 18000000 ]; then rm -f "$R/summary/$b.gz"; say "$b" "SKIPPED (${gz}B gzipped, too big)"
+      else say "$b" "$((sz/1048576))MB -> $((gz/1048576))MB gzipped"; fi
+    else say "$b" "skipped ($((sz/1048576))MB; LONG=1 to include)"; fi
   else
     cp "$f" "$R/summary/"; say "$b" "$((sz/1024))KB"
   fi

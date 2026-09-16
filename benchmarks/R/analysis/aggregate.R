@@ -106,12 +106,18 @@ cat(sprintf("%d cells, %d rows\n", length(fs), nrow(M)))
 
 mse <- function(x) { x <- x[is.finite(x)]; if (length(x) < 2) NA else sd(x) / sqrt(length(x)) }
 summ <- function(d, by) {
-  vals <- c("fdr_05", "tpr_05", "fdr_10", "tpr_10", "pauc10", "fpr05", "ks_null", "shadow", "est_bias", "est_rmse", "ci_cover", "runtime_s")
+  vals <- c("fdr_05", "tpr_05", "fdr_10", "tpr_10", "pauc10", "fpr05", "ks_null", "shadow", "est_bias", "est_rmse", "ci_cover", "runtime_s",
+            "n_pos", "n_tested", "n_rej_05", "tp_05", "fp_05")
   vals <- intersect(vals, names(d))
   a <- aggregate(d[vals], d[by], function(x) mean(x, na.rm = TRUE)); s <- aggregate(d[vals], d[by], mse)
   names(s)[names(s) %in% vals] <- paste0(vals, "_se"); n <- aggregate(list(n_cells = d[[vals[1]]]), d[by], length)
   merge(merge(a, s, by = by), n, by = by)
 }
+# Per-cell counts, averaged by summ() below. TPR x n_pos is the number of true positives the
+# arm actually found; n_rej x FDR is the number of false ones. Rates mislead across arms.
+if (all(c("tpr_05", "n_pos") %in% names(M))) M$tp_05 <- M$tpr_05 * M$n_pos
+if (all(c("n_rej_05", "fdr_05") %in% names(M))) M$fp_05 <- M$n_rej_05 * M$fdr_05
+
 for (ax in unique(M$axis)) {
   d <- M[M$axis == ax & M$truth_scale == "abs", ]
   by <- c("simulator", "regime_id", "method", "arm"); if (ax == "C") by <- c("regime_id", "method", "arm")

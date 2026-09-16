@@ -4,55 +4,55 @@ Data: A
 Models:
 f0: y_fdr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_fdr ~ method * simulator + method * regime_id + (1 | template)
-   npar   AIC   BIC  logLik -2*log(L)  Chisq Df Pr(>Chisq)    
-f0   71 13490 13916 -6674.2     13348                         
-f1   87 13416 13938 -6621.2     13242 106.04 16  2.527e-15 ***
+   npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(>Chisq)    
+f0  426 720537 724806 -359843    719685                         
+f1  487 717961 722841 -358494    716987 2697.8 61  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
             method fragility_sd_across_simulators
-            locom2                     0.08610491
-           zicoseq                     0.19297102
-          maaslin3                     0.28338146
-      limma_logtss                     0.33470488
-             adapt                     0.34664390
-         lm_logtss                     0.43628616
-         fastancom                     0.46622931
-            aldex2                     0.52544390
-             linda                     0.60798817
-           fastemu                     0.62399726
-          ancombc2                     0.71302063
- logistic_presence                     0.80688528
-             locom                     0.83804575
-               ldm                     1.19605676
-      wilcoxon_tss                     1.23328421
-            pursue                     1.60296038
-           corncob                     1.68273278
+            locom2                      0.2090090
+             locom                      0.2285553
+           zicoseq                      0.2319181
+            pursue                      0.2472335
+          ancombc2                      0.2531378
+             adapt                      0.3233025
+            aldex2                      0.3417587
+         fastancom                      0.3882716
+ logistic_presence                      0.4696297
+      wilcoxon_tss                      0.4739216
+               ldm                      0.5214549
+             linda                      0.6109981
+           fastemu                      0.6239973
+      limma_logtss                      0.6478654
+         lm_logtss                      0.6825900
+           corncob                      0.7026511
+          maaslin3                      0.8046230
 
 ===== y_tpr =====
 Data: A
 Models:
 f0: y_tpr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_tpr ~ method * simulator + method * regime_id + (1 | template)
-   npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(>Chisq)    
-f0   54 7123.7 7429.5 -3507.9    7015.7                         
-f1   70 7031.6 7427.9 -3445.8    6891.6 124.12 16  < 2.2e-16 ***
+   npar    AIC    BIC  logLik -2*log(L) Chisq Df Pr(>Chisq)    
+f0  403 480674 484656 -239934    479868                        
+f1  464 467236 471821 -233154    466308 13560 61  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
             method fragility_sd_across_simulators
-         lm_logtss                      0.2080028
-      limma_logtss                      0.2417159
-            aldex2                      0.3243097
            fastemu                      0.3381653
-          ancombc2                      0.4290859
-         fastancom                      0.4598763
-           zicoseq                      0.4831173
-           corncob                      0.6495962
-             locom                      0.7124378
-               ldm                      0.7348738
-          maaslin3                      0.7554688
-      wilcoxon_tss                      0.7977181
- logistic_presence                      0.8805754
-             linda                      0.8836947
-            locom2                      0.9558361
-            pursue                      0.9863815
-             adapt                      1.8431215
+          maaslin3                      0.4072744
+            aldex2                      0.5456567
+          ancombc2                      0.5905386
+            pursue                      0.6038949
+             locom                      0.8243066
+            locom2                      0.8663830
+         fastancom                      0.9160012
+           corncob                      1.0527737
+               ldm                      1.1530318
+           zicoseq                      1.1871006
+      wilcoxon_tss                      1.2788274
+             adapt                      1.3035070
+      limma_logtss                      1.3092187
+             linda                      1.3382706
+         lm_logtss                      1.3422968
+ logistic_presence                      1.4310877

@@ -1,21 +1,23 @@
 == peak RSS MB by template ==
-risk_stool             max  10732  mean   2361  n    49
-hmp_gingiva            max   1114  mean   1114  n    20
-hmp_stool              max   1123  mean   1122  n    20
+hmp_vagina             max   2134  mean   1931  n   310
+risk_stool             max  11302  mean   8285  n   359
+hmp_gingiva            max   3193  mean   2724  n   330
+hmp_skin_ear           max   2636  mean   2162  n   310
+hmp_stool              max   7025  mean   5464  n   330
 
 == 15 heaviest cells ==
-A,sd2,risk_stool,R00,008,10732
-A,sd2,risk_stool,R06,022,10441
-A,sd2,risk_stool,R00,006,10318
-A,sd2,risk_stool,R00,007,10306
-A,sd2,risk_stool,R06,028,10120
-A,sd2,risk_stool,R06,021,10105
-A,sd2,risk_stool,R06,042,9357
-A,sd2,risk_stool,R06,019,9340
-A,sd2,risk_stool,R06,023,9030
-A,msq,hmp_stool,R03,016,1123
-A,msq,hmp_stool,R03,014,1123
-A,msq,hmp_stool,R03,006,1123
-A,msq,hmp_stool,R03,020,1122
-A,msq,hmp_stool,R03,019,1122
-A,msq,hmp_stool,R03,018,1122
+B,implant,risk_stool,B_abund,017,11302
+B,implant,risk_stool,B_allup,006,11223
+B,implant,risk_stool,B_da05,002,11221
+B,implant,risk_stool,B_null,012,11191
+B,implant,risk_stool,B_large,016,11165
+B,implant,risk_stool,B_cont,018,11153
+B,implant,risk_stool,B_small,017,11148
+B,implant,risk_stool,B_null,002,11146
+B,implant,risk_stool,B_null,024,11117
+B,implant,risk_stool,B_large,008,11113
+B,implant,risk_stool,B_graded,004,11110
+B,implant,risk_stool,B_allup,011,11107
+B,implant,risk_stool,B_large,003,11099
+B,implant,risk_stool,B_small,011,11092
+B,implant,risk_stool,B_null,039,11088
