@@ -21,6 +21,10 @@ benchmarks/data/*
 # deliverable and do travel back from the cluster (protocol section 12).
 results/*
 !results/summary/
+# ...except the long table: ~90 MB per run and it changes every time, so committing it makes the
+# repo grow by that much per cycle (GitHub warns over 50 MB, refuses over 100). collect_report.sh
+# already writes report/summary/metrics_long.csv.gz, which is the copy that travels.
+results/summary/metrics_long.csv
 
 # --- Verification record: these DO travel back from the cluster (protocol section 13) ---
 # hpc/installed_packages.csv, hpc/install_log.txt, hpc/prep_caches.csv,
