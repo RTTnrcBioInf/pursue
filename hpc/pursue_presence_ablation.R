@@ -28,13 +28,26 @@ op <- OptionParser(option_list = list(
   make_option("--out", default = "hpc/pursue_ablation.csv"),
   make_option("--bench-root", default = NULL)))
 opt <- parse_args(op)
+# bench_root() reads PURSUE_BENCH_ROOT and, failing that, falls back to sys.frame(1)$ofile --
+# which is NULL once sourcing has finished, so at RUN time it resolves two levels above the repo
+# and templates.tsv is not found. run_local.sh and run_adaptive.sh export both variables; a bare
+# Rscript does not, so set them here rather than only reading them (2026-09-19: this exited 1
+# immediately with "template file missing").
 if (!is.null(opt$`bench-root`)) Sys.setenv(PURSUE_BENCH_ROOT = opt$`bench-root`)
 root <- Sys.getenv("PURSUE_BENCH_ROOT", unset = "benchmarks")
+root <- tryCatch(normalizePath(root, mustWork = TRUE), error = function(e)
+  stop("benchmarks directory not found at '", root, "' -- run this from the repo root, ",
+       "or pass --bench-root /path/to/benchmarks", call. = FALSE))
+Sys.setenv(PURSUE_BENCH_ROOT = root)
+if (!nzchar(Sys.getenv("PURSUE_DATA_ROOT"))) Sys.setenv(PURSUE_DATA_ROOT = file.path(root, "data"))
+cat("bench root: ", root, "\ndata root : ", Sys.getenv("PURSUE_DATA_ROOT"), "\n", sep = "")
 for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R",
             "R/simulators/sim_house.R", "R/simulators/implant.R", "R/simulators/dispatch.R",
             "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R")) source(file.path(root, f))
 
-tpl <- load_template(opt$template)
+tpl <- tryCatch(load_template(opt$template), error = function(e)
+  stop("could not load template '", opt$template, "': ", conditionMessage(e), call. = FALSE))
+cat(sprintf("template %s: %d features x %d samples\n\n", opt$template, nrow(tpl$counts), ncol(tpl$counts)))
 specs <- list(
   B_prev  = list(n_per_group = 50, da_frac = 0.10, effect = "medium", signal_type = "prevalence",
                  balance = "balanced", conf_phi = 0, exposure = "binary"),
