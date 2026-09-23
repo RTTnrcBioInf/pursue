@@ -1,0 +1,143 @@
+nohup: ignoring input
+template hmp_stool: 1295 features x 353 samples
+
+  B_ref  (power, mixed)        rep  1 done
+  B_ref  (power, mixed)        rep  2 done
+  B_ref  (power, mixed)        rep  3 done
+  B_ref  (power, mixed)        rep  4 done
+  B_ref  (power, mixed)        rep  5 done
+  B_ref  (power, mixed)        rep  6 done
+  B_ref  (power, mixed)        rep  7 done
+  B_ref  (power, mixed)        rep  8 done
+  B_ref  (power, mixed)        rep  9 done
+  B_ref  (power, mixed)        rep 10 done
+  B_prev (power, prevalence)   rep  1 done
+  B_prev (power, prevalence)   rep  2 done
+  B_prev (power, prevalence)   rep  3 done
+  B_prev (power, prevalence)   rep  4 done
+  B_prev (power, prevalence)   rep  5 done
+  B_prev (power, prevalence)   rep  6 done
+  B_prev (power, prevalence)   rep  7 done
+  B_prev (power, prevalence)   rep  8 done
+  B_prev (power, prevalence)   rep  9 done
+  B_prev (power, prevalence)   rep 10 done
+  R00    (house, no confound)  rep  1 done
+  R00    (house, no confound)  rep  2 done
+  R00    (house, no confound)  rep  3 done
+  R00    (house, no confound)  rep  4 done
+  R00    (house, no confound)  rep  5 done
+  R00    (house, no confound)  rep  6 done
+  R00    (house, no confound)  rep  7 done
+  R00    (house, no confound)  rep  8 done
+  R00    (house, no confound)  rep  9 done
+  R00    (house, no confound)  rep 10 done
+  R17    (depth x2)            rep  1 done
+  R17    (depth x2)            rep  2 done
+  R17    (depth x2)            rep  3 done
+  R17    (depth x2)            rep  4 done
+  R17    (depth x2)            rep  5 done
+  R17    (depth x2)            rep  6 done
+  R17    (depth x2)            rep  7 done
+  R17    (depth x2)            rep  8 done
+  R17    (depth x2)            rep  9 done
+  R17    (depth x2)            rep 10 done
+  R18    (depth x4)            rep  1 done
+  R18    (depth x4)            rep  2 done
+  R18    (depth x4)            rep  3 done
+  R18    (depth x4)            rep  4 done
+  R18    (depth x4)            rep  5 done
+  R18    (depth x4)            rep  6 done
+  R18    (depth x4)            rep  7 done
+  R18    (depth x4)            rep  8 done
+  R18    (depth x4)            rep  9 done
+  R18    (depth x4)            rep 10 done
+  R19    (depth x9)            rep  1 done
+  R19    (depth x9)            rep  2 done
+  R19    (depth x9)            rep  3 done
+  R19    (depth x9)            rep  4 done
+  R19    (depth x9)            rep  5 done
+  R19    (depth x9)            rep  6 done
+  R19    (depth x9)            rep  7 done
+  R19    (depth x9)            rep  8 done
+  R19    (depth x9)            rep  9 done
+  R19    (depth x9)            rep 10 done
+  R06    (global null)         rep  1 done
+  R06    (global null)         rep  2 done
+  R06    (global null)         rep  3 done
+  R06    (global null)         rep  4 done
+  R06    (global null)         rep  5 done
+  R06    (global null)         rep  6 done
+  R06    (global null)         rep  7 done
+  R06    (global null)         rep  8 done
+  R06    (global null)         rep  9 done
+  R06    (global null)         rep 10 done
+
+B_prev (power, prevalence)   (DA features per cell: 70.4)
+         variant   TP  FP   FDR FPR_nulls
+ pursue_combined  6.6 0.5 0.070    0.0485
+ pursue_presence  7.5 0.3 0.038    0.0406
+        logistic 14.6 1.2 0.076    0.0554
+  logistic_depth 15.2 1.5 0.090    0.0635
+  cloglog_offset 18.6 3.8 0.170    0.0836
+   cloglog_depth 15.9 2.1 0.117    0.0665
+
+B_ref  (power, mixed)   (DA features per cell: 65.4)
+         variant  TP  FP   FDR FPR_nulls
+ pursue_combined 3.0 0.2 0.062    0.0489
+ pursue_presence 3.4 0.1 0.029    0.0441
+        logistic 9.0 0.9 0.091    0.0548
+  logistic_depth 8.9 0.9 0.092    0.0562
+  cloglog_offset 9.9 1.3 0.116    0.0682
+   cloglog_depth 9.1 1.0 0.099    0.0562
+
+R00    (house, no confound)   (DA features per cell: 31.7)
+         variant  TP  FP   FDR FPR_nulls
+ pursue_combined 2.7 0.1 0.036    0.0481
+ pursue_presence 3.3 0.2 0.057    0.0457
+        logistic 6.9 0.4 0.055    0.0522
+  logistic_depth 7.0 0.4 0.054    0.0534
+  cloglog_offset 7.8 0.8 0.093    0.0738
+   cloglog_depth 6.9 0.4 0.055    0.0539
+
+R06    (global null)   (DA features per cell: 0)
+         variant TP  FP FDR FPR_nulls
+ pursue_combined  0 0.0   0    0.0417
+ pursue_presence  0 0.0   0    0.0460
+        logistic  0 0.2   1    0.0545
+  logistic_depth  0 0.2   1    0.0530
+  cloglog_offset  0 0.4   1    0.0823
+   cloglog_depth  0 0.2   1    0.0531
+
+R17    (depth x2)   (DA features per cell: 32.1)
+         variant  TP   FP   FDR FPR_nulls
+ pursue_combined 3.1  0.2 0.061    0.0505
+ pursue_presence 4.0  0.2 0.048    0.0532
+        logistic 9.0  0.7 0.072    0.0654
+  logistic_depth 4.4  0.4 0.083    0.0523
+  cloglog_offset 9.8 59.7 0.859    0.3824
+   cloglog_depth 3.8  0.3 0.073    0.0500
+
+R18    (depth x4)   (DA features per cell: 33.6)
+         variant   TP    FP   FDR FPR_nulls
+ pursue_combined  3.1   0.0 0.000    0.0483
+ pursue_presence  3.9   0.0 0.000    0.0484
+        logistic  9.0   0.4 0.043    0.0666
+  logistic_depth  1.0   0.2 0.167    0.0526
+  cloglog_offset 17.0 194.6 0.920    0.7875
+   cloglog_depth  1.0   0.2 0.167    0.0526
+
+R19    (depth x9)   (DA features per cell: 31)
+         variant   TP    FP   FDR FPR_nulls
+ pursue_combined  3.4   0.4 0.105    0.0393
+ pursue_presence  4.3   0.4 0.085    0.0423
+        logistic  7.4   1.0 0.119    0.0591
+  logistic_depth  0.2   0.2 0.500    0.0604
+  cloglog_offset 22.7 258.9 0.919    0.9445
+   cloglog_depth  0.2   0.2 0.500    0.0604
+
+What a 0.3 presence test has to do, all at once:
+  B_ref / B_prev   TP close to `logistic`                     (the power PURSUE is missing)
+  R17 / R18 / R19  FDR stays near 0.05 as depth confounding grows (what `logistic` cannot do)
+  R06              FPR_nulls near 0.05, not 0.018             (calibrated, not conservative)
+
+wrote hpc/presence_candidates.csv
