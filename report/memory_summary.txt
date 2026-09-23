@@ -1,23 +1,28 @@
 == peak RSS MB by template ==
-hmp_vagina             max   2134  mean   1931  n   310
-risk_stool             max  11302  mean   8285  n   359
-hmp_gingiva            max   3193  mean   2724  n   330
-hmp_skin_ear           max   2636  mean   2162  n   310
-hmp_stool              max   7025  mean   5464  n   330
+crc_genus              max   2627  mean   2275  n   200
+risk_ileum             max   9238  mean   8094  n   200
+mbd_ravel_bv           max   1707  mean   1517  n   200
+hmp_vagina             max   2293  mean   1982  n   510
+risk_stool             max  13529  mean   9035  n   559
+mbd_stammler_spikein   max   2765  mean   1958  n   200
+hmp_gingiva            max   3412  mean   2889  n   530
+hmp_skin_ear           max   2795  mean   2271  n   510
+mbd_gingival_v35       max  28847  mean  24528  n   200
+hmp_stool              max   7886  mean   6033  n   530
 
 == 15 heaviest cells ==
-B,implant,risk_stool,B_abund,017,11302
-B,implant,risk_stool,B_allup,006,11223
-B,implant,risk_stool,B_da05,002,11221
-B,implant,risk_stool,B_null,012,11191
-B,implant,risk_stool,B_large,016,11165
-B,implant,risk_stool,B_cont,018,11153
-B,implant,risk_stool,B_small,017,11148
-B,implant,risk_stool,B_null,002,11146
-B,implant,risk_stool,B_null,024,11117
-B,implant,risk_stool,B_large,008,11113
-B,implant,risk_stool,B_graded,004,11110
-B,implant,risk_stool,B_allup,011,11107
-B,implant,risk_stool,B_large,003,11099
-B,implant,risk_stool,B_small,011,11092
-B,implant,risk_stool,B_null,039,11088
+C,nullperm,mbd_gingival_v35,cluster,021,28847
+C,nullperm,mbd_gingival_v35,cluster,023,28813
+C,nullperm,mbd_gingival_v35,stratified,023,28794
+C,nullperm,mbd_gingival_v35,stratified,003,28763
+C,nullperm,mbd_gingival_v35,depth_quintile,002,28730
+C,nullperm,mbd_gingival_v35,cluster,048,28540
+C,nullperm,mbd_gingival_v35,stratified,034,28490
+C,nullperm,mbd_gingival_v35,cluster,002,28454
+C,nullperm,mbd_gingival_v35,depth_quintile,004,28342
+C,nullperm,mbd_gingival_v35,stratified,016,28285
+C,nullperm,mbd_gingival_v35,stratified,005,28219
+C,nullperm,mbd_gingival_v35,full,012,28215
+C,nullperm,mbd_gingival_v35,full,049,28191
+C,nullperm,mbd_gingival_v35,stratified,039,28116
+C,nullperm,mbd_gingival_v35,stratified,006,28071

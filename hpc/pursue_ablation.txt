@@ -1,0 +1,57 @@
+nohup: ignoring input
+bench root: /mnt/workspace/analyses/robertas/pursue/benchmarks
+data root : /mnt/workspace/analyses/robertas/pursue/benchmarks/data
+template hmp_stool: 1295 features x 353 samples
+
+  B_prev rep 1 done
+  B_prev rep 2 done
+  B_prev rep 3 done
+  B_prev rep 4 done
+  B_prev rep 5 done
+  B_prev rep 6 done
+  B_prev rep 7 done
+  B_prev rep 8 done
+  B_prev rep 9 done
+  B_prev rep 10 done
+  B_ref rep 1 done
+  B_ref rep 2 done
+  B_ref rep 3 done
+  B_ref rep 4 done
+  B_ref rep 5 done
+  B_ref rep 6 done
+  B_ref rep 7 done
+  B_ref rep 8 done
+  B_ref rep 9 done
+  B_ref rep 10 done
+
+=== true positives per cell, presence-type truth (higher is better) ===
+
+B_prev
+                        variant n_pos   TP  FP   FDR
+              logistic_presence  68.1 13.3 0.5 0.036
+       pursue_presence:no_ridge  67.8  8.0 0.5 0.059
+ pursue_presence:no_ridge_theta  67.4  7.9 0.6 0.071
+       pursue_presence:no_theta  68.1  7.4 0.3 0.039
+        pursue_presence:default  68.1  7.1 0.3 0.041
+       pursue_presence:no_depth  68.1  7.1 0.3 0.041
+
+B_ref
+                         variant n_pos   TP  FP   FDR
+               logistic_presence  46.0 10.3 0.5 0.046
+  pursue_presence:no_ridge_theta  45.5  5.2 0.2 0.037
+        pursue_presence:no_ridge  45.8  5.1 0.2 0.038
+         pursue_presence:default  46.0  4.6 0.2 0.042
+        pursue_presence:no_depth  46.0  4.6 0.2 0.042
+        pursue_presence:no_theta  46.0  4.5 0.2 0.043
+       pursue_abundance:no_depth  45.6  0.2 0.0 0.000
+        pursue_abundance:default  45.6  0.1 0.0 0.000
+       pursue_abundance:no_ridge  45.6  0.1 0.0 0.000
+ pursue_abundance:no_ridge_theta  45.6  0.1 0.0 0.000
+       pursue_abundance:no_theta  45.6  0.1 0.0 0.000
+
+Read it like this:
+  a variant near logistic_presence  -> that component was the whole power loss; fix it.
+  every variant still far below it  -> the ZINB structural-presence estimand is the
+                                       problem, not its tuning, and 0.3 needs a new arm.
+
+wrote hpc/pursue_ablation.csv

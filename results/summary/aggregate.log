@@ -29,9 +29,10 @@ sps / risk_stool     200  500 1000
   !! m is NOT estimable on: mid / hmp_gingiva, mid / hmp_skin_ear, mid / hmp_vagina, msq / hmp_gingiva, msq / hmp_skin_ear, msq / hmp_vagina, sps / hmp_gingiva, sps / hmp_skin_ear, sps / hmp_vagina
      (levels collapse to the same feature count). Drop these from any m contrast.
   4420 of 10370 axis-A cells ran at a clamped m.
-11900 cells, 476326 rows
+13900 cells, 556318 rows
 axis A : 1950 summary rows
 axis B : 280 summary rows
+axis C : 81 summary rows
 fixed-effect model matrix is rank deficient so dropping 25 columns / coefficients
 fixed-effect model matrix is rank deficient so dropping 22 columns / coefficients
 fixed-effect model matrix is rank deficient so dropping 31 columns / coefficients

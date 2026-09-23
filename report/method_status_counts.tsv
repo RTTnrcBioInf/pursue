@@ -1,58 +1,72 @@
-  11900	maaslin3	ok
-  11900	ldm	ok
-  11900	fastancom	ok
-  11900	ancombc2	ok
-  11900	aldex2	ok
-  11894	lm_logtss	ok
-  11894	limma_logtss	ok
-  11873	zicoseq	ok
-  11873	linda	ok
-  11600	adapt	ok
-  11594	locom	ok
-  11591	locom2	ok
-  10800	wilcoxon_tss	ok
-   9927	corncob	ok
-   5648	logistic_presence	ok
-   4966	pursue	ok/no_variation_in_detection
-   4886	logistic_presence	ok/no_detection_variation
-   4761	pursue	ok
-   1952	corncob	ok/discriminant_excluded
+  13900	maaslin3	ok
+  13898	ldm	ok
+  13898	fastancom	ok
+  13898	ancombc2	ok
+  13898	aldex2	ok
+  13894	lm_logtss	ok
+  13894	limma_logtss	ok
+  13871	zicoseq	ok
+  13871	linda	ok
+  13598	adapt	ok
+  13387	locom	ok
+  13376	locom2	ok
+  12298	wilcoxon_tss	ok
+  11668	corncob	ok
+   6389	logistic_presence	ok
+   6145	logistic_presence	ok/no_detection_variation
+   5930	pursue	ok/no_variation_in_detection
+   5478	pursue	ok
+   2187	corncob	ok/discriminant_excluded
+   1602	wilcoxon_tss	not_applicable_needs_binary_no_covariates
    1366	logistic_presence	no_detection_variation/ok
-   1100	wilcoxon_tss	not_applicable_needs_binary_no_covariates
-    723	pursue	ok/design_rank_deficient/no_variation_in_detection
-    629	pursue	ok/design_rank_deficient
-    300	locom	not_applicable_needs_binary
-    300	locom2	not_applicable_needs_binary
-    300	adapt	not_applicable_needs_binary
+    771	pursue	ok/design_rank_deficient/no_variation_in_detection
+    639	pursue	ok/design_rank_deficient
+    302	locom	not_applicable_needs_binary
+    302	locom2	not_applicable_needs_binary
+    302	adapt	not_applicable_needs_binary
     264	pursue	ok/too_few_detected/no_variation_in_detection
+    257	pursue	too_few_detected/ok/no_variation_in_detection
+    199	locom	error: reached elapsed time limit
+    181	locom2	error: attempt to set an attribute on NULL
     175	fastemu	ok
-    109	pursue	too_few_detected/ok/no_variation_in_detection
+    109	pursue	ok/no_variation_in_detection/lrt_invalid
      88	pursue	ok/too_few_detected
-     87	pursue	ok/no_variation_in_detection/lrt_invalid
+     70	pursue	ok/lrt_invalid
      61	pursue	too_few_detected/ok
-     56	pursue	ok/lrt_invalid
-     36	pursue	ok/lrt_invalid/no_variation_in_detection
+     60	pursue	ok/lrt_invalid/no_variation_in_detection
+     43	corncob	discriminant_excluded/ok
+     35	pursue	too_few_detected/ok/design_rank_deficient/no_variation_in_detection
+     34	locom2	error: Model fitting failed for the observed data: inv(): matrix is singular
      27	zicoseq	error: missing value where TRUE/FALSE needed
      24	pursue	ok/too_few_detected/design_rank_deficient/no_variation_in_detection
      21	linda	error: NA/NaN/Inf in 'y'
-     21	corncob	discriminant_excluded/ok
+     20	pursue	too_few_detected/ok/no_variation_in_detection/lrt_invalid
      19	pursue	ok/too_few_detected/design_rank_deficient
-     15	pursue	too_few_detected/ok/design_rank_deficient/no_variation_in_detection
      11	pursue	ok/design_rank_deficient/no_variation_in_detection/lrt_invalid
      10	pursue	too_few_detected/ok/design_rank_deficient
      10	pursue	design_rank_deficient/ok
-      7	pursue	ok/design_rank_deficient/lrt_invalid/no_variation_in_detection
+      8	pursue	ok/design_rank_deficient/lrt_invalid/no_variation_in_detection
       7	pursue	ok/design_rank_deficient/lrt_invalid
       6	pursue	error: Every sample must have a positive library size.
       6	locom	error: non-conformable arrays
+      6	locom	error: Lapack routine dgesv: system is exactly singular: U[1,1] = 0
       6	locom2	error: Some samples have zero total counts in otu.table
       6	lm_logtss	error: NA/NaN/Inf in 'y'
       6	linda	error: missing value where TRUE/FALSE needed
       6	limma_logtss	error: covariate contains NA or infinite values
+      5	pursue	too_few_detected/ok/design_rank_deficient/lrt_invalid/no_variation_in_detection
+      4	pursue	too_few_detected/design_rank_deficient/ok/no_variation_in_detection
       4	pursue	ok/design_rank_deficient/too_few_detected/no_variation_in_detection
       3	pursue	ok/too_few_detected/lrt_invalid/no_variation_in_detection
-      2	locom2	error: attempt to set an attribute on NULL
-      1	pursue	too_few_detected/ok/no_variation_in_detection/lrt_invalid
+      2	zicoseq	error: contrasts can be applied only to factors with 2 or more levels
+      2	pursue	too_few_detected/ok/design_rank_deficient/no_variation_in_detection/lrt_invalid
+      2	pursue	error: Design matrix is rank deficient; check for collinear covariates.
+      2	linda	error: contrasts can be applied only to factors with 2 or more levels
+      2	ldm	error: argument is of length zero
+      2	fastancom	not_applicable_multi_level
+      2	corncob	error: incorrect number of dimensions
+      2	ancombc2	error: contrasts can be applied only to factors with 2 or more levels
+      2	aldex2	error: dim(X) must have a positive length
       1	pursue	ok/too_few_detected/no_variation_in_detection/lrt_invalid
       1	pursue	ok/too_few_detected/lrt_invalid
       1	pursue	design_rank_deficient/ok/no_variation_in_detection

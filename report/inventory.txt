@@ -1,21 +1,31 @@
 == results inventory ==
 axisA             10370 manifests    3380 not-producible   10370 metrics
 axisB              1530 manifests      20 not-producible    1530 metrics
+axisC              2000 manifests       0 not-producible    2000 metrics
 
 == disk ==
-2,5G	results
-69M	logs
+3,3G	results
+86M	logs
 40M	cache
 
 == git ==
-e8adcbb1becaca9d55a26f1fdae41b2cc00885b1
+d15cba47f18b2f4d3be9fea5c3eaaaad32226fd7
  D report/fastemu_refset.txt
  M report/inventory.txt
- M report/summary/table_axisA.csv
- M report/summary/table_axisB.csv
- M results/summary/table_axisA.csv
- M results/summary/table_axisB.csv
+ M report/memory_by_cell.csv
+ M report/memory_summary.txt
+ M report/method_runtime.txt
+ M report/method_status_counts.tsv
+ M report/summary/aggregate.log
+ M report/summary/cells.csv
+ M results/summary/aggregate.log
+ M results/summary/cells.csv
 ?? hpc/fastemu_m500.txt
+?? hpc/pursue_ablation.csv
+?? hpc/pursue_ablation.txt
+?? report/axisC.run.gz
+?? report/summary/table_axisC.csv
+?? results/summary/table_axisC.csv
 
 == R ==
 R version 4.5.3 (2026-03-11) 
