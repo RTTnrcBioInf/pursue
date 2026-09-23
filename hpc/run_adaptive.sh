@@ -13,9 +13,12 @@
 #
 # Env:
 #   MEM_PCT        share of total RAM this run may hold            (default 75)
-#   MAXJOBS        hard cap on concurrent cells                    (default nproc)
+#   MAXJOBS        hard cap on concurrent cells                    (default 75% of nproc)
+#   HEARTBEAT_S    status line every N seconds                      (default 600)
 #   FLOOR_MB       MemAvailable never allowed below this           (default 8192)
-#   DEFAULT_EST_MB estimate for a cell class never seen before     (default 4096)
+#   DEFAULT_EST_MB estimate for a cell class never seen before     (default 8192)
+#                  Applied PER CLASS until one cell of it finishes. Too high starves the run:
+#                  16000 across 40 axis-C classes held it at ~6 concurrent for a week.
 #   SAFETY_PCT     percent of the learned estimate to reserve       (default 125)
 #   TAG            re-run tag, as in run_local.sh
 #   CELL_CMD       override the per-cell command (testing only)
@@ -27,8 +30,10 @@ TASKS="${1:?usage: bash hpc/run_adaptive.sh <tasklist.txt>}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"
 [ -f "$TASKS" ] || { echo "no such task list: $TASKS"; exit 1; }
 
-MEM_PCT="${MEM_PCT:-75}"; MAXJOBS="${MAXJOBS:-$(nproc)}"; FLOOR_MB="${FLOOR_MB:-8192}"
-DEFAULT_EST_MB="${DEFAULT_EST_MB:-4096}"; SAFETY_PCT="${SAFETY_PCT:-125}"; TAG="${TAG:-}"
+MEM_PCT="${MEM_PCT:-75}"; MAXJOBS="${MAXJOBS:-$(( $(nproc) * 3 / 4 ))}"; FLOOR_MB="${FLOOR_MB:-8192}"
+# integer 75% of one core is zero, and a cap of zero never launches anything -- forever
+[ "$MAXJOBS" -lt 1 ] && MAXJOBS=1
+DEFAULT_EST_MB="${DEFAULT_EST_MB:-8192}"; SAFETY_PCT="${SAFETY_PCT:-125}"; TAG="${TAG:-}"
 MEM_TOTAL_MB=$(awk '/^MemTotal:/{printf "%d", $2/1024}' /proc/meminfo)
 BUDGET_MB=$(( MEM_TOTAL_MB * MEM_PCT / 100 ))
 
@@ -124,6 +129,7 @@ reap() {   # free the reservation of anything that has exited, and learn its rea
       [ -f "logs/$id.mem" ] && mb=$(awk 'END{printf "%d", $1/1024}' "logs/$id.mem" 2>/dev/null)
       if [ "${mb:-0}" -gt "${EST[$k]:-0}" ]; then EST["$k"]=$mb; fi
       RESERVED=$(( RESERVED - PID_EST[$pid] )); [ "$RESERVED" -lt 0 ] && RESERVED=0
+      done_n=$(( done_n + 1 ))
       unset 'PID_EST[$pid]' 'PID_ID[$pid]' 'PID_KEY[$pid]'
     fi
   done
@@ -132,8 +138,20 @@ reap() {   # free the reservation of anything that has exited, and learn its rea
 # PENDING is maintained rather than recounted: recounting from head on every loop turn made the
 # scheduler O(n^2) and cost 99 s of pure bookkeeping on a 13 750-cell list.
 PENDING=$total
+# Heartbeat. RESERVED is what the scheduler thinks it holds; "used" is what the machine actually
+# has in use (MemTotal - MemAvailable, so it includes other users). A large gap between the two
+# means the estimates are too pessimistic and the run is starving itself -- which is exactly what
+# ran undetected for a week on axis C (2026-09-16..23: ~6 cells at a time, 15 of 144 GB used).
+HEARTBEAT_S="${HEARTBEAT_S:-600}"; last_hb=-999999; done_n=0
+heartbeat() {
+  avail_mb
+  printf '.. %s  running %d/%d  reserved %d/%dMB  used %dMB  avail %dMB  done %d  pending %d\n' \
+    "$(date '+%F %T')" "${#PID_ID[@]}" "$MAXJOBS" "$RESERVED" "$BUDGET_MB" \
+    $(( MEM_TOTAL_MB - _AVAIL )) "$_AVAIL" "$done_n" "$PENDING"
+}
 while [ "$PENDING" -gt 0 ] || [ "${#PID_ID[@]}" -gt 0 ]; do
   reap
+  if [ -z "${DRY:-}" ] && [ $(( SECONDS - last_hb )) -ge "$HEARTBEAT_S" ]; then heartbeat; last_hb=$SECONDS; fi
   launched_any=0
   while :; do
     running=${#PID_ID[@]}
