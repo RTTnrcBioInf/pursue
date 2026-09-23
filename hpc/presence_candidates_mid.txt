@@ -1,0 +1,105 @@
+nohup: ignoring input
+template hmp_stool: 1295 features x 353 samples; simulator mid
+
+  R00    (no confound)         rep  1 done
+  R00    (no confound)         rep  2 done
+  R00    (no confound)         rep  3 done
+  R00    (no confound)         rep  4 done
+  R00    (no confound)         rep  5 done
+  R00    (no confound)         rep  6 done
+  R00    (no confound)         rep  7 done
+  R00    (no confound)         rep  8 done
+  R00    (no confound)         rep  9 done
+  R00    (no confound)         rep 10 done
+  R17    (depth x2)            rep  1 done
+  R17    (depth x2)            rep  2 done
+  R17    (depth x2)            rep  3 done
+  R17    (depth x2)            rep  4 done
+  R17    (depth x2)            rep  5 done
+  R17    (depth x2)            rep  6 done
+  R17    (depth x2)            rep  7 done
+  R17    (depth x2)            rep  8 done
+  R17    (depth x2)            rep  9 done
+  R17    (depth x2)            rep 10 done
+  R18    (depth x4)            rep  1 done
+  R18    (depth x4)            rep  2 done
+  R18    (depth x4)            rep  3 done
+  R18    (depth x4)            rep  4 done
+  R18    (depth x4)            rep  5 done
+  R18    (depth x4)            rep  6 done
+  R18    (depth x4)            rep  7 done
+  R18    (depth x4)            rep  8 done
+  R18    (depth x4)            rep  9 done
+  R18    (depth x4)            rep 10 done
+  R19    (depth x9)            rep  1 done
+  R19    (depth x9)            rep  2 done
+  R19    (depth x9)            rep  3 done
+  R19    (depth x9)            rep  4 done
+  R19    (depth x9)            rep  5 done
+  R19    (depth x9)            rep  6 done
+  R19    (depth x9)            rep  7 done
+  R19    (depth x9)            rep  8 done
+  R19    (depth x9)            rep  9 done
+  R19    (depth x9)            rep 10 done
+  R06    (global null)         rep  1 done
+  R06    (global null)         rep  2 done
+  R06    (global null)         rep  3 done
+  R06    (global null)         rep  4 done
+  R06    (global null)         rep  5 done
+  R06    (global null)         rep  6 done
+  R06    (global null)         rep  7 done
+  R06    (global null)         rep  8 done
+  R06    (global null)         rep  9 done
+  R06    (global null)         rep 10 done
+
+R00    (no confound)   (DA features per cell: 47.1)
+         variant  TP  FP FDR FPR_nulls
+ pursue_combined 0.1 0.0 0.0    0.0541
+ pursue_presence 0.0 0.1 1.0    0.0447
+        logistic 0.0 0.0 0.0    0.0508
+  logistic_depth 0.0 0.0 0.0    0.0535
+  cloglog_offset 0.1 0.1 0.5    0.0674
+   cloglog_depth 0.2 0.0 0.0    0.0540
+
+R06    (global null)   (DA features per cell: 0)
+         variant TP  FP FDR FPR_nulls
+ pursue_combined  0 0.0   0    0.0552
+ pursue_presence  0 0.1   1    0.0503
+        logistic  0 0.0   0    0.0571
+  logistic_depth  0 0.1   1    0.0549
+  cloglog_offset  0 0.5   1    0.0656
+   cloglog_depth  0 0.1   1    0.0549
+
+R17    (depth x2)   (DA features per cell: 48.4)
+         variant  TP   FP   FDR FPR_nulls
+ pursue_combined 0.0  0.2 1.000    0.0629
+ pursue_presence 0.0  0.4 1.000    0.0627
+        logistic 4.7 14.2 0.751    0.1894
+  logistic_depth 0.2  0.0 0.000    0.0576
+  cloglog_offset 7.3 40.3 0.847    0.2308
+   cloglog_depth 0.2  0.0 0.000    0.0576
+
+R18    (depth x4)   (DA features per cell: 49.5)
+         variant   TP    FP   FDR FPR_nulls
+ pursue_combined  0.4   3.5 0.897    0.0867
+ pursue_presence  0.7   5.0 0.877    0.0995
+        logistic 13.6 129.4 0.905    0.4253
+  logistic_depth  0.1   0.1 0.500    0.0625
+  cloglog_offset 27.2 204.9 0.883    0.5381
+   cloglog_depth  0.2   0.3 0.600    0.0625
+
+R19    (depth x9)   (DA features per cell: 49.8)
+         variant   TP    FP   FDR FPR_nulls
+ pursue_combined  0.9   5.3 0.855    0.1180
+ pursue_presence  0.6   8.6 0.935    0.1406
+        logistic 32.8 290.9 0.899    0.6944
+  logistic_depth  0.0   0.1 1.000    0.0488
+  cloglog_offset 34.1 313.2 0.902    0.7304
+   cloglog_depth  0.0   0.1 1.000    0.0528
+
+What a 0.3 presence test has to do, all at once:
+  B_ref / B_prev   TP close to `logistic`                     (the power PURSUE is missing)
+  R17 / R18 / R19  FDR stays near 0.05 as depth confounding grows (what `logistic` cannot do)
+  R06              FPR_nulls near 0.05, not 0.018             (calibrated, not conservative)
+
+wrote hpc/presence_candidates_mid.csv
