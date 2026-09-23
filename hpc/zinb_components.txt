@@ -1,0 +1,183 @@
+nohup: ignoring input
+PURSUE 0.2.0, 32 cores
+template hmp_stool: 1295 features x 353 samples
+
+  B_abund (abundance-only truth)     rep  1 done
+  B_abund (abundance-only truth)     rep  2 done
+  B_abund (abundance-only truth)     rep  3 done
+  B_abund (abundance-only truth)     rep  4 done
+  B_abund (abundance-only truth)     rep  5 done
+  B_abund (abundance-only truth)     rep  6 done
+  B_abund (abundance-only truth)     rep  7 done
+  B_abund (abundance-only truth)     rep  8 done
+  B_abund (abundance-only truth)     rep  9 done
+  B_abund (abundance-only truth)     rep 10 done
+  B_prev  (prevalence-only truth)    rep  1 done
+  B_prev  (prevalence-only truth)    rep  2 done
+  B_prev  (prevalence-only truth)    rep  3 done
+  B_prev  (prevalence-only truth)    rep  4 done
+  B_prev  (prevalence-only truth)    rep  5 done
+  B_prev  (prevalence-only truth)    rep  6 done
+  B_prev  (prevalence-only truth)    rep  7 done
+  B_prev  (prevalence-only truth)    rep  8 done
+  B_prev  (prevalence-only truth)    rep  9 done
+  B_prev  (prevalence-only truth)    rep 10 done
+  B_ref   (mixed truth)              rep  1 done
+  B_ref   (mixed truth)              rep  2 done
+  B_ref   (mixed truth)              rep  3 done
+  B_ref   (mixed truth)              rep  4 done
+  B_ref   (mixed truth)              rep  5 done
+  B_ref   (mixed truth)              rep  6 done
+  B_ref   (mixed truth)              rep  7 done
+  B_ref   (mixed truth)              rep  8 done
+  B_ref   (mixed truth)              rep  9 done
+  B_ref   (mixed truth)              rep 10 done
+  R00     (house, no confound)       rep  1 done
+  R00     (house, no confound)       rep  2 done
+  R00     (house, no confound)       rep  3 done
+  R00     (house, no confound)       rep  4 done
+  R00     (house, no confound)       rep  5 done
+  R00     (house, no confound)       rep  6 done
+  R00     (house, no confound)       rep  7 done
+  R00     (house, no confound)       rep  8 done
+  R00     (house, no confound)       rep  9 done
+  R00     (house, no confound)       rep 10 done
+  R17     (depth x2)                 rep  1 done
+  R17     (depth x2)                 rep  2 done
+  R17     (depth x2)                 rep  3 done
+  R17     (depth x2)                 rep  4 done
+  R17     (depth x2)                 rep  5 done
+  R17     (depth x2)                 rep  6 done
+  R17     (depth x2)                 rep  7 done
+  R17     (depth x2)                 rep  8 done
+  R17     (depth x2)                 rep  9 done
+  R17     (depth x2)                 rep 10 done
+  R18     (depth x4)                 rep  1 done
+  R18     (depth x4)                 rep  2 done
+  R18     (depth x4)                 rep  3 done
+  R18     (depth x4)                 rep  4 done
+  R18     (depth x4)                 rep  5 done
+  R18     (depth x4)                 rep  6 done
+  R18     (depth x4)                 rep  7 done
+  R18     (depth x4)                 rep  8 done
+  R18     (depth x4)                 rep  9 done
+  R18     (depth x4)                 rep 10 done
+  R19     (depth x9)                 rep  1 done
+  R19     (depth x9)                 rep  2 done
+  R19     (depth x9)                 rep  3 done
+  R19     (depth x9)                 rep  4 done
+  R19     (depth x9)                 rep  5 done
+  R19     (depth x9)                 rep  6 done
+  R19     (depth x9)                 rep  7 done
+  R19     (depth x9)                 rep  8 done
+  R19     (depth x9)                 rep  9 done
+  R19     (depth x9)                 rep 10 done
+  R06     (global null)              rep  1 done
+  R06     (global null)              rep  2 done
+  R06     (global null)              rep  3 done
+  R06     (global null)              rep  4 done
+  R06     (global null)              rep  5 done
+  R06     (global null)              rep  6 done
+  R06     (global null)              rep  7 done
+  R06     (global null)              rep  8 done
+  R06     (global null)              rep  9 done
+  R06     (global null)              rep 10 done
+
+refit fidelity: Spearman(own psi-test, PURSUE presence p) median 1.000, min 1.000 over 80 cells
+  (near 1 means the mu and joint tests below come from the same model PURSUE fits)
+
+empirical-null centre of the abundance effect, by setting (0 = no compositional shift):
+                         setting  delta   pi0
+  B_abund (abundance-only truth) -0.008 0.562
+ B_prev  (prevalence-only truth)  0.020 0.628
+           B_ref   (mixed truth) -0.010 0.664
+    R00     (house, no confound) -0.020 0.555
+           R06     (global null) -0.007 0.658
+              R17     (depth x2) -0.048 0.522
+              R18     (depth x4) -0.037 0.492
+              R19     (depth x9) -0.037 0.505
+
+B_abund (abundance-only truth)   (DA features per cell: 71)
+         variant  TP  FP   FDR FPR_nulls
+ pursue_presence 0.0 0.0 0.000    0.0386
+     zinb_mu_raw 1.9 2.2 0.537    0.0994
+         zinb_mu 2.2 2.5 0.532    0.0990
+  zinb_joint_raw 1.7 1.1 0.393    0.0752
+      zinb_joint 1.8 1.0 0.357    0.0755
+        logistic 0.0 0.1 1.000    0.0522
+
+B_prev  (prevalence-only truth)   (DA features per cell: 67.4)
+         variant   TP  FP   FDR FPR_nulls
+ pursue_presence  8.3 0.1 0.012    0.0388
+     zinb_mu_raw  0.1 2.2 0.957    0.0968
+         zinb_mu  0.2 2.8 0.933    0.1039
+  zinb_joint_raw  9.0 3.2 0.262    0.0806
+      zinb_joint  9.3 3.8 0.290    0.0844
+        logistic 14.5 1.3 0.082    0.0619
+
+B_ref   (mixed truth)   (DA features per cell: 68.4)
+         variant  TP  FP   FDR FPR_nulls
+ pursue_presence 4.1 0.2 0.047    0.0406
+     zinb_mu_raw 0.6 1.4 0.700    0.0965
+         zinb_mu 0.7 2.1 0.750    0.0960
+  zinb_joint_raw 6.9 1.7 0.198    0.0785
+      zinb_joint 7.1 2.1 0.228    0.0770
+        logistic 9.1 0.5 0.052    0.0585
+
+R00     (house, no confound)   (DA features per cell: 31.8)
+         variant  TP  FP   FDR FPR_nulls
+ pursue_presence 3.6 0.4 0.100    0.0575
+     zinb_mu_raw 1.4 2.4 0.632    0.1153
+         zinb_mu 1.2 1.8 0.600    0.1168
+  zinb_joint_raw 8.6 3.6 0.295    0.1006
+      zinb_joint 9.4 3.4 0.266    0.1007
+        logistic 7.9 0.6 0.071    0.0653
+
+R06     (global null)   (DA features per cell: 0)
+         variant TP  FP FDR FPR_nulls
+ pursue_presence  0 0.0   0    0.0406
+     zinb_mu_raw  0 1.7   1    0.1249
+         zinb_mu  0 1.9   1    0.1254
+  zinb_joint_raw  0 0.9   1    0.1053
+      zinb_joint  0 1.0   1    0.1014
+        logistic  0 0.2   1    0.0517
+
+R17     (depth x2)   (DA features per cell: 32.1)
+         variant  TP  FP   FDR FPR_nulls
+ pursue_presence 3.2 0.1 0.030    0.0412
+     zinb_mu_raw 1.1 2.6 0.703    0.1383
+         zinb_mu 1.0 1.9 0.655    0.1322
+  zinb_joint_raw 7.4 2.9 0.282    0.1142
+      zinb_joint 7.2 1.9 0.209    0.1095
+        logistic 6.8 0.7 0.093    0.0539
+
+R18     (depth x4)   (DA features per cell: 33.2)
+         variant   TP  FP   FDR FPR_nulls
+ pursue_presence  5.0 0.1 0.020    0.0472
+     zinb_mu_raw  1.4 3.0 0.682    0.1387
+         zinb_mu  1.7 3.2 0.653    0.1376
+  zinb_joint_raw  9.9 4.1 0.293    0.1165
+      zinb_joint  9.7 3.7 0.276    0.1194
+        logistic 11.4 1.2 0.095    0.0566
+
+R19     (depth x9)   (DA features per cell: 33)
+         variant  TP  FP   FDR FPR_nulls
+ pursue_presence 4.1 0.0 0.000    0.0440
+     zinb_mu_raw 1.6 4.2 0.724    0.1302
+         zinb_mu 2.0 3.8 0.655    0.1308
+  zinb_joint_raw 8.4 3.8 0.311    0.1129
+      zinb_joint 8.3 3.1 0.272    0.1105
+        logistic 8.4 0.7 0.077    0.0623
+
+*_raw hold the abundance coefficient at 0; the unsuffixed versions hold it at the empirical-null
+centre. A synthetic check showed the raw tests reaching FPR 0.18-0.31 whenever OTHER features
+changed in abundance, while staying calibrated on a global null: compositional bias through the
+depth offset. Centring is meant to remove exactly that.
+
+What would make zinb_joint the 0.3 test:
+  B_abund          it finds what the presence test cannot (the 0.2 abundance arm finds ~0)
+  B_ref / R00      TP near logistic without logistic's behaviour under confounding
+  R17 / R18 / R19  keeps PURSUE's power under depth confounding, FDR near 0.05
+  R06              FPR_nulls near 0.05
+
+wrote hpc/zinb_components.csv

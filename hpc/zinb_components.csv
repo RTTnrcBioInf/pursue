@@ -1,0 +1,481 @@
+"setting","rep","variant","tested","n_pos","rej","tp","fp","fpr"
+"B_abund (abundance-only truth)",1,"pursue_presence",677,70,0,0,0,0.0345963756177924
+"B_abund (abundance-only truth)",1,"zinb_mu_raw",677,70,2,1,1,0.105436573311367
+"B_abund (abundance-only truth)",1,"zinb_mu",677,70,2,1,1,0.103789126853377
+"B_abund (abundance-only truth)",1,"zinb_joint_raw",677,70,3,2,1,0.0823723228995058
+"B_abund (abundance-only truth)",1,"zinb_joint",677,70,2,2,0,0.0741350906095552
+"B_abund (abundance-only truth)",1,"logistic",677,70,0,0,0,0.0494233937397035
+"B_abund (abundance-only truth)",2,"pursue_presence",624,71,0,0,0,0.0470162748643761
+"B_abund (abundance-only truth)",2,"zinb_mu_raw",624,71,4,1,3,0.0867992766726944
+"B_abund (abundance-only truth)",2,"zinb_mu",624,71,4,1,3,0.0886075949367089
+"B_abund (abundance-only truth)",2,"zinb_joint_raw",624,71,4,1,3,0.0687160940325497
+"B_abund (abundance-only truth)",2,"zinb_joint",624,71,4,1,3,0.0669077757685353
+"B_abund (abundance-only truth)",2,"logistic",624,71,0,0,0,0.0705244122965642
+"B_abund (abundance-only truth)",3,"pursue_presence",693,70,0,0,0,0.0385232744783307
+"B_abund (abundance-only truth)",3,"zinb_mu_raw",693,70,2,1,1,0.102728731942215
+"B_abund (abundance-only truth)",3,"zinb_mu",693,70,2,1,1,0.0914927768860353
+"B_abund (abundance-only truth)",3,"zinb_joint_raw",693,70,2,1,1,0.0818619582664527
+"B_abund (abundance-only truth)",3,"zinb_joint",693,70,2,1,1,0.0818619582664527
+"B_abund (abundance-only truth)",3,"logistic",693,70,1,0,1,0.0770465489566613
+"B_abund (abundance-only truth)",4,"pursue_presence",709,69,0,0,0,0.0359375
+"B_abund (abundance-only truth)",4,"zinb_mu_raw",709,69,4,2,2,0.1
+"B_abund (abundance-only truth)",4,"zinb_mu",709,69,5,2,3,0.1046875
+"B_abund (abundance-only truth)",4,"zinb_joint_raw",709,69,2,1,1,0.0859375
+"B_abund (abundance-only truth)",4,"zinb_joint",709,69,2,1,1,0.090625
+"B_abund (abundance-only truth)",4,"logistic",709,69,0,0,0,0.065625
+"B_abund (abundance-only truth)",5,"pursue_presence",711,74,0,0,0,0.043956043956044
+"B_abund (abundance-only truth)",5,"zinb_mu_raw",711,74,8,4,4,0.0957613814756672
+"B_abund (abundance-only truth)",5,"zinb_mu",711,74,8,4,4,0.0957613814756672
+"B_abund (abundance-only truth)",5,"zinb_joint_raw",711,74,4,4,0,0.0784929356357928
+"B_abund (abundance-only truth)",5,"zinb_joint",711,74,4,4,0,0.0800627943485086
+"B_abund (abundance-only truth)",5,"logistic",711,74,0,0,0,0.0486656200941915
+"B_abund (abundance-only truth)",6,"pursue_presence",686,78,0,0,0,0.0361842105263158
+"B_abund (abundance-only truth)",6,"zinb_mu_raw",686,78,6,3,3,0.0986842105263158
+"B_abund (abundance-only truth)",6,"zinb_mu",686,78,8,5,3,0.0986842105263158
+"B_abund (abundance-only truth)",6,"zinb_joint_raw",686,78,2,2,0,0.0674342105263158
+"B_abund (abundance-only truth)",6,"zinb_joint",686,78,2,2,0,0.0773026315789474
+"B_abund (abundance-only truth)",6,"logistic",686,78,0,0,0,0.0476973684210526
+"B_abund (abundance-only truth)",7,"pursue_presence",685,66,0,0,0,0.037156704361874
+"B_abund (abundance-only truth)",7,"zinb_mu_raw",685,66,3,1,2,0.12924071082391
+"B_abund (abundance-only truth)",7,"zinb_mu",685,66,6,2,4,0.12924071082391
+"B_abund (abundance-only truth)",7,"zinb_joint_raw",685,66,1,0,1,0.0856219709208401
+"B_abund (abundance-only truth)",7,"zinb_joint",685,66,1,0,1,0.0856219709208401
+"B_abund (abundance-only truth)",7,"logistic",685,66,0,0,0,0.0339256865912763
+"B_abund (abundance-only truth)",8,"pursue_presence",659,79,0,0,0,0.0568965517241379
+"B_abund (abundance-only truth)",8,"zinb_mu_raw",659,79,5,1,4,0.0982758620689655
+"B_abund (abundance-only truth)",8,"zinb_mu",659,79,5,1,4,0.0948275862068965
+"B_abund (abundance-only truth)",8,"zinb_joint_raw",659,79,3,1,2,0.0724137931034483
+"B_abund (abundance-only truth)",8,"zinb_joint",659,79,3,1,2,0.0706896551724138
+"B_abund (abundance-only truth)",8,"logistic",659,79,0,0,0,0.0517241379310345
+"B_abund (abundance-only truth)",9,"pursue_presence",650,68,0,0,0,0.0360824742268041
+"B_abund (abundance-only truth)",9,"zinb_mu_raw",650,68,4,3,1,0.0927835051546392
+"B_abund (abundance-only truth)",9,"zinb_mu",650,68,4,3,1,0.0893470790378007
+"B_abund (abundance-only truth)",9,"zinb_joint_raw",650,68,5,4,1,0.0687285223367698
+"B_abund (abundance-only truth)",9,"zinb_joint",650,68,5,4,1,0.0670103092783505
+"B_abund (abundance-only truth)",9,"logistic",650,68,0,0,0,0.0395189003436426
+"B_abund (abundance-only truth)",10,"pursue_presence",673,65,0,0,0,0.0197368421052632
+"B_abund (abundance-only truth)",10,"zinb_mu_raw",673,65,3,2,1,0.0838815789473684
+"B_abund (abundance-only truth)",10,"zinb_mu",673,65,3,2,1,0.09375
+"B_abund (abundance-only truth)",10,"zinb_joint_raw",673,65,2,1,1,0.0608552631578947
+"B_abund (abundance-only truth)",10,"zinb_joint",673,65,3,2,1,0.0608552631578947
+"B_abund (abundance-only truth)",10,"logistic",673,65,0,0,0,0.0378289473684211
+"B_prev  (prevalence-only truth)",1,"pursue_presence",655,69,8,7,1,0.0460750853242321
+"B_prev  (prevalence-only truth)",1,"zinb_mu_raw",655,69,6,0,6,0.122866894197952
+"B_prev  (prevalence-only truth)",1,"zinb_mu",655,69,9,0,9,0.126279863481229
+"B_prev  (prevalence-only truth)",1,"zinb_joint_raw",655,69,19,10,9,0.100682593856655
+"B_prev  (prevalence-only truth)",1,"zinb_joint",655,69,22,10,12,0.0989761092150171
+"B_prev  (prevalence-only truth)",1,"logistic",655,69,21,15,6,0.0853242320819113
+"B_prev  (prevalence-only truth)",2,"pursue_presence",687,76,13,13,0,0.0409165302782324
+"B_prev  (prevalence-only truth)",2,"zinb_mu_raw",687,76,0,0,0,0.101472995090016
+"B_prev  (prevalence-only truth)",2,"zinb_mu",687,76,0,0,0,0.101472995090016
+"B_prev  (prevalence-only truth)",2,"zinb_joint_raw",687,76,16,15,1,0.0785597381342062
+"B_prev  (prevalence-only truth)",2,"zinb_joint",687,76,16,15,1,0.0818330605564648
+"B_prev  (prevalence-only truth)",2,"logistic",687,76,20,19,1,0.0638297872340425
+"B_prev  (prevalence-only truth)",3,"pursue_presence",691,72,4,4,0,0.0436187399030695
+"B_prev  (prevalence-only truth)",3,"zinb_mu_raw",691,72,0,0,0,0.0920840064620355
+"B_prev  (prevalence-only truth)",3,"zinb_mu",691,72,0,0,0,0.0888529886914378
+"B_prev  (prevalence-only truth)",3,"zinb_joint_raw",691,72,8,6,2,0.0759289176090469
+"B_prev  (prevalence-only truth)",3,"zinb_joint",691,72,6,6,0,0.0759289176090469
+"B_prev  (prevalence-only truth)",3,"logistic",691,72,10,9,1,0.074313408723748
+"B_prev  (prevalence-only truth)",4,"pursue_presence",737,65,7,7,0,0.0342261904761905
+"B_prev  (prevalence-only truth)",4,"zinb_mu_raw",737,65,2,0,2,0.0803571428571429
+"B_prev  (prevalence-only truth)",4,"zinb_mu",737,65,2,0,2,0.0818452380952381
+"B_prev  (prevalence-only truth)",4,"zinb_joint_raw",737,65,8,6,2,0.0714285714285714
+"B_prev  (prevalence-only truth)",4,"zinb_joint",737,65,8,6,2,0.0714285714285714
+"B_prev  (prevalence-only truth)",4,"logistic",737,65,12,12,0,0.0535714285714286
+"B_prev  (prevalence-only truth)",5,"pursue_presence",687,65,13,13,0,0.0434083601286174
+"B_prev  (prevalence-only truth)",5,"zinb_mu_raw",687,65,1,0,1,0.107717041800643
+"B_prev  (prevalence-only truth)",5,"zinb_mu",687,65,1,0,1,0.114147909967846
+"B_prev  (prevalence-only truth)",5,"zinb_joint_raw",687,65,9,8,1,0.0980707395498392
+"B_prev  (prevalence-only truth)",5,"zinb_joint",687,65,13,9,4,0.0948553054662379
+"B_prev  (prevalence-only truth)",5,"logistic",687,65,12,12,0,0.0643086816720257
+"B_prev  (prevalence-only truth)",6,"pursue_presence",669,62,7,7,0,0.0164744645799012
+"B_prev  (prevalence-only truth)",6,"zinb_mu_raw",669,62,1,0,1,0.085667215815486
+"B_prev  (prevalence-only truth)",6,"zinb_mu",669,62,5,1,4,0.14827018121911
+"B_prev  (prevalence-only truth)",6,"zinb_joint_raw",669,62,8,7,1,0.057660626029654
+"B_prev  (prevalence-only truth)",6,"zinb_joint",669,62,11,9,2,0.0955518945634267
+"B_prev  (prevalence-only truth)",6,"logistic",669,62,13,13,0,0.0329489291598023
+"B_prev  (prevalence-only truth)",7,"pursue_presence",660,64,5,5,0,0.0520134228187919
+"B_prev  (prevalence-only truth)",7,"zinb_mu_raw",660,64,4,0,4,0.11744966442953
+"B_prev  (prevalence-only truth)",7,"zinb_mu",660,64,4,0,4,0.114093959731544
+"B_prev  (prevalence-only truth)",7,"zinb_joint_raw",660,64,11,7,4,0.104026845637584
+"B_prev  (prevalence-only truth)",7,"zinb_joint",660,64,10,7,3,0.0973154362416107
+"B_prev  (prevalence-only truth)",7,"logistic",660,64,16,14,2,0.0553691275167785
+"B_prev  (prevalence-only truth)",8,"pursue_presence",673,72,8,8,0,0.0399334442595674
+"B_prev  (prevalence-only truth)",8,"zinb_mu_raw",673,72,1,0,1,0.0765391014975042
+"B_prev  (prevalence-only truth)",8,"zinb_mu",673,72,1,0,1,0.0815307820299501
+"B_prev  (prevalence-only truth)",8,"zinb_joint_raw",673,72,7,6,1,0.0615640599001664
+"B_prev  (prevalence-only truth)",8,"zinb_joint",673,72,7,6,1,0.0682196339434276
+"B_prev  (prevalence-only truth)",8,"logistic",673,72,19,18,1,0.0599001663893511
+"B_prev  (prevalence-only truth)",9,"pursue_presence",649,61,9,9,0,0.0357142857142857
+"B_prev  (prevalence-only truth)",9,"zinb_mu_raw",649,61,3,1,2,0.0969387755102041
+"B_prev  (prevalence-only truth)",9,"zinb_mu",649,61,3,1,2,0.0935374149659864
+"B_prev  (prevalence-only truth)",9,"zinb_joint_raw",649,61,15,11,4,0.0901360544217687
+"B_prev  (prevalence-only truth)",9,"zinb_joint",649,61,17,11,6,0.0918367346938776
+"B_prev  (prevalence-only truth)",9,"logistic",649,61,10,10,0,0.0663265306122449
+"B_prev  (prevalence-only truth)",10,"pursue_presence",689,68,10,10,0,0.035426731078905
+"B_prev  (prevalence-only truth)",10,"zinb_mu_raw",689,68,5,0,5,0.0869565217391304
+"B_prev  (prevalence-only truth)",10,"zinb_mu",689,68,5,0,5,0.0885668276972625
+"B_prev  (prevalence-only truth)",10,"zinb_joint_raw",689,68,21,14,7,0.0676328502415459
+"B_prev  (prevalence-only truth)",10,"zinb_joint",689,68,21,14,7,0.0676328502415459
+"B_prev  (prevalence-only truth)",10,"logistic",689,68,25,23,2,0.0628019323671498
+"B_ref   (mixed truth)",1,"pursue_presence",688,68,3,3,0,0.0241935483870968
+"B_ref   (mixed truth)",1,"zinb_mu_raw",688,68,6,2,4,0.111290322580645
+"B_ref   (mixed truth)",1,"zinb_mu",688,68,6,2,4,0.109677419354839
+"B_ref   (mixed truth)",1,"zinb_joint_raw",688,68,8,6,2,0.0564516129032258
+"B_ref   (mixed truth)",1,"zinb_joint",688,68,8,6,2,0.0548387096774194
+"B_ref   (mixed truth)",1,"logistic",688,68,6,6,0,0.0241935483870968
+"B_ref   (mixed truth)",2,"pursue_presence",690,68,0,0,0,0.0707395498392283
+"B_ref   (mixed truth)",2,"zinb_mu_raw",690,68,4,2,2,0.106109324758842
+"B_ref   (mixed truth)",2,"zinb_mu",690,68,4,2,2,0.101286173633441
+"B_ref   (mixed truth)",2,"zinb_joint_raw",690,68,6,5,1,0.106109324758842
+"B_ref   (mixed truth)",2,"zinb_joint",690,68,6,5,1,0.102893890675241
+"B_ref   (mixed truth)",2,"logistic",690,68,8,6,2,0.110932475884244
+"B_ref   (mixed truth)",3,"pursue_presence",690,65,1,1,0,0.032
+"B_ref   (mixed truth)",3,"zinb_mu_raw",690,65,2,0,2,0.1088
+"B_ref   (mixed truth)",3,"zinb_mu",690,65,2,0,2,0.112
+"B_ref   (mixed truth)",3,"zinb_joint_raw",690,65,6,4,2,0.0896
+"B_ref   (mixed truth)",3,"zinb_joint",690,65,6,4,2,0.088
+"B_ref   (mixed truth)",3,"logistic",690,65,9,9,0,0.064
+"B_ref   (mixed truth)",4,"pursue_presence",685,75,2,2,0,0.0147540983606557
+"B_ref   (mixed truth)",4,"zinb_mu_raw",685,75,0,0,0,0.0704918032786885
+"B_ref   (mixed truth)",4,"zinb_mu",685,75,3,1,2,0.0721311475409836
+"B_ref   (mixed truth)",4,"zinb_joint_raw",685,75,9,8,1,0.0491803278688525
+"B_ref   (mixed truth)",4,"zinb_joint",685,75,9,8,1,0.0475409836065574
+"B_ref   (mixed truth)",4,"logistic",685,75,7,7,0,0.0377049180327869
+"B_ref   (mixed truth)",5,"pursue_presence",656,67,3,3,0,0.0848896434634974
+"B_ref   (mixed truth)",5,"zinb_mu_raw",656,67,3,0,3,0.0865874363327674
+"B_ref   (mixed truth)",5,"zinb_mu",656,67,2,0,2,0.0848896434634974
+"B_ref   (mixed truth)",5,"zinb_joint_raw",656,67,6,4,2,0.112054329371817
+"B_ref   (mixed truth)",5,"zinb_joint",656,67,6,4,2,0.108658743633277
+"B_ref   (mixed truth)",5,"logistic",656,67,5,5,0,0.115449915110357
+"B_ref   (mixed truth)",6,"pursue_presence",647,71,11,11,0,0.0260416666666667
+"B_ref   (mixed truth)",6,"zinb_mu_raw",647,71,3,1,2,0.0885416666666667
+"B_ref   (mixed truth)",6,"zinb_mu",647,71,3,1,2,0.0902777777777778
+"B_ref   (mixed truth)",6,"zinb_joint_raw",647,71,16,14,2,0.0520833333333333
+"B_ref   (mixed truth)",6,"zinb_joint",647,71,15,13,2,0.0607638888888889
+"B_ref   (mixed truth)",6,"logistic",647,71,21,20,1,0.0520833333333333
+"B_ref   (mixed truth)",7,"pursue_presence",660,73,6,6,0,0.0494037478705281
+"B_ref   (mixed truth)",7,"zinb_mu_raw",660,73,1,1,0,0.0971039182282794
+"B_ref   (mixed truth)",7,"zinb_mu",660,73,5,1,4,0.0851788756388416
+"B_ref   (mixed truth)",7,"zinb_joint_raw",660,73,11,10,1,0.0868824531516184
+"B_ref   (mixed truth)",7,"zinb_joint",660,73,14,10,4,0.0732538330494037
+"B_ref   (mixed truth)",7,"logistic",660,73,9,9,0,0.0664395229982964
+"B_ref   (mixed truth)",8,"pursue_presence",751,70,5,5,0,0.0411160058737151
+"B_ref   (mixed truth)",8,"zinb_mu_raw",751,70,1,0,1,0.108663729809104
+"B_ref   (mixed truth)",8,"zinb_mu",751,70,3,0,3,0.116005873715125
+"B_ref   (mixed truth)",8,"zinb_joint_raw",751,70,10,6,4,0.0939794419970631
+"B_ref   (mixed truth)",8,"zinb_joint",751,70,14,9,5,0.0969162995594714
+"B_ref   (mixed truth)",8,"logistic",751,70,13,12,1,0.0440528634361234
+"B_ref   (mixed truth)",9,"pursue_presence",628,67,9,8,1,0.0409982174688057
+"B_ref   (mixed truth)",9,"zinb_mu_raw",628,67,0,0,0,0.0980392156862745
+"B_ref   (mixed truth)",9,"zinb_mu",628,67,0,0,0,0.0998217468805704
+"B_ref   (mixed truth)",9,"zinb_joint_raw",628,67,10,9,1,0.0819964349376114
+"B_ref   (mixed truth)",9,"zinb_joint",628,67,10,9,1,0.0802139037433155
+"B_ref   (mixed truth)",9,"logistic",628,67,10,10,0,0.0427807486631016
+"B_ref   (mixed truth)",10,"pursue_presence",643,60,3,2,1,0.0222984562607204
+"B_ref   (mixed truth)",10,"zinb_mu_raw",643,60,0,0,0,0.0891938250428816
+"B_ref   (mixed truth)",10,"zinb_mu",643,60,0,0,0,0.0891938250428816
+"B_ref   (mixed truth)",10,"zinb_joint_raw",643,60,4,3,1,0.0566037735849057
+"B_ref   (mixed truth)",10,"zinb_joint",643,60,4,3,1,0.0566037735849057
+"B_ref   (mixed truth)",10,"logistic",643,60,8,7,1,0.0274442538593482
+"R00     (house, no confound)",1,"pursue_presence",285,32,3,3,0,0.0553359683794466
+"R00     (house, no confound)",1,"zinb_mu_raw",285,32,4,2,2,0.106719367588933
+"R00     (house, no confound)",1,"zinb_mu",285,32,2,1,1,0.0948616600790514
+"R00     (house, no confound)",1,"zinb_joint_raw",285,32,17,13,4,0.110671936758893
+"R00     (house, no confound)",1,"zinb_joint",285,32,16,13,3,0.118577075098814
+"R00     (house, no confound)",1,"logistic",285,32,9,9,0,0.0632411067193676
+"R00     (house, no confound)",2,"pursue_presence",281,28,2,2,0,0.0474308300395257
+"R00     (house, no confound)",2,"zinb_mu_raw",281,28,0,0,0,0.130434782608696
+"R00     (house, no confound)",2,"zinb_mu",281,28,0,0,0,0.142292490118577
+"R00     (house, no confound)",2,"zinb_joint_raw",281,28,5,3,2,0.114624505928854
+"R00     (house, no confound)",2,"zinb_joint",281,28,3,3,0,0.114624505928854
+"R00     (house, no confound)",2,"logistic",281,28,7,5,2,0.08300395256917
+"R00     (house, no confound)",3,"pursue_presence",288,30,12,8,4,0.0852713178294574
+"R00     (house, no confound)",3,"zinb_mu_raw",288,30,6,0,6,0.0930232558139535
+"R00     (house, no confound)",3,"zinb_mu",288,30,2,0,2,0.10077519379845
+"R00     (house, no confound)",3,"zinb_joint_raw",288,30,19,9,10,0.0930232558139535
+"R00     (house, no confound)",3,"zinb_joint",288,30,18,10,8,0.104651162790698
+"R00     (house, no confound)",3,"logistic",288,30,10,9,1,0.0852713178294574
+"R00     (house, no confound)",4,"pursue_presence",293,30,2,2,0,0.0494296577946768
+"R00     (house, no confound)",4,"zinb_mu_raw",293,30,6,2,4,0.102661596958175
+"R00     (house, no confound)",4,"zinb_mu",293,30,6,2,4,0.106463878326996
+"R00     (house, no confound)",4,"zinb_joint_raw",293,30,15,10,5,0.0684410646387833
+"R00     (house, no confound)",4,"zinb_joint",293,30,15,10,5,0.064638783269962
+"R00     (house, no confound)",4,"logistic",293,30,11,11,0,0.0418250950570342
+"R00     (house, no confound)",5,"pursue_presence",271,32,3,3,0,0.0669456066945607
+"R00     (house, no confound)",5,"zinb_mu_raw",271,32,2,1,1,0.138075313807531
+"R00     (house, no confound)",5,"zinb_mu",271,32,5,2,3,0.150627615062762
+"R00     (house, no confound)",5,"zinb_joint_raw",271,32,11,10,1,0.108786610878661
+"R00     (house, no confound)",5,"zinb_joint",271,32,15,12,3,0.158995815899582
+"R00     (house, no confound)",5,"logistic",271,32,7,7,0,0.0753138075313808
+"R00     (house, no confound)",6,"pursue_presence",283,35,3,3,0,0.0443548387096774
+"R00     (house, no confound)",6,"zinb_mu_raw",283,35,7,1,6,0.145161290322581
+"R00     (house, no confound)",6,"zinb_mu",283,35,3,1,2,0.116935483870968
+"R00     (house, no confound)",6,"zinb_joint_raw",283,35,15,9,6,0.104838709677419
+"R00     (house, no confound)",6,"zinb_joint",283,35,13,9,4,0.0887096774193548
+"R00     (house, no confound)",6,"logistic",283,35,7,7,0,0.0362903225806452
+"R00     (house, no confound)",7,"pursue_presence",284,30,1,1,0,0.0590551181102362
+"R00     (house, no confound)",7,"zinb_mu_raw",284,30,0,0,0,0.114173228346457
+"R00     (house, no confound)",7,"zinb_mu",284,30,0,0,0,0.110236220472441
+"R00     (house, no confound)",7,"zinb_joint_raw",284,30,7,5,2,0.0984251968503937
+"R00     (house, no confound)",7,"zinb_joint",284,30,7,5,2,0.094488188976378
+"R00     (house, no confound)",7,"logistic",284,30,7,6,1,0.0866141732283465
+"R00     (house, no confound)",8,"pursue_presence",302,41,10,10,0,0.0498084291187739
+"R00     (house, no confound)",8,"zinb_mu_raw",302,41,11,7,4,0.126436781609195
+"R00     (house, no confound)",8,"zinb_mu",302,41,8,3,5,0.145593869731801
+"R00     (house, no confound)",8,"zinb_joint_raw",302,41,18,14,4,0.103448275862069
+"R00     (house, no confound)",8,"zinb_joint",302,41,20,15,5,0.0804597701149425
+"R00     (house, no confound)",8,"logistic",302,41,13,13,0,0.0574712643678161
+"R00     (house, no confound)",9,"pursue_presence",274,29,3,3,0,0.0489795918367347
+"R00     (house, no confound)",9,"zinb_mu_raw",274,29,0,0,0,0.102040816326531
+"R00     (house, no confound)",9,"zinb_mu",274,29,0,0,0,0.106122448979592
+"R00     (house, no confound)",9,"zinb_joint_raw",274,29,9,8,1,0.102040816326531
+"R00     (house, no confound)",9,"zinb_joint",274,29,11,8,3,0.110204081632653
+"R00     (house, no confound)",9,"logistic",274,29,8,6,2,0.0448979591836735
+"R00     (house, no confound)",10,"pursue_presence",296,31,1,1,0,0.0679245283018868
+"R00     (house, no confound)",10,"zinb_mu_raw",296,31,2,1,1,0.0943396226415094
+"R00     (house, no confound)",10,"zinb_mu",296,31,4,3,1,0.0943396226415094
+"R00     (house, no confound)",10,"zinb_joint_raw",296,31,6,5,1,0.10188679245283
+"R00     (house, no confound)",10,"zinb_joint",296,31,10,9,1,0.0716981132075472
+"R00     (house, no confound)",10,"logistic",296,31,6,6,0,0.0792452830188679
+"R17     (depth x2)",1,"pursue_presence",294,34,2,2,0,0.0307692307692308
+"R17     (depth x2)",1,"zinb_mu_raw",294,34,0,0,0,0.123076923076923
+"R17     (depth x2)",1,"zinb_mu",294,34,0,0,0,0.134615384615385
+"R17     (depth x2)",1,"zinb_joint_raw",294,34,11,9,2,0.0692307692307692
+"R17     (depth x2)",1,"zinb_joint",294,34,11,9,2,0.0692307692307692
+"R17     (depth x2)",1,"logistic",294,34,6,6,0,0.0461538461538462
+"R17     (depth x2)",2,"pursue_presence",295,31,3,3,0,0.0151515151515152
+"R17     (depth x2)",2,"zinb_mu_raw",295,31,4,2,2,0.143939393939394
+"R17     (depth x2)",2,"zinb_mu",295,31,2,1,1,0.143939393939394
+"R17     (depth x2)",2,"zinb_joint_raw",295,31,8,6,2,0.113636363636364
+"R17     (depth x2)",2,"zinb_joint",295,31,7,5,2,0.0909090909090909
+"R17     (depth x2)",2,"logistic",295,31,4,4,0,0.0378787878787879
+"R17     (depth x2)",3,"pursue_presence",294,34,6,6,0,0.0461538461538462
+"R17     (depth x2)",3,"zinb_mu_raw",294,34,6,1,5,0.169230769230769
+"R17     (depth x2)",3,"zinb_mu",294,34,6,1,5,0.161538461538462
+"R17     (depth x2)",3,"zinb_joint_raw",294,34,16,9,7,0.103846153846154
+"R17     (depth x2)",3,"zinb_joint",294,34,15,9,6,0.119230769230769
+"R17     (depth x2)",3,"logistic",294,34,11,10,1,0.0538461538461538
+"R17     (depth x2)",4,"pursue_presence",288,31,1,1,0,0.0389105058365759
+"R17     (depth x2)",4,"zinb_mu_raw",288,31,0,0,0,0.163424124513619
+"R17     (depth x2)",4,"zinb_mu",288,31,0,0,0,0.136186770428016
+"R17     (depth x2)",4,"zinb_joint_raw",288,31,7,6,1,0.140077821011673
+"R17     (depth x2)",4,"zinb_joint",288,31,6,6,0,0.1284046692607
+"R17     (depth x2)",4,"logistic",288,31,6,6,0,0.0389105058365759
+"R17     (depth x2)",5,"pursue_presence",293,34,4,4,0,0.0617760617760618
+"R17     (depth x2)",5,"zinb_mu_raw",293,34,5,2,3,0.135135135135135
+"R17     (depth x2)",5,"zinb_mu",293,34,6,3,3,0.138996138996139
+"R17     (depth x2)",5,"zinb_joint_raw",293,34,12,11,1,0.138996138996139
+"R17     (depth x2)",5,"zinb_joint",293,34,14,12,2,0.131274131274131
+"R17     (depth x2)",5,"logistic",293,34,11,10,1,0.0617760617760618
+"R17     (depth x2)",6,"pursue_presence",281,32,3,3,0,0.0281124497991968
+"R17     (depth x2)",6,"zinb_mu_raw",281,32,0,0,0,0.116465863453815
+"R17     (depth x2)",6,"zinb_mu",281,32,0,0,0,0.108433734939759
+"R17     (depth x2)",6,"zinb_joint_raw",281,32,5,5,0,0.0803212851405622
+"R17     (depth x2)",6,"zinb_joint",281,32,5,5,0,0.0682730923694779
+"R17     (depth x2)",6,"logistic",281,32,8,7,1,0.0281124497991968
+"R17     (depth x2)",7,"pursue_presence",296,30,3,3,0,0.0601503759398496
+"R17     (depth x2)",7,"zinb_mu_raw",296,30,4,1,3,0.12781954887218
+"R17     (depth x2)",7,"zinb_mu",296,30,1,0,1,0.116541353383459
+"R17     (depth x2)",7,"zinb_joint_raw",296,30,8,5,3,0.135338345864662
+"R17     (depth x2)",7,"zinb_joint",296,30,5,4,1,0.135338345864662
+"R17     (depth x2)",7,"logistic",296,30,6,4,2,0.0864661654135338
+"R17     (depth x2)",8,"pursue_presence",290,30,1,1,0,0.0538461538461538
+"R17     (depth x2)",8,"zinb_mu_raw",290,30,9,2,7,0.153846153846154
+"R17     (depth x2)",8,"zinb_mu",290,30,4,1,3,0.123076923076923
+"R17     (depth x2)",8,"zinb_joint_raw",290,30,12,6,6,0.130769230769231
+"R17     (depth x2)",8,"zinb_joint",290,30,7,5,2,0.126923076923077
+"R17     (depth x2)",8,"logistic",290,30,3,3,0,0.0846153846153846
+"R17     (depth x2)",9,"pursue_presence",293,29,6,6,0,0.0454545454545455
+"R17     (depth x2)",9,"zinb_mu_raw",293,29,6,1,5,0.117424242424242
+"R17     (depth x2)",9,"zinb_mu",293,29,5,1,4,0.113636363636364
+"R17     (depth x2)",9,"zinb_joint_raw",293,29,10,5,5,0.117424242424242
+"R17     (depth x2)",9,"zinb_joint",293,29,7,5,2,0.117424242424242
+"R17     (depth x2)",9,"logistic",293,29,7,7,0,0.0568181818181818
+"R17     (depth x2)",10,"pursue_presence",285,36,4,3,1,0.0321285140562249
+"R17     (depth x2)",10,"zinb_mu_raw",285,36,3,2,1,0.132530120481928
+"R17     (depth x2)",10,"zinb_mu",285,36,5,3,2,0.144578313253012
+"R17     (depth x2)",10,"zinb_joint_raw",285,36,14,12,2,0.112449799196787
+"R17     (depth x2)",10,"zinb_joint",285,36,14,12,2,0.108433734939759
+"R17     (depth x2)",10,"logistic",285,36,13,11,2,0.0441767068273092
+"R18     (depth x4)",1,"pursue_presence",310,33,2,2,0,0.0469314079422383
+"R18     (depth x4)",1,"zinb_mu_raw",310,33,12,5,7,0.155234657039711
+"R18     (depth x4)",1,"zinb_mu",310,33,12,5,7,0.155234657039711
+"R18     (depth x4)",1,"zinb_joint_raw",310,33,13,10,3,0.155234657039711
+"R18     (depth x4)",1,"zinb_joint",310,33,11,9,2,0.155234657039711
+"R18     (depth x4)",1,"logistic",310,33,11,11,0,0.0433212996389892
+"R18     (depth x4)",2,"pursue_presence",302,37,9,9,0,0.030188679245283
+"R18     (depth x4)",2,"zinb_mu_raw",302,37,5,2,3,0.147169811320755
+"R18     (depth x4)",2,"zinb_mu",302,37,6,2,4,0.147169811320755
+"R18     (depth x4)",2,"zinb_joint_raw",302,37,17,13,4,0.109433962264151
+"R18     (depth x4)",2,"zinb_joint",302,37,17,13,4,0.109433962264151
+"R18     (depth x4)",2,"logistic",302,37,18,16,2,0.0566037735849057
+"R18     (depth x4)",3,"pursue_presence",295,29,4,3,1,0.0413533834586466
+"R18     (depth x4)",3,"zinb_mu_raw",295,29,2,2,0,0.139097744360902
+"R18     (depth x4)",3,"zinb_mu",295,29,3,2,1,0.131578947368421
+"R18     (depth x4)",3,"zinb_joint_raw",295,29,15,11,4,0.109022556390977
+"R18     (depth x4)",3,"zinb_joint",295,29,13,10,3,0.120300751879699
+"R18     (depth x4)",3,"logistic",295,29,8,6,2,0.0488721804511278
+"R18     (depth x4)",4,"pursue_presence",291,31,2,2,0,0.0384615384615385
+"R18     (depth x4)",4,"zinb_mu_raw",291,31,3,0,3,0.0923076923076923
+"R18     (depth x4)",4,"zinb_mu",291,31,3,0,3,0.0923076923076923
+"R18     (depth x4)",4,"zinb_joint_raw",291,31,10,4,6,0.0769230769230769
+"R18     (depth x4)",4,"zinb_joint",291,31,9,4,5,0.0769230769230769
+"R18     (depth x4)",4,"logistic",291,31,10,8,2,0.0653846153846154
+"R18     (depth x4)",5,"pursue_presence",309,34,3,3,0,0.0436363636363636
+"R18     (depth x4)",5,"zinb_mu_raw",309,34,2,0,2,0.16
+"R18     (depth x4)",5,"zinb_mu",309,34,1,0,1,0.145454545454545
+"R18     (depth x4)",5,"zinb_joint_raw",309,34,8,6,2,0.127272727272727
+"R18     (depth x4)",5,"zinb_joint",309,34,7,6,1,0.123636363636364
+"R18     (depth x4)",5,"logistic",309,34,13,13,0,0.0581818181818182
+"R18     (depth x4)",6,"pursue_presence",296,32,10,10,0,0.071969696969697
+"R18     (depth x4)",6,"zinb_mu_raw",296,32,0,0,0,0.113636363636364
+"R18     (depth x4)",6,"zinb_mu",296,32,6,3,3,0.117424242424242
+"R18     (depth x4)",6,"zinb_joint_raw",296,32,13,12,1,0.113636363636364
+"R18     (depth x4)",6,"zinb_joint",296,32,15,13,2,0.121212121212121
+"R18     (depth x4)",6,"logistic",296,32,11,11,0,0.0757575757575758
+"R18     (depth x4)",7,"pursue_presence",302,35,4,4,0,0.0337078651685393
+"R18     (depth x4)",7,"zinb_mu_raw",302,35,2,0,2,0.123595505617978
+"R18     (depth x4)",7,"zinb_mu",302,35,2,0,2,0.108614232209738
+"R18     (depth x4)",7,"zinb_joint_raw",302,35,8,6,2,0.116104868913858
+"R18     (depth x4)",7,"zinb_joint",302,35,9,7,2,0.101123595505618
+"R18     (depth x4)",7,"logistic",302,35,16,13,3,0.0337078651685393
+"R18     (depth x4)",8,"pursue_presence",303,32,8,8,0,0.0627306273062731
+"R18     (depth x4)",8,"zinb_mu_raw",303,32,11,5,6,0.169741697416974
+"R18     (depth x4)",8,"zinb_mu",303,32,7,4,3,0.173431734317343
+"R18     (depth x4)",8,"zinb_joint_raw",303,32,26,18,8,0.140221402214022
+"R18     (depth x4)",8,"zinb_joint",303,32,24,17,7,0.14760147601476
+"R18     (depth x4)",8,"logistic",303,32,12,12,0,0.0774907749077491
+"R18     (depth x4)",9,"pursue_presence",302,34,3,3,0,0.0634328358208955
+"R18     (depth x4)",9,"zinb_mu_raw",302,34,2,0,2,0.134328358208955
+"R18     (depth x4)",9,"zinb_mu",302,34,2,0,2,0.138059701492537
+"R18     (depth x4)",9,"zinb_joint_raw",302,34,16,11,5,0.108208955223881
+"R18     (depth x4)",9,"zinb_joint",302,34,16,11,5,0.104477611940299
+"R18     (depth x4)",9,"logistic",302,34,15,13,2,0.0634328358208955
+"R18     (depth x4)",10,"pursue_presence",311,35,6,6,0,0.0398550724637681
+"R18     (depth x4)",10,"zinb_mu_raw",311,35,5,0,5,0.152173913043478
+"R18     (depth x4)",10,"zinb_mu",311,35,7,1,6,0.166666666666667
+"R18     (depth x4)",10,"zinb_joint_raw",311,35,14,8,6,0.108695652173913
+"R18     (depth x4)",10,"zinb_joint",311,35,13,7,6,0.134057971014493
+"R18     (depth x4)",10,"logistic",311,35,12,11,1,0.0434782608695652
+"R19     (depth x9)",1,"pursue_presence",299,28,0,0,0,0.03690036900369
+"R19     (depth x9)",1,"zinb_mu_raw",299,28,10,1,9,0.136531365313653
+"R19     (depth x9)",1,"zinb_mu",299,28,11,2,9,0.143911439114391
+"R19     (depth x9)",1,"zinb_joint_raw",299,28,12,5,7,0.107011070110701
+"R19     (depth x9)",1,"zinb_joint",299,28,10,5,5,0.103321033210332
+"R19     (depth x9)",1,"logistic",299,28,4,4,0,0.03690036900369
+"R19     (depth x9)",2,"pursue_presence",300,36,3,3,0,0.0340909090909091
+"R19     (depth x9)",2,"zinb_mu_raw",300,36,8,3,5,0.15530303030303
+"R19     (depth x9)",2,"zinb_mu",300,36,7,4,3,0.121212121212121
+"R19     (depth x9)",2,"zinb_joint_raw",300,36,11,7,4,0.117424242424242
+"R19     (depth x9)",2,"zinb_joint",300,36,14,11,3,0.0833333333333333
+"R19     (depth x9)",2,"logistic",300,36,13,13,0,0.0643939393939394
+"R19     (depth x9)",3,"pursue_presence",308,31,7,7,0,0.0541516245487365
+"R19     (depth x9)",3,"zinb_mu_raw",308,31,5,3,2,0.122743682310469
+"R19     (depth x9)",3,"zinb_mu",308,31,5,3,2,0.162454873646209
+"R19     (depth x9)",3,"zinb_joint_raw",308,31,16,14,2,0.115523465703971
+"R19     (depth x9)",3,"zinb_joint",308,31,13,10,3,0.140794223826715
+"R19     (depth x9)",3,"logistic",308,31,10,9,1,0.0577617328519856
+"R19     (depth x9)",4,"pursue_presence",302,35,4,4,0,0.0299625468164794
+"R19     (depth x9)",4,"zinb_mu_raw",302,35,5,1,4,0.123595505617978
+"R19     (depth x9)",4,"zinb_mu",302,35,5,1,4,0.127340823970037
+"R19     (depth x9)",4,"zinb_joint_raw",302,35,6,5,1,0.104868913857678
+"R19     (depth x9)",4,"zinb_joint",302,35,5,4,1,0.108614232209738
+"R19     (depth x9)",4,"logistic",302,35,9,8,1,0.048689138576779
+"R19     (depth x9)",5,"pursue_presence",312,34,6,6,0,0.0503597122302158
+"R19     (depth x9)",5,"zinb_mu_raw",312,34,1,0,1,0.115107913669065
+"R19     (depth x9)",5,"zinb_mu",312,34,7,2,5,0.133093525179856
+"R19     (depth x9)",5,"zinb_joint_raw",312,34,16,11,5,0.079136690647482
+"R19     (depth x9)",5,"zinb_joint",312,34,19,13,6,0.107913669064748
+"R19     (depth x9)",5,"logistic",312,34,15,14,1,0.0755395683453237
+"R19     (depth x9)",6,"pursue_presence",325,37,5,5,0,0.0590277777777778
+"R19     (depth x9)",6,"zinb_mu_raw",325,37,7,1,6,0.104166666666667
+"R19     (depth x9)",6,"zinb_mu",325,37,6,1,5,0.0972222222222222
+"R19     (depth x9)",6,"zinb_joint_raw",325,37,11,7,4,0.09375
+"R19     (depth x9)",6,"zinb_joint",325,37,9,7,2,0.0868055555555556
+"R19     (depth x9)",6,"logistic",325,37,8,8,0,0.0520833333333333
+"R19     (depth x9)",7,"pursue_presence",306,33,9,9,0,0.021978021978022
+"R19     (depth x9)",7,"zinb_mu_raw",306,33,1,0,1,0.0915750915750916
+"R19     (depth x9)",7,"zinb_mu",306,33,1,0,1,0.0915750915750916
+"R19     (depth x9)",7,"zinb_joint_raw",306,33,13,11,2,0.0842490842490843
+"R19     (depth x9)",7,"zinb_joint",306,33,13,11,2,0.0842490842490843
+"R19     (depth x9)",7,"logistic",306,33,12,11,1,0.032967032967033
+"R19     (depth x9)",8,"pursue_presence",298,30,0,0,0,0.0522388059701493
+"R19     (depth x9)",8,"zinb_mu_raw",298,30,6,1,5,0.149253731343284
+"R19     (depth x9)",8,"zinb_mu",298,30,8,2,6,0.156716417910448
+"R19     (depth x9)",8,"zinb_joint_raw",298,30,6,3,3,0.141791044776119
+"R19     (depth x9)",8,"zinb_joint",298,30,5,3,2,0.111940298507463
+"R19     (depth x9)",8,"logistic",298,30,4,4,0,0.0783582089552239
+"R19     (depth x9)",9,"pursue_presence",302,34,0,0,0,0.0671641791044776
+"R19     (depth x9)",9,"zinb_mu_raw",302,34,12,4,8,0.175373134328358
+"R19     (depth x9)",9,"zinb_mu",302,34,4,3,1,0.149253731343284
+"R19     (depth x9)",9,"zinb_joint_raw",302,34,16,10,6,0.17910447761194
+"R19     (depth x9)",9,"zinb_joint",302,34,10,7,3,0.167910447761194
+"R19     (depth x9)",9,"logistic",302,34,5,4,1,0.0858208955223881
+"R19     (depth x9)",10,"pursue_presence",296,32,7,7,0,0.0340909090909091
+"R19     (depth x9)",10,"zinb_mu_raw",296,32,3,2,1,0.128787878787879
+"R19     (depth x9)",10,"zinb_mu",296,32,4,2,2,0.125
+"R19     (depth x9)",10,"zinb_joint_raw",296,32,15,11,4,0.106060606060606
+"R19     (depth x9)",10,"zinb_joint",296,32,16,12,4,0.109848484848485
+"R19     (depth x9)",10,"logistic",296,32,11,9,2,0.0909090909090909
+"R06     (global null)",1,"pursue_presence",286,0,0,0,0,0.0384615384615385
+"R06     (global null)",1,"zinb_mu_raw",286,0,0,0,0,0.143356643356643
+"R06     (global null)",1,"zinb_mu",286,0,0,0,0,0.129370629370629
+"R06     (global null)",1,"zinb_joint_raw",286,0,1,0,1,0.104895104895105
+"R06     (global null)",1,"zinb_joint",286,0,0,0,0,0.0944055944055944
+"R06     (global null)",1,"logistic",286,0,0,0,0,0.0524475524475524
+"R06     (global null)",2,"pursue_presence",288,0,0,0,0,0.0277777777777778
+"R06     (global null)",2,"zinb_mu_raw",288,0,1,0,1,0.163194444444444
+"R06     (global null)",2,"zinb_mu",288,0,2,0,2,0.131944444444444
+"R06     (global null)",2,"zinb_joint_raw",288,0,1,0,1,0.125
+"R06     (global null)",2,"zinb_joint",288,0,1,0,1,0.121527777777778
+"R06     (global null)",2,"logistic",288,0,0,0,0,0.0486111111111111
+"R06     (global null)",3,"pursue_presence",289,0,0,0,0,0.041522491349481
+"R06     (global null)",3,"zinb_mu_raw",289,0,0,0,0,0.107266435986159
+"R06     (global null)",3,"zinb_mu",289,0,0,0,0,0.124567474048443
+"R06     (global null)",3,"zinb_joint_raw",289,0,0,0,0,0.0968858131487889
+"R06     (global null)",3,"zinb_joint",289,0,0,0,0,0.0899653979238754
+"R06     (global null)",3,"logistic",289,0,0,0,0,0.0519031141868512
+"R06     (global null)",4,"pursue_presence",283,0,0,0,0,0.0353356890459364
+"R06     (global null)",4,"zinb_mu_raw",283,0,6,0,6,0.162544169611307
+"R06     (global null)",4,"zinb_mu",283,0,6,0,6,0.162544169611307
+"R06     (global null)",4,"zinb_joint_raw",283,0,6,0,6,0.123674911660777
+"R06     (global null)",4,"zinb_joint",283,0,6,0,6,0.127208480565371
+"R06     (global null)",4,"logistic",283,0,1,0,1,0.0459363957597173
+"R06     (global null)",5,"pursue_presence",278,0,0,0,0,0.039568345323741
+"R06     (global null)",5,"zinb_mu_raw",278,0,1,0,1,0.118705035971223
+"R06     (global null)",5,"zinb_mu",278,0,2,0,2,0.136690647482014
+"R06     (global null)",5,"zinb_joint_raw",278,0,0,0,0,0.115107913669065
+"R06     (global null)",5,"zinb_joint",278,0,0,0,0,0.111510791366906
+"R06     (global null)",5,"logistic",278,0,0,0,0,0.039568345323741
+"R06     (global null)",6,"pursue_presence",291,0,0,0,0,0.0584192439862543
+"R06     (global null)",6,"zinb_mu_raw",291,0,2,0,2,0.0859106529209622
+"R06     (global null)",6,"zinb_mu",291,0,2,0,2,0.0962199312714777
+"R06     (global null)",6,"zinb_joint_raw",291,0,1,0,1,0.0756013745704467
+"R06     (global null)",6,"zinb_joint",291,0,1,0,1,0.0756013745704467
+"R06     (global null)",6,"logistic",291,0,0,0,0,0.0721649484536082
+"R06     (global null)",7,"pursue_presence",273,0,0,0,0,0.0586080586080586
+"R06     (global null)",7,"zinb_mu_raw",273,0,0,0,0,0.128205128205128
+"R06     (global null)",7,"zinb_mu",273,0,0,0,0,0.124542124542125
+"R06     (global null)",7,"zinb_joint_raw",273,0,0,0,0,0.102564102564103
+"R06     (global null)",7,"zinb_joint",273,0,0,0,0,0.10989010989011
+"R06     (global null)",7,"logistic",273,0,0,0,0,0.0659340659340659
+"R06     (global null)",8,"pursue_presence",308,0,0,0,0,0.0357142857142857
+"R06     (global null)",8,"zinb_mu_raw",308,0,0,0,0,0.0941558441558442
+"R06     (global null)",8,"zinb_mu",308,0,1,0,1,0.113636363636364
+"R06     (global null)",8,"zinb_joint_raw",308,0,0,0,0,0.0811688311688312
+"R06     (global null)",8,"zinb_joint",308,0,1,0,1,0.0844155844155844
+"R06     (global null)",8,"logistic",308,0,0,0,0,0.038961038961039
+"R06     (global null)",9,"pursue_presence",281,0,0,0,0,0.0427046263345196
+"R06     (global null)",9,"zinb_mu_raw",281,0,7,0,7,0.124555160142349
+"R06     (global null)",9,"zinb_mu",281,0,6,0,6,0.117437722419929
+"R06     (global null)",9,"zinb_joint_raw",281,0,0,0,0,0.128113879003559
+"R06     (global null)",9,"zinb_joint",281,0,1,0,1,0.106761565836299
+"R06     (global null)",9,"logistic",281,0,0,0,0,0.0498220640569395
+"R06     (global null)",10,"pursue_presence",290,0,0,0,0,0.0275862068965517
+"R06     (global null)",10,"zinb_mu_raw",290,0,0,0,0,0.120689655172414
+"R06     (global null)",10,"zinb_mu",290,0,0,0,0,0.117241379310345
+"R06     (global null)",10,"zinb_joint_raw",290,0,0,0,0,0.1
+"R06     (global null)",10,"zinb_joint",290,0,0,0,0,0.0931034482758621
+"R06     (global null)",10,"logistic",290,0,1,0,1,0.0517241379310345
