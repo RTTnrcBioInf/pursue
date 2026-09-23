@@ -13,21 +13,40 @@
 #      the signature of a weakly identified zero-inflation logit: for any feature with no
 #      structural zeros the group effect on it is unidentifiable, the LRT is ~0, and p ~ 1.
 #
-# So: keep the depth handling, drop the latent mixture. The candidate that does exactly that
-# is a binomial GLM on DETECTION with a complementary log-log link and a log-depth offset.
-# Under Poisson sampling it is not an approximation: P(X > 0) = 1 - exp(-lambda * N), so
-# cloglog P(X > 0) = log(lambda) + log(N). The group coefficient is then the log fold change in
-# relative abundance, estimated from the zeros -- which is where the abundance information
-# lives at 16S sparsity, and exactly what the current abundance arm (E[X | X > 0], nearly
-# independent of lambda) throws away. One test might replace both arms.
+# So: keep the depth handling, drop the latent mixture -- a binomial GLM on DETECTION, with
+# log-depth in the model. A synthetic check before this run (NB counts, 8 reps, 400 features)
+# decided HOW depth has to enter:
 #
+#                               no confounding          depth x4 confounded with group
+#                               TP     FDR               TP     FDR     FPR on nulls
+#   logistic (no depth)         20.3   0.041             18.8   0.934   0.854
+#   logistic + log-depth        21.1   0.040              1.8   0.067   0.053
+#   cloglog, log-depth OFFSET   23.5   0.074             17.4   0.529   0.186
+#   cloglog + log-depth         21.6   0.055              2.4   0.095   0.057
+#
+# * A depth COVARIATE costs no power when there is no confounding -- it slightly adds some,
+#   because depth explains much of why a feature is or is not detected -- and holds FDR when
+#   there is.
+# * The fixed OFFSET fails. Under Poisson sampling cloglog P(X>0) = log(lambda) + log(N)
+#   exactly, but with realistic overdispersion the detection-depth curve saturates, so a slope
+#   fixed at 1 mis-corrects and the residual depth effect lands on the group term. Kept below
+#   so the real data can confirm it, not because it is a candidate.
+# * Under strong confounding every depth-aware test loses most of its power. That is not a
+#   defect: when depth and group are nearly collinear a group effect and a depth effect cannot
+#   be told apart, and the honest answer is fewer calls, not more. Plain logistic's 18.8 "true
+#   positives" there come with 266 false ones.
+#
+# A detection test also cannot see anything in a feature detected in every sample (5-9% of
+# features in the check above). Those need a count model -- the abundance arm's job, which
+# 0.2's conditional-on-detection LM does not do (E[X | X>0] is nearly independent of lambda).
+
 # Candidates, all scored on the SAME yardstick -- any differentially abundant feature
 # (truth_abs), BH at 0.05 -- so their true- and false-positive counts compare directly:
 #   pursue_presence   PURSUE 0.2 ZINB structural-presence arm (the current product)
 #   pursue_combined   PURSUE 0.2 as shipped
 #   logistic          detected ~ group                        (the one beating PURSUE; no depth)
 #   logistic_depth    detected ~ group + log-depth             (logistic, made depth-aware)
-#   cloglog_offset    cloglog: detected ~ group, offset log N  (the exact Poisson-sampling model)
+#   cloglog_offset    cloglog: detected ~ group, offset log N  (exact under Poisson; fails under overdispersion)
 #   cloglog_depth     cloglog: detected ~ group + log-depth    (log-depth free, to absorb overdispersion)
 #
 # Settings: power without confounding (axis-B implants B_ref, B_prev), robustness under depth
@@ -40,7 +59,9 @@ suppressMessages(library(optparse))
 op <- OptionParser(option_list = list(
   make_option("--reps", type = "integer", default = 10L),
   make_option("--template", default = "hmp_stool"),
-  make_option("--out", default = "hpc/presence_candidates.csv"),
+  make_option("--simulator", default = "house",
+              help = "simulator for the R-regime settings: house | msq | mid (the implant settings run only with house)"),
+  make_option("--out", default = NULL),
   make_option("--bench-root", default = NULL)))
 opt <- parse_args(op)
 if (!is.null(opt$`bench-root`)) Sys.setenv(PURSUE_BENCH_ROOT = opt$`bench-root`)
@@ -53,21 +74,33 @@ for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R",
             "R/simulators/sim_house.R", "R/simulators/implant.R", "R/simulators/dispatch.R",
             "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R")) source(file.path(root, f))
 
+# Why --simulator: every claim so far that PURSUE's presence arm is robust to depth confounding
+# was measured on `house`, our own simulator -- and on house, plain logistic regression also holds
+# up (FDR 0.077-0.095 at R17-R19). Where logistic genuinely breaks (FDR 0.658 at R19 in axis A) is
+# `mid` and `msq`, which label no presence truth, so the presence arm has never been scored there.
+# Scoring against any true difference (truth_abs) makes it scorable. If the presence arm holds FDR
+# on mid/msq while logistic breaks, its depth robustness is real. If it breaks too, that robustness
+# was an artefact of our own simulator.
+if (is.null(opt$out)) opt$out <- sprintf("hpc/presence_candidates_%s.csv", opt$simulator)
+cache_dir <- file.path(dirname(root), "cache")
 tpl <- tryCatch(load_template(opt$template), error = function(e)
   stop("could not load template '", opt$template, "': ", conditionMessage(e), call. = FALSE))
-cat(sprintf("template %s: %d features x %d samples\n\n", opt$template, nrow(tpl$counts), ncol(tpl$counts)))
+cat(sprintf("template %s: %d features x %d samples; simulator %s\n\n", opt$template, nrow(tpl$counts), ncol(tpl$counts), opt$simulator))
 regimes <- read.delim(file.path(root, "regimes.tsv"), stringsAsFactors = FALSE, comment.char = "#")
 
+sim_r <- function(id, s) simulate_cell_data(opt$simulator, tpl, regimes[regimes$regime_id == id, ], s, cache_dir)
 implant_spec <- function(signal) list(n_per_group = 50, da_frac = 0.10, effect = "medium", signal_type = signal,
                                       balance = "balanced", conf_phi = 0, exposure = "binary")
 settings <- list(
   list(id = "B_ref  (power, mixed)",        make = function(s) implant(tpl, implant_spec("mixed"), s)),
   list(id = "B_prev (power, prevalence)",   make = function(s) implant(tpl, implant_spec("prevalence"), s)),
-  list(id = "R00    (house, no confound)",  make = function(s) simulate_cell_data("house", tpl, regimes[regimes$regime_id == "R00", ], s)),
-  list(id = "R17    (depth x2)",            make = function(s) simulate_cell_data("house", tpl, regimes[regimes$regime_id == "R17", ], s)),
-  list(id = "R18    (depth x4)",            make = function(s) simulate_cell_data("house", tpl, regimes[regimes$regime_id == "R18", ], s)),
-  list(id = "R19    (depth x9)",            make = function(s) simulate_cell_data("house", tpl, regimes[regimes$regime_id == "R19", ], s)),
-  list(id = "R06    (global null)",         make = function(s) simulate_cell_data("house", tpl, regimes[regimes$regime_id == "R06", ], s)))
+  list(id = "R00    (no confound)",         make = function(s) sim_r("R00", s)),
+  list(id = "R17    (depth x2)",            make = function(s) sim_r("R17", s)),
+  list(id = "R18    (depth x4)",            make = function(s) sim_r("R18", s)),
+  list(id = "R19    (depth x9)",            make = function(s) sim_r("R19", s)),
+  list(id = "R06    (global null)",         make = function(s) sim_r("R06", s)))
+# the implant settings use real counts, so they are the same under every simulator: run them once
+if (opt$simulator != "house") settings <- settings[!grepl("^B_", vapply(settings, `[[`, "", "id"))]
 
 # One detection GLM per feature; LRT on the group term.
 detect_test <- function(D, grp, ldepth, link, depth_mode) {
