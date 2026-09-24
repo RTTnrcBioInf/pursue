@@ -35,3 +35,4 @@ results/summary/metrics_long.csv
 .Rhistory
 .RData
 .Rproj.user/
+hpc/tasks_*/

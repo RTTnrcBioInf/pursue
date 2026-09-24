@@ -27,7 +27,7 @@ if (!is.null(opt$`bench-root`)) Sys.setenv(PURSUE_BENCH_ROOT = opt$`bench-root`)
 root <- Sys.getenv("PURSUE_BENCH_ROOT", unset = ".")
 for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R", "R/engine/io.R", "R/engine/realism.R",
             "R/simulators/sim_house.R", "R/simulators/implant.R", "R/simulators/nullperm.R", "R/simulators/dispatch.R",
-            "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R")) source(file.path(root, f))
+            "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R", "R/methods/pursue03.R")) source(file.path(root, f))
 
 cell_seed <- function(master, ...) { key <- paste(..., sep = "|"); h <- sum(utf8ToInt(key) * (seq_along(utf8ToInt(key)) %% 97 + 1)) %% 1e6
   as.integer(master * 1e6 + h) %% .Machine$integer.max }

@@ -29,7 +29,7 @@ opt <- parse_args(op)
 if (!is.null(opt$`bench-root`)) Sys.setenv(PURSUE_BENCH_ROOT = opt$`bench-root`)
 root <- Sys.getenv("PURSUE_BENCH_ROOT", unset = ".")
 for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R", "R/engine/io.R",
-            "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R")) source(file.path(root, f))
+            "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R", "R/methods/pursue03.R")) source(file.path(root, f))
 methods <- if (opt$methods == "all") method_registry()$id else strsplit(opt$methods, ",")[[1]]
 dir.create(opt$out, recursive = TRUE, showWarnings = FALSE)
 tagsfx <- if (nzchar(opt$tag)) paste0("__", opt$tag) else ""

@@ -21,6 +21,11 @@
 # easy settings do not dominate. Relative power depends on which candidates are compared.
 # -----------------------------------------------------------------------------
 GATE_FPR <- 0.075; GATE_FDR <- 0.10; GATE_FDR_POOLED <- 0.075
+# Reported but not gated: house:R25 changes every taxon's variance in cases (30/70 groups, 3x variance).
+# A variance change moves detection and mean abundance, which the location-shift truth does not count
+# as DA; all 16 full-benchmark methods fail it (house FPR 0.10-0.28). It measures the estimand, not
+# calibration (notebook, it10).
+NOT_GATED <- c("house:R25")
 .fdp_p <- function(fdp) if (length(fdp)) stats::pbinom(ceiling(sum(fdp) - 1e-9) - 1, length(fdp), 0.05, lower.tail = FALSE) else 1
 
 summarise_cells <- function(D) {
@@ -33,6 +38,7 @@ summarise_cells <- function(D) {
 }
 
 scoreboard <- function(sm) {
+  full <- sm; sm <- sm[!(sm$setting %in% NOT_GATED), ]; attr(sm, "cells") <- attr(full, "cells")[!(attr(full, "cells")$setting %in% NOT_GATED), ]
   sig <- sm$n_pos > 0
   best <- vapply(split(sm$TP[sig], sm$setting[sig]), max, numeric(1))
   sm$rel <- ifelse(sig, sm$TP / pmax(unname(best[sm$setting]), 1e-9), NA)

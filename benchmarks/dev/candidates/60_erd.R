@@ -373,8 +373,12 @@ register_candidate("erd_sc", function(counts, meta, formula, tested_term) .erd_s
 }
 .infl_cov <- function(P1, P2, cl) { if (is.null(cl)) return(rowSums(P1 * P2))
   Z <- stats::model.matrix(~ cl - 1); G <- ncol(Z); rowSums((P1 %*% Z) * (P2 %*% Z)) * G / (G - 1) }
+.gauss_legendre <- function(n) {                                  # Golub-Welsch; no package dependency
+  k <- seq_len(n - 1L); b <- k / sqrt(4 * k^2 - 1); J <- matrix(0, n, n); J[cbind(k, k + 1L)] <- b; J[cbind(k + 1L, k)] <- b
+  e <- eigen(J, symmetric = TRUE); o <- order(e$values); list(nodes = e$values[o], weights = 2 * e$vectors[1, o]^2)
+}
 .pmax2 <- function(m, rho) {                                      # P(max(|Z1|,|Z2|) >= m), corr rho, vectorised
-  gl <- statmod::gauss.quad(48L, "legendre"); out <- numeric(length(m))
+  gl <- .gauss_legendre(48L); out <- numeric(length(m))
   for (i in seq_along(m)) { if (!is.finite(m[i]) || !is.finite(rho[i])) { out[i] <- NA; next }
     r <- max(min(rho[i], 0.999), -0.999); s <- sqrt(1 - r^2); z <- m[i] * gl$nodes
     inner <- stats::pnorm((m[i] - r * z) / s) - stats::pnorm((-m[i] - r * z) / s)
