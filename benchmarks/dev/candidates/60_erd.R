@@ -340,3 +340,80 @@ register_candidate("erd_s", function(counts, meta, formula, tested_term) .erd_s(
   notes = "it9: depth-stratified ERD (K strata from the design, each rarefied to its own minimum), stratum fixed effects, HC3")
 register_candidate("erd_sc", function(counts, meta, formula, tested_term) .erd_s(counts, meta, formula, tested_term, TRUE),
   notes = "it9: erd_s + compositional centring by exposure-specific depth (absolute estimand)")
+
+# --- it11: one test across the transform family -- detection AND log, depth-centred, max-combined ---
+# srv2 (msq/mid): the family holds -- erd_c worst FPR 0.055, erl_lm 0.058 -- but the two transforms
+# win on different simulators. house/implant signal is mostly prevalence (ERD >> ERL: R16 8.7 vs
+# 2.3); msq/mid signal is abundance (ERL >> ERD: msq R00 10.0 vs 3.4). Which one carries the signal
+# is not knowable from the pooled data, so test both and pay only the multiplicity of their
+# correlation: max(|t_det|, |t_log|) referred to the bivariate normal with the correlation estimated
+# from the two coefficients' HC3 influence functions (not ACAT: no dilution by an uninformative arm
+# beyond the max's own price, which shrinks as the two correlate). A 2-df Wald on the pair is the
+# alternative. The it8 depth-scaling centring holds for any h(Y_D): Y_D ~ Bin(D, p) ~ Pois(Dp) depends
+# on D and p only through Dp, so rarefying exposed samples to D/c undoes a compositional c for the
+# log transform as well.
+.erl_f_var <- function(counts, depth, Dvec, kmax = 150L) {
+  Y <- as.matrix(counts); N <- matrix(depth, nrow(Y), ncol(Y), byrow = TRUE); Dm <- matrix(Dvec, nrow(Y), ncol(Y), byrow = TRUE)
+  mu <- Dm * Y / N; out <- matrix(0, nrow(Y), ncol(Y))
+  big <- mu > 60; if (any(big)) { pp <- (Y / N)[big]; v <- Dm[big] * pp * (1 - pp) * (N[big] - Dm[big]) / pmax(N[big] - 1, 1)
+    out[big] <- log1p(mu[big]) - v / (2 * (1 + mu[big])^2) }
+  sm <- which(!big & Y > 0)
+  if (length(sm)) { y <- Y[sm]; nn <- N[sm] - Y[sm]; dd <- Dm[sm]; acc <- numeric(length(sm))
+    for (k in 1:kmax) { live <- k <= y & k <= dd; if (!any(live)) break
+      acc[live] <- acc[live] + stats::dhyper(k, y[live], nn[live], dd[live]) * log1p(k) }
+    out[sm] <- acc }
+  out
+}
+# HC3 influence functions of the tested coefficient, one row per feature (features x samples)
+.lm_infl <- function(Fm, X, tc, cl = NULL) {
+  XtXi <- solve(crossprod(X)); a <- drop(XtXi[tc, , drop = FALSE] %*% t(X)); H <- rowSums((X %*% XtXi) * X)
+  B <- Fm %*% t(XtXi %*% t(X)); R <- Fm - B %*% t(X)
+  Psi <- R * rep(a, each = nrow(R)); if (is.null(cl)) Psi <- Psi / rep(1 - pmin(H, 0.99), each = nrow(R))
+  list(b = B[, tc], Psi = Psi, cl = cl)
+}
+.infl_cov <- function(P1, P2, cl) { if (is.null(cl)) return(rowSums(P1 * P2))
+  Z <- stats::model.matrix(~ cl - 1); G <- ncol(Z); rowSums((P1 %*% Z) * (P2 %*% Z)) * G / (G - 1) }
+.pmax2 <- function(m, rho) {                                      # P(max(|Z1|,|Z2|) >= m), corr rho, vectorised
+  gl <- statmod::gauss.quad(48L, "legendre"); out <- numeric(length(m))
+  for (i in seq_along(m)) { if (!is.finite(m[i]) || !is.finite(rho[i])) { out[i] <- NA; next }
+    r <- max(min(rho[i], 0.999), -0.999); s <- sqrt(1 - r^2); z <- m[i] * gl$nodes
+    inner <- stats::pnorm((m[i] - r * z) / s) - stats::pnorm((-m[i] - r * z) / s)
+    out[i] <- 1 - m[i] * sum(gl$weights * stats::dnorm(z) * inner) }
+  pmin(pmax(out, 0), 1)
+}
+.erdl_memo <- new.env()
+.erdl_fit <- function(counts, meta, formula, tested_term, sub = 400L) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.erdl_memo$key) && identical(.erdl_memo$key, key)) return(.erdl_memo$val)
+  X <- stats::model.matrix(formula, meta); asg <- attr(X, "assign")
+  tc <- which(asg == which(attr(stats::terms(formula), "term.labels") == tested_term))[1]
+  depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); x <- X[, tc]; cl <- .cluster_of(meta)
+  Dv <- function(gam) { D0 <- min(depth * exp(gam * x)); pmax(floor(D0 * exp(-gam * x)), 1) }
+  fmat <- function(h, gam, rows) if (h == "det") .erd_f_var(counts[rows, , drop = FALSE], depth, Dv(gam)) else .erl_f_var(counts[rows, , drop = FALSE], depth, Dv(gam))
+  set.seed(7L); rows <- if (nrow(counts) > sub) sort(sample.int(nrow(counts), sub)) else seq_len(nrow(counts))
+  gam_for <- function(h) { med <- function(g) { r <- .lm_hc3_fit(fmat(h, g, rows), X, tc, cl); stats::median(r$b / r$se, na.rm = TRUE) }
+    flo <- med(-2); fhi <- med(2)
+    if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 1e-3)$root else 0 }
+  all <- seq_len(nrow(counts)); g1 <- gam_for("det"); g2 <- gam_for("log")
+  F1 <- fmat("det", g1, all); F2 <- fmat("log", g2, all)
+  I1 <- .lm_infl(F1, X, tc, cl); I2 <- .lm_infl(F2, X, tc, cl)
+  v1 <- .infl_cov(I1$Psi, I1$Psi, cl); v2 <- .infl_cov(I2$Psi, I2$Psi, cl); c12 <- .infl_cov(I1$Psi, I2$Psi, cl)
+  ok <- rowSums(counts > 0) >= 3 & v1 > 0 & v2 > 0
+  # t -> z through the reference t (df = n - p, or G - 1 clusters) so the max/Wald respect small-df tails
+  df <- if (is.null(cl)) ncol(counts) - ncol(X) else nlevels(cl) - 1L
+  tz <- function(t) stats::qnorm(stats::pt(t, df))
+  z1 <- ifelse(ok, tz(I1$b / sqrt(v1)), NA); z2 <- ifelse(ok, tz(I2$b / sqrt(v2)), NA); rho <- ifelse(ok, c12 / sqrt(v1 * v2), NA)
+  pm <- .pmax2(pmax(abs(z1), abs(z2)), rho)
+  w2 <- (z1^2 - 2 * rho * z1 * z2 + z2^2) / (1 - pmin(rho^2, 0.998)); pw <- stats::pchisq(w2, 2, lower.tail = FALSE)
+  val <- list(feature = rownames(counts), p_max = pm, p_w2 = pw, p_log = 2 * stats::pnorm(-abs(z2)), est_log = I2$b, gam = c(g1, g2), rho = rho)
+  .erdl_memo$key <- key; .erdl_memo$val <- val; val
+}
+register_candidate("erdl_max", function(counts, meta, formula, tested_term) {
+  v <- .erdl_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est_log)
+}, notes = "it11: depth-centred ERD and ERL, max(|t|) against their bivariate normal (HC3 / cluster-robust influence correlation)")
+register_candidate("erdl_w2", function(counts, meta, formula, tested_term) {
+  v <- .erdl_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_w2, estimate = v$est_log)
+}, notes = "it11: depth-centred ERD and ERL, joint 2-df Wald")
+register_candidate("erl_c", function(counts, meta, formula, tested_term) {
+  v <- .erdl_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_log, estimate = v$est_log)
+}, notes = "it11: expected rarefied log count with depth-scaling compositional centring (it8 trick applied to ERL)")
