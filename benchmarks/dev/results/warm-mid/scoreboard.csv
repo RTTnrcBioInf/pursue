@@ -1,0 +1,2 @@
+"candidate","worst_FPR","worst_FPR_at","worst_FDR","worst_FDR_at","mean_TP","rel_power","secs_per_cell","errors","calibrated"
+"logistic",0.1,"mid:R00",0.2,"mid:R00",2,1,0.422499999999999,0,FALSE
