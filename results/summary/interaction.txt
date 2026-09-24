@@ -4,15 +4,18 @@ Data: A
 Models:
 f0: y_fdr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_fdr ~ method * simulator + method * regime_id + (1 | template)
-   npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(>Chisq)    
-f0  426 720537 724806 -359843    719685                         
-f1  487 717961 722841 -358494    716987 2697.8 61  < 2.2e-16 ***
+   npar     AIC     BIC  logLik -2*log(L) Chisq Df Pr(>Chisq)    
+f0  504 1682154 1687640 -840573   1681146                        
+f1  577 1676342 1682623 -837594   1675188  5958 73  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
             method fragility_sd_across_simulators
+     pursue03_erlc                      0.1508675
+     pursue03_erdl                      0.1813414
             locom2                      0.2090090
              locom                      0.2285553
            zicoseq                      0.2319181
+     pursue03_erdc                      0.2420908
             pursue                      0.2472335
           ancombc2                      0.2531378
              adapt                      0.3233025
@@ -33,9 +36,9 @@ Data: A
 Models:
 f0: y_tpr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_tpr ~ method * simulator + method * regime_id + (1 | template)
-   npar    AIC    BIC  logLik -2*log(L) Chisq Df Pr(>Chisq)    
-f0  403 480674 484656 -239934    479868                        
-f1  464 467236 471821 -233154    466308 13560 61  < 2.2e-16 ***
+   npar     AIC     BIC  logLik -2*log(L) Chisq Df Pr(>Chisq)    
+f0  478 1140419 1145557 -569732   1139463                        
+f1  551 1110936 1116858 -554917   1109834 29629 73  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
             method fragility_sd_across_simulators
@@ -46,9 +49,12 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
             pursue                      0.6038949
              locom                      0.8243066
             locom2                      0.8663830
+     pursue03_erlc                      0.8848835
          fastancom                      0.9160012
            corncob                      1.0527737
+     pursue03_erdl                      1.0682071
                ldm                      1.1530318
+     pursue03_erdc                      1.1603264
            zicoseq                      1.1871006
       wilcoxon_tss                      1.2788274
              adapt                      1.3035070
