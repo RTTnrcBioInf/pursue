@@ -1,0 +1,12 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R19","hmp_tongue",3,"pursue02",302,34,1,0,1,268,19,21.307,NA
+"msq:R19","hmp_tongue",3,"logistic_depth",294,34,0,0,0,260,17,0.54400000000004,NA
+"msq:R19","hmp_tongue",3,"lm_logtss",302,34,254,30,224,268,226,0.00499999999999545,NA
+"msq:R19","hmp_tongue",3,"firth_depth",294,34,0,0,0,260,16,1.97800000000001,NA
+"msq:R19","hmp_tongue",3,"erd_lm",302,34,13,12,1,268,15,0.665999999999997,NA
+"msq:R19","hmp_tongue",3,"erd_c",302,34,10,10,0,268,15,0.302999999999997,NA
+"msq:R19","hmp_tongue",3,"erd_s",302,34,13,12,1,268,15,0.0289999999999964,NA
+"msq:R19","hmp_tongue",3,"erd_sc",302,34,10,10,0,268,15,0.295999999999992,NA
+"msq:R19","hmp_tongue",3,"erd_a",302,34,13,12,1,268,13,0.0690000000000168,NA
+"msq:R19","hmp_tongue",3,"erl_lm",302,34,9,9,0,268,9,0.312000000000012,NA
+"msq:R19","hmp_tongue",3,"sharedlink_hyb",275,33,34,4,30,242,60,15.897,NA

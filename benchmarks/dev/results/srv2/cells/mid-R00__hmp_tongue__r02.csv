@@ -1,0 +1,12 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"mid:R00","hmp_tongue",2,"pursue02",240,21,2,1,1,219,18,24.467,NA
+"mid:R00","hmp_tongue",2,"logistic_depth",229,21,4,3,1,208,22,0.533999999999992,NA
+"mid:R00","hmp_tongue",2,"lm_logtss",240,21,3,2,1,219,19,0.00899999999998613,NA
+"mid:R00","hmp_tongue",2,"firth_depth",229,21,4,3,1,208,20,3.04400000000001,NA
+"mid:R00","hmp_tongue",2,"erd_lm",240,21,2,2,0,219,20,1.70400000000001,NA
+"mid:R00","hmp_tongue",2,"erd_c",240,21,2,2,0,219,21,0.515999999999991,NA
+"mid:R00","hmp_tongue",2,"erd_s",240,21,5,3,2,219,20,0.0759999999999934,NA
+"mid:R00","hmp_tongue",2,"erd_sc",240,21,0,0,0,219,15,0.47399999999999,NA
+"mid:R00","hmp_tongue",2,"erd_a",240,21,3,2,1,219,20,0.205999999999989,NA
+"mid:R00","hmp_tongue",2,"erl_lm",240,21,2,2,0,219,14,0.278999999999996,NA
+"mid:R00","hmp_tongue",2,"sharedlink_hyb",228,21,3,2,1,207,14,13.493,NA

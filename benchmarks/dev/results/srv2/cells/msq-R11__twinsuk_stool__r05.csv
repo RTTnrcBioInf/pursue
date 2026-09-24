@@ -1,0 +1,12 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R11","twinsuk_stool",5,"pursue02",444,44,8,8,0,400,11,21.2159999999999,NA
+"msq:R11","twinsuk_stool",5,"logistic_depth",440,44,0,0,0,396,18,0.480000000000018,NA
+"msq:R11","twinsuk_stool",5,"lm_logtss",444,44,11,11,0,400,9,0.00399999999990541,NA
+"msq:R11","twinsuk_stool",5,"firth_depth",440,44,0,0,0,396,16,1.91499999999996,NA
+"msq:R11","twinsuk_stool",5,"erd_lm",444,44,4,4,0,400,14,0.7199999999998,NA
+"msq:R11","twinsuk_stool",5,"erd_c",444,44,5,5,0,400,12,0.271000000000186,NA
+"msq:R11","twinsuk_stool",5,"erd_s",444,44,0,0,0,400,14,0.0419999999999163,NA
+"msq:R11","twinsuk_stool",5,"erd_sc",444,44,0,0,0,400,14,0.307999999999993,NA
+"msq:R11","twinsuk_stool",5,"erd_a",444,44,6,6,0,400,15,0.0990000000001601,NA
+"msq:R11","twinsuk_stool",5,"erl_lm",444,44,13,13,0,400,6,0.197999999999865,NA
+"msq:R11","twinsuk_stool",5,"sharedlink_hyb",432,43,0,0,0,389,16,16.5840000000003,NA
