@@ -1,0 +1,8 @@
+"candidate","worst_FPR","worst_FPR_at","worst_FDR","worst_FDR_at","mean_TP","rel_power","secs_per_cell","errors","settings","fdr_flags","calibrated"
+"pursue02",0.0522193211488251,"house:R22",0.25,"implant:B_abund",8.32307692307692,0.525194639439378,21.6477866666667,0,15,"",TRUE
+"pursue02_presence",0.0580731789191004,"house:R22",1,"house:R15",8.23076923076923,0.373369546466781,0.000406666666668608,0,15,"",TRUE
+"sharedlink_raw",0.405019059720457,"house:R19",0.875,"implant:B_abund",17.2769230769231,0.814297293651842,0.000159999999999438,0,15,"house:R00,house:R13,house:R15,house:R16,house:R17,house:R19,house:R22,implant:B_abund,implant:B_ref",FALSE
+"sharedlink",0.102906520031422,"house:R08",0.875,"implant:B_abund",17.0461538461538,0.785890135843018,7.11043333333334,0,15,"house:R00,house:R08,house:R13,house:R15,house:R16,house:R17,house:R19,house:R22,implant:B_abund,implant:B_ref",FALSE
+"lm_logtss",0.719652281900031,"house:R19",0.895974491829414,"house:R19",15.3846153846154,0.78349791373762,0.00603333333331913,0,15,"house:R13,house:R17,house:R19",FALSE
+"logistic",0.0949809402795426,"house:R19",0.24390243902439,"house:R19",16.3769230769231,0.703709272299887,0.567580000000001,0,15,"house:R19",FALSE
+"logistic_depth",0.0629014989293362,"implant:B_allup",1,"house:R19",15.0076923076923,0.644361358530809,0.596733333333332,0,15,"house:R19",FALSE

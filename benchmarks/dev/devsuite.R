@@ -25,6 +25,7 @@ op <- OptionParser(option_list = list(
   make_option("--sims", default = "house,implant", help = "house,implant,msq,mid"),
   make_option("--templates", default = "hmp_tongue,twinsuk_stool"),
   make_option("--settings", default = "all", help = "comma-separated setting ids, or all"),
+  make_option("--suite", default = "core", help = "core (the 20 original settings) | ext (5 stress settings) | full"),
   make_option("--reps", type = "integer", default = 5L),
   make_option("--cores", type = "integer", default = 2L),
   make_option("--label", default = format(Sys.time(), "%Y%m%d-%H%M")),
@@ -55,6 +56,14 @@ spec <- function(signal = "mixed", da = 0.10, balance = "balanced")
 S <- list()
 for (r in c("R00", "R06", "R08", "R11", "R13", "R15", "R16", "R17", "R19", "R22"))
   S[[length(S) + 1L]] <- list(id = paste0("house:", r), sim = "house", regime = r)
+# ext: stress settings added 2026-09-24 -- small n (R01), 40% DA (R09), a confounder that also moves
+# 10% of null features (R21), a x20 bloom of a common feature (R24: an absolute-vs-relative test),
+# repeated measures with subject-level exposure (R23), unbalanced groups with 3x variance in cases
+# (R25: every full-benchmark method fails it -- a variance change is not DA under the location truth)
+EXT <- c("R01", "R09", "R21", "R23", "R24", "R25")
+for (r in EXT) S[[length(S) + 1L]] <- list(id = paste0("house:", r), sim = "house", regime = r, ext = TRUE)
+# a hard bloom on top of house R00 (tools/stress.R): the absolute-vs-relative test R24 is too mild for
+S[[length(S) + 1L]] <- list(id = "bloom:x4", sim = "house", regime = "R00", ext = TRUE, bloom = 4)
 for (r in c("R00", "R06", "R11", "R17", "R19")) for (s in c("msq", "mid"))
   S[[length(S) + 1L]] <- list(id = paste0(s, ":", r), sim = s, regime = r)
 imp <- list(B_ref = spec(), B_null = spec(da = 0), B_prev = spec("prevalence"), B_abund = spec("abundance"),
@@ -62,13 +71,18 @@ imp <- list(B_ref = spec(), B_null = spec(da = 0), B_prev = spec("prevalence"), 
 for (b in names(imp)) S[[length(S) + 1L]] <- list(id = paste0("implant:", b), sim = "implant", spec = imp[[b]])
 sims <- strsplit(opt$sims, ",")[[1]]
 S <- Filter(function(s) s$sim %in% sims, S)
+is_ext <- vapply(S, function(s) isTRUE(s$ext), logical(1))
+S <- switch(opt$suite, core = S[!is_ext], ext = S[is_ext], full = S, stop("--suite must be core, ext or full"))
 if (opt$settings != "all") S <- Filter(function(s) s$id %in% strsplit(opt$settings, ",")[[1]], S)
 tpls <- strsplit(opt$templates, ",")[[1]]
 TPL <- setNames(lapply(tpls, function(id) readRDS(file.path(root, "devdata", paste0(id, ".rds")))), tpls)
 
+source(file.path(root, "dev", "tools", "stress.R"))
 make_cell <- function(s, tpl, seed) {
-  if (s$sim == "implant") implant(tpl, s$spec, seed)
-  else simulate_cell_data(s$sim, tpl, regimes[regimes$regime_id == s$regime, ], seed, cache_dir)
+  if (s$sim == "implant") return(implant(tpl, s$spec, seed))
+  x <- simulate_cell_data(s$sim, tpl, regimes[regimes$regime_id == s$regime, ], seed, cache_dir)
+  if (!is.null(s$bloom)) x <- apply_bloom(x, s$bloom, seed)
+  x
 }
 cell_seed <- function(...) { k <- paste(..., sep = "|"); as.integer((opt$seed * 1e5 + sum(utf8ToInt(k) * seq_along(utf8ToInt(k)))) %% .Machine$integer.max) }
 
@@ -84,8 +98,18 @@ score <- function(p, truth) {
     fp = sum(rej & truth == 0), null_n = sum(ok & truth == 0), null_p05 = sum(ok & truth == 0 & p < 0.05))
 }
 
+# Every finished cell is checkpointed to <odir>/cells/ and reused on a re-run with the same label,
+# so an interrupted run (a reclaimed sandbox, a killed job) loses only the cells in flight. A cell
+# is keyed by setting, template and replicate; all candidates of the run are stored together, so a
+# checkpoint is reused only when it holds every requested candidate.
+odir <- file.path(root, "dev", "results", opt$label); cdir <- file.path(odir, "cells")
+dir.create(cdir, recursive = TRUE, showWarnings = FALSE)
+progress <- file.path(odir, "progress.log")
 run_job <- function(k) {
   s <- S[[jobs$si[k]]]; tid <- jobs$tp[k]; rep <- jobs$rep[k]
+  ck <- file.path(cdir, sprintf("%s__%s__r%02d.csv", gsub("[:]", "-", s$id), tid, rep))
+  if (file.exists(ck)) { prev <- tryCatch(utils::read.csv(ck, stringsAsFactors = FALSE), error = function(e) NULL)
+    if (!is.null(prev) && all(cand %in% prev$candidate)) return(prev[prev$candidate %in% cand, ]) }
   sim <- tryCatch(make_cell(s, TPL[[tid]], cell_seed(s$id, tid, rep)), error = function(e) e)
   if (inherits(sim, "error") || !is.null(sim$unsupported)) return(NULL)
   keep <- rowMeans(sim$counts > 0) >= 0.10 & rowSums(sim$counts > 0) >= 3
@@ -104,54 +128,20 @@ run_job <- function(k) {
     data.frame(setting = s$id, template = tid, rep = rep, candidate = cn, t(score(p, truth)), secs = el,
                error = NA_character_, stringsAsFactors = FALSE)
   })
-  do.call(rbind, out)
+  out <- do.call(rbind, out)
+  tmp <- paste0(ck, ".tmp", Sys.getpid()); utils::write.csv(out, tmp, row.names = FALSE); file.rename(tmp, ck)
+  cat(sprintf("%s %s %s r%d\n", format(Sys.time(), "%H:%M:%S"), s$id, tid, rep), file = progress, append = TRUE)
+  out
 }
 t_start <- proc.time()[["elapsed"]]
 res <- parallel::mclapply(seq_len(nrow(jobs)), run_job, mc.cores = opt$cores, mc.preschedule = FALSE)
 D <- do.call(rbind, Filter(Negate(is.null), res))
-odir <- file.path(root, "dev", "results", opt$label); dir.create(odir, recursive = TRUE, showWarnings = FALSE)
 write.csv(D, file.path(odir, "cells.csv"), row.names = FALSE)
 
-# ---- summary: pooled over templates and reps -------------------------------------------------
-sm <- do.call(rbind, lapply(split(D, list(D$setting, D$candidate), drop = TRUE), function(x) data.frame(
-  setting = x$setting[1], candidate = x$candidate[1], cells = nrow(x),
-  n_pos = mean(x$n_pos), TP = mean(x$tp), FP = mean(x$fp),
-  FDR = sum(x$fp) / max(sum(x$rej), 1), FPR = sum(x$null_p05) / max(sum(x$null_n), 1),
-  secs = mean(x$secs), errors = sum(!is.na(x$error)), stringsAsFactors = FALSE)))
-write.csv(sm, file.path(odir, "summary.csv"), row.names = FALSE)
-
-# ---- scoreboard: the charter's gate, then power ---------------------------------------------
-# Gate: false positive rate among null features <= 0.075 in EVERY setting (1.5x nominal: room
-# for Monte Carlo noise at a few reps), and pooled FDR <= 0.10 in every setting with signal.
-# Power: mean true positives per cell over the signal settings, and relative to the best
-# calibrated candidate in each setting (so easy settings do not dominate the average).
-sig <- sm$n_pos > 0
-best <- vapply(split(sm$TP[sig], sm$setting[sig]), max, numeric(1))
-sm$rel <- ifelse(sig, sm$TP / pmax(unname(best[sm$setting]), 1e-9), NA)
-sb <- do.call(rbind, lapply(split(sm, sm$candidate), function(x) data.frame(
-  candidate = x$candidate[1],
-  worst_FPR = max(x$FPR, na.rm = TRUE), worst_FPR_at = x$setting[which.max(x$FPR)],
-  worst_FDR = if (any(x$n_pos > 0)) max(x$FDR[x$n_pos > 0]) else NA,
-  worst_FDR_at = if (any(x$n_pos > 0)) x$setting[x$n_pos > 0][which.max(x$FDR[x$n_pos > 0])] else NA,
-  mean_TP = mean(x$TP[x$n_pos > 0]), rel_power = mean(x$rel, na.rm = TRUE),
-  secs_per_cell = mean(x$secs), errors = sum(x$errors), stringsAsFactors = FALSE)))
-sb$calibrated <- sb$worst_FPR <= 0.075 & (is.na(sb$worst_FDR) | sb$worst_FDR <= 0.10) & sb$errors == 0
-sb <- sb[order(!sb$calibrated, -sb$rel_power), ]
-write.csv(sb, file.path(odir, "scoreboard.csv"), row.names = FALSE)
-
-fmt <- function(x, d = 3) formatC(x, format = "f", digits = d)
-cat(sprintf("%d cells in %.2f min\n\n=== scoreboard: calibration gate, then power ===\n", nrow(jobs),
-            (proc.time()[["elapsed"]] - t_start) / 60))
-print(data.frame(candidate = sb$candidate, gate = ifelse(sb$calibrated, "PASS", "fail"),
-                 worst_FPR = fmt(sb$worst_FPR), at = sb$worst_FPR_at, worst_FDR = fmt(sb$worst_FDR), at_ = sb$worst_FDR_at,
-                 rel_power = fmt(sb$rel_power, 2), mean_TP = fmt(sb$mean_TP, 2), s_cell = fmt(sb$secs_per_cell, 1)),
-      row.names = FALSE)
-cat("\n=== per setting: TP / FDR / FPR ===\n")
-w <- reshape(sm[, c("setting", "candidate", "TP", "FDR", "FPR")], idvar = "setting", timevar = "candidate", direction = "wide")
-for (s in sort(unique(sm$setting))) {
-  x <- sm[sm$setting == s, ]; x <- x[order(-x$TP), ]
-  cat(sprintf("\n%s  (DA per cell %.1f)\n", s, max(x$n_pos)))
-  print(data.frame(candidate = x$candidate, TP = fmt(x$TP, 2), FP = fmt(x$FP, 2), FDR = fmt(x$FDR), FPR = fmt(x$FPR),
-                   s = fmt(x$secs, 1)), row.names = FALSE)
-}
+# ---- summary, scoreboard and report: benchmarks/dev/score.R (shared with compare.R) ----------
+source(file.path(root, "dev", "score.R"))
+sm <- summarise_cells(D); write.csv(sm, file.path(odir, "summary.csv"), row.names = FALSE)
+sb <- scoreboard(sm); write.csv(sb, file.path(odir, "scoreboard.csv"), row.names = FALSE)
+cat(sprintf("%d cells in %.2f min\n\n", nrow(jobs), (proc.time()[["elapsed"]] - t_start) / 60))
+print_report(sm, sb)
 cat("\nwrote ", odir, "\n", sep = "")

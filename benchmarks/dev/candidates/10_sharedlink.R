@@ -38,10 +38,11 @@
   fit <- stats::nlminb(c(stats::qlogis(min(max(mean(d), 0.01), 0.99)), rep(0.5, ncol(Tm))), nll, gr,
                        lower = c(-Inf, rep(0, ncol(Tm))))
   eg <- seq(rng[1], rng[2], length.out = 2001L)
-  g <- fit$par[1] + drop(basis(eg) %*% fit$par[-1]); gp <- drop(basis(eg, 1L) %*% fit$par[-1])
+  g <- fit$par[1] + drop(basis(eg) %*% fit$par[-1]); gp <- drop(basis(eg, 1L) %*% fit$par[-1]); gpp <- drop(basis(eg, 2L) %*% fit$par[-1])
   P <- pmin(pmax(stats::plogis(g), 1e-9), 1 - 1e-9)
   list(fP = function(x) stats::approx(eg, P, xout = x, rule = 2)$y,
        fgp = function(x) stats::approx(eg, gp, xout = x, yleft = 0, yright = 0)$y,
+       fgpp = function(x) stats::approx(eg, gpp, xout = x, yleft = 0, yright = 0)$y,
        range = rng, par = fit$par)
 }
 
@@ -88,8 +89,11 @@
     r <- .sl_feature(as.numeric(D[j, ]), lN, X, L, B[j, ], fixed = tc, fixed_val = val)
     if (is.null(r)) return(NA_real_)
     stats::pchisq(max(2 * (ll_full[j] - r$ll), 0), k, lower.tail = FALSE) }, numeric(1))
-  val <- list(feature = rownames(counts), p = lrt(delta), p_raw = lrt(rep(0, k)),
-              est = B[, tc[1]] - delta[1], delta = delta, link = L$par)
+  delta_rc <- vapply(seq_len(k), function(c) enull_robust(B[, tc[c]], se[, c])$delta, numeric(1))
+  val <- list(feature = rownames(counts), p = lrt(delta), p_raw = lrt(rep(0, k)), p_rc = lrt(delta_rc), delta_rc = delta_rc,
+              L = L, B = B, ok = ok, X = X, tc = tc,
+              est = B[, tc[1]] - delta[1], delta = delta, link = L$par,
+              b = B[, tc[1]], se = se[, 1])            # raw estimate + Fisher SE, for calibration layers
   .sl_memo$key <- key; .sl_memo$val <- val; val
 }
 
@@ -100,3 +104,7 @@ register_candidate("sharedlink", function(counts, meta, formula, tested_term) {
 register_candidate("sharedlink_raw", function(counts, meta, formula, tested_term) {
   v <- .sl_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_raw)
 }, notes = "it1: as sharedlink, effect tested against 0 (no centring) -- isolates what the centring does")
+
+register_candidate("sharedlink_rc", function(counts, meta, formula, tested_term) {
+  v <- .sl_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_rc, estimate = v$b - v$delta_rc[1])
+}, notes = "it3: sharedlink with the robust empirical-null centre (pi0 >= 0.5)")
