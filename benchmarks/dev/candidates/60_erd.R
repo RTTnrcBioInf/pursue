@@ -352,11 +352,15 @@ register_candidate("erd_sc", function(counts, meta, formula, tested_term) .erd_s
 # alternative. The it8 depth-scaling centring holds for any h(Y_D): Y_D ~ Bin(D, p) ~ Pois(Dp) depends
 # on D and p only through Dp, so rarefying exposed samples to D/c undoes a compositional c for the
 # log transform as well.
-.erl_f_var <- function(counts, depth, Dvec, kmax = 150L) {
+.erl_f_var <- function(counts, depth, Dvec, kmax = 70L, big_mu = 20) {
+  # exact hypergeometric sum where D p <= big_mu; above it a THIRD-order moment expansion, which is
+  # exact at D = N (no thinning: variance and skew vanish) and within ~1e-4 elsewhere, so a thinned
+  # and an unthinned sample are treated alike (the invariance the U-statistic relies on)
   Y <- as.matrix(counts); N <- matrix(depth, nrow(Y), ncol(Y), byrow = TRUE); Dm <- matrix(Dvec, nrow(Y), ncol(Y), byrow = TRUE)
   mu <- Dm * Y / N; out <- matrix(0, nrow(Y), ncol(Y))
-  big <- mu > 60; if (any(big)) { pp <- (Y / N)[big]; v <- Dm[big] * pp * (1 - pp) * (N[big] - Dm[big]) / pmax(N[big] - 1, 1)
-    out[big] <- log1p(mu[big]) - v / (2 * (1 + mu[big])^2) }
+  big <- mu > big_mu; if (any(big)) { pp <- (Y / N)[big]; Nb <- N[big]; Db <- Dm[big]; fpc <- (Nb - Db) / pmax(Nb - 1, 1)
+    v <- Db * pp * (1 - pp) * fpc; k3 <- v * (1 - 2 * pp) * (Nb - 2 * Db) / pmax(Nb - 2, 1); m1 <- 1 + mu[big]
+    out[big] <- log(m1) - v / (2 * m1^2) + k3 / (3 * m1^3) }
   sm <- which(!big & Y > 0)
   if (length(sm)) { y <- Y[sm]; nn <- N[sm] - Y[sm]; dd <- Dm[sm]; acc <- numeric(length(sm))
     for (k in 1:kmax) { live <- k <= y & k <= dd; if (!any(live)) break
@@ -421,3 +425,101 @@ register_candidate("erdl_w2", function(counts, meta, formula, tested_term) {
 register_candidate("erl_c", function(counts, meta, formula, tested_term) {
   v <- .erdl_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_log, estimate = v$est_log)
 }, notes = "it11: expected rarefied log count with depth-scaling compositional centring (it8 trick applied to ERL)")
+
+# --- it12: pairwise common-depth rarefaction -- a two-sample U-statistic -----------------------------
+# Outer loop (p03): the family is the best-calibrated in the benchmark but gives up power without
+# confounding (B_prev 4.2 vs 8.2 TP for logistic). Diagnosis on dev cells: a linear-probability test
+# on RAW detection matches logistic (B_prev twinsuk 74 vs 74), ERD at the smallest library gets 57-65
+# -- the loss is the thinning, not the statistic. Invariance does not need one global D: it needs the
+# two samples being COMPARED to share a depth. So compare every exposed sample i with every control j
+# at their own common depth D_ij = min(N_i c, N_j) (c = exp(gamma), the it8 compositional factor):
+#     h_ij = f_i(D_ij / c) - f_j(D_ij),   U = mean_ij h_ij.
+# Under H0, E h_ij = 0 for every pair whatever the depths, so E U = 0 exactly. Unconfounded, most pairs
+# have similar depths and are barely thinned; confounded, a deep/shallow pair is thinned to the shallow
+# one -- ERD's behaviour, pair by pair instead of globally. Variance: two-sample U-statistic (the
+# DeLong/Hoeffding form) -- var U = var_i(a_i)/n1 + var_j(b_j)/n0 with a_i = mean_j h_ij,
+# b_j = mean_i h_ij -- Welch-Satterthwaite df. Binary exposure without other terms; otherwise it falls
+# back to erd_c (LM). gamma comes from erd_c's own search (same compositional factor).
+# Large n: each exposed sample is compared with at most K controls, spread evenly across the control
+# list (an incomplete U-statistic; cost n1*K*m instead of n1*n0*m -- 128 s -> ~30 s at n = 400).
+# The DeLong estimate from partner means then carries the partner-sampling term automatically, so
+# it errs conservative. With n0 <= K (the dev suite's n = 100) nothing changes.
+.u_stat <- function(counts, depth, g1, gam, h = c("det", "log"), K = 50L) {
+  h <- match.arg(h); Y <- as.matrix(counts); storage.mode(Y) <- "double"; c <- exp(gam)
+  i1 <- which(g1); i0 <- which(!g1); n1 <- length(i1); n0 <- length(i0); m <- nrow(Y); Kk <- min(K, n0)
+  step <- max(1L, n0 %/% Kk)
+  A <- matrix(0, m, n1); Bs <- matrix(0, m, n0); cnt <- numeric(n0)
+  fcol <- function(Ysub, Nvec, Dvec) if (h == "det") .erd_f_var(Ysub, Nvec, Dvec) else .erl_f_var(Ysub, Nvec, Dvec)
+  for (k in seq_len(n1)) { i <- i1[k]
+    J <- if (Kk == n0) seq_len(n0) else ((k - 1L + (seq_len(Kk) - 1L) * step) %% n0) + 1L
+    jj <- i0[J]
+    D <- pmax(floor(pmin(depth[i] * c, depth[jj])), 1)                     # common depth with each partner control
+    f0 <- fcol(Y[, jj, drop = FALSE], depth[jj], D)                        # controls at D
+    f1 <- fcol(Y[, rep(i, length(jj)), drop = FALSE], rep(depth[i], length(jj)), pmax(floor(D / c), 1))   # exposed at D/c
+    H <- f1 - f0; A[, k] <- rowMeans(H); Bs[, J] <- Bs[, J] + H; cnt[J] <- cnt[J] + 1 }
+  keepb <- cnt > 0; B <- sweep(Bs[, keepb, drop = FALSE], 2, cnt[keepb], "/"); n0 <- sum(keepb); U <- rowMeans(A)
+  va <- apply(A, 1, stats::var) / n1; vb <- apply(B, 1, stats::var) / n0; v <- va + vb
+  df <- v^2 / (va^2 / (n1 - 1) + vb^2 / (n0 - 1))
+  list(U = U, v = v, df = df, a = A - U, b = B - U)                        # centred influence pieces
+}
+.u_design <- function(meta, formula, tested_term) {
+  tl <- attr(stats::terms(formula), "term.labels"); g <- meta[[tested_term]]
+  if (length(tl) != 1L || length(unique(g)) != 2L || !is.null(.cluster_of(meta))) return(NULL)
+  g == sort(unique(g))[2]
+}
+register_candidate("erd_u", function(counts, meta, formula, tested_term) {
+  g1 <- .u_design(meta, formula, tested_term)
+  if (is.null(g1)) { r <- .erd_c(counts, meta, formula, tested_term); return(r[, 1:3]) }
+  depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
+  gam <- .erd_c(counts, meta, formula, tested_term)$gamma[1]
+  u <- .u_stat(counts, depth, g1, gam, "det"); ok <- rowSums(counts > 0) >= 3 & u$v > 0
+  data.frame(feature = rownames(counts), p = ifelse(ok, 2 * stats::pt(-abs(u$U / sqrt(u$v)), u$df), NA), estimate = u$U)
+}, notes = "it12: pairwise common-depth expected detection, two-sample U-statistic (DeLong variance), compositional centring from erd_c")
+
+# gamma estimated ON the U-statistic (median z = 0 over a feature subsample): with pairs thinned to
+# their common depth rather than the global minimum, D_ij p is larger and the first-order
+# depth-scaling identity is less exact, so a gamma borrowed from erd_c left a residual compositional
+# bias (hard bloom, tongue: null FPR 0.058-0.071 vs erd_c 0.041-0.049).
+.u_gamma <- function(counts, depth, g1, h = "det", sub = 300L) {
+  set.seed(7L); rows <- if (nrow(counts) > sub) sort(sample.int(nrow(counts), sub)) else seq_len(nrow(counts))
+  ct <- counts[rows, , drop = FALSE]; keep <- rowSums(ct > 0) >= 3; ct <- ct[keep, , drop = FALSE]
+  med <- function(g) { u <- .u_stat(ct, depth, g1, g, h); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
+  flo <- med(-2); fhi <- med(2)
+  if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
+}
+.eu_memo <- new.env()
+.eu_fit <- function(counts, meta, formula, tested_term) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.eu_memo$key) && identical(.eu_memo$key, key)) return(.eu_memo$val)
+  g1 <- .u_design(meta, formula, tested_term)
+  if (is.null(g1)) { v <- .erdl_fit(counts, meta, formula, tested_term)             # covariates / continuous / clusters
+    val <- list(feature = v$feature, p_det = NA, p_log = v$p_log, p_max = v$p_max, est = v$est_log, fallback = TRUE)
+    val$p_det <- .erd_c(counts, meta, formula, tested_term)$p
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
+    # one compositional factor for both transforms, estimated on the LOG U-statistic: under depth
+    # confounding the detection U-statistic's median-z curve is nearly flat in gamma and its root
+    # wandered (house R19 twinsuk r1: -1.21, which put the log test at null FPR 0.251); the log
+    # scale moves by ~log c for every common taxon and pins c down (0.07 there, FPR 0.064).
+    gl <- .u_gamma(counts, depth, g1, "log"); gd <- gl
+    ud <- .u_stat(counts, depth, g1, gd, "det"); ul <- .u_stat(counts, depth, g1, gl, "log")
+    ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0
+    n1 <- sum(g1); n0 <- sum(!g1)
+    cv <- (rowSums(ud$a * ul$a) / (n1 - 1)) / n1 + (rowSums(ud$b * ul$b) / (n0 - 1)) / n0   # joint U-stat covariance
+    tz <- function(t, df) stats::qnorm(stats::pt(t, df))
+    z1 <- ifelse(ok, tz(ud$U / sqrt(ud$v), ud$df), NA); z2 <- ifelse(ok, tz(ul$U / sqrt(ul$v), ul$df), NA)
+    rho <- ifelse(ok, cv / sqrt(ud$v * ul$v), NA)
+    val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
+                p_max = .pmax2(pmax(abs(z1), abs(z2)), rho), est = ul$U / log(2), gam = c(gd, gl), fallback = FALSE)
+  }
+  .eu_memo$key <- key; .eu_memo$val <- val; val
+}
+register_candidate("erd_u2", function(counts, meta, formula, tested_term) {
+  v <- .eu_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
+}, notes = "it12: pairwise common-depth detection U-statistic, gamma estimated on the log U-statistic")
+register_candidate("erl_u", function(counts, meta, formula, tested_term) {
+  v <- .eu_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_log, estimate = v$est)
+}, notes = "it12: pairwise common-depth expected log count U-statistic")
+register_candidate("erdl_u", function(counts, meta, formula, tested_term) {
+  v <- .eu_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+}, notes = "it12: pairwise common-depth detection AND log U-statistics, max(|z|) with their joint U-statistic covariance")

@@ -25,7 +25,10 @@ method_registry <- function() {
     c("fastemu",           "fastEmu / radEmu",               "absolute",  "single",   "fastEmu",         "method_fastemu"),
     c("pursue03_erdl",     "PURSUE 0.3 cand.: ERD+ERL max",  "absolute",  "single",   "",                "method_pursue03_erdl"),
     c("pursue03_erdc",     "PURSUE 0.3 cand.: ERD centred",  "absolute",  "single",   "",                "method_pursue03_erdc"),
-    c("pursue03_erlc",     "PURSUE 0.3 cand.: ERL centred",  "absolute",  "single",   "",                "method_pursue03_erlc")))
+    c("pursue03_erlc",     "PURSUE 0.3 cand.: ERL centred",  "absolute",  "single",   "",                "method_pursue03_erlc"),
+    c("pursue03_erdlu",    "PURSUE 0.3 cand.: pairwise max", "absolute",  "single",   "",                "method_pursue03_erdlu"),
+    c("pursue03_erdu",     "PURSUE 0.3 cand.: pairwise ERD", "absolute",  "single",   "",                "method_pursue03_erdu"),
+    c("pursue03_erlu",     "PURSUE 0.3 cand.: pairwise ERL", "absolute",  "single",   "",                "method_pursue03_erlu")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr

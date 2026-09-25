@@ -91,8 +91,12 @@ cat(sprintf("devsuite '%s': %d candidates x %d settings x %d templates x %d reps
             opt$label, length(cand), length(S), length(tpls), opt$reps, nrow(jobs), opt$cores))
 cat("candidates:", paste(cand, collapse = ", "), "\n\n")
 
-score <- function(p, truth) {
-  ok <- is.finite(p); q <- rep(NA_real_, length(p)); q[ok] <- p.adjust(p[ok], "BH")
+# A candidate may return its own q (its FDR procedure is part of the method, as in the benchmark's
+# .finish()); otherwise BH on its p. Tested = finite p either way, so a q-level filter cannot shrink
+# the set of positives a candidate is scored against.
+score <- function(p, truth, qown = NULL) {
+  ok <- is.finite(p); q <- rep(NA_real_, length(p))
+  if (is.null(qown)) q[ok] <- p.adjust(p[ok], "BH") else q[ok] <- ifelse(is.finite(qown[ok]), qown[ok], 1)
   rej <- !is.na(q) & q <= 0.05
   c(tested = sum(ok), n_pos = sum(truth[ok] == 1), rej = sum(rej), tp = sum(rej & truth == 1),
     fp = sum(rej & truth == 0), null_n = sum(ok & truth == 0), null_p05 = sum(ok & truth == 0 & p < 0.05))
@@ -124,8 +128,8 @@ run_job <- function(k) {
     if (inherits(r, "error")) return(data.frame(setting = s$id, template = tid, rep = rep, candidate = cn,
       tested = 0, n_pos = sum(truth), rej = 0, tp = 0, fp = 0, null_n = 0, null_p05 = 0, secs = el,
       error = substr(conditionMessage(r), 1, 100), stringsAsFactors = FALSE))
-    p <- r$p[match(rownames(ct), r$feature)]
-    data.frame(setting = s$id, template = tid, rep = rep, candidate = cn, t(score(p, truth)), secs = el,
+    p <- r$p[match(rownames(ct), r$feature)]; qo <- if (!is.null(r$q)) r$q[match(rownames(ct), r$feature)] else NULL
+    data.frame(setting = s$id, template = tid, rep = rep, candidate = cn, t(score(p, truth, qo)), secs = el,
                error = NA_character_, stringsAsFactors = FALSE)
   })
   out <- do.call(rbind, out)

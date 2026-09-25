@@ -8,6 +8,11 @@
 #                  compositional centring, max(|z|) over the pair (it11 `erdl_max`)
 #   pursue03_erdc  expected rarefied detection with depth-scaling centring (it8 `erd_c`)
 #   pursue03_erlc  expected rarefied log count with depth-scaling centring (it11 `erl_c`)
+#   pursue03_erdlu pairwise common-depth U-statistics, detection AND log, max(|z|) (it12 `erdl_u`)
+#   pursue03_erdu  pairwise common-depth detection U-statistic (it12 `erd_u2`)
+#   pursue03_erlu  pairwise common-depth log-count U-statistic (it12 `erl_u`)
+# The U-statistic methods need a binary exposure with no other terms and no repeated subjects;
+# otherwise they fall back to the depth-centred LM versions (erdl / erdc / erlc).
 # Estimates: erdl / erlc report the tested coefficient on the expected-rarefied log-count scale,
 # divided by log(2) -- close to log2 FC for common taxa, attenuated for rare ones. erdc's
 # coefficient is a difference in detection probability, not a fold change, so it reports none.
@@ -35,4 +40,17 @@ method_pursue03_erdc <- function(counts, meta, formula, tested_term, args = list
 method_pursue03_erlc <- function(counts, meta, formula, tested_term, args = list()) {
   v <- .p03$.erdl_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_log[i], v$est_log[i] / log(2))
+}
+
+method_pursue03_erdlu <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eu_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_max[i], v$est[i])
+}
+method_pursue03_erdu <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eu_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_det[i])
+}
+method_pursue03_erlu <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eu_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_log[i], v$est[i])
 }
