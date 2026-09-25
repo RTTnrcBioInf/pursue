@@ -17,7 +17,8 @@ if grep -qE '^ *erdl_u_r07 +PASS' "$R/gate.txt"; then TAGR=r07; elif grep -qE '^
 if [ -n "$TAGR" ]; then
   echo ">> erdl_u_$TAGR passed everywhere -- launching the full benchmark (tag p05)"
   M="pursue03_erdlu_$TAGR,pursue03_erdu_$TAGR" TAG=p05 bash hpc/run_p03.sh > logs/run_p05.log 2>&1
-  echo ">> full benchmark finished: see logs/run_p05.log"
+  rc=$?; if [ $rc -eq 0 ]; then echo ">> full benchmark finished and pushed: see logs/run_p05.log"
+  else echo ">> full benchmark FAILED (exit $rc): see logs/run_p05.log"; fi
 else
   echo ">> neither rho passed -- full benchmark NOT launched"
 fi

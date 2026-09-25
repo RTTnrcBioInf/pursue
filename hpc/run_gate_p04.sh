@@ -13,7 +13,8 @@ git add "$R" && git commit -m "dev suite $L: pairwise U-statistics on msq/mid" &
 if grep -qE '^ *erdl_u +PASS' "$R/gate.txt"; then
   echo ">> erdl_u passed on msq/mid -- launching the full benchmark (tag p04)"
   M=pursue03_erdlu,pursue03_erdu,pursue03_erlu TAG=p04 bash hpc/run_p03.sh > logs/run_p04.log 2>&1
-  echo ">> full benchmark finished: see logs/run_p04.log"
+  rc=$?; if [ $rc -eq 0 ]; then echo ">> full benchmark finished and pushed: see logs/run_p04.log"
+  else echo ">> full benchmark FAILED (exit $rc): see logs/run_p04.log"; fi
 else
   echo ">> erdl_u did not pass on msq/mid -- full benchmark NOT launched"
 fi

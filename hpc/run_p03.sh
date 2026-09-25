@@ -17,7 +17,7 @@ echo ">> smoke: one house cell, candidates $M"
 SM=$(mktemp -d)
 Rscript benchmarks/R/engine/run_cell.R --axis A --simulator house --template hmp_stool --regime R00 --replicate 1 \
   --methods "$M" --out "$SM" --tag smoke 2>&1 | tee "$SM/smoke.log"
-if [ "$(grep -E '^  pursue03_[a-z]+ ' "$SM/smoke.log" | grep -vcE 'error|not_installed')" -ne "$NM" ]; then
+if [ "$(grep -E '^  pursue03_[a-z0-9_]+ ' "$SM/smoke.log" | grep -vcE 'error|not_installed')" -ne "$NM" ]; then
   echo ">> smoke FAILED -- not launching the grid"; exit 1; fi
 rm -rf "$SM"
 
