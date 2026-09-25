@@ -54,3 +54,14 @@ method_pursue03_erlu <- function(counts, meta, formula, tested_term, args = list
   v <- .p03$.eu_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_log[i], v$est[i])
 }
+
+# it13: the pairwise tests with both pair members thinned to rho x their common depth (srv4 showed
+# rho = 1 is anti-conservative on mid under depth confounding). _r07 = rho 0.7, _r05 = rho 0.5.
+for (.r in c(0.7, 0.5)) local({ r <- .r; tag <- sprintf("r%02d", round(10 * r))
+  assign(paste0("method_pursue03_erdlu_", tag), function(counts, meta, formula, tested_term, args = list()) {
+    v <- .p03$.eu_fit(counts, meta, formula, tested_term, rho = r); i <- match(rownames(counts), v$feature)
+    .p03_result(rownames(counts), v$p_max[i], v$est[i]) }, envir = globalenv())
+  assign(paste0("method_pursue03_erdu_", tag), function(counts, meta, formula, tested_term, args = list()) {
+    v <- .p03$.eu_fit(counts, meta, formula, tested_term, rho = r); i <- match(rownames(counts), v$feature)
+    .p03_result(rownames(counts), v$p_det[i]) }, envir = globalenv())
+})

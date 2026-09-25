@@ -444,7 +444,12 @@ register_candidate("erl_c", function(counts, meta, formula, tested_term) {
 # list (an incomplete U-statistic; cost n1*K*m instead of n1*n0*m -- 128 s -> ~30 s at n = 400).
 # The DeLong estimate from partner means then carries the partner-sampling term automatically, so
 # it errs conservative. With n0 <= K (the dev suite's n = 100) nothing changes.
-.u_stat <- function(counts, depth, g1, gam, h = c("det", "log"), K = 50L) {
+# rho < 1 (it13): both members of every pair are thinned, to rho x their common depth. srv4: with
+# rho = 1 the shallower sample of a pair is compared UNTHINNED against a thinned deep one, which is
+# equivalent only if the simulator makes low-depth zeros by read thinning; MIDASim decides presence
+# from library size its own way, and the detection U-statistic went to FPR 0.087 / 0.094 at mid
+# R17 / R19 (the global-minimum ERD, which thins nearly every sample, held at 0.050 / 0.054).
+.u_stat <- function(counts, depth, g1, gam, h = c("det", "log"), K = 50L, rho = 1) {
   h <- match.arg(h); Y <- as.matrix(counts); storage.mode(Y) <- "double"; c <- exp(gam)
   i1 <- which(g1); i0 <- which(!g1); n1 <- length(i1); n0 <- length(i0); m <- nrow(Y); Kk <- min(K, n0)
   step <- max(1L, n0 %/% Kk)
@@ -453,7 +458,7 @@ register_candidate("erl_c", function(counts, meta, formula, tested_term) {
   for (k in seq_len(n1)) { i <- i1[k]
     J <- if (Kk == n0) seq_len(n0) else ((k - 1L + (seq_len(Kk) - 1L) * step) %% n0) + 1L
     jj <- i0[J]
-    D <- pmax(floor(pmin(depth[i] * c, depth[jj])), 1)                     # common depth with each partner control
+    D <- pmax(floor(rho * pmin(depth[i] * c, depth[jj])), 1)               # (rho x) common depth with each partner control
     f0 <- fcol(Y[, jj, drop = FALSE], depth[jj], D)                        # controls at D
     f1 <- fcol(Y[, rep(i, length(jj)), drop = FALSE], rep(depth[i], length(jj)), pmax(floor(D / c), 1))   # exposed at D/c
     H <- f1 - f0; A[, k] <- rowMeans(H); Bs[, J] <- Bs[, J] + H; cnt[J] <- cnt[J] + 1 }
@@ -480,17 +485,17 @@ register_candidate("erd_u", function(counts, meta, formula, tested_term) {
 # their common depth rather than the global minimum, D_ij p is larger and the first-order
 # depth-scaling identity is less exact, so a gamma borrowed from erd_c left a residual compositional
 # bias (hard bloom, tongue: null FPR 0.058-0.071 vs erd_c 0.041-0.049).
-.u_gamma <- function(counts, depth, g1, h = "det", sub = 300L) {
+.u_gamma <- function(counts, depth, g1, h = "det", sub = 300L, rho = 1) {
   set.seed(7L); rows <- if (nrow(counts) > sub) sort(sample.int(nrow(counts), sub)) else seq_len(nrow(counts))
   ct <- counts[rows, , drop = FALSE]; keep <- rowSums(ct > 0) >= 3; ct <- ct[keep, , drop = FALSE]
-  med <- function(g) { u <- .u_stat(ct, depth, g1, g, h); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
+  med <- function(g) { u <- .u_stat(ct, depth, g1, g, h, rho = rho); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
   flo <- med(-2); fhi <- med(2)
   if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
 }
 .eu_memo <- new.env()
-.eu_fit <- function(counts, meta, formula, tested_term) {
-  key <- list(counts, meta, formula, tested_term)
-  if (!is.null(.eu_memo$key) && identical(.eu_memo$key, key)) return(.eu_memo$val)
+.eu_fit <- function(counts, meta, formula, tested_term, rho = 1) {
+  key <- list(counts, meta, formula, tested_term, rho); slot <- paste0("r", rho)
+  if (!is.null(.eu_memo[[slot]]) && identical(.eu_memo[[slot]]$key, key)) return(.eu_memo[[slot]]$val)
   g1 <- .u_design(meta, formula, tested_term)
   if (is.null(g1)) { v <- .erdl_fit(counts, meta, formula, tested_term)             # covariates / continuous / clusters
     val <- list(feature = v$feature, p_det = NA, p_log = v$p_log, p_max = v$p_max, est = v$est_log, fallback = TRUE)
@@ -501,8 +506,8 @@ register_candidate("erd_u", function(counts, meta, formula, tested_term) {
     # confounding the detection U-statistic's median-z curve is nearly flat in gamma and its root
     # wandered (house R19 twinsuk r1: -1.21, which put the log test at null FPR 0.251); the log
     # scale moves by ~log c for every common taxon and pins c down (0.07 there, FPR 0.064).
-    gl <- .u_gamma(counts, depth, g1, "log"); gd <- gl
-    ud <- .u_stat(counts, depth, g1, gd, "det"); ul <- .u_stat(counts, depth, g1, gl, "log")
+    gl <- .u_gamma(counts, depth, g1, "log", rho = rho); gd <- gl
+    ud <- .u_stat(counts, depth, g1, gd, "det", rho = rho); ul <- .u_stat(counts, depth, g1, gl, "log", rho = rho)
     ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0
     n1 <- sum(g1); n0 <- sum(!g1)
     cv <- (rowSums(ud$a * ul$a) / (n1 - 1)) / n1 + (rowSums(ud$b * ul$b) / (n0 - 1)) / n0   # joint U-stat covariance
@@ -512,7 +517,7 @@ register_candidate("erd_u", function(counts, meta, formula, tested_term) {
     val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
                 p_max = .pmax2(pmax(abs(z1), abs(z2)), rho), est = ul$U / log(2), gam = c(gd, gl), fallback = FALSE)
   }
-  .eu_memo$key <- key; .eu_memo$val <- val; val
+  .eu_memo[[slot]] <- list(key = key, val = val); val
 }
 register_candidate("erd_u2", function(counts, meta, formula, tested_term) {
   v <- .eu_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
@@ -523,3 +528,13 @@ register_candidate("erl_u", function(counts, meta, formula, tested_term) {
 register_candidate("erdl_u", function(counts, meta, formula, tested_term) {
   v <- .eu_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
 }, notes = "it12: pairwise common-depth detection AND log U-statistics, max(|z|) with their joint U-statistic covariance")
+
+# it13: both pair members thinned (rho < 1)
+for (.rho in c(0.5, 0.7)) local({ r <- .rho; tag <- sprintf("r%02d", round(10 * r))
+  register_candidate(paste0("erdl_u_", tag), function(counts, meta, formula, tested_term) {
+    v <- .eu_fit(counts, meta, formula, tested_term, rho = r); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+  }, notes = sprintf("it13: erdl_u with both pair members thinned to %.1f x their common depth", r))
+  register_candidate(paste0("erd_u_", tag), function(counts, meta, formula, tested_term) {
+    v <- .eu_fit(counts, meta, formula, tested_term, rho = r); data.frame(feature = v$feature, p = v$p_det)
+  }, notes = sprintf("it13: detection U-statistic, both pair members thinned to %.1f x their common depth", r))
+})

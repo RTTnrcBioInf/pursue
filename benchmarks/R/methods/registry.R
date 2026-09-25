@@ -28,7 +28,11 @@ method_registry <- function() {
     c("pursue03_erlc",     "PURSUE 0.3 cand.: ERL centred",  "absolute",  "single",   "",                "method_pursue03_erlc"),
     c("pursue03_erdlu",    "PURSUE 0.3 cand.: pairwise max", "absolute",  "single",   "",                "method_pursue03_erdlu"),
     c("pursue03_erdu",     "PURSUE 0.3 cand.: pairwise ERD", "absolute",  "single",   "",                "method_pursue03_erdu"),
-    c("pursue03_erlu",     "PURSUE 0.3 cand.: pairwise ERL", "absolute",  "single",   "",                "method_pursue03_erlu")))
+    c("pursue03_erlu",     "PURSUE 0.3 cand.: pairwise ERL", "absolute",  "single",   "",                "method_pursue03_erlu"),
+    c("pursue03_erdlu_r07","PURSUE 0.3 cand.: pairwise max, rho 0.7", "absolute", "single", "",         "method_pursue03_erdlu_r07"),
+    c("pursue03_erdu_r07", "PURSUE 0.3 cand.: pairwise ERD, rho 0.7", "absolute", "single", "",         "method_pursue03_erdu_r07"),
+    c("pursue03_erdlu_r05","PURSUE 0.3 cand.: pairwise max, rho 0.5", "absolute", "single", "",         "method_pursue03_erdlu_r05"),
+    c("pursue03_erdu_r05", "PURSUE 0.3 cand.: pairwise ERD, rho 0.5", "absolute", "single", "",         "method_pursue03_erdu_r05")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr
