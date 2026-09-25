@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"bloom:x4","hmp_tongue",1,"erdl_u_r07",255,30,0,0,0,225,12,59.195,NA
+"bloom:x4","hmp_tongue",1,"erd_u_r07",255,30,0,0,0,225,11,0.00100000000000477,NA
+"bloom:x4","hmp_tongue",1,"erdl_u_r05",255,30,0,0,0,225,13,31.246,NA
+"bloom:x4","hmp_tongue",1,"erd_u_r05",255,30,0,0,0,225,13,0.00100000000000477,NA

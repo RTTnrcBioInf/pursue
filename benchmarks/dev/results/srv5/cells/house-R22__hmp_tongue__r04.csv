@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"house:R22","hmp_tongue",4,"erdl_u_r07",318,33,24,23,1,285,9,1.43000000000006,NA
+"house:R22","hmp_tongue",4,"erd_u_r07",318,33,24,24,0,285,10,0,NA
+"house:R22","hmp_tongue",4,"erdl_u_r05",318,33,24,23,1,285,9,0.5,NA
+"house:R22","hmp_tongue",4,"erd_u_r05",318,33,24,24,0,285,10,0,NA

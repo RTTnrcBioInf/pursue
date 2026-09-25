@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"house:R01","twinsuk_stool",5,"erdl_u_r07",389,37,0,0,0,352,15,3.43200000000024,NA
+"house:R01","twinsuk_stool",5,"erd_u_r07",389,37,1,1,0,352,20,0.00100000000020373,NA
+"house:R01","twinsuk_stool",5,"erdl_u_r05",389,37,0,0,0,352,14,4.43899999999985,NA
+"house:R01","twinsuk_stool",5,"erd_u_r05",389,37,1,1,0,352,18,0.00100000000020373,NA

@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_allup","hmp_tongue",1,"erdl_u_r07",268,24,5,5,0,244,11,21.973,NA
+"implant:B_allup","hmp_tongue",1,"erd_u_r07",268,24,4,4,0,244,11,0.00100000000000477,NA
+"implant:B_allup","hmp_tongue",1,"erdl_u_r05",268,24,5,5,0,244,11,25.992,NA
+"implant:B_allup","hmp_tongue",1,"erd_u_r05",268,24,4,4,0,244,14,0,NA
