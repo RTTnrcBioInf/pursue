@@ -75,3 +75,13 @@ method_pursue03_erdu_ad <- function(counts, meta, formula, tested_term, args = l
   v <- .p03$.eu_fit_ad(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_det[i])
 }
+
+# it15: covariates inside the pairwise test (pairwise-difference regression); design-chosen rho
+method_pursue03_erdlu_uc <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.euc_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_max[i], v$est[i])
+}
+method_pursue03_erdu_uc <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.euc_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_det[i])
+}

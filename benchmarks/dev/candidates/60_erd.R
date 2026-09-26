@@ -564,3 +564,79 @@ register_candidate("erdl_u_ad", function(counts, meta, formula, tested_term) {
 register_candidate("erd_u_ad", function(counts, meta, formula, tested_term) {
   v <- .eu_fit_ad(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
 }, notes = "it14: detection U-statistic with design-chosen rho")
+
+# --- it15: covariates inside the pairwise test -- pairwise-difference regression ---------------------
+# p06: erdlu_ad exceeds FDR 0.10 only at R21 (a confounder correlated with the exposure, phi 0.7,
+# that also moves 10% of null taxa), where it falls back to the global-minimum LM. Keeping the
+# pairwise thinning: for each case i / control j pair, h_ij = f_i(D_ij/c) - f_j(D_ij) is regressed on
+# x_ij = (1, z_i - z_j) over all pairs: h_ij = theta + beta'(z_i - z_j) + e_ij. theta is the
+# covariate-adjusted exposure effect (with no covariates it is exactly the U-statistic). The
+# estimating function sum_ij x_ij e_ij is a two-sample U-statistic, so its variance is the same
+# Hoeffding projection as before -- per-sample partner means a_i, b_j of x e -- and
+# Var(gamma) = M^-1 (Var a / n1 + Var b / n0) M^-1 with M = mean x x'. Accumulated per sample
+# (sums of x h and x x'), so no pair-level storage.
+.u_stat_cov <- function(counts, depth, g1, Z, gam, h = c("det", "log"), K = 50L, rho = 1) {
+  h <- match.arg(h); Y <- as.matrix(counts); storage.mode(Y) <- "double"; c <- exp(gam)
+  i1 <- which(g1); i0 <- which(!g1); n1 <- length(i1); n0 <- length(i0); m <- nrow(Y); Kk <- min(K, n0)
+  step <- max(1L, n0 %/% Kk); q <- if (is.null(Z)) 0L else ncol(Z); p <- 1L + q
+  Axh <- array(0, c(m, p, n1)); Axx <- array(0, c(p, p, n1)); Kc <- numeric(n1)
+  Bxh <- array(0, c(m, p, n0)); Bxx <- array(0, c(p, p, n0)); cnt <- numeric(n0)
+  fcol <- function(Ysub, Nvec, Dvec) if (h == "det") .erd_f_var(Ysub, Nvec, Dvec) else .erl_f_var(Ysub, Nvec, Dvec)
+  for (k in seq_len(n1)) { i <- i1[k]
+    J <- if (Kk == n0) seq_len(n0) else ((k - 1L + (seq_len(Kk) - 1L) * step) %% n0) + 1L; jj <- i0[J]; nk <- length(jj)
+    D <- pmax(floor(rho * pmin(depth[i] * c, depth[jj])), 1)
+    H <- fcol(Y[, rep(i, nk), drop = FALSE], rep(depth[i], nk), pmax(floor(D / c), 1)) - fcol(Y[, jj, drop = FALSE], depth[jj], D)
+    X <- if (q) cbind(1, -sweep(Z[jj, , drop = FALSE], 2, Z[i, ], "-")) else matrix(1, nk, 1)   # (1, z_i - z_j)
+    Axh[, , k] <- H %*% X; Axx[, , k] <- crossprod(X); Kc[k] <- nk
+    for (cc in seq_len(p)) Bxh[, cc, J] <- Bxh[, cc, J] + H * rep(X[, cc], each = m)
+    for (t in seq_len(nk)) Bxx[, , J[t]] <- Bxx[, , J[t]] + tcrossprod(X[t, ])
+    cnt[J] <- cnt[J] + 1 }
+  P <- sum(Kc); M <- apply(Axx, c(1, 2), sum) / P; Mi <- solve(M)
+  G <- (apply(Axh, c(1, 2), sum) / P) %*% Mi                                  # m x p: gamma per feature (rows)
+  # partner-mean estimating functions per sample, mapped through M^-1; component 1 = theta's influence
+  phiA <- vapply(seq_len(n1), function(k) ((Axh[, , k, drop = TRUE] - G %*% Axx[, , k]) / Kc[k]) %*% Mi[, 1], numeric(m))
+  keep <- cnt > 0
+  phiB <- vapply(which(keep), function(j) ((matrix(Bxh[, , j], m, p) - G %*% Bxx[, , j]) / cnt[j]) %*% Mi[, 1], numeric(m))
+  phiA <- matrix(phiA, m); phiB <- matrix(phiB, m); n0k <- ncol(phiB)
+  va <- apply(phiA, 1, stats::var) / n1; vb <- apply(phiB, 1, stats::var) / n0k; v <- va + vb
+  df <- v^2 / (va^2 / (n1 - 1) + vb^2 / (n0k - 1))
+  list(U = G[, 1], v = v, df = df, a = phiA - rowMeans(phiA), b = phiB - rowMeans(phiB))
+}
+.uc_design <- function(meta, formula, tested_term) {
+  tl <- attr(stats::terms(formula), "term.labels"); g <- meta[[tested_term]]
+  if (length(unique(g)) != 2L || !is.null(.cluster_of(meta))) return(NULL)
+  X <- stats::model.matrix(formula, meta); asg <- attr(X, "assign")
+  zc <- which(asg != 0 & asg != which(tl == tested_term))
+  list(g1 = g == sort(unique(g))[2], Z = if (length(zc)) X[, zc, drop = FALSE] else NULL)
+}
+.euc_memo <- new.env()
+.euc_fit <- function(counts, meta, formula, tested_term) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.euc_memo$key) && identical(.euc_memo$key, key)) return(.euc_memo$val)
+  d <- .uc_design(meta, formula, tested_term)
+  if (is.null(d)) { val <- .eu_fit_ad(counts, meta, formula, tested_term); val$fallback <- TRUE
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z
+    rho <- round(.rho_design(depth, g1), 2)
+    set.seed(7L); rows <- if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts))
+    ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
+    med <- function(gm) { u <- .u_stat_cov(ct, depth, g1, Z, gm, "log", rho = rho); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
+    flo <- med(-2); fhi <- med(2)
+    gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
+    ud <- .u_stat_cov(counts, depth, g1, Z, gm, "det", rho = rho); ul <- .u_stat_cov(counts, depth, g1, Z, gm, "log", rho = rho)
+    ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0; n1 <- sum(g1); n0 <- ncol(ud$b)
+    cv <- (rowSums(ud$a * ul$a) / (n1 - 1)) / n1 + (rowSums(ud$b * ul$b) / (n0 - 1)) / n0
+    tz <- function(t, df) stats::qnorm(stats::pt(t, df))
+    z1 <- ifelse(ok, tz(ud$U / sqrt(ud$v), ud$df), NA); z2 <- ifelse(ok, tz(ul$U / sqrt(ul$v), ul$df), NA)
+    rho_c <- ifelse(ok, cv / sqrt(ud$v * ul$v), NA)
+    val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
+                p_max = .pmax2(pmax(abs(z1), abs(z2)), rho_c), est = ul$U / log(2), gam = gm, rho = rho, fallback = FALSE)
+  }
+  .euc_memo$key <- key; .euc_memo$val <- val; val
+}
+register_candidate("erdl_uc", function(counts, meta, formula, tested_term) {
+  v <- .euc_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+}, notes = "it15: erdl_u_ad with covariates handled by pairwise-difference regression (binary exposure)")
+register_candidate("erd_uc", function(counts, meta, formula, tested_term) {
+  v <- .euc_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
+}, notes = "it15: detection-only version of erdl_uc")

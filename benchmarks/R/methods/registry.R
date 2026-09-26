@@ -34,7 +34,9 @@ method_registry <- function() {
     c("pursue03_erdlu_r05","PURSUE 0.3 cand.: pairwise max, rho 0.5", "absolute", "single", "",         "method_pursue03_erdlu_r05"),
     c("pursue03_erdu_r05", "PURSUE 0.3 cand.: pairwise ERD, rho 0.5", "absolute", "single", "",         "method_pursue03_erdu_r05"),
     c("pursue03_erdlu_ad", "PURSUE 0.3 cand.: pairwise max, design rho", "absolute", "single", "",      "method_pursue03_erdlu_ad"),
-    c("pursue03_erdu_ad",  "PURSUE 0.3 cand.: pairwise ERD, design rho", "absolute", "single", "",      "method_pursue03_erdu_ad")))
+    c("pursue03_erdu_ad",  "PURSUE 0.3 cand.: pairwise ERD, design rho", "absolute", "single", "",      "method_pursue03_erdu_ad"),
+    c("pursue03_erdlu_uc", "PURSUE 0.3 cand.: pairwise max + covariates", "absolute", "single", "",     "method_pursue03_erdlu_uc"),
+    c("pursue03_erdu_uc",  "PURSUE 0.3 cand.: pairwise ERD + covariates", "absolute", "single", "",     "method_pursue03_erdu_uc")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr
