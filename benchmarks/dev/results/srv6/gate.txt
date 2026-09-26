@@ -1,0 +1,9 @@
+runs: srv6 | 2 candidates | 640 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power mean_TP
+ erdl_u_ad PASS     0.064 mid:R19   0.047              -      0.99   11.52
+  erd_u_ad PASS     0.065 mid:R17   0.059              -      0.72   10.24
+ s_cell
+   36.8
+    0.0

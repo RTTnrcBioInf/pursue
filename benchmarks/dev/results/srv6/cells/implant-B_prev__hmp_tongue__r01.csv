@@ -1,0 +1,3 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_prev","hmp_tongue",1,"erdl_u_ad",273,25,3,3,0,248,8,23.107,NA
+"implant:B_prev","hmp_tongue",1,"erd_u_ad",273,25,3,3,0,248,9,0.000999999999990564,NA
