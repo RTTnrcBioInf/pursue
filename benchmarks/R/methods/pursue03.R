@@ -65,3 +65,13 @@ for (.r in c(0.7, 0.5)) local({ r <- .r; tag <- sprintf("r%02d", round(10 * r))
     v <- .p03$.eu_fit(counts, meta, formula, tested_term, rho = r); i <- match(rownames(counts), v$feature)
     .p03_result(rownames(counts), v$p_det[i]) }, envir = globalenv())
 })
+
+# it14: thinning factor chosen from the design (rho 1 when depth is balanced across groups -> 0.5)
+method_pursue03_erdlu_ad <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eu_fit_ad(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_max[i], v$est[i])
+}
+method_pursue03_erdu_ad <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eu_fit_ad(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_det[i])
+}

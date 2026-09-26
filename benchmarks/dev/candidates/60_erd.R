@@ -538,3 +538,29 @@ for (.rho in c(0.5, 0.7)) local({ r <- .rho; tag <- sprintf("r%02d", round(10 * 
     v <- .eu_fit(counts, meta, formula, tested_term, rho = r); data.frame(feature = v$feature, p = v$p_det)
   }, notes = sprintf("it13: detection U-statistic, both pair members thinned to %.1f x their common depth", r))
 })
+
+# --- it14: thinning factor from the design ---------------------------------------------------------
+# srv4/srv5: rho = 1 is anti-conservative on mid ONLY under depth confounding (R17/R19); at mid
+# R00/R06/R11 it is calibrated (0.047-0.053), because when depth is unrelated to the exposure, which
+# member of a pair is the shallower (unthinned) one is random with respect to group and the
+# thinning-inconsistency bias cancels. So rho is set from the design alone -- labels and depths,
+# never counts, hence no effect on validity under H0: d = |mean log N (exposed) - mean log N
+# (controls)| / pooled sd of log N; rho = 1 for d <= 0.25 (randomisation noise at n = 50 per group
+# has sd ~0.2), 0.5 for d >= 0.5, linear between. Unconfounded cells keep rho = 1's power (B_prev
+# twinsuk 65 vs 55 TP at rho 0.5); confounded cells get srv5's protection.
+.rho_design <- function(depth, g1, lo = 0.25, hi = 0.5, rmin = 0.5) {
+  l <- log(depth); s <- sqrt(((sum(g1) - 1) * stats::var(l[g1]) + (sum(!g1) - 1) * stats::var(l[!g1])) / (length(l) - 2))
+  d <- abs(mean(l[g1]) - mean(l[!g1])) / max(s, 1e-8)
+  1 - (1 - rmin) * min(max((d - lo) / (hi - lo), 0), 1)
+}
+.eu_fit_ad <- function(counts, meta, formula, tested_term) {
+  g1 <- .u_design(meta, formula, tested_term)
+  r <- if (is.null(g1)) 1 else .rho_design(if (!is.null(meta$depth)) meta$depth else colSums(counts), g1)
+  r <- round(r, 2); v <- .eu_fit(counts, meta, formula, tested_term, rho = r); v$rho <- r; v
+}
+register_candidate("erdl_u_ad", function(counts, meta, formula, tested_term) {
+  v <- .eu_fit_ad(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+}, notes = "it14: pairwise U-statistics, detection + log max, thinning factor rho chosen from the depth-exposure imbalance (1 -> 0.5)")
+register_candidate("erd_u_ad", function(counts, meta, formula, tested_term) {
+  v <- .eu_fit_ad(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
+}, notes = "it14: detection U-statistic with design-chosen rho")
