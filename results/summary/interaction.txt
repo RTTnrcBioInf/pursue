@@ -4,15 +4,16 @@ Data: A
 Models:
 f0: y_fdr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_fdr ~ method * simulator + method * regime_id + (1 | template)
-   npar     AIC     BIC   logLik -2*log(L)  Chisq Df Pr(>Chisq)    
-f0  556 2764671 2771004 -1381779   2763559                         
-f1  637 2755219 2762475 -1376972   2753945 9613.6 81  < 2.2e-16 ***
+   npar     AIC     BIC   logLik -2*log(L) Chisq Df Pr(>Chisq)    
+f0  608 4011326 4018482 -2005055   4010110                        
+f1  697 3997881 4006084 -1998243   3996487 13623 89  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
              method fragility_sd_across_simulators
       pursue03_erlc                      0.1508675
       pursue03_erdl                      0.1813414
  pursue03_erdlu_r05                      0.1822572
+  pursue03_erdlu_ad                      0.2012300
              locom2                      0.2090090
               locom                      0.2285553
             zicoseq                      0.2319181
@@ -20,6 +21,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
              pursue                      0.2472335
            ancombc2                      0.2531378
   pursue03_erdu_r05                      0.2825141
+   pursue03_erdu_ad                      0.2913115
               adapt                      0.3233025
              aldex2                      0.3417587
           fastancom                      0.3882716
@@ -38,9 +40,9 @@ Data: A
 Models:
 f0: y_tpr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_tpr ~ method * simulator + method * regime_id + (1 | template)
-   npar     AIC     BIC  logLik -2*log(L) Chisq Df Pr(>Chisq)    
-f0  528 1890820 1896762 -944882   1889764                        
-f1  609 1840927 1847781 -919854   1839709 50055 81  < 2.2e-16 ***
+   npar     AIC     BIC   logLik -2*log(L) Chisq Df Pr(>Chisq)    
+f0  578 2760864 2767588 -1379854   2759708                        
+f1  667 2684770 2692530 -1341718   2683436 76272 89  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
              method fragility_sd_across_simulators
@@ -58,9 +60,11 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
  pursue03_erdlu_r05                      1.1367843
                 ldm                      1.1530318
       pursue03_erdc                      1.1603264
+  pursue03_erdlu_ad                      1.1697951
             zicoseq                      1.1871006
   pursue03_erdu_r05                      1.2380840
        wilcoxon_tss                      1.2788274
+   pursue03_erdu_ad                      1.2880800
               adapt                      1.3035070
        limma_logtss                      1.3092187
               linda                      1.3382706
