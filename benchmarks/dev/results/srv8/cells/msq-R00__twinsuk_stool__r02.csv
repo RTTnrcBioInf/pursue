@@ -1,0 +1,3 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R00","twinsuk_stool",2,"cen_uc",434,46,10,10,0,388,26,56.7509999999997,NA
+"msq:R00","twinsuk_stool",2,"cend_uc",434,46,8,8,0,388,24,0,NA

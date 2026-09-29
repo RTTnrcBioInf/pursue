@@ -1,0 +1,3 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_prev","twinsuk_stool",1,"cen_uc",2214,222,61,59,2,1992,110,82.772,NA
+"implant:B_prev","twinsuk_stool",1,"cend_uc",2214,222,71,68,3,1992,101,0.00100000000000477,NA

@@ -1,0 +1,3 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R19","hmp_tongue",5,"cen_uc",304,30,12,10,2,274,30,137.763,NA
+"msq:R19","hmp_tongue",5,"cend_uc",304,30,12,10,2,274,30,0.000999999999976353,NA
