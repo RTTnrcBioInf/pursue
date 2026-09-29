@@ -85,3 +85,14 @@ method_pursue03_erdu_uc <- function(counts, meta, formula, tested_term, args = l
   v <- .p03$.euc_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_det[i])
 }
+
+# it22: censored (Tobit-score) kernel -- zeros imputed at E[latent log count | below detection] at the
+# pair's common depth; cendu = max(detection, censored)
+method_pursue03_cendu_uc <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.ecen_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_dc[i], v$est[i])
+}
+method_pursue03_cenu_uc <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.ecen_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_cen[i], v$est[i])
+}

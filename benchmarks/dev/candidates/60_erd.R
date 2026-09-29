@@ -352,19 +352,20 @@ register_candidate("erd_sc", function(counts, meta, formula, tested_term) .erd_s
 # alternative. The it8 depth-scaling centring holds for any h(Y_D): Y_D ~ Bin(D, p) ~ Pois(Dp) depends
 # on D and p only through Dp, so rarefying exposed samples to D/c undoes a compositional c for the
 # log transform as well.
-.erl_f_var <- function(counts, depth, Dvec, kmax = 70L, big_mu = 20) {
+.erl_f_var <- function(counts, depth, Dvec, kmax = 70L, big_mu = 20, off = 1) {   # E[log(off + Y_D)]; off = 0: E[log Y_D; Y_D > 0]
   # exact hypergeometric sum where D p <= big_mu; above it a THIRD-order moment expansion, which is
   # exact at D = N (no thinning: variance and skew vanish) and within ~1e-4 elsewhere, so a thinned
   # and an unthinned sample are treated alike (the invariance the U-statistic relies on)
   Y <- as.matrix(counts); N <- matrix(depth, nrow(Y), ncol(Y), byrow = TRUE); Dm <- matrix(Dvec, nrow(Y), ncol(Y), byrow = TRUE)
   mu <- Dm * Y / N; out <- matrix(0, nrow(Y), ncol(Y))
   big <- mu > big_mu; if (any(big)) { pp <- (Y / N)[big]; Nb <- N[big]; Db <- Dm[big]; fpc <- (Nb - Db) / pmax(Nb - 1, 1)
-    v <- Db * pp * (1 - pp) * fpc; k3 <- v * (1 - 2 * pp) * (Nb - 2 * Db) / pmax(Nb - 2, 1); m1 <- 1 + mu[big]
-    out[big] <- log(m1) - v / (2 * m1^2) + k3 / (3 * m1^3) }
+    v <- Db * pp * (1 - pp) * fpc; k3 <- v * (1 - 2 * pp) * (Nb - 2 * Db) / pmax(Nb - 2, 1); m1 <- off + mu[big]
+    out[big] <- log(m1) - v / (2 * m1^2) + k3 / (3 * m1^3)
+    if (off == 0) out[big] <- out[big] - (v * (1 - 6 * pp * (1 - pp)) + 3 * v^2) / (4 * m1^4) }   # 4th order: log y has no +1 cushion
   sm <- which(!big & Y > 0)
   if (length(sm)) { y <- Y[sm]; nn <- N[sm] - Y[sm]; dd <- Dm[sm]; acc <- numeric(length(sm))
     for (k in 1:kmax) { live <- k <= y & k <= dd; if (!any(live)) break
-      acc[live] <- acc[live] + stats::dhyper(k, y[live], nn[live], dd[live]) * log1p(k) }
+      acc[live] <- acc[live] + stats::dhyper(k, y[live], nn[live], dd[live]) * log(off + k) }
     out[sm] <- acc }
   out
 }
@@ -575,22 +576,49 @@ register_candidate("erd_u_ad", function(counts, meta, formula, tested_term) {
 # Hoeffding projection as before -- per-sample partner means a_i, b_j of x e -- and
 # Var(gamma) = M^-1 (Var a / n1 + Var b / n0) M^-1 with M = mean x x'. Accumulated per sample
 # (sums of x h and x x'), so no pair-level storage.
-.u_stat_cov <- function(counts, depth, g1, Z, gam, h = c("det", "log"), K = 50L, rho = 1) {
+# vcorr (it16): the DeLong/projection estimate var(a)/n1 + var(b)/n0 counts the pair-level residual
+# variance twice (each partner mean carries sigma_e^2 / #partners), while the true variance carries
+# it once: Var(theta) ~ s10/n1 + s01/n0 + sigma_e^2 [M^-1]_11 / P. It is second-order in general,
+# but here h_ij depends on the PAIR's common depth, so on the log scale sigma_e^2 is large and the
+# test runs conservative in the tail (null FPR 0.0003 at 0.001 for the log half). vcorr subtracts
+# one copy, sigma_e^2 estimated from the two-way decomposition of the pair residuals e_ij.
+# raw (it17): no thinning at all -- each sample at its own depth -- with the pair's log-depth
+# difference as a covariate, offset by the compositional factor for the exposed sample
+# ((log N_i + gamma) - log N_j). Used only when the design is depth-balanced (the choice uses labels
+# and depths only), where it is logistic_depth's information inside the pairwise machinery.
+# cl (it18): subject labels for repeated measures. The pairwise estimator is unchanged; its
+# projection is summed within subject before the variance (cluster-robust, G/(G-1)), df from the
+# numbers of exposed and control subjects.
+# wk (it21): pair weights w_ij = D_ij^wk (design-only, so any value keeps the test exact); the pairwise
+# regression becomes weighted least squares and each sample's projection is scaled by its share of the
+# total weight (W_i / W). wk = 0 is the unweighted estimator exactly.
+.u_stat_cov <- function(counts, depth, g1, Z, gam, h = c("det", "log", "pi", "cen"), K = 50L, rho = 1, vcorr = FALSE, raw = FALSE, cl = NULL, wk = 0, tob = NULL) {
   h <- match.arg(h); Y <- as.matrix(counts); storage.mode(Y) <- "double"; c <- exp(gam)
+  if (raw) { Fall <- if (h == "det") (Y > 0) * 1 else log1p(Y); ld <- log(depth)
+    Z <- cbind(Z, rep(0, length(depth))) }                                    # placeholder column, filled per pair
   i1 <- which(g1); i0 <- which(!g1); n1 <- length(i1); n0 <- length(i0); m <- nrow(Y); Kk <- min(K, n0)
   step <- max(1L, n0 %/% Kk); q <- if (is.null(Z)) 0L else ncol(Z); p <- 1L + q
-  Axh <- array(0, c(m, p, n1)); Axx <- array(0, c(p, p, n1)); Kc <- numeric(n1)
+  Axh <- array(0, c(m, p, n1)); Axx <- array(0, c(p, p, n1)); Kc <- numeric(n1); SSh <- numeric(m)
   Bxh <- array(0, c(m, p, n0)); Bxx <- array(0, c(p, p, n0)); cnt <- numeric(n0)
   fcol <- function(Ysub, Nvec, Dvec) if (h == "det") .erd_f_var(Ysub, Nvec, Dvec) else .erl_f_var(Ysub, Nvec, Dvec)
   for (k in seq_len(n1)) { i <- i1[k]
     J <- if (Kk == n0) seq_len(n0) else ((k - 1L + (seq_len(Kk) - 1L) * step) %% n0) + 1L; jj <- i0[J]; nk <- length(jj)
+    if (raw) {
+      H <- Fall[, i] - Fall[, jj, drop = FALSE]
+      X <- cbind(1, -sweep(Z[jj, , drop = FALSE], 2, Z[i, ], "-")); X[, p] <- (ld[i] + gam) - ld[jj]
+    } else {
     D <- pmax(floor(rho * pmin(depth[i] * c, depth[jj])), 1)
-    H <- fcol(Y[, rep(i, nk), drop = FALSE], rep(depth[i], nk), pmax(floor(D / c), 1)) - fcol(Y[, jj, drop = FALSE], depth[jj], D)
+    H <- if (h == "pi") .pi_kernel(Y[, i], depth[i], pmax(floor(D / c), 1), Y[, jj, drop = FALSE], depth[jj], D) else
+      if (h == "cen") .cen_kernel(Y[, rep(i, nk), drop = FALSE], rep(depth[i], nk), pmax(floor(D / c), 1), Y[, jj, drop = FALSE], depth[jj], D, tob) else
+      fcol(Y[, rep(i, nk), drop = FALSE], rep(depth[i], nk), pmax(floor(D / c), 1)) - fcol(Y[, jj, drop = FALSE], depth[jj], D)
     X <- if (q) cbind(1, -sweep(Z[jj, , drop = FALSE], 2, Z[i, ], "-")) else matrix(1, nk, 1)   # (1, z_i - z_j)
-    Axh[, , k] <- H %*% X; Axx[, , k] <- crossprod(X); Kc[k] <- nk
-    for (cc in seq_len(p)) Bxh[, cc, J] <- Bxh[, cc, J] + H * rep(X[, cc], each = m)
-    for (t in seq_len(nk)) Bxx[, , J[t]] <- Bxx[, , J[t]] + tcrossprod(X[t, ])
-    cnt[J] <- cnt[J] + 1 }
+    }
+    w <- if (wk == 0 || raw) rep(1, nk) else { Dw <- pmax(floor(rho * pmin(depth[i] * c, depth[jj])), 1); (Dw / stats::median(depth))^wk }
+    Hw <- H * rep(w, each = m)
+    Axh[, , k] <- Hw %*% X; Axx[, , k] <- crossprod(X * sqrt(w)); Kc[k] <- sum(w); SSh <- SSh + rowSums(H^2)
+    for (cc in seq_len(p)) Bxh[, cc, J] <- Bxh[, cc, J] + Hw * rep(X[, cc], each = m)
+    for (t in seq_len(nk)) Bxx[, , J[t]] <- Bxx[, , J[t]] + w[t] * tcrossprod(X[t, ])
+    cnt[J] <- cnt[J] + w }
   P <- sum(Kc); M <- apply(Axx, c(1, 2), sum) / P; Mi <- solve(M)
   G <- (apply(Axh, c(1, 2), sum) / P) %*% Mi                                  # m x p: gamma per feature (rows)
   # partner-mean estimating functions per sample, mapped through M^-1; component 1 = theta's influence
@@ -598,9 +626,30 @@ register_candidate("erd_u_ad", function(counts, meta, formula, tested_term) {
   keep <- cnt > 0
   phiB <- vapply(which(keep), function(j) ((matrix(Bxh[, , j], m, p) - G %*% Bxx[, , j]) / cnt[j]) %*% Mi[, 1], numeric(m))
   phiA <- matrix(phiA, m); phiB <- matrix(phiB, m); n0k <- ncol(phiB)
+  if (wk != 0 && !raw) {                                                        # weight shares: W_i / W (reduces to 1/n1 unweighted)
+    phiA <- phiA * rep(Kc / P * n1, each = m); phiB <- phiB * rep(cnt[keep] / P * n0k, each = m) }
   va <- apply(phiA, 1, stats::var) / n1; vb <- apply(phiB, 1, stats::var) / n0k; v <- va + vb
   df <- v^2 / (va^2 / (n1 - 1) + vb^2 / (n0k - 1))
-  list(U = G[, 1], v = v, df = df, a = phiA - rowMeans(phiA), b = phiB - rowMeans(phiB))
+  if (!is.null(cl)) {
+    ca <- factor(cl[i1]); cb <- factor(cl[i0[keep]]); Ga <- nlevels(ca); Gb <- nlevels(cb)
+    Sa <- (phiA - rowMeans(phiA)) %*% stats::model.matrix(~ ca - 1); Sb <- (phiB - rowMeans(phiB)) %*% stats::model.matrix(~ cb - 1)
+    va <- rowSums(Sa^2) / n1^2 * Ga / (Ga - 1); vb <- rowSums(Sb^2) / n0k^2 * Gb / (Gb - 1); v <- va + vb
+    df <- v^2 / (va^2 / (Ga - 1) + vb^2 / (Gb - 1))
+    attr(v, "clusters") <- c(Ga, Gb)
+  }
+  if (vcorr) {
+    Sxx <- apply(Axx, c(1, 2), sum); Sxh <- apply(Axh, c(1, 2), sum)
+    SSe <- SSh - 2 * rowSums(G * Sxh) + rowSums((G %*% Sxx) * G)                 # sum of e_ij^2 over pairs
+    ea <- vapply(seq_len(n1), function(k) (Axh[, 1, k] - G %*% Axx[, 1, k]) / Kc[k], numeric(m))   # partner means of e
+    eb <- vapply(which(keep), function(j) (Bxh[, 1, j] - G %*% Bxx[, 1, j]) / cnt[j], numeric(m))
+    ea <- matrix(ea, m); eb <- matrix(eb, m)
+    SSr <- SSe - colSums(t(ea^2) * Kc) - colSums(t(eb^2) * cnt[keep])           # two-way residual SS
+    s2e <- pmax(SSr, 0) / max(P - n1 - n0k + 1, 1)
+    v <- pmax(v - s2e * Mi[1, 1] / P, 0.5 * v)
+  }
+  out <- list(U = G[, 1], v = v, df = df, a = phiA - rowMeans(phiA), b = phiB - rowMeans(phiB))
+  if (!is.null(cl)) { out$ca <- factor(cl[i1]); out$cb <- factor(cl[i0[keep]]) }
+  out
 }
 .uc_design <- function(meta, formula, tested_term) {
   tl <- attr(stats::terms(formula), "term.labels"); g <- meta[[tested_term]]
@@ -631,6 +680,7 @@ register_candidate("erd_u_ad", function(counts, meta, formula, tested_term) {
     rho_c <- ifelse(ok, cv / sqrt(ud$v * ul$v), NA)
     val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
                 p_max = .pmax2(pmax(abs(z1), abs(z2)), rho_c), est = ul$U / log(2), gam = gm, rho = rho, fallback = FALSE)
+    attr(val, "rho_c") <- rho_c
   }
   .euc_memo$key <- key; .euc_memo$val <- val; val
 }
@@ -640,3 +690,336 @@ register_candidate("erdl_uc", function(counts, meta, formula, tested_term) {
 register_candidate("erd_uc", function(counts, meta, formula, tested_term) {
   v <- .euc_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
 }, notes = "it15: detection-only version of erdl_uc")
+
+# --- it16: unbiased pairwise variance (vcorr) ---
+.euc2_memo <- new.env()
+.euc_fit2 <- function(counts, meta, formula, tested_term) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.euc2_memo$key) && identical(.euc2_memo$key, key)) return(.euc2_memo$val)
+  d <- .uc_design(meta, formula, tested_term)
+  if (is.null(d)) { val <- .eu_fit_ad(counts, meta, formula, tested_term); val$fallback <- TRUE
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z
+    rho <- round(.rho_design(depth, g1), 2)
+    set.seed(7L); rows <- if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts))
+    ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
+    med <- function(gm) { u <- .u_stat_cov(ct, depth, g1, Z, gm, "log", rho = rho, vcorr = TRUE); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
+    flo <- med(-2); fhi <- med(2)
+    gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
+    ud <- .u_stat_cov(counts, depth, g1, Z, gm, "det", rho = rho, vcorr = TRUE); ul <- .u_stat_cov(counts, depth, g1, Z, gm, "log", rho = rho, vcorr = TRUE)
+    ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0; n1 <- sum(g1); n0 <- ncol(ud$b)
+    cv <- (rowSums(ud$a * ul$a) / (n1 - 1)) / n1 + (rowSums(ud$b * ul$b) / (n0 - 1)) / n0
+    tz <- function(t, df) stats::qnorm(stats::pt(t, df))
+    z1 <- ifelse(ok, tz(ud$U / sqrt(ud$v), ud$df), NA); z2 <- ifelse(ok, tz(ul$U / sqrt(ul$v), ul$df), NA)
+    rho_c <- ifelse(ok, pmin(pmax(cv / sqrt(ud$v * ul$v), -0.999), 0.999), NA)
+    val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
+                p_max = .pmax2(pmax(abs(z1), abs(z2)), rho_c), est = ul$U / log(2), gam = gm, rho = rho, fallback = FALSE)
+  }
+  .euc2_memo$key <- key; .euc2_memo$val <- val; val
+}
+register_candidate("erdl_uc2", function(counts, meta, formula, tested_term) {
+  v <- .euc_fit2(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+}, notes = "it16: erdl_uc with the pair-residual double count removed from the U-statistic variance")
+register_candidate("erd_uc2", function(counts, meta, formula, tested_term) {
+  v <- .euc_fit2(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
+}, notes = "it16: detection-only erdl_uc2")
+
+# --- it17: balanced designs -> raw values + log-depth covariate; confounded -> pairwise thinning ---
+.RAW_D <- 0.25
+.depth_d <- function(depth, g1) { l <- log(depth)
+  s <- sqrt(((sum(g1) - 1) * stats::var(l[g1]) + (sum(!g1) - 1) * stats::var(l[!g1])) / (length(l) - 2))
+  abs(mean(l[g1]) - mean(l[!g1])) / max(s, 1e-8) }
+.euc3_memo <- new.env()
+.euc_fit3 <- function(counts, meta, formula, tested_term) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.euc3_memo$key) && identical(.euc3_memo$key, key)) return(.euc3_memo$val)
+  d <- .uc_design(meta, formula, tested_term)
+  depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
+  if (is.null(d) || .depth_d(depth, d$g1) > .RAW_D) { val <- .euc_fit(counts, meta, formula, tested_term); val$mode <- "thinned"
+  } else {
+    g1 <- d$g1; Z <- d$Z
+    set.seed(7L); rows <- if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts))
+    ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
+    med <- function(gm) { u <- .u_stat_cov(ct, depth, g1, Z, gm, "log", raw = TRUE); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
+    flo <- med(-2); fhi <- med(2)
+    gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
+    ud <- .u_stat_cov(counts, depth, g1, Z, gm, "det", raw = TRUE); ul <- .u_stat_cov(counts, depth, g1, Z, gm, "log", raw = TRUE)
+    ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0; n1 <- sum(g1); n0 <- ncol(ud$b)
+    cv <- (rowSums(ud$a * ul$a) / (n1 - 1)) / n1 + (rowSums(ud$b * ul$b) / (n0 - 1)) / n0
+    tz <- function(t, df) stats::qnorm(stats::pt(t, df))
+    z1 <- ifelse(ok, tz(ud$U / sqrt(ud$v), ud$df), NA); z2 <- ifelse(ok, tz(ul$U / sqrt(ul$v), ul$df), NA)
+    rc <- ifelse(ok, pmin(pmax(cv / sqrt(ud$v * ul$v), -0.999), 0.999), NA)
+    val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
+                p_max = .pmax2(pmax(abs(z1), abs(z2)), rc), est = ul$U / log(2), gam = gm, mode = "raw", fallback = FALSE)
+  }
+  .euc3_memo$key <- key; .euc3_memo$val <- val; val
+}
+register_candidate("erdl_ur", function(counts, meta, formula, tested_term) {
+  v <- .euc_fit3(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+}, notes = "it17: erdl_uc, but depth-balanced designs use raw values with a log-depth covariate (offset by gamma) instead of thinning")
+register_candidate("erd_ur", function(counts, meta, formula, tested_term) {
+  v <- .euc_fit3(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
+}, notes = "it17: detection-only erdl_ur")
+
+# --- it18: repeated measures inside the pairwise test; trimmed compositional centre ---------------
+# R23 (5 visits per subject, subject-level exposure) was erdlu_uc's biggest deficit (relative power
+# 0.25 vs ADAPT 0.98): subjects forced the global-minimum LM fallback. Now the pairwise test runs with
+# a subject-clustered variance. R11 (all DA in one direction): the compositional factor was the root
+# of median z over ALL taxa, which one-directional DA pulls; a second pass re-solves it on the taxa
+# with |z| < 2 at the first-pass root (a trimmed centre, like the empirical null's).
+.uk_design <- function(meta, formula, tested_term) {
+  tl <- attr(stats::terms(formula), "term.labels"); g <- meta[[tested_term]]
+  if (length(unique(g)) != 2L) return(NULL)
+  X <- stats::model.matrix(formula, meta); asg <- attr(X, "assign")
+  zc <- which(asg != 0 & asg != which(tl == tested_term))
+  list(g1 = g == sort(unique(g))[2], Z = if (length(zc)) X[, zc, drop = FALSE] else NULL, cl = .cluster_of(meta))
+}
+.euk_memo <- new.env()
+.euk_fit <- function(counts, meta, formula, tested_term) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.euk_memo$key) && identical(.euk_memo$key, key)) return(.euk_memo$val)
+  d <- .uk_design(meta, formula, tested_term)
+  if (is.null(d)) { val <- .eu_fit_ad(counts, meta, formula, tested_term); val$fallback <- TRUE
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z; cl <- d$cl
+    rho <- round(.rho_design(depth, g1), 2)
+    set.seed(7L); rows <- if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts))
+    ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
+    zf <- function(gm) { u <- .u_stat_cov(ct, depth, g1, Z, gm, "log", rho = rho, cl = cl); u$U / sqrt(u$v) }
+    root <- function(sel) { med <- function(gm) stats::median(zf(gm)[sel], na.rm = TRUE); flo <- med(-2); fhi <- med(2)
+      if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0 }
+    g0 <- root(rep(TRUE, nrow(ct))); z0 <- zf(g0); sel <- is.finite(z0) & abs(z0) < 2
+    gm <- if (sum(sel) >= 30) root(sel) else g0
+    ud <- .u_stat_cov(counts, depth, g1, Z, gm, "det", rho = rho, cl = cl); ul <- .u_stat_cov(counts, depth, g1, Z, gm, "log", rho = rho, cl = cl)
+    ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0; n1 <- sum(g1); n0 <- ncol(ud$b)
+    if (is.null(cl)) { cv <- (rowSums(ud$a * ul$a) / (n1 - 1)) / n1 + (rowSums(ud$b * ul$b) / (n0 - 1)) / n0
+    } else { Ma <- stats::model.matrix(~ ud$ca - 1); Mb <- stats::model.matrix(~ ud$cb - 1); Ga <- ncol(Ma); Gb <- ncol(Mb)
+      cv <- rowSums((ud$a %*% Ma) * (ul$a %*% Ma)) / n1^2 * Ga / (Ga - 1) + rowSums((ud$b %*% Mb) * (ul$b %*% Mb)) / n0^2 * Gb / (Gb - 1) }
+    tz <- function(t, df) stats::qnorm(stats::pt(t, df))
+    z1 <- ifelse(ok, tz(ud$U / sqrt(ud$v), ud$df), NA); z2 <- ifelse(ok, tz(ul$U / sqrt(ul$v), ul$df), NA)
+    rc <- ifelse(ok, pmin(pmax(cv / sqrt(ud$v * ul$v), -0.999), 0.999), NA)
+    val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
+                p_max = .pmax2(pmax(abs(z1), abs(z2)), rc), est = ul$U / log(2), gam = gm, gam0 = g0, rho = rho, fallback = FALSE)
+  }
+  .euk_memo$key <- key; .euk_memo$val <- val; val
+}
+register_candidate("erdl_uk", function(counts, meta, formula, tested_term) {
+  v <- .euk_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+}, notes = "it18: erdl_uc + subject-clustered pairwise variance (repeated measures) + trimmed compositional centre")
+register_candidate("erd_uk", function(counts, meta, formula, tested_term) {
+  v <- .euk_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_det)
+}, notes = "it18: detection-only erdl_uk")
+
+# --- it19: the pairwise-rarefied probabilistic index (PI) kernel -----------------------------------
+# h_ij = P(Y_i > Y_j) - P(Y_i < Y_j), Y_i and Y_j INDEPENDENT random rarefactions of the two samples to
+# the pair's common depth (the exposed one at D/c). Under H0 both are draws from the same distribution
+# given the composition, so E h_ij = 0 exactly -- a Mann-Whitney comparison done at a common depth.
+# (Rank tests on ERD failed in it5/it6 because samples of different precision were ranked together;
+# here each comparison is between two equally thinned counts.) With one sample zero it reduces to the
+# detection kernel; for abundant taxa it is a rank comparison of abundance, robust to the skew that
+# weakens a mean of log counts. Exact from the hypergeometric pmfs when mu_i + mu_j <= 40, normal
+# approximation with continuity correction beyond; both-zero pairs contribute 0.
+.pi_kernel <- function(yi, Ni, Di, Yj, Nj, Dj, kmax = 90L) {
+  m <- length(yi); nk <- ncol(Yj); H <- matrix(0, m, nk)
+  Yi <- matrix(yi, m, nk); NI <- Ni; DI <- matrix(Di, m, nk, byrow = TRUE); NJ <- matrix(Nj, m, nk, byrow = TRUE); DJ <- matrix(Dj, m, nk, byrow = TRUE)
+  pz <- function(y, N, D) exp(lchoose(N - y, D) - lchoose(N, D))              # P(thinned count = 0)
+  a0 <- Yi == 0; b0 <- Yj == 0
+  one <- !a0 & b0; H[one] <- 1 - pz(Yi[one], NI, DI[one])
+  two <- a0 & !b0; H[two] <- -(1 - pz(Yj[two], NJ[two], DJ[two]))
+  both <- which(!a0 & !b0)
+  if (length(both)) {
+    yb <- Yi[both]; yjb <- Yj[both]; di <- DI[both]; dj <- DJ[both]; nj <- NJ[both]
+    mi <- di * yb / NI; mj <- dj * yjb / nj
+    vi <- di * (yb / NI) * (1 - yb / NI) * (NI - di) / max(NI - 1, 1); vj <- dj * (yjb / nj) * (1 - yjb / nj) * (nj - dj) / pmax(nj - 1, 1)
+    big <- (mi + mj) > 40
+    if (any(big)) { d <- mi[big] - mj[big]; s <- sqrt(pmax(vi[big] + vj[big], 1e-8))
+      H[both[big]] <- (1 - stats::pnorm((0.5 - d) / s)) - stats::pnorm((-0.5 - d) / s) }
+    sm <- which(!big)
+    if (length(sm)) {
+      K <- 0:kmax
+      Pi <- outer(seq_along(sm), K, function(r, k) stats::dhyper(k, yb[sm][r], NI - yb[sm][r], di[sm][r]))
+      Pj <- outer(seq_along(sm), K, function(r, k) stats::dhyper(k, yjb[sm][r], nj[sm][r] - yjb[sm][r], dj[sm][r]))
+      Fi <- t(apply(Pi, 1, cumsum)); Fj <- t(apply(Pj, 1, cumsum))
+      Fi1 <- cbind(0, Fi[, -ncol(Fi), drop = FALSE]); Fj1 <- cbind(0, Fj[, -ncol(Fj), drop = FALSE])   # F(k-1)
+      H[both[sm]] <- rowSums(Pi * Fj1) - rowSums(Pj * Fi1)
+    }
+  }
+  H
+}
+
+.epi_memo <- new.env()
+.epi_fit <- function(counts, meta, formula, tested_term) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.epi_memo$key) && identical(.epi_memo$key, key)) return(.epi_memo$val)
+  d <- .uk_design(meta, formula, tested_term)
+  if (is.null(d)) { v <- .euk_fit(counts, meta, formula, tested_term); val <- list(feature = v$feature, p = v$p_max, fallback = TRUE)
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z; cl <- d$cl
+    rho <- round(.rho_design(depth, g1), 2)
+    gm <- .euk_fit(counts, meta, formula, tested_term)$gam                       # compositional factor from the log U-statistic
+    u <- .u_stat_cov(counts, depth, g1, Z, gm, "pi", rho = rho, cl = cl)
+    ok <- rowSums(counts > 0) >= 3 & u$v > 0
+    val <- list(feature = rownames(counts), p = ifelse(ok, 2 * stats::pt(-abs(u$U / sqrt(u$v)), u$df), NA), est = u$U, gam = gm, fallback = FALSE)
+  }
+  .epi_memo$key <- key; .epi_memo$val <- val; val
+}
+register_candidate("pi_u", function(counts, meta, formula, tested_term) {
+  v <- .epi_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p)
+}, notes = "it19: pairwise-rarefied probabilistic index (Mann-Whitney at the pair's common depth), design rho, covariates, clusters")
+
+# --- it20: permutation-calibrated tails in depth-balanced designs -------------------------------------
+# Where the design is depth-balanced (rho = 1 by the it14 rule), has no covariates or subjects, and
+# n <= 120, labels are exchangeable under H0, so the null distribution of the standardised pairwise
+# statistic can be read off label permutations. All ordered-pair kernels K_ij = f_i(D_ij) - f_j(D_ij),
+# D_ij = min(N_i, N_j), are computed once (up to 400 taxa); each permutation then only re-indexes K.
+# The permuted z's, pooled over taxa, form an empirical null; each observed z (with its compositional
+# centring, from erdl_uc) is mapped through it -- p = (1 + #{|z*| >= |z|}) / (1 + #z*), a Gaussian tail
+# beyond the permuted range -- and back to z, then combined by the usual max test. This corrects the
+# tail shape in either direction; the observed statistic itself is unchanged.
+.pair_kernels <- function(counts, depth, h, rho = 1) {
+  Y <- as.matrix(counts); storage.mode(Y) <- "double"; m <- nrow(Y); n <- ncol(Y)
+  fcol <- function(Ysub, Nvec, Dvec) if (h == "det") .erd_f_var(Ysub, Nvec, Dvec) else .erl_f_var(Ysub, Nvec, Dvec)
+  K <- array(0, c(m, n, n))
+  for (i in seq_len(n - 1L)) { jj <- (i + 1L):n
+    D <- pmax(floor(rho * pmin(depth[i], depth[jj])), 1)
+    H <- fcol(Y[, rep(i, length(jj)), drop = FALSE], rep(depth[i], length(jj)), D) - fcol(Y[, jj, drop = FALSE], depth[jj], D)
+    K[, i, jj] <- H; K[, jj, i] <- -H }
+  K
+}
+.perm_z <- function(K, g1, B = 100L, seed = 11L) {
+  m <- dim(K)[1]; n <- dim(K)[2]; n1 <- sum(g1); out <- numeric(0)
+  set.seed(seed)
+  for (b in seq_len(B)) { gb <- sample(g1); C <- which(gb); Tt <- which(!gb)
+    A <- K[, C, Tt, drop = FALSE]                                            # m x n1 x n0
+    a <- apply(A, c(1, 2), mean); bb <- apply(A, c(1, 3), mean); U <- rowMeans(a)
+    va <- apply(a, 1, stats::var) / length(C); vb <- apply(bb, 1, stats::var) / length(Tt); v <- va + vb
+    df <- v^2 / (va^2 / (length(C) - 1) + vb^2 / (length(Tt) - 1))
+    z <- stats::qnorm(stats::pt(U / sqrt(v), df)); out <- c(out, z[is.finite(z)]) }
+  out
+}
+.calib_z <- function(z, zstar) {
+  az <- sort(abs(zstar)); N <- length(az); s_t <- stats::quantile(az, 0.99) / stats::qnorm(0.995)
+  p <- vapply(abs(z), function(x) if (!is.finite(x)) NA_real_ else if (x > az[N]) 2 * stats::pnorm(-x / s_t) else
+    (1 + N - findInterval(x, az, left.open = TRUE)) / (1 + N), numeric(1))
+  sign(z) * stats::qnorm(1 - pmin(pmax(p, 1e-300), 1) / 2)
+}
+.eup_memo <- new.env()
+.eup_fit <- function(counts, meta, formula, tested_term, B = 100L, sub = 400L) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.eup_memo$key) && identical(.eup_memo$key, key)) return(.eup_memo$val)
+  v <- .euc_fit(counts, meta, formula, tested_term)
+  d <- .uc_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
+  use <- !is.null(d) && is.null(d$Z) && ncol(counts) <= 120L && isTRUE(v$rho == 1)
+  if (!use) { v$perm <- FALSE; .eup_memo$key <- key; .eup_memo$val <- v; return(v) }
+  set.seed(7L); rows <- which(rowSums(counts > 0) >= 3); if (length(rows) > sub) rows <- sort(sample(rows, sub))
+  zs_d <- .perm_z(.pair_kernels(counts[rows, , drop = FALSE], depth, "det"), d$g1, B)
+  zs_l <- .perm_z(.pair_kernels(counts[rows, , drop = FALSE], depth, "log"), d$g1, B)
+  zd <- stats::qnorm(pmax(v$p_det, 1e-300) / 2, lower.tail = FALSE); zl <- stats::qnorm(pmax(v$p_log, 1e-300) / 2, lower.tail = FALSE)
+  zd <- .calib_z(zd, zs_d); zl <- .calib_z(zl, zs_l)
+  # correlation for the max test: recover it from the uncalibrated pair (same as erdl_uc used)
+  rc <- attr(v, "rho_c"); if (is.null(rc)) rc <- rep(0.7, length(zd))
+  pm <- .pmax2(pmax(abs(zd), abs(zl)), rc)
+  val <- v; val$p_max <- pm; val$p_det <- 2 * stats::pnorm(-abs(zd)); val$p_log <- 2 * stats::pnorm(-abs(zl)); val$perm <- TRUE
+  val$tail <- c(det = sd(zs_d), log = sd(zs_l), det99 = unname(stats::quantile(abs(zs_d), .999)), log99 = unname(stats::quantile(abs(zs_l), .999)))
+  .eup_memo$key <- key; .eup_memo$val <- val; val
+}
+register_candidate("erdl_up", function(counts, meta, formula, tested_term) {
+  v <- .eup_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+}, notes = "it20: erdl_uc with permutation-calibrated component tails in depth-balanced designs")
+
+# --- it21: depth-weighted pairs ---
+.eucw_memo <- new.env()
+.euc_fitw <- function(counts, meta, formula, tested_term, wk = 0.5) {
+  key <- list(counts, meta, formula, tested_term, wk)
+  if (!is.null(.eucw_memo$key) && identical(.eucw_memo$key, key)) return(.eucw_memo$val)
+  d <- .uc_design(meta, formula, tested_term)
+  if (is.null(d)) { val <- .euc_fit(counts, meta, formula, tested_term)
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z
+    rho <- round(.rho_design(depth, g1), 2)
+    set.seed(7L); rows <- if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts))
+    ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
+    med <- function(gm) { u <- .u_stat_cov(ct, depth, g1, Z, gm, "log", rho = rho, wk = wk); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
+    flo <- med(-2); fhi <- med(2)
+    gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
+    ud <- .u_stat_cov(counts, depth, g1, Z, gm, "det", rho = rho, wk = wk); ul <- .u_stat_cov(counts, depth, g1, Z, gm, "log", rho = rho, wk = wk)
+    ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0; n1 <- sum(g1); n0 <- ncol(ud$b)
+    cv <- (rowSums(ud$a * ul$a) / (n1 - 1)) / n1 + (rowSums(ud$b * ul$b) / (n0 - 1)) / n0
+    tz <- function(t, df) stats::qnorm(stats::pt(t, df))
+    z1 <- ifelse(ok, tz(ud$U / sqrt(ud$v), ud$df), NA); z2 <- ifelse(ok, tz(ul$U / sqrt(ul$v), ul$df), NA)
+    rho_c <- ifelse(ok, cv / sqrt(ud$v * ul$v), NA)
+    val <- list(feature = rownames(counts), p_det = 2 * stats::pnorm(-abs(z1)), p_log = 2 * stats::pnorm(-abs(z2)),
+                p_max = .pmax2(pmax(abs(z1), abs(z2)), rho_c), est = ul$U / log(2), gam = gm, rho = rho, fallback = FALSE)
+    attr(val, "rho_c") <- rho_c
+  }
+  .eucw_memo$key <- key; .eucw_memo$val <- val; val
+}
+for (.wk in c(0.5, 1)) local({ wk <- .wk; tag <- if (wk == 0.5) "w05" else "w10"
+  register_candidate(paste0("erdl_uc_", tag), function(counts, meta, formula, tested_term) {
+    v <- .euc_fitw(counts, meta, formula, tested_term, wk = wk); data.frame(feature = v$feature, p = v$p_max, estimate = v$est)
+  }, notes = sprintf("it21: erdl_uc with pair weights (common depth)^%.1f", wk))
+})
+
+# --- it22: censored (Tobit-score) kernel ---------------------------------------------------------------
+# ADAPT's likely edge on unconfounded data: it treats a zero as "below detection" (left-censored log
+# abundance) instead of as a value, so the detection and magnitude information enter ONE location
+# parameter instead of two tests joined by a max. Kept inside the exact pairwise frame: at the pair's
+# common depth D both thinned counts go through the same transform
+#     g_D(y) = log y (y >= 1),   g_D(0) = E[l | l < t],  l ~ N(log D + mu, s^2),  t = log 0.5,
+# i.e. a zero is imputed at the conditional mean of the latent log count below the detection limit --
+# exactly the Tobit score for a location shift of l. (mu, s) per feature come from a label-free Tobit
+# fit of log relative abundance over all samples at their own depths (zero <=> a < log(0.5 / N_i)),
+# so g_D is a fixed function of the pooled data and h_ij = E g_D(Y_i) - E g_D(Y_j) keeps mean zero
+# under H0 whatever the model's fit. Expanding, h = dL0 + w_D * dDet with w_D = -E[l | l < t] > 0:
+# the log-count kernel (log y on positives) plus the detection kernel weighted by how far below
+# detection the feature's zeros lie at that depth -- rare features lean on detection, common ones on
+# magnitude, continuously, with no multiplicity cost.
+.tobit_fit <- function(counts, depth, t = log(0.5), iters = 150L, smin = 0.3, tol = 1e-5) {
+  Y <- as.matrix(counts); pos <- Y > 0; m <- nrow(Y)
+  A <- log(Y) - rep(log(depth), each = m); A[!pos] <- 0
+  cth <- matrix(t - log(depth), m, ncol(Y), byrow = TRUE)
+  np <- pmax(rowSums(pos), 1); mu <- rowSums(A * pos) / np
+  s <- pmax(sqrt(rowSums(((A - mu) * pos)^2) / pmax(np - 1, 1)), 1)
+  for (it in seq_len(iters)) {
+    al <- (cth - mu) / s; lam <- exp(stats::dnorm(al, log = TRUE) - stats::pnorm(al, log.p = TRUE))
+    Ea <- ifelse(pos, A, mu - s * lam); Va <- ifelse(pos, 0, s^2 * pmax(1 - al * lam - lam^2, 0))
+    mu2 <- rowMeans(Ea); s2 <- pmax(sqrt(rowMeans((Ea - mu2)^2 + Va)), smin)
+    d <- max(abs(mu2 - mu), abs(s2 - s)); mu <- mu2; s <- s2; if (d < tol) break }
+  list(mu = mu, s = s, t = t, iters = it)
+}
+.cen_kernel <- function(Yi, Ni, Di, Yj, Nj, Dj, tob) {
+  Hd <- .erd_f_var(Yi, Ni, Di) - .erd_f_var(Yj, Nj, Dj)
+  Hl <- .erl_f_var(Yi, Ni, Di, kmax = 130L, big_mu = 50, off = 0) - .erl_f_var(Yj, Nj, Dj, kmax = 130L, big_mu = 50, off = 0)
+  mD <- outer(tob$mu, log(Dj), "+"); al <- (tob$t - mD) / tob$s
+  lam <- exp(stats::dnorm(al, log = TRUE) - stats::pnorm(al, log.p = TRUE))
+  Hl - (mD - tob$s * lam) * Hd                                                # dL0 + w_D dDet
+}
+.cov_uu <- function(u1, u2, n1) { n0 <- ncol(u1$b); (rowSums(u1$a * u2$a) / (n1 - 1)) / n1 + (rowSums(u1$b * u2$b) / (n0 - 1)) / n0 }
+.ecen_memo <- new.env()
+.ecen_fit <- function(counts, meta, formula, tested_term, t = log(0.5)) {
+  key <- list(counts, meta, formula, tested_term, t)
+  if (!is.null(.ecen_memo$key) && identical(.ecen_memo$key, key)) return(.ecen_memo$val)
+  d <- .uc_design(meta, formula, tested_term)
+  if (is.null(d)) { v <- .euc_fit(counts, meta, formula, tested_term); val <- v; val$p_cen <- val$p_dc <- val$p_lc <- v$p_max
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z
+    v0 <- .euc_fit(counts, meta, formula, tested_term); gm <- v0$gam; rho <- v0$rho      # same centre and rho as the lead
+    tob <- .tobit_fit(counts, depth, t)
+    ud <- .u_stat_cov(counts, depth, g1, Z, gm, "det", rho = rho); ul <- .u_stat_cov(counts, depth, g1, Z, gm, "log", rho = rho)
+    uc <- .u_stat_cov(counts, depth, g1, Z, gm, "cen", rho = rho, tob = tob)
+    ok <- rowSums(counts > 0) >= 3 & ud$v > 0 & ul$v > 0 & uc$v > 0; n1 <- sum(g1)
+    tz <- function(u) ifelse(ok, stats::qnorm(stats::pt(u$U / sqrt(u$v), u$df)), NA)
+    zd <- tz(ud); zl <- tz(ul); zc <- tz(uc)
+    r_dc <- ifelse(ok, .cov_uu(ud, uc, n1) / sqrt(ud$v * uc$v), NA); r_lc <- ifelse(ok, .cov_uu(ul, uc, n1) / sqrt(ul$v * uc$v), NA)
+    val <- list(feature = rownames(counts), p_cen = 2 * stats::pnorm(-abs(zc)), p_max = v0$p_max,
+                p_dc = .pmax2(pmax(abs(zd), abs(zc)), r_dc), p_lc = .pmax2(pmax(abs(zl), abs(zc)), r_lc),
+                est = v0$est, z = cbind(det = zd, log = zl, cen = zc), gam = gm, rho = rho, tob = tob, fallback = FALSE)
+  }
+  .ecen_memo$key <- key; .ecen_memo$val <- val; val
+}
+register_candidate("cen_uc", function(counts, meta, formula, tested_term) {
+  v <- .ecen_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_cen, estimate = v$est)
+}, notes = "it22: pairwise U-statistic on the censored (Tobit-score) kernel: log y on positives, zeros at E[latent | below detection]")
+register_candidate("cend_uc", function(counts, meta, formula, tested_term) {
+  v <- .ecen_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_dc, estimate = v$est)
+}, notes = "it22: max(detection, censored) pairwise test")
