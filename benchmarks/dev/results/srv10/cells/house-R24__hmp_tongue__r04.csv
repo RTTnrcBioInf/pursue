@@ -1,0 +1,7 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"house:R24","hmp_tongue",4,"erdl_umb",315,31,0,0,0,284,21,30.824,NA
+"house:R24","hmp_tongue",4,"erdl_ub",315,31,0,0,0,284,21,6.06000000000017,NA
+"house:R24","hmp_tongue",4,"erdsl_uc",315,31,0,0,0,284,18,7.2829999999999,NA
+"house:R24","hmp_tongue",4,"ersl_uc",315,31,0,0,0,284,19,0,NA
+"house:R24","hmp_tongue",4,"ers_uc",315,31,0,0,0,284,19,0,NA
+"house:R24","hmp_tongue",4,"erdq_uc",315,31,0,0,0,284,19,3.67100000000005,NA

@@ -1,0 +1,45 @@
+runs: srv9, srv10 | 13 candidates | 4160 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+   candidate gate worst_FPR        at FDR_all
+    erdsl_uc PASS     0.064   mid:R19   0.048
+     erdl_uc PASS     0.064   mid:R19   0.047
+     erdl_um PASS     0.064   mid:R17   0.047
+    erdl_uk0 PASS     0.064   mid:R19   0.046
+     ersl_uc PASS     0.058 house:R23   0.028
+      ers_uc PASS     0.059   mid:R19   0.022
+   ref_linda fail     0.607   msq:R19   0.192
+ ref_zicoseq fail     0.113  bloom:x4   0.079
+     ref_ldm fail     0.567  bloom:x4   0.136
+   ref_adapt fail     0.091 house:R19   0.067
+     erdq_uc fail     0.065   mid:R19   0.052
+    erdl_umb fail     0.096   mid:R19   0.049
+     erdl_ub fail     0.095   mid:R19   0.050
+                                         sig_FDR_excess rel_power mean_TP
+                                                      -      0.68   11.33
+                                                      -      0.68   11.54
+                                                      -      0.68   11.69
+                                                      -      0.67   11.48
+                                                      -      0.60    9.38
+                                                      -      0.53    7.94
+ ALL,bloom:x4,house:R19,mid:R17,mid:R19,msq:R17,msq:R19      0.86   13.26
+                                        mid:R19,msq:R19      0.77   10.60
+                           ALL,bloom:x4,mid:R19,msq:R19      0.75   11.25
+                                                      -      0.71   10.81
+                                                mid:R19      0.68   11.64
+                                                      -      0.67   11.57
+                                                      -      0.67   11.41
+ s_cell
+   10.5
+  108.1
+  119.2
+  123.4
+    0.0
+    0.0
+    5.1
+  904.3
+  132.0
+   27.9
+    5.6
+   40.4
+   19.5

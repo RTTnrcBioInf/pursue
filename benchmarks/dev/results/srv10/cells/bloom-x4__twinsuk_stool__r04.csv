@@ -1,0 +1,7 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"bloom:x4","twinsuk_stool",4,"erdl_umb",371,37,6,6,0,334,23,26.2520000000002,NA
+"bloom:x4","twinsuk_stool",4,"erdl_ub",371,37,6,6,0,334,23,42.2369999999999,NA
+"bloom:x4","twinsuk_stool",4,"erdsl_uc",371,37,6,6,0,334,20,18.903,NA
+"bloom:x4","twinsuk_stool",4,"ersl_uc",371,37,6,6,0,334,25,0,NA
+"bloom:x4","twinsuk_stool",4,"ers_uc",371,37,5,5,0,334,26,0,NA
+"bloom:x4","twinsuk_stool",4,"erdq_uc",371,37,6,6,0,334,22,5.75800000000004,NA
