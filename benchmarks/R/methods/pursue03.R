@@ -96,3 +96,15 @@ method_pursue03_cenu_uc <- function(counts, meta, formula, tested_term, args = l
   v <- .p03$.ecen_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_cen[i], v$est[i])
 }
+
+# it24: erdl_uc + empirical-Bayes variance moderation across taxa; clustered designs through the pairwise
+# test with a pooled design effect
+method_pursue03_erdlum <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eum_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_max[i], v$est[i])
+}
+# it33: erdl_um or the square-root kernel per taxon, chosen by leave-one-out hit counts over the other taxa
+method_pursue03_eselum <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.euselm_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_sel[i], v$est[i])
+}

@@ -38,7 +38,9 @@ method_registry <- function() {
     c("pursue03_erdlu_uc", "PURSUE 0.3 cand.: pairwise max + covariates", "absolute", "single", "",     "method_pursue03_erdlu_uc"),
     c("pursue03_erdu_uc",  "PURSUE 0.3 cand.: pairwise ERD + covariates", "absolute", "single", "",     "method_pursue03_erdu_uc"),
     c("pursue03_cendu_uc", "PURSUE 0.3 cand.: pairwise max(ERD, censored)", "absolute", "single", "",   "method_pursue03_cendu_uc"),
-    c("pursue03_cenu_uc",  "PURSUE 0.3 cand.: pairwise censored kernel", "absolute", "single", "",      "method_pursue03_cenu_uc")))
+    c("pursue03_cenu_uc",  "PURSUE 0.3 cand.: pairwise censored kernel", "absolute", "single", "",      "method_pursue03_cenu_uc"),
+    c("pursue03_erdlum",   "PURSUE 0.3 cand.: pairwise max + EB variance", "absolute", "single", "",     "method_pursue03_erdlum"),
+    c("pursue03_eselum",   "PURSUE 0.3 cand.: + scale chosen across taxa", "absolute", "single", "",     "method_pursue03_eselum")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr
