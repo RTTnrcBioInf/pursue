@@ -1536,3 +1536,87 @@ register_candidate("erdch_uc", function(counts, meta, formula, tested_term) {
 register_candidate("erdq_uc", function(counts, meta, formula, tested_term) {
   v <- .euq4_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_dq, estimate = v$est)
 }, notes = "it31b: max(detection, fourth-root kernel)")
+
+# --- it32: label-free per-taxon kernel choice with the Poisson sensitivity identity -----------------------
+# it31's criterion treated a fold change as scaling the observed count. Under Poisson sampling of a latent
+# mean mu, d E[g(Y)] / d log mu = E[mu (g(Y+1) - g(Y))] = E[Y (g(Y) - g(Y-1))], estimable from the pooled
+# counts without labels. Efficiency of kernel g for a multiplicative change: S_g^2 / Var g(Y), with
+#   S_det = P(Y = 1),  S_log = E[Y log((1+Y)/Y)],  S_sqrt = E[Y (sqrt(Y) - sqrt(Y-1))].
+# Pick the most efficient kernel per taxon (single kernel, no max penalty), or the more efficient of
+# log/sqrt inside the lead's max with detection. The choice uses pooled counts only.
+.kernel_eff <- function(counts, depth) {
+  Y <- round(as.matrix(counts) * rep(stats::median(depth) / depth, each = nrow(counts)))
+  vr <- function(M) apply(M, 1, stats::var)
+  Sd <- rowMeans(Y == 1); Sl <- rowMeans(ifelse(Y > 0, Y * log((1 + Y) / pmax(Y, 1)), 0)); Ss <- rowMeans(ifelse(Y > 0, Y * (sqrt(Y) - sqrt(pmax(Y - 1, 0))), 0))
+  cbind(det = Sd^2 / vr(Y > 0), log = Sl^2 / vr(log1p(Y)), sqrt = Ss^2 / vr(sqrt(Y)))
+}
+.euk3_memo <- new.env()
+.euk3_fit <- function(counts, meta, formula, tested_term) {
+  key <- list(counts, meta, formula, tested_term)
+  if (!is.null(.euk3_memo$key) && identical(.euk3_memo$key, key)) return(.euk3_memo$val)
+  d <- .uc_design(meta, formula, tested_term); v0 <- .euc_fit(counts, meta, formula, tested_term)
+  if (is.null(d)) { val <- v0; val$p_one <- v0$p_max; val$p_dmag <- v0$p_max
+  } else {
+    depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; n1 <- sum(g1)
+    E <- .kernel_eff(counts, depth); E[!is.finite(E)] <- 0
+    U <- lapply(c(det = "det", log = "log", sqrt = "sqrt"), function(h) .u_stat_cov(counts, depth, g1, d$Z, v0$gam, h, rho = v0$rho))
+    ok <- rowSums(counts > 0) >= 3 & U$det$v > 0 & U$log$v > 0 & U$sqrt$v > 0
+    z <- lapply(U, function(u) ifelse(ok, stats::qnorm(stats::pt(u$U / sqrt(u$v), u$df)), NA))
+    best <- colnames(E)[max.col(E, ties.method = "first")]
+    zone <- ifelse(best == "det", z$det, ifelse(best == "log", z$log, z$sqrt))
+    mag <- ifelse(E[, "sqrt"] > E[, "log"], "sqrt", "log"); zm <- ifelse(mag == "sqrt", z$sqrt, z$log)
+    rdl <- .cov_uu(U$det, U$log, n1) / sqrt(U$det$v * U$log$v); rds <- .cov_uu(U$det, U$sqrt, n1) / sqrt(U$det$v * U$sqrt$v)
+    rc <- ifelse(ok, pmin(pmax(ifelse(mag == "sqrt", rds, rdl), -0.999), 0.999), NA)
+    val <- list(feature = rownames(counts), p_one = 2 * stats::pnorm(-abs(zone)), p_dmag = .pmax2(pmax(abs(z$det), abs(zm)), rc),
+                choice = best, mag = mag, p_max = v0$p_max, est = v0$est, gam = v0$gam, rho = v0$rho, fallback = FALSE)
+  }
+  .euk3_memo$key <- key; .euk3_memo$val <- val; val
+}
+register_candidate("eone_uc", function(counts, meta, formula, tested_term) {
+  v <- .euk3_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_one, estimate = v$est)
+}, notes = "it32: one pairwise kernel per taxon (detection / log / sqrt), chosen label-free by Poisson-identity efficiency")
+register_candidate("erdmag_uc", function(counts, meta, formula, tested_term) {
+  v <- .euk3_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_dmag, estimate = v$est)
+}, notes = "it32: max(detection, log-or-sqrt chosen label-free per taxon)")
+
+# --- it33: kernel selection across taxa (leave-one-out) ---------------------------------------------------
+# it31/it32: which scale is efficient depends on the TYPE of alternative (prevalence + abundance on house,
+# abundance-only on msq), which pooled counts cannot reveal; max over kernels pays ~2x in p. But the
+# other taxa can: the signal of the whole table shows on which scale the exposure acts. For taxon j,
+# count over the OTHER taxa how many reach p < 0.001 with each option -- the lead's max(det, log) and the
+# square-root kernel -- and test j with the option that wins (ties -> the lead). Taxon j's own statistic
+# never enters its choice, so its p-value is used as is; each option is valid on its own.
+.eusel_memo <- new.env()
+.eusel_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L) {
+  key <- list(counts, meta, formula, tested_term, thr, margin)
+  if (!is.null(.eusel_memo$key) && identical(.eusel_memo$key, key)) return(.eusel_memo$val)
+  v <- .eu3_fit(counts, meta, formula, tested_term)
+  if (isTRUE(v$fallback) || is.null(v$p_sqrt) || all(!is.finite(v$p_sqrt))) { val <- v; val$p_sel <- v$p_max; val$sel_sqrt <- 0
+  } else {
+    P <- cbind(lead = v$p_max, sqrt = v$p_sqrt); hit <- !is.na(P) & P < thr
+    tot <- colSums(hit); loo <- sweep(-hit, 2, tot, "+")                          # counts over the other taxa
+    use_sqrt <- loo[, "sqrt"] >= loo[, "lead"] + margin                             # leave-one-out with a margin: near ties keep the lead
+    val <- v; val$p_sel <- ifelse(use_sqrt, v$p_sqrt, v$p_max); val$sel_sqrt <- mean(use_sqrt); val$hits <- tot
+  }
+  .eusel_memo$key <- key; .eusel_memo$val <- val; val
+}
+register_candidate("esel_uc", function(counts, meta, formula, tested_term) {
+  v <- .eusel_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_sel, estimate = v$est)
+}, notes = "it33: per taxon, the lead's max(det, log) or the sqrt kernel -- whichever gives more p < 0.001 among the OTHER taxa")
+
+# it33 + it24: the lead option is erdl_um (moderated; pairwise clustered designs), the alternative the sqrt kernel
+.euselm_memo <- new.env()
+.euselm_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L) {
+  key <- list(counts, meta, formula, tested_term, thr, margin)
+  if (!is.null(.euselm_memo$key) && identical(.euselm_memo$key, key)) return(.euselm_memo$val)
+  vm <- .eum_fit(counts, meta, formula, tested_term); v3 <- .eu3_fit(counts, meta, formula, tested_term)
+  val <- vm; val$p_sel <- vm$p_max; val$sel_sqrt <- 0
+  if (!isTRUE(v3$fallback) && !is.null(v3$p_sqrt) && any(is.finite(v3$p_sqrt)) && is.null(.cluster_of(meta))) {
+    P <- cbind(lead = vm$p_max, sqrt = v3$p_sqrt); hit <- !is.na(P) & P < thr
+    loo <- sweep(-hit, 2, colSums(hit), "+"); use <- loo[, "sqrt"] >= loo[, "lead"] + margin
+    val$p_sel <- ifelse(use, v3$p_sqrt, vm$p_max); val$sel_sqrt <- mean(use) }
+  .euselm_memo$key <- key; .euselm_memo$val <- val; val
+}
+register_candidate("esel_um", function(counts, meta, formula, tested_term) {
+  v <- .euselm_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_sel, estimate = v$est)
+}, notes = "it33 + it24: erdl_um or the sqrt kernel, chosen per taxon by leave-one-out hit counts over the other taxa (margin 2)")
