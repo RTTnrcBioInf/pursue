@@ -1,0 +1,8 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"mid:R19","hmp_tongue",1,"erdl_uc",303,30,5,4,1,273,21,229.605,NA
+"mid:R19","hmp_tongue",1,"erdl_um",303,30,5,4,1,273,20,454.233,NA
+"mid:R19","hmp_tongue",1,"erdl_uk0",303,30,5,4,1,273,21,526.61,NA
+"mid:R19","hmp_tongue",1,"ref_adapt",303,30,5,4,1,273,9,38.1480000000001,NA
+"mid:R19","hmp_tongue",1,"ref_zicoseq",303,30,8,4,4,273,29,424.687,NA
+"mid:R19","hmp_tongue",1,"ref_linda",303,30,183,18,165,273,172,1.06200000000035,NA
+"mid:R19","hmp_tongue",1,"ref_ldm",303,30,37,12,25,273,43,137.166,NA

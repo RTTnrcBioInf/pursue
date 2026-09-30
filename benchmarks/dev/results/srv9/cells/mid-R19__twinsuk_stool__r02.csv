@@ -1,0 +1,8 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"mid:R19","twinsuk_stool",2,"erdl_uc",500,50,0,0,0,450,26,253.352,NA
+"mid:R19","twinsuk_stool",2,"erdl_um",500,50,0,0,0,450,27,389.645,NA
+"mid:R19","twinsuk_stool",2,"erdl_uk0",500,50,0,0,0,450,26,424.921999999999,NA
+"mid:R19","twinsuk_stool",2,"ref_adapt",500,50,0,0,0,450,28,34.4610000000011,NA
+"mid:R19","twinsuk_stool",2,"ref_zicoseq",500,50,0,0,0,450,25,794.954,NA
+"mid:R19","twinsuk_stool",2,"ref_linda",500,50,3,3,0,450,38,1.47599999999875,NA
+"mid:R19","twinsuk_stool",2,"ref_ldm",500,50,0,0,0,450,34,37.4099999999999,NA
