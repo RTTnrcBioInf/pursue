@@ -1,0 +1,3 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R17","twinsuk_stool",3,"esel_uc",444,43,9,9,0,401,6,53.6979999999999,NA
+"msq:R17","twinsuk_stool",3,"esel_um",444,43,9,9,0,401,5,43.864,NA

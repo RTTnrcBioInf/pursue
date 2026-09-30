@@ -1,0 +1,3 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R17","hmp_tongue",5,"esel_uc",307,30,9,8,1,277,6,76.7640000000001,NA
+"msq:R17","hmp_tongue",5,"esel_um",307,30,9,8,1,277,8,54.3869999999997,NA
