@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"house:R11","twinsuk_stool",4,"erdl_usf",411,45,13,13,0,366,22,27.3870000000002,NA
+"house:R11","twinsuk_stool",4,"emsf",411,45,13,13,0,366,25,26.386,NA
+"house:R11","twinsuk_stool",4,"efull",411,45,13,13,0,366,25,0,NA

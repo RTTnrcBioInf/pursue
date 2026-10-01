@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R17","hmp_tongue",4,"erdl_usf",306,27,7,7,0,279,13,43.9490000000001,NA
+"msq:R17","hmp_tongue",4,"emsf",306,27,7,7,0,279,13,66.809,NA
+"msq:R17","hmp_tongue",4,"efull",306,27,7,7,0,279,13,0.000999999999976353,NA

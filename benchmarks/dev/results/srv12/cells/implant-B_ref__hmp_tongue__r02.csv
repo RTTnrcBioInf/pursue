@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_ref","hmp_tongue",2,"erdl_usf",272,24,4,4,0,248,7,25.662,NA
+"implant:B_ref","hmp_tongue",2,"emsf",272,24,4,4,0,248,8,20.779,NA
+"implant:B_ref","hmp_tongue",2,"efull",272,24,3,3,0,248,8,0.000999999999976353,NA

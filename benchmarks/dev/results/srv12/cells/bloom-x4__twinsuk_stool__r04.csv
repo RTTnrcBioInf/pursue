@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"bloom:x4","twinsuk_stool",4,"erdl_usf",371,37,7,7,0,334,22,43.24,NA
+"bloom:x4","twinsuk_stool",4,"emsf",371,37,8,8,0,334,24,56.6099999999999,NA
+"bloom:x4","twinsuk_stool",4,"efull",371,37,8,8,0,334,24,0.000999999999976353,NA

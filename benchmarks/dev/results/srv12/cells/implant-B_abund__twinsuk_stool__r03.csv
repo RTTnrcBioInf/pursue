@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_abund","twinsuk_stool",3,"erdl_usf",2246,220,0,0,0,2026,129,29.152,NA
+"implant:B_abund","twinsuk_stool",3,"emsf",2246,220,0,0,0,2026,130,50.846,NA
+"implant:B_abund","twinsuk_stool",3,"efull",2246,220,0,0,0,2026,130,0,NA
