@@ -4,9 +4,9 @@ Data: A
 Models:
 f0: y_fdr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_fdr ~ method * simulator + method * regime_id + (1 | template)
-   npar     AIC     BIC   logLik -2*log(L) Chisq Df Pr(>Chisq)    
-f0  660 5417309 5425278 -2707994   5415989                        
-f1  757 5399513 5408654 -2698999   5397999 17990 97  < 2.2e-16 ***
+   npar     AIC     BIC   logLik -2*log(L) Chisq  Df Pr(>Chisq)    
+f0  712 6972738 6981520 -3485657   6971314                         
+f1  817 6950434 6960512 -3474400   6948800 22513 105  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
              method fragility_sd_across_simulators
@@ -14,6 +14,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
       pursue03_erdl                      0.1813414
  pursue03_erdlu_r05                      0.1822572
   pursue03_erdlu_ad                      0.2012300
+    pursue03_erdlum                      0.2080412
+    pursue03_eselum                      0.2088024
              locom2                      0.2090090
   pursue03_erdlu_uc                      0.2139220
               locom                      0.2285553
@@ -42,9 +44,9 @@ Data: A
 Models:
 f0: y_tpr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_tpr ~ method * simulator + method * regime_id + (1 | template)
-   npar     AIC     BIC   logLik -2*log(L)  Chisq Df Pr(>Chisq)    
-f0  628 3749468 3756967 -1874106   3748212                         
-f1  725 3642784 3651441 -1820667   3641334 106879 97  < 2.2e-16 ***
+   npar     AIC     BIC   logLik -2*log(L)  Chisq  Df Pr(>Chisq)    
+f0  678 4857625 4865896 -2428134   4856269                          
+f1  783 4726266 4735818 -2362350   4724700 131569 105  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
              method fragility_sd_across_simulators
@@ -65,6 +67,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
   pursue03_erdlu_ad                      1.1697951
             zicoseq                      1.1871006
   pursue03_erdlu_uc                      1.1873571
+    pursue03_eselum                      1.1939313
+    pursue03_erdlum                      1.1971515
   pursue03_erdu_r05                      1.2380840
        wilcoxon_tss                      1.2788274
    pursue03_erdu_ad                      1.2880800
