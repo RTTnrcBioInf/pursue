@@ -1668,14 +1668,15 @@ register_candidate("erdl_usf", function(counts, meta, formula, tested_term) {
 # --- it35: the combination -- size factors (it34) + moderation and pairwise clusters (it24) + scale chosen
 # across taxa (it33). Each piece is label-free or leave-one-out, so the composite keeps the lead's null.
 .efull_memo <- new.env()
-.efull_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, select = TRUE) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, select)
+.efull_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, select = TRUE, sf_balanced_only = FALSE) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, select, sf_balanced_only)
   if (!is.null(.efull_memo$key) && identical(.efull_memo$key, key)) return(.efull_memo$val)
   d <- .uk_design(meta, formula, tested_term)
   if (is.null(d)) { val <- .euc_fit(counts, meta, formula, tested_term); val$p_full <- val$p_max; val$p_ms <- val$p_max
   } else {
     depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z; cl <- d$cl; n1 <- sum(g1)
     rho <- round(.rho_design(depth, g1), 2); sf <- .size_factors(counts, depth)
+    if (sf_balanced_only && rho < 1) sf <- NULL                                    # size factors only when depth is balanced
     set.seed(7L); rows <- if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts))
     ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
     med <- function(gm) { u <- .u_stat_cov(ct, depth, g1, Z, gm, "log", rho = rho, cl = cl, sf = sf); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
@@ -1705,3 +1706,7 @@ register_candidate("efull", function(counts, meta, formula, tested_term) {
 register_candidate("emsf", function(counts, meta, formula, tested_term) {
   v <- .efull_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_ms, estimate = v$est)
 }, notes = "it35 without the scale selection: size factors + moderation + pairwise clusters")
+
+register_candidate("efull_b", function(counts, meta, formula, tested_term) {
+  v <- .efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it35b: efull with size factors only when depth is balanced across groups (rho = 1)")

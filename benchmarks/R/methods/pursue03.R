@@ -108,3 +108,13 @@ method_pursue03_eselum <- function(counts, meta, formula, tested_term, args = li
   v <- .p03$.euselm_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_sel[i], v$est[i])
 }
+# it35: size factors + moderation + pairwise clusters + scale chosen across taxa; _b: size factors only
+# when depth is balanced across groups
+method_pursue03_efull <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.efull_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
+method_pursue03_efullb <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
