@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"house:R00","hmp_tongue",2,"efull_bc",299,32,7,7,0,267,14,24.618,NA
+"house:R00","hmp_tongue",2,"efull_bw",299,32,7,7,0,267,14,23.42,NA
+"house:R00","hmp_tongue",2,"efull_b3w",299,32,7,7,0,267,14,23.061,NA
