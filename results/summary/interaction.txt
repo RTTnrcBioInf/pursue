@@ -5,8 +5,8 @@ Models:
 f0: y_fdr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_fdr ~ method * simulator + method * regime_id + (1 | template)
    npar     AIC     BIC   logLik -2*log(L) Chisq  Df Pr(>Chisq)    
-f0  712 6972738 6981520 -3485657   6971314                         
-f1  817 6950434 6960512 -3474400   6948800 22513 105  < 2.2e-16 ***
+f0  764 8694875 8704471 -4346673   8693347                         
+f1  877 8668079 8679094 -4333162   8666325 27022 113  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
              method fragility_sd_across_simulators
@@ -17,7 +17,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
     pursue03_erdlum                      0.2080412
     pursue03_eselum                      0.2088024
              locom2                      0.2090090
+    pursue03_efullb                      0.2102579
   pursue03_erdlu_uc                      0.2139220
+     pursue03_efull                      0.2167381
               locom                      0.2285553
             zicoseq                      0.2319181
       pursue03_erdc                      0.2420908
@@ -40,41 +42,3 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
            maaslin3                      0.8046230
 
 ===== y_tpr =====
-Data: A
-Models:
-f0: y_tpr ~ method + simulator + method * regime_id + (1 | template)
-f1: y_tpr ~ method * simulator + method * regime_id + (1 | template)
-   npar     AIC     BIC   logLik -2*log(L)  Chisq  Df Pr(>Chisq)    
-f0  678 4857625 4865896 -2428134   4856269                          
-f1  783 4726266 4735818 -2362350   4724700 131569 105  < 2.2e-16 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-             method fragility_sd_across_simulators
-            fastemu                      0.3381653
-           maaslin3                      0.4072744
-             aldex2                      0.5456567
-           ancombc2                      0.5905386
-             pursue                      0.6038949
-              locom                      0.8243066
-             locom2                      0.8663830
-      pursue03_erlc                      0.8848835
-          fastancom                      0.9160012
-            corncob                      1.0527737
-      pursue03_erdl                      1.0682071
- pursue03_erdlu_r05                      1.1367843
-                ldm                      1.1530318
-      pursue03_erdc                      1.1603264
-  pursue03_erdlu_ad                      1.1697951
-            zicoseq                      1.1871006
-  pursue03_erdlu_uc                      1.1873571
-    pursue03_eselum                      1.1939313
-    pursue03_erdlum                      1.1971515
-  pursue03_erdu_r05                      1.2380840
-       wilcoxon_tss                      1.2788274
-   pursue03_erdu_ad                      1.2880800
-              adapt                      1.3035070
-   pursue03_erdu_uc                      1.3043105
-       limma_logtss                      1.3092187
-              linda                      1.3382706
-          lm_logtss                      1.3422968
-  logistic_presence                      1.4310877
