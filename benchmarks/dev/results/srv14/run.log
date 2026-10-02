@@ -1,0 +1,835 @@
+devsuite 'srv14': 2 candidates x 32 settings x 2 templates x 5 reps = 320 cells, 24 cores
+candidates: eperm, eperm_r 
+
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+320 cells in 66.92 min
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power mean_TP
+   eperm_r PASS     0.063 mid:R19   0.060              -      0.98   12.37
+     eperm PASS     0.063 mid:R19   0.055              -      0.98   12.30
+ s_cell
+   27.6
+   48.7
+
+=== per setting: TP / FDR / FPR ===
+
+bloom:x4  (DA per cell 34.5)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 6.70 0.20 0.021 0.052 57.8
+   eperm_r 6.40 0.20 0.020 0.052 42.6
+
+house:R00  (DA per cell 35.2)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 7.00 0.50 0.085 0.048 32.8
+   eperm_r 6.90 0.50 0.085 0.048 34.3
+
+house:R01  (DA per cell 36.4)
+ candidate   TP   FP   FDR   FPR   s
+   eperm_r 0.60 0.10 0.050 0.048 6.4
+     eperm 0.50 0.00 0.000 0.046 7.4
+
+house:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 0.00 0.10 0.100 0.052 31.5
+   eperm_r 0.00 0.10 0.100 0.052 30.3
+
+house:R08  (DA per cell 89.4)
+ candidate    TP   FP   FDR   FPR    s
+     eperm 28.40 0.30 0.011 0.043 33.8
+   eperm_r 27.70 0.30 0.011 0.045 32.1
+
+house:R09  (DA per cell 146.2)
+ candidate    TP   FP   FDR   FPR    s
+   eperm_r 49.00 1.30 0.023 0.050 45.9
+     eperm 48.80 1.30 0.024 0.049 37.6
+
+house:R11  (DA per cell 41.4)
+ candidate   TP   FP   FDR   FPR    s
+   eperm_r 9.50 0.50 0.059 0.047 34.4
+     eperm 9.40 0.50 0.060 0.047 35.6
+
+house:R13  (DA per cell 36.8)
+ candidate    TP   FP   FDR   FPR    s
+     eperm 22.10 1.50 0.056 0.051 33.6
+   eperm_r 22.10 1.50 0.056 0.051 38.3
+
+house:R15  (DA per cell 33.0)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 0.30 0.00 0.000 0.045 29.6
+   eperm_r 0.20 0.00 0.000 0.045 37.0
+
+house:R16  (DA per cell 36.9)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 9.80 0.60 0.049 0.050 33.2
+   eperm_r 9.80 0.60 0.049 0.050 41.6
+
+house:R17  (DA per cell 36.9)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 8.50 0.40 0.036 0.045 57.4
+   eperm_r 8.50 0.40 0.036 0.045  0.0
+
+house:R19  (DA per cell 38.1)
+ candidate    TP   FP   FDR   FPR    s
+     eperm 10.40 0.50 0.051 0.049 95.4
+   eperm_r 10.40 0.50 0.051 0.049  0.0
+
+house:R21  (DA per cell 35.9)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 2.90 0.10 0.033 0.057 36.1
+   eperm_r 2.90 0.10 0.033 0.057  0.0
+
+house:R22  (DA per cell 39.1)
+ candidate    TP   FP   FDR   FPR   s
+     eperm 23.50 1.90 0.069 0.038 2.0
+   eperm_r 23.50 1.90 0.069 0.038 0.0
+
+house:R23  (DA per cell 35.5)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 5.00 0.10 0.008 0.052 31.4
+   eperm_r 5.00 0.10 0.008 0.052  0.0
+
+house:R24  (DA per cell 35.1)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 8.40 0.20 0.013 0.046 46.0
+   eperm_r 8.40 0.20 0.013 0.046 38.4
+
+house:R25  (DA per cell 33.3)
+ candidate   TP    FP   FDR   FPR    s
+     eperm 3.10 17.90 0.262 0.136 30.5
+   eperm_r 2.60 15.20 0.302 0.127 33.5
+
+implant:B_abund  (DA per cell 123.8)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 0.30 0.00 0.000 0.045 47.0
+   eperm_r 0.30 0.00 0.000 0.045 47.7
+
+implant:B_allup  (DA per cell 128.2)
+ candidate    TP   FP   FDR   FPR    s
+   eperm_r 30.30 1.30 0.081 0.056 49.5
+     eperm 29.90 1.10 0.062 0.054 47.7
+
+implant:B_null  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 0.00 0.00 0.000 0.048 53.0
+   eperm_r 0.00 0.00 0.000 0.048 39.7
+
+implant:B_prev  (DA per cell 127.2)
+ candidate    TP   FP   FDR   FPR    s
+   eperm_r 33.20 1.10 0.045 0.044 48.6
+     eperm 33.10 1.00 0.043 0.044 51.2
+
+implant:B_ref  (DA per cell 127.4)
+ candidate    TP   FP   FDR   FPR    s
+   eperm_r 27.60 1.20 0.030 0.044 49.1
+     eperm 27.20 1.10 0.029 0.042 56.1
+
+mid:R00  (DA per cell 36.3)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 5.80 0.60 0.071 0.056 61.6
+   eperm_r 5.70 0.70 0.091 0.057 43.8
+
+mid:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 0.00 0.20 0.100 0.052 58.1
+   eperm_r 0.00 0.20 0.100 0.053 42.7
+
+mid:R11  (DA per cell 37.9)
+ candidate   TP   FP   FDR   FPR    s
+   eperm_r 3.70 0.80 0.114 0.062 50.8
+     eperm 3.40 0.70 0.081 0.063 57.6
+
+mid:R17  (DA per cell 38.0)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 2.70 0.80 0.146 0.061 79.2
+   eperm_r 2.70 0.80 0.146 0.061  0.0
+
+mid:R19  (DA per cell 39.8)
+ candidate   TP   FP   FDR   FPR     s
+     eperm 2.70 1.40 0.283 0.063 125.3
+   eperm_r 2.70 1.40 0.283 0.063   0.0
+
+msq:R00  (DA per cell 36.5)
+ candidate    TP   FP   FDR   FPR    s
+   eperm_r 10.00 0.70 0.056 0.051 35.7
+     eperm  8.60 0.30 0.032 0.048 35.6
+
+msq:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 0.00 0.00 0.000 0.043 37.3
+   eperm_r 0.00 0.00 0.000 0.045 29.6
+
+msq:R11  (DA per cell 37.1)
+ candidate   TP   FP   FDR   FPR    s
+   eperm_r 9.00 1.00 0.123 0.060 35.9
+     eperm 8.80 1.00 0.123 0.060 36.2
+
+msq:R17  (DA per cell 36.8)
+ candidate   TP   FP   FDR   FPR    s
+     eperm 8.40 0.30 0.036 0.035 57.3
+   eperm_r 8.40 0.30 0.036 0.035  0.0
+
+msq:R19  (DA per cell 37.5)
+ candidate   TP   FP   FDR   FPR     s
+     eperm 9.50 0.50 0.061 0.048 103.8
+   eperm_r 9.50 0.50 0.061 0.048   0.0
+
+wrote /mnt/workspace/analyses/robertas/pursue/benchmarks/dev/results/srv14
+runs: srv14 | 2 candidates | 640 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power mean_TP
+   eperm_r PASS     0.063 mid:R19   0.060              -      0.98   12.37
+     eperm PASS     0.063 mid:R19   0.055              -      0.98   12.30
+ s_cell
+   27.6
+   48.7
