@@ -123,3 +123,14 @@ method_pursue03_efullb3w <- function(counts, meta, formula, tested_term, args = 
   v <- .p03$.efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE, opts3 = TRUE, winsor = 0.03); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_full[i], v$est[i])
 }
+# it38: efull_b3w with exact (Monte-Carlo, studentised) permutation p-values where samples are exchangeable
+# under the null (two groups, no covariates, no repeated subjects, balanced depth); efull_b3w elsewhere
+method_pursue03_eperm <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eperm_fit(counts, meta, formula, tested_term); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
+# it38r: eperm with the permutation path also at chance-level depth imbalance (rho > 0.5)
+method_pursue03_epermr <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}

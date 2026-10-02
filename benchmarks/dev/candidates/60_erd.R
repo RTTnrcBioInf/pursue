@@ -1744,3 +1744,106 @@ register_candidate("efull_b3w", function(counts, meta, formula, tested_term) {
 register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
   v <- .efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
 }, notes = "efull_b (same as efull_b; registered for the dev suite comparison)")
+
+# --- it38: exact permutation calibration in exchangeable designs -----------------------------------------
+# p10: realised FDR averages 0.029 at nominal 0.05 (ADAPT 0.053, ZicoSeq 0.059): a third of the error budget
+# unused. Local label-permutation nulls (30-600 permutations x ~300 taxa): the raw U / sqrt(v) is close to
+# N(0, 1) at n = 50 per group, heavier-tailed at n = 20 and lighter for rare taxa (discreteness), and the
+# moderated t(df) reference in use since it24 is conservative overall -- tail ratio of the lead at p < 0.001:
+# 0.73 (house), 0.48 (msq), 0.51 (house, n = 20 per group), mostly from rare taxa.
+# The fix needs no reference distribution. With a fixed, label-free symmetric pair graph E and the
+# antisymmetric kernel A_ij = f(Y_i at D_i) - f(Y_j at D_j), the sum over cross-group pairs equals
+# sum_{i in g1} s_i with s_i = sum_{j ~ i} A_ij (within-group pairs cancel): a LINEAR permutation statistic
+# in fixed sample scores. Its studentised permutation distribution is computed by Monte Carlo (4000
+# permutations, 40000 more for taxa with < 10 exceedances), jointly for det, log and sqrt, so the max(det,
+# log) lead gets its exact joint null rather than a bivariate-normal approximation. Exact under
+# exchangeability (gamma and size factors stay attached to their samples); the studentisation keeps it
+# asymptotically valid under unequal variances (Janssen 1997). Used where samples are exchangeable under the
+# null -- two groups, no covariates, no repeated subjects, balanced depth (rho = 1) -- and the efull_b3w path
+# elsewhere. Deterministic (fixed internal seeds; the caller's RNG state is restored).
+.with_seed <- function(seed, expr) {
+  old <- if (exists(".Random.seed", envir = globalenv())) get(".Random.seed", envir = globalenv()) else NULL
+  on.exit(if (!is.null(old)) assign(".Random.seed", old, envir = globalenv()) else if (exists(".Random.seed", envir = globalenv())) rm(".Random.seed", envir = globalenv()))
+  set.seed(seed); expr
+}
+.pair_graph <- function(n, K = 60L, seed = 11L) {                 # symmetric pair graph: complete, or circulant of degree K on a random order
+  if (n - 1L <= K) { E <- which(upper.tri(matrix(0, n, n)), arr.ind = TRUE); return(E[, c(1, 2), drop = FALSE]) }
+  o <- .with_seed(seed, sample.int(n))
+  E <- do.call(rbind, lapply(seq_len(K %/% 2L), function(d) cbind(o, o[((seq_len(n) - 1L + d) %% n) + 1L])))
+  E <- t(apply(E, 1, sort)); E[!duplicated(E), , drop = FALSE]
+}
+.perm_scores <- function(counts, depth, b, h, E, rho = 1, chunk = 4000L) {  # s_i = sum over i's graph partners of A_ij (taxa x samples)
+  Y <- as.matrix(counts); storage.mode(Y) <- "double"; m <- nrow(Y); n <- ncol(Y)
+  fcol <- function(Ys, N, D) if (h == "det") .erd_f_var(Ys, N, D) else if (h == "sqrt") .ers_f_var(Ys, N, D) else .erl_f_var(Ys, N, D)
+  S <- matrix(0, m, n)
+  for (st in seq(1L, nrow(E), by = chunk)) { e <- E[st:min(nrow(E), st + chunk - 1L), , drop = FALSE]; i <- e[, 1]; j <- e[, 2]
+    De <- rho * pmin(depth[i] * b[i], depth[j] * b[j])
+    A <- fcol(Y[, i, drop = FALSE], depth[i], pmax(floor(De / b[i]), 1)) - fcol(Y[, j, drop = FALSE], depth[j], pmax(floor(De / b[j]), 1))
+    Inc <- matrix(0, nrow(e), n); Inc[cbind(seq_len(nrow(e)), i)] <- 1; Inc[cbind(seq_len(nrow(e)), j)] <- -1
+    S <- S + A %*% Inc }
+  S
+}
+.perm_tstat <- function(S, S2, G, n1, n0) {                       # Welch t of the scores, one column per allocation in G
+  T <- S %*% G; Q1 <- S2 %*% G; Qt <- rowSums(S2)
+  m1 <- T / n1; m0 <- -T / n0; v1 <- (Q1 - n1 * m1^2) / (n1 - 1); v0 <- ((Qt - Q1) - n0 * m0^2) / (n0 - 1)
+  (m1 - m0) / sqrt(pmax(v1 / n1 + v0 / n0, 1e-300))
+}
+.perm_multi <- function(S, g1, combos, B = 4000L, B2 = 40000L, cmin = 10L, seed = 17L, chunk = 2000L) {
+  n <- length(g1); n1 <- sum(g1); n0 <- n - n1; m <- nrow(S[[1]])
+  S <- lapply(S, function(s) s - rowMeans(s)); S2 <- lapply(S, function(s) s^2)
+  tobs <- sapply(names(S), function(h) .perm_tstat(S[[h]], S2[[h]], matrix(as.numeric(g1), n, 1), n1, n0)[, 1]); tobs[!is.finite(tobs)] <- 0
+  tobs <- matrix(tobs, m, length(S), dimnames = list(NULL, names(S)))
+  stat <- function(tm, cmb) { a <- abs(tm[[cmb[1]]]); for (h in cmb[-1]) a <- pmax(a, abs(tm[[h]])); a }
+  obs <- sapply(combos, function(cmb) { a <- abs(tobs[, cmb[1]]); for (h in cmb[-1]) a <- pmax(a, abs(tobs[, h])); a })
+  obs <- matrix(obs, m, length(combos))
+  cnt <- matrix(0, m, length(combos), dimnames = list(NULL, names(combos))); tot <- rep(0, m)
+  run <- function(rows, Bn, sd0) .with_seed(sd0, { done <- 0L
+    while (done < Bn) { bb <- min(chunk, Bn - done)
+      idx <- vapply(seq_len(bb), function(k) sample.int(n, n1), integer(n1)); G <- matrix(0, n, bb); G[cbind(as.vector(idx), rep(seq_len(bb), each = n1))] <- 1
+      tm <- lapply(names(S), function(h) { x <- .perm_tstat(S[[h]][rows, , drop = FALSE], S2[[h]][rows, , drop = FALSE], G, n1, n0); x[!is.finite(x)] <- 0; x }); names(tm) <- names(S)
+      for (cc in seq_along(combos)) cnt[rows, cc] <<- cnt[rows, cc] + rowSums(stat(tm, combos[[cc]]) >= obs[rows, cc] - 1e-10)
+      tot[rows] <<- tot[rows] + bb; done <- done + bb } })
+  run(seq_len(m), B, seed)
+  low <- which(apply(cnt, 1, min) < cmin); if (length(low) && B2 > 0) run(low, B2, seed + 1L)
+  list(p = (cnt + 1) / (tot + 1), tobs = tobs, tot = tot)
+}
+.eperm_memo <- new.env()
+.eperm_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03, rho_min = 1) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, rho_min)
+  if (!is.null(.eperm_memo$key) && identical(.eperm_memo$key, key)) return(.eperm_memo$val)
+  d <- .uk_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
+  rho <- if (is.null(d)) NA else round(.rho_design(depth, d$g1), 2)
+  if (is.null(d) || !is.null(d$Z) || !is.null(d$cl) || !isTRUE(rho >= rho_min)) {     # not exchangeable: the efull_b3w path
+    val <- .efull_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, sf_balanced_only = TRUE, opts3 = TRUE, winsor = winsor); val$perm <- FALSE
+  } else {
+    g1 <- d$g1; sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, ncol(counts))   # size factors, winsorisation: balanced depth only
+    if (winsor > 0 && rho == 1) counts <- .winsorize_counts(counts, depth, winsor)
+    rows <- .with_seed(7L, if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts)))
+    ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
+    med <- function(gm) { u <- .u_stat_cov(ct, depth, g1, NULL, gm, "log", rho = rho, sf = if (rho == 1) sf else NULL); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
+    flo <- med(-2); fhi <- med(2)
+    gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
+    b <- exp(gm * g1 + sf); E <- .pair_graph(ncol(counts), K); ok <- rowSums(counts > 0) >= 3
+    S <- lapply(c(det = "det", log = "log", sqrt = "sqrt"), function(h) .perm_scores(counts[ok, , drop = FALSE], depth, b, h, E, rho = rho))
+    pm <- .perm_multi(S, g1, list(lead = c("det", "log"), det = "det", log = "log", sqrt = "sqrt"), B = B, B2 = B2)
+    P <- matrix(NA_real_, nrow(counts), 4, dimnames = list(rownames(counts), colnames(pm$p))); P[ok, ] <- pm$p
+    pl <- P[, "lead"]; plg <- P[, "log"]; ps <- P[, "sqrt"]
+    Q <- cbind(lead = pl, log = plg, sqrt = ps); hit <- !is.na(Q) & Q < thr; loo <- sweep(-hit, 2, colSums(hit), "+")
+    alt <- ifelse(loo[, "sqrt"] >= loo[, "log"], "sqrt", "log"); altn <- pmax(loo[, "sqrt"], loo[, "log"])
+    use <- altn >= loo[, "lead"] + margin; pfull <- ifelse(use, ifelse(alt == "sqrt", ps, plg), pl)
+    ncross <- sum(g1[E[, 1]] != g1[E[, 2]]); est <- rep(NA_real_, nrow(counts)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / ncross / log(2)
+    val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, p_det = P[, "det"], p_log = plg, p_sqrt = ps, sel_sqrt = mean(use, na.rm = TRUE),
+                est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE)
+  }
+  .eperm_memo$key <- key; .eperm_memo$val <- val; val
+}
+register_candidate("eperm", function(counts, meta, formula, tested_term) {
+  v <- .eperm_fit(counts, meta, formula, tested_term); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it38: efull_b3w with exact (Monte-Carlo, studentised) permutation p-values where samples are exchangeable")
+# it38r: the permutation path also where depth is imbalanced only at chance level (d < 0.5, rho > 0.5): ~20% of
+# balanced-design datasets at n = 50 per group (and more at n = 20) have d > 0.25 by chance alone and were
+# thinned with rho < 1 by the asymptotic path; random assignment keeps them exchangeable. Designed depth
+# confounding (R17: d >= 0.85) stays on the moderated asymptotic path.
+register_candidate("eperm_r", function(counts, meta, formula, tested_term) {
+  v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it38r: eperm, permutation path also at chance-level depth imbalance (rho > 0.5)")

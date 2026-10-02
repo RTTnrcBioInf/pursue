@@ -126,15 +126,23 @@ for (ax in unique(M$axis)) {
 }
 
 # --- method x simulator interaction on Axis A (protocol 4.5) ---
+# Fitted on cell means per template (not per replicate) and on the comparators plus the PURSUE builds named
+# in PURSUE_FOCUS (default: the current lead): with every development candidate and every replicate the
+# model matrix outgrew memory (p09: OOM) and LINPACK (p10: "too large a matrix").
 A <- M[M$axis == "A" & M$truth_scale == "abs" & M$arm %in% c("single", "combined"), ]
+focus <- strsplit(Sys.getenv("PURSUE_FOCUS", unset = "pursue03_efullb3w"), ",")[[1]]
+A <- A[!grepl("^pursue", A$method) | A$method %in% focus, ]
 if (nrow(A) && length(unique(A$simulator)) >= 2 && requireNamespace("lme4", quietly = TRUE)) {
   A$y_fdr <- qlogis(pmin(pmax(A$fdr_05, 0.005), 0.995)); A$y_tpr <- qlogis(pmin(pmax(A$tpr_05, 0.005), 0.995))
+  A <- aggregate(A[c("y_fdr", "y_tpr")], A[c("method", "simulator", "regime_id", "template")], mean, na.rm = TRUE)
   sink(file.path(out, "interaction.txt"))
+  cat("methods:", paste(sort(unique(A$method)), collapse = ", "), "\n")
   for (y in c("y_fdr", "y_tpr")) {
     cat("\n=====", y, "=====\n")
-    f1 <- lme4::lmer(as.formula(paste(y, "~ method * simulator + method * regime_id + (1 | template)")), data = A, REML = FALSE)
-    f0 <- lme4::lmer(as.formula(paste(y, "~ method + simulator + method * regime_id + (1 | template)")), data = A, REML = FALSE)
-    print(anova(f0, f1))
+    tryCatch({
+      f1 <- lme4::lmer(as.formula(paste(y, "~ method * simulator + method * regime_id + (1 | template)")), data = A, REML = FALSE)
+      f0 <- lme4::lmer(as.formula(paste(y, "~ method + simulator + method * regime_id + (1 | template)")), data = A, REML = FALSE)
+      print(anova(f0, f1)) }, error = function(e) cat("model failed:", conditionMessage(e), "\n"))
     # per-method fragility: SD across simulators of the method's simulator-specific mean
     em <- aggregate(A[[y]], A[c("method", "simulator")], mean, na.rm = TRUE)
     fr <- aggregate(em$x, list(method = em$method), sd); names(fr)[2] <- "fragility_sd_across_simulators"
