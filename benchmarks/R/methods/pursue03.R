@@ -118,3 +118,8 @@ method_pursue03_efullb <- function(counts, meta, formula, tested_term, args = li
   v <- .p03$.efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_full[i], v$est[i])
 }
+# it36 + it37: efull_b on winsorised counts (top 3% per taxon, balanced depth only), three-option selection
+method_pursue03_efullb3w <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE, opts3 = TRUE, winsor = 0.03); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}

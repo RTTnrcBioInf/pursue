@@ -42,7 +42,8 @@ method_registry <- function() {
     c("pursue03_erdlum",   "PURSUE 0.3 cand.: pairwise max + EB variance", "absolute", "single", "",     "method_pursue03_erdlum"),
     c("pursue03_eselum",   "PURSUE 0.3 cand.: + scale chosen across taxa", "absolute", "single", "",     "method_pursue03_eselum"),
     c("pursue03_efull",    "PURSUE 0.3 cand.: + per-sample size factors", "absolute", "single", "",      "method_pursue03_efull"),
-    c("pursue03_efullb",   "PURSUE 0.3 cand.: size factors when depth balanced", "absolute", "single", "", "method_pursue03_efullb")))
+    c("pursue03_efullb",   "PURSUE 0.3 cand.: size factors when depth balanced", "absolute", "single", "", "method_pursue03_efullb"),
+    c("pursue03_efullb3w", "PURSUE 0.3 cand.: + winsorised, 3-option selection", "absolute", "single", "", "method_pursue03_efullb3w")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr
