@@ -1668,8 +1668,8 @@ register_candidate("erdl_usf", function(counts, meta, formula, tested_term) {
 # --- it35: the combination -- size factors (it34) + moderation and pairwise clusters (it24) + scale chosen
 # across taxa (it33). Each piece is label-free or leave-one-out, so the composite keeps the lead's null.
 .efull_memo <- new.env()
-.efull_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, select = TRUE, sf_balanced_only = FALSE) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, select, sf_balanced_only)
+.efull_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, select = TRUE, sf_balanced_only = FALSE, winsor = 0, opts3 = FALSE) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, select, sf_balanced_only, winsor, opts3)
   if (!is.null(.efull_memo$key) && identical(.efull_memo$key, key)) return(.efull_memo$val)
   d <- .uk_design(meta, formula, tested_term)
   if (is.null(d)) { val <- .euc_fit(counts, meta, formula, tested_term); val$p_full <- val$p_max; val$p_ms <- val$p_max
@@ -1677,6 +1677,7 @@ register_candidate("erdl_usf", function(counts, meta, formula, tested_term) {
     depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts); g1 <- d$g1; Z <- d$Z; cl <- d$cl; n1 <- sum(g1)
     rho <- round(.rho_design(depth, g1), 2); sf <- .size_factors(counts, depth)
     if (sf_balanced_only && rho < 1) sf <- NULL                                    # size factors only when depth is balanced
+    if (winsor > 0 && rho == 1) counts <- .winsorize_counts(counts, depth, winsor) # it36: cap each taxon's top proportions (label-free)
     set.seed(7L); rows <- if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts))
     ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
     med <- function(gm) { u <- .u_stat_cov(ct, depth, g1, Z, gm, "log", rho = rho, cl = cl, sf = sf); stats::median(u$U / sqrt(u$v), na.rm = TRUE) }
@@ -1693,9 +1694,13 @@ register_candidate("erdl_usf", function(counts, meta, formula, tested_term) {
       rowSums((U$det$a %*% Ma) * (U$log$a %*% Ma)) / n1^2 * Ga / (Ga - 1) + rowSums((U$det$b %*% Mb) * (U$log$b %*% Mb)) / n0^2 * Gb / (Gb - 1) }
     rc <- ifelse(ok, pmin(pmax(cv / sqrt(U$det$v * U$log$v), -0.999), 0.999), NA)
     pl <- .pmax2(pmax(abs(z$det), abs(z$log)), rc); ps <- 2 * stats::pnorm(-abs(z$sqrt))
-    use <- rep(FALSE, length(pl))
-    if (select) { P <- cbind(lead = pl, sqrt = ps); hit <- !is.na(P) & P < thr; loo <- sweep(-hit, 2, colSums(hit), "+"); use <- loo[, "sqrt"] >= loo[, "lead"] + margin }
-    val <- list(feature = rownames(counts), p_full = ifelse(use, ps, pl), p_ms = pl, p_det = 2 * stats::pnorm(-abs(z$det)), p_log = 2 * stats::pnorm(-abs(z$log)),
+    use <- rep(FALSE, length(pl)); pfull <- pl
+    if (select && !opts3) { P <- cbind(lead = pl, sqrt = ps); hit <- !is.na(P) & P < thr; loo <- sweep(-hit, 2, colSums(hit), "+"); use <- loo[, "sqrt"] >= loo[, "lead"] + margin; pfull <- ifelse(use, ps, pl) }
+    if (select && opts3) {                                                         # it37: the lead, log alone or sqrt alone
+      plg <- 2 * stats::pnorm(-abs(z$log)); P <- cbind(lead = pl, log = plg, sqrt = ps); hit <- !is.na(P) & P < thr; loo <- sweep(-hit, 2, colSums(hit), "+")
+      alt <- ifelse(loo[, "sqrt"] >= loo[, "log"], "sqrt", "log"); altn <- pmax(loo[, "sqrt"], loo[, "log"])
+      use <- altn >= loo[, "lead"] + margin; pfull <- ifelse(use, ifelse(alt == "sqrt", ps, plg), pl) }
+    val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, p_det = 2 * stats::pnorm(-abs(z$det)), p_log = 2 * stats::pnorm(-abs(z$log)),
                 p_sqrt = ps, sel_sqrt = mean(use), est = U$log$U / log(2), gam = gm, rho = rho, fallback = FALSE)
   }
   .efull_memo$key <- key; .efull_memo$val <- val; val
@@ -1710,3 +1715,32 @@ register_candidate("emsf", function(counts, meta, formula, tested_term) {
 register_candidate("efull_b", function(counts, meta, formula, tested_term) {
   v <- .efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
 }, notes = "it35b: efull with size factors only when depth is balanced across groups (rho = 1)")
+
+# --- it36: winsorised proportions (ZicoSeq's default: top 3% per taxon) -----------------------------------
+# p09: msq is where the lead loses most (calibrated TPR 0.075 vs ZicoSeq 0.105, LDM 0.073 at higher FDR;
+# ~1.5-2x per regime). ZicoSeq as the benchmark runs it: square-root link on reference-normalised,
+# posterior-sampled proportions WINSORISED at each taxon's top 3%. A few samples with extreme proportions
+# dominate a mean-difference statistic on the sqrt (and partly the log) scale. Cap each count at its
+# taxon's 97th-percentile proportion times the sample's depth (positives stay >= 1); label-free, only
+# when depth is balanced (the cap scales with depth, so thinning stays approximately consistent).
+.winsorize_counts <- function(counts, depth, pct = 0.03) {
+  Y <- as.matrix(counts); R <- Y / rep(depth, each = nrow(Y))
+  q <- apply(R, 1, stats::quantile, probs = 1 - pct, names = FALSE)
+  cap <- ceiling(outer(q, depth)); Yw <- ifelse(Y > 0, pmax(pmin(Y, cap), 1), 0); dimnames(Yw) <- dimnames(Y); Yw
+}
+register_candidate("efull_bw", function(counts, meta, formula, tested_term) {
+  v <- .efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE, winsor = 0.03); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it36: efull_b on counts winsorised at each taxon's top 3% of proportions (balanced depth only)")
+
+# --- it37: three options for the leave-one-out selection ------------------------------------------------
+# On msq the detection half of max(det, log) only costs (zeros are inherited, no prevalence signal): local
+# tongue cells efull_b 8 / 5 vs log alone 9 / 9. Let the other taxa also choose "log alone".
+register_candidate("efull_b3", function(counts, meta, formula, tested_term) {
+  v <- .efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE, opts3 = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it37: efull_b with the selection over max(det, log) / log alone / sqrt alone")
+register_candidate("efull_b3w", function(counts, meta, formula, tested_term) {
+  v <- .efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE, opts3 = TRUE, winsor = 0.03); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it36 + it37: winsorised counts and three-option selection")
+register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
+  v <- .efull_fit(counts, meta, formula, tested_term, sf_balanced_only = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "efull_b (same as efull_b; registered for the dev suite comparison)")
