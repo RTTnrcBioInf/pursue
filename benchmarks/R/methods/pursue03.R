@@ -134,3 +134,13 @@ method_pursue03_epermr <- function(counts, meta, formula, tested_term, args = li
   v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_full[i], v$est[i])
 }
+# it39: eperm_r with the compositional centre re-estimated in every permutation (label-free scores + linearised centre)
+method_pursue03_epermc <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
+# it39 + it40: eperm_c with the scale chosen by BH discoveries among the other taxa
+method_pursue03_epermcs <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh"); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}

@@ -45,7 +45,9 @@ method_registry <- function() {
     c("pursue03_efullb",   "PURSUE 0.3 cand.: size factors when depth balanced", "absolute", "single", "", "method_pursue03_efullb"),
     c("pursue03_efullb3w", "PURSUE 0.3 cand.: + winsorised, 3-option selection", "absolute", "single", "", "method_pursue03_efullb3w"),
     c("pursue03_eperm",    "PURSUE 0.3 cand.: + exact permutation p-values", "absolute", "single", "", "method_pursue03_eperm"),
-    c("pursue03_epermr",   "PURSUE 0.3 cand.: permutation also at chance depth imbalance", "absolute", "single", "", "method_pursue03_epermr")))
+    c("pursue03_epermr",   "PURSUE 0.3 cand.: permutation also at chance depth imbalance", "absolute", "single", "", "method_pursue03_epermr"),
+    c("pursue03_epermc",   "PURSUE 0.3 cand.: centre re-estimated per permutation", "absolute", "single", "", "method_pursue03_epermc"),
+    c("pursue03_epermcs",  "PURSUE 0.3 cand.: + scale chosen by BH discoveries", "absolute", "single", "", "method_pursue03_epermcs")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr

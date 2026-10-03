@@ -1788,19 +1788,33 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
   m1 <- T / n1; m0 <- -T / n0; v1 <- (Q1 - n1 * m1^2) / (n1 - 1); v0 <- ((Qt - Q1) - n0 * m0^2) / (n0 - 1)
   (m1 - m0) / sqrt(pmax(v1 / n1 + v0 / n0, 1e-300))
 }
-.perm_multi <- function(S, g1, combos, B = 4000L, B2 = 40000L, cmin = 10L, seed = 17L, chunk = 2000L) {
+.colmed <- function(M) { if (requireNamespace("matrixStats", quietly = TRUE)) return(matrixStats::colMedians(M))   # same values, ~5x faster
+  n <- nrow(M); S <- matrix(M[order(col(M), M)], n); if (n %% 2L) S[(n + 1L) / 2L, ] else (S[n / 2L, ] + S[n / 2L + 1L, ]) / 2 }
+.root_shift <- function(T, k, iters = 8L, tol = 1e-3) {                      # per column d with median_rows(T[, j] + d k) = 0 (secant; piecewise linear)
+  f <- function(d) .colmed(T + outer(k, d)); s <- stats::median(k); if (!is.finite(s) || abs(s) < 1e-8) return(rep(0, ncol(T)))
+  d0 <- rep(0, ncol(T)); f0 <- f(d0); d1 <- -f0 / s; f1 <- f(d1)
+  for (it in seq_len(iters)) { den <- f1 - f0; dn <- ifelse(abs(den) > 1e-12, d1 - f1 * (d1 - d0) / den, d1 - f1 / s)
+    dn <- pmin(pmax(dn, -3), 3); d0 <- d1; f0 <- f1; d1 <- dn; f1 <- f(d1); if (max(abs(f1)) < tol) break }
+  d1
+}
+.perm_multi <- function(S, g1, combos, B = 4000L, B2 = 40000L, cmin = 10L, seed = 17L, chunk = 2000L, tobs = NULL, kap = NULL, med = NULL, ck = "log") {
   n <- length(g1); n1 <- sum(g1); n0 <- n - n1; m <- nrow(S[[1]])
   S <- lapply(S, function(s) s - rowMeans(s)); S2 <- lapply(S, function(s) s^2)
-  tobs <- sapply(names(S), function(h) .perm_tstat(S[[h]], S2[[h]], matrix(as.numeric(g1), n, 1), n1, n0)[, 1]); tobs[!is.finite(tobs)] <- 0
-  tobs <- matrix(tobs, m, length(S), dimnames = list(NULL, names(S)))
+  if (is.null(tobs)) { tobs <- sapply(names(S), function(h) .perm_tstat(S[[h]], S2[[h]], matrix(as.numeric(g1), n, 1), n1, n0)[, 1]); tobs[!is.finite(tobs)] <- 0
+    tobs <- matrix(tobs, m, length(S), dimnames = list(NULL, names(S))) }
+  rc <- !is.null(kap)                                              # it39: re-estimate the compositional centre in every permutation
   stat <- function(tm, cmb) { a <- abs(tm[[cmb[1]]]); for (h in cmb[-1]) a <- pmax(a, abs(tm[[h]])); a }
   obs <- sapply(combos, function(cmb) { a <- abs(tobs[, cmb[1]]); for (h in cmb[-1]) a <- pmax(a, abs(tobs[, h])); a })
   obs <- matrix(obs, m, length(combos))
   cnt <- matrix(0, m, length(combos), dimnames = list(NULL, names(combos))); tot <- rep(0, m)
-  run <- function(rows, Bn, sd0) .with_seed(sd0, { done <- 0L
+  run <- function(rows, Bn, sd0) .with_seed(sd0, { done <- 0L; rr <- if (rc) union(rows, med) else rows; at <- match(rows, rr)
     while (done < Bn) { bb <- min(chunk, Bn - done)
       idx <- vapply(seq_len(bb), function(k) sample.int(n, n1), integer(n1)); G <- matrix(0, n, bb); G[cbind(as.vector(idx), rep(seq_len(bb), each = n1))] <- 1
-      tm <- lapply(names(S), function(h) { x <- .perm_tstat(S[[h]][rows, , drop = FALSE], S2[[h]][rows, , drop = FALSE], G, n1, n0); x[!is.finite(x)] <- 0; x }); names(tm) <- names(S)
+      tt <- function(h, r) { x <- .perm_tstat(S[[h]][r, , drop = FALSE], S2[[h]][r, , drop = FALSE], G, n1, n0); x[!is.finite(x)] <- 0; x }
+      if (!rc) { tm <- lapply(names(S), tt, r = rows); names(tm) <- names(S)
+      } else {                                                     # centre from the median rows of the centring kernel, applied to every kernel
+        tc <- tt(ck, rr); dl <- .root_shift(tc[match(med, rr), , drop = FALSE], kap[med, ck])
+        tm <- lapply(names(S), function(h) (if (h == ck) tc[at, , drop = FALSE] else tt(h, rows)) + outer(kap[rows, h], dl)); names(tm) <- names(S) }
       for (cc in seq_along(combos)) cnt[rows, cc] <<- cnt[rows, cc] + rowSums(stat(tm, combos[[cc]]) >= obs[rows, cc] - 1e-10)
       tot[rows] <<- tot[rows] + bb; done <- done + bb } })
   run(seq_len(m), B, seed)
@@ -1808,8 +1822,8 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
   list(p = (cnt + 1) / (tot + 1), tobs = tobs, tot = tot)
 }
 .eperm_memo <- new.env()
-.eperm_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03, rho_min = 1) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, rho_min)
+.eperm_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03, rho_min = 1, recentre = FALSE, sel = c("hits", "bh")) {
+  sel <- match.arg(sel); key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, rho_min, recentre, sel)
   if (!is.null(.eperm_memo$key) && identical(.eperm_memo$key, key)) return(.eperm_memo$val)
   d <- .uk_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   rho <- if (is.null(d)) NA else round(.rho_design(depth, d$g1), 2)
@@ -1824,11 +1838,24 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
     flo <- med(-2); fhi <- med(2)
     gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
     b <- exp(gm * g1 + sf); E <- .pair_graph(ncol(counts), K); ok <- rowSums(counts > 0) >= 3
-    S <- lapply(c(det = "det", log = "log", sqrt = "sqrt"), function(h) .perm_scores(counts[ok, , drop = FALSE], depth, b, h, E, rho = rho))
-    pm <- .perm_multi(S, g1, list(lead = c("det", "log"), det = "det", log = "log", sqrt = "sqrt"), B = B, B2 = B2)
+    hs <- c(det = "det", log = "log", sqrt = "sqrt"); combos <- list(lead = c("det", "log"), det = "det", log = "log", sqrt = "sqrt")
+    S <- lapply(hs, function(h) .perm_scores(counts[ok, , drop = FALSE], depth, b, h, E, rho = rho))
+    if (!recentre) { pm <- .perm_multi(S, g1, combos, B = B, B2 = B2)
+    } else {                                                       # it39: the centre gamma re-estimated in every permutation (linearised)
+      n <- ncol(counts); G1 <- matrix(as.numeric(g1), n, 1)
+      tst <- function(SS) sapply(hs, function(h) { x <- SS[[h]] - rowMeans(SS[[h]]); v <- .perm_tstat(x, x^2, G1, sum(g1), n - sum(g1))[, 1]; v[!is.finite(v)] <- 0; v })
+      S0 <- lapply(hs, function(h) .perm_scores(counts[ok, , drop = FALSE], depth, exp(sf), h, E, rho = rho))       # label-free scores
+      t1 <- tst(S); t0 <- tst(S0)
+      kap <- if (abs(gm) >= 0.02) (t1 - t0) / gm else (tst(lapply(hs, function(h) .perm_scores(counts[ok, , drop = FALSE], depth, exp(0.05 * g1 + sf), h, E, rho = rho))) - t0) / 0.05
+      kap[!is.finite(kap)] <- 0; t1 <- matrix(t1, ncol = 3, dimnames = list(NULL, hs)); kap <- matrix(kap, ncol = 3, dimnames = list(NULL, hs))
+      med <- which(rownames(counts)[ok] %in% rownames(ct))
+      d_obs <- .root_shift(t1[med, "log", drop = FALSE], kap[med, "log"]); tobs <- t1 + kap * d_obs
+      pm <- .perm_multi(S0, g1, combos, B = B, B2 = B2, tobs = tobs, kap = kap, med = med) }
     P <- matrix(NA_real_, nrow(counts), 4, dimnames = list(rownames(counts), colnames(pm$p))); P[ok, ] <- pm$p
     pl <- P[, "lead"]; plg <- P[, "log"]; ps <- P[, "sqrt"]
-    Q <- cbind(lead = pl, log = plg, sqrt = ps); hit <- !is.na(Q) & Q < thr; loo <- sweep(-hit, 2, colSums(hit), "+")
+    Q <- cbind(lead = pl, log = plg, sqrt = ps)
+    hit <- if (sel == "hits") !is.na(Q) & Q < thr else apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
+    loo <- sweep(-hit, 2, colSums(hit), "+")                                   # it40 (sel = "bh"): BH discoveries among the other taxa
     alt <- ifelse(loo[, "sqrt"] >= loo[, "log"], "sqrt", "log"); altn <- pmax(loo[, "sqrt"], loo[, "log"])
     use <- altn >= loo[, "lead"] + margin; pfull <- ifelse(use, ifelse(alt == "sqrt", ps, plg), pl)
     ncross <- sum(g1[E[, 1]] != g1[E[, 2]]); est <- rep(NA_real_, nrow(counts)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / ncross / log(2)
@@ -1847,3 +1874,20 @@ register_candidate("eperm", function(counts, meta, formula, tested_term) {
 register_candidate("eperm_r", function(counts, meta, formula, tested_term) {
   v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
 }, notes = "it38r: eperm, permutation path also at chance-level depth imbalance (rho > 0.5)")
+# it39: p11 showed eperm_r's extreme tail is anti-conservative under nulls (axis B B_null P(any rejection) 0.100,
+# B_n20 0.104, msq R06 0.092; bulk FPR 0.049): the compositional centre gamma is estimated with the observed labels
+# and the permutation held it fixed. Random labelings of one msq cell give gamma-hat sd 0.12 with tails to +-0.35;
+# every abundant taxon moves with it (dt/dgamma ~ -3.3), so false positives cluster in a few datasets. Fix: permute
+# the whole procedure -- label-free scores (gamma = 0) per permutation, and the centre re-estimated in every
+# permutation by the same median rule, linearised: t(gamma) = t(0) + gamma kappa, kappa per taxon from the secant
+# between gamma = 0 and gamma-hat. The observed statistic keeps the exact (nonlinear) gamma-hat scores, recentred by
+# the same rule (a ~0.02 correction).
+register_candidate("eperm_c", function(counts, meta, formula, tested_term) {
+  v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it39: eperm_r with the compositional centre re-estimated in every permutation")
+# it40: the scale chosen per taxon by BH discoveries (q 0.05) among the other taxa instead of hits at p < 0.001.
+# diag_msq: hit counts at 0.001 differ by ~1 between options on msq (margin 2 never met), while BH counts differ
+# by 3-4 per cell (lead 9-13, log alone 10-14, sqrt alone 10-15); the BH count is also the quantity that is scored.
+register_candidate("eperm_cs", function(counts, meta, formula, tested_term) {
+  v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh"); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it39 + it40: eperm_c with the scale chosen by BH discoveries among the other taxa")
