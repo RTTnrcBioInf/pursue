@@ -1,5 +1,5 @@
 "candidate","worst_FPR","worst_FPR_at","worst_FDR","worst_FDR_at","mean_TP","rel_power","secs_per_cell","errors","settings","fdr_flags","FDR_all","FDR_all_p","calibrated"
-"efull_b3w",0.0505473712663874,"mid:R06",NA,NA,NA,NA,69.838075,0,4,"",NA,1,TRUE
-"eperm_c",0.054162724692526,"mid:R06",NA,NA,NA,NA,114.8709375,0,4,"",NA,1,TRUE
-"eperm_cs",0.054196513042303,"mid:R06",NA,NA,NA,NA,112.8567875,0,4,"",NA,1,TRUE
-"eperm_r",0.0528111907014461,"mid:R06",NA,NA,NA,NA,75.95139375,0,4,"",NA,1,TRUE
+"efull_b3w",0.0505473712663874,"mid:R06",NA,NA,NA,NA,68.574934375,0,4,"",NA,1,TRUE
+"eperm_c",0.054162724692526,"mid:R06",NA,NA,NA,NA,114.265040625,0,4,"",NA,1,TRUE
+"eperm_cs",0.054196513042303,"mid:R06",NA,NA,NA,NA,112.461996875,0,4,"",NA,1,TRUE
+"eperm_r",0.0528111907014461,"mid:R06",NA,NA,NA,NA,76.614540625,0,4,"",NA,1,TRUE
