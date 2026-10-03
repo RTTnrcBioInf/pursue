@@ -17224,9 +17224,9 @@ axis C : 145 summary rows
 fixed-effect model matrix is rank deficient so dropping 25 columns / coefficients
 fixed-effect model matrix is rank deficient so dropping 22 columns / coefficients
 fixed-effect model matrix is rank deficient so dropping 31 columns / coefficients
-3__p12  5s  est 509MB used 189MB
-ok    C__nullperm__mbd_stammler_spikein__cluster__r026__p12  12s  est 192MB used 340MB
-ok    C__nullperm__mbd_stammler_spikein__cluster__r014__p12  12s  est 192MB used 363MB
+fixed-effect model matrix is rank deficient so dropping 28 columns / coefficients
+interaction analysis -> summary/interaction.txt
+ullperm__mbd_stammler_spikein__cluster__r014__p12  12s  est 192MB used 363MB
 ok    C__nullperm__mbd_stammler_spikein__cluster__r049__p12  6s  est 509MB used 189MB
 ok    C__nullperm__mbd_stammler_spikein__cluster__r039__p12  6s  est 509MB used 189MB
 ok    C__nullperm__mbd_stammler_spikein__cluster__r029__p12  10s  est 234MB used 394MB
@@ -17299,3 +17299,10 @@ fixed-effect model matrix is rank deficient so dropping 22 columns / coefficient
 fixed-effect model matrix is rank deficient so dropping 31 columns / coefficients
 fixed-effect model matrix is rank deficient so dropping 28 columns / coefficients
 interaction analysis -> summary/interaction.txt
+[main 9a7026d] full benchmark, axes A-C: PURSUE 0.3 candidates (tag p12)
+ 6 files changed, 35361 insertions(+), 4043 deletions(-)
+ create mode 100644 results/summary/run_p12.log
+Current branch main is up to date.
+To https://github.com/RTTnrcBioInf/pursue.git
+   6696714..9a7026d  main -> main
+>> done
