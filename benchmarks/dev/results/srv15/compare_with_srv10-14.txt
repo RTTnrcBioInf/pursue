@@ -23,9 +23,9 @@ runs: srv10, srv11, srv12, srv13, srv14, srv15 | 18 candidates | 5760 cell-candi
  s_cell
    27.6
    48.7
-   84.5
+   84.9
     0.0
-  124.3
+  124.9
    40.7
    36.3
    37.5
