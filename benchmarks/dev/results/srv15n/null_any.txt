@@ -1,0 +1,22 @@
+        setting candidate    any     fp
+      house:R06 efull_b3w 0.0500 0.0500
+ implant:B_null efull_b3w 0.0250 0.0375
+        mid:R06 efull_b3w 0.0625 0.0750
+        msq:R06 efull_b3w 0.0125 0.1125
+      house:R06   eperm_c 0.0375 0.0375
+ implant:B_null   eperm_c 0.0500 0.0750
+        mid:R06   eperm_c 0.1250 0.1875
+        msq:R06   eperm_c 0.0125 0.0500
+      house:R06  eperm_cs 0.0375 0.0375
+ implant:B_null  eperm_cs 0.0500 0.0750
+        mid:R06  eperm_cs 0.1125 0.1750
+        msq:R06  eperm_cs 0.0125 0.0500
+      house:R06   eperm_r 0.0375 0.0375
+ implant:B_null   eperm_r 0.0375 0.0625
+        mid:R06   eperm_r 0.0875 0.1500
+        msq:R06   eperm_r 0.0250 0.1750
+ candidate      any
+ efull_b3w 0.037500
+   eperm_c 0.056250
+  eperm_cs 0.053125
+   eperm_r 0.046875

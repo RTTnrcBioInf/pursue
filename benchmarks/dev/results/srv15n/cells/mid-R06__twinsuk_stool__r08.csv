@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"mid:R06","twinsuk_stool",8,"efull_b3w",500,0,0,0,0,500,16,121.381,NA
+"mid:R06","twinsuk_stool",8,"eperm_r",500,0,0,0,0,500,14,125.54,NA
+"mid:R06","twinsuk_stool",8,"eperm_c",500,0,0,0,0,500,16,233.754,NA
+"mid:R06","twinsuk_stool",8,"eperm_cs",500,0,0,0,0,500,17,205.454,NA
