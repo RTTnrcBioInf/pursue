@@ -1778,7 +1778,8 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
   S <- matrix(0, m, n)
   for (st in seq(1L, nrow(E), by = chunk)) { e <- E[st:min(nrow(E), st + chunk - 1L), , drop = FALSE]; i <- e[, 1]; j <- e[, 2]
     De <- rho * pmin(depth[i] * b[i], depth[j] * b[j])
-    A <- fcol(Y[, i, drop = FALSE], depth[i], pmax(floor(De / b[i]), 1)) - fcol(Y[, j, drop = FALSE], depth[j], pmax(floor(De / b[j]), 1))
+    A <- if (h == "lin") Y[, i, drop = FALSE] * rep(1e4 / (depth[i] * b[i]), each = m) - Y[, j, drop = FALSE] * rep(1e4 / (depth[j] * b[j]), each = m) else
+      if (h == "sqp") sqrt(Y[, i, drop = FALSE] * rep(1e4 / (depth[i] * b[i]), each = m)) - sqrt(Y[, j, drop = FALSE] * rep(1e4 / (depth[j] * b[j]), each = m)) else fcol(Y[, i, drop = FALSE], depth[i], pmax(floor(De / b[i]), 1)) - fcol(Y[, j, drop = FALSE], depth[j], pmax(floor(De / b[j]), 1))
     Inc <- matrix(0, nrow(e), n); Inc[cbind(seq_len(nrow(e)), i)] <- 1; Inc[cbind(seq_len(nrow(e)), j)] <- -1
     S <- S + A %*% Inc }
   S
@@ -1822,8 +1823,8 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
   list(p = (cnt + 1) / (tot + 1), tobs = tobs, tot = tot)
 }
 .eperm_memo <- new.env()
-.eperm_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03, rho_min = 1, recentre = FALSE, sel = c("hits", "bh")) {
-  sel <- match.arg(sel); key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, rho_min, recentre, sel)
+.eperm_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 2L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03, rho_min = 1, recentre = FALSE, sel = c("hits", "bh"), extra = character()) {
+  sel <- match.arg(sel); key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, rho_min, recentre, sel, extra)
   if (!is.null(.eperm_memo$key) && identical(.eperm_memo$key, key)) return(.eperm_memo$val)
   d <- .uk_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   rho <- if (is.null(d)) NA else round(.rho_design(depth, d$g1), 2)
@@ -1839,6 +1840,8 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
     gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(med, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
     b <- exp(gm * g1 + sf); E <- .pair_graph(ncol(counts), K); ok <- rowSums(counts > 0) >= 3
     hs <- c(det = "det", log = "log", sqrt = "sqrt"); combos <- list(lead = c("det", "log"), det = "det", log = "log", sqrt = "sqrt")
+    for (x in extra) { hs <- c(hs, setNames(x, x)); combos[[x]] <- x }       # it41: unthinned scales -- lin: Y / (N b); sqp: its square root
+    alts <- setdiff(names(combos), c("lead", "det"))
     S <- lapply(hs, function(h) .perm_scores(counts[ok, , drop = FALSE], depth, b, h, E, rho = rho))
     if (!recentre) { pm <- .perm_multi(S, g1, combos, B = B, B2 = B2)
     } else {                                                       # it39: the centre gamma re-estimated in every permutation (linearised)
@@ -1847,20 +1850,21 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
       S0 <- lapply(hs, function(h) .perm_scores(counts[ok, , drop = FALSE], depth, exp(sf), h, E, rho = rho))       # label-free scores
       t1 <- tst(S); t0 <- tst(S0)
       kap <- if (abs(gm) >= 0.02) (t1 - t0) / gm else (tst(lapply(hs, function(h) .perm_scores(counts[ok, , drop = FALSE], depth, exp(0.05 * g1 + sf), h, E, rho = rho))) - t0) / 0.05
-      kap[!is.finite(kap)] <- 0; t1 <- matrix(t1, ncol = 3, dimnames = list(NULL, hs)); kap <- matrix(kap, ncol = 3, dimnames = list(NULL, hs))
+      kap[!is.finite(kap)] <- 0; t1 <- matrix(t1, ncol = length(hs), dimnames = list(NULL, hs)); kap <- matrix(kap, ncol = length(hs), dimnames = list(NULL, hs))
       med <- which(rownames(counts)[ok] %in% rownames(ct))
       d_obs <- .root_shift(t1[med, "log", drop = FALSE], kap[med, "log"]); tobs <- t1 + kap * d_obs
       pm <- .perm_multi(S0, g1, combos, B = B, B2 = B2, tobs = tobs, kap = kap, med = med) }
-    P <- matrix(NA_real_, nrow(counts), 4, dimnames = list(rownames(counts), colnames(pm$p))); P[ok, ] <- pm$p
+    P <- matrix(NA_real_, nrow(counts), ncol(pm$p), dimnames = list(rownames(counts), colnames(pm$p))); P[ok, ] <- pm$p
     pl <- P[, "lead"]; plg <- P[, "log"]; ps <- P[, "sqrt"]
-    Q <- cbind(lead = pl, log = plg, sqrt = ps)
+    Q <- P[, c("lead", alts), drop = FALSE]
     hit <- if (sel == "hits") !is.na(Q) & Q < thr else apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
     loo <- sweep(-hit, 2, colSums(hit), "+")                                   # it40 (sel = "bh"): BH discoveries among the other taxa
-    alt <- ifelse(loo[, "sqrt"] >= loo[, "log"], "sqrt", "log"); altn <- pmax(loo[, "sqrt"], loo[, "log"])
-    use <- altn >= loo[, "lead"] + margin; pfull <- ifelse(use, ifelse(alt == "sqrt", ps, plg), pl)
+    la <- loo[, alts, drop = FALSE]; ia <- max.col(la, ties.method = "last"); altn <- la[cbind(seq_len(nrow(la)), ia)]
+    use <- altn >= loo[, "lead"] + margin; pfull <- ifelse(use, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
     ncross <- sum(g1[E[, 1]] != g1[E[, 2]]); est <- rep(NA_real_, nrow(counts)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / ncross / log(2)
     val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, p_det = P[, "det"], p_log = plg, p_sqrt = ps, sel_sqrt = mean(use, na.rm = TRUE),
-                est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE)
+                est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, choice = ifelse(use, alts[ia], "lead"))
+    for (x in extra) val[[paste0("p_", x)]] <- P[, x]
   }
   .eperm_memo$key <- key; .eperm_memo$val <- val; val
 }
@@ -1891,3 +1895,22 @@ register_candidate("eperm_c", function(counts, meta, formula, tested_term) {
 register_candidate("eperm_cs", function(counts, meta, formula, tested_term) {
   v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh"); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
 }, notes = "it39 + it40: eperm_c with the scale chosen by BH discoveries among the other taxa")
+# it41: margin and unthinned scales for the BH-count selection.
+# (a) Margin 1. With leave-one-out BH counts, a taxon discovered only under the alternative loses its own hit from
+#     the alternative's count, so at margin 2 exactly the taxa the alternative adds fail it whenever the counts
+#     differ by 2 (local msq R00: sqrt 13 vs lead 11 -> 285 taxa choose sqrt, final 11; house R11 twinsuk: log 19 vs
+#     lead 17 -> final 16). Margin 1 lets them through.
+# (b) Unthinned scales. In the permutation path validity needs exchangeability only, not depth invariance, so a
+#     scale may use every read: lin = Y / (N b) (normalised proportion; LDM's frequency scale), sqp = its square root
+#     (~ LDM's / ZicoSeq's root scale). p12: LDM has ~1.6x our calibrated TPR on msq (unconfounded regimes), ~2-3x on
+#     sd2. Local single cells: msq R11 tongue lin 7 vs 4 for every other option; mid R00 twinsuk sqrt 14 vs lead 8;
+#     house / implants keep the lead (B_prev 64 vs <= 24 for any other single scale).
+register_candidate("eperm_cs1", function(counts, meta, formula, tested_term) {
+  v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh", margin = 1L); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it41a: eperm_cs with margin 1")
+register_candidate("eperm_x1", function(counts, meta, formula, tested_term) {
+  v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh", margin = 1L, extra = c("lin", "sqp")); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it41a+b: eperm_cs, margin 1, options lead / log / sqrt / lin / sqp")
+register_candidate("eperm_x2", function(counts, meta, formula, tested_term) {
+  v <- .eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh", margin = 2L, extra = c("lin", "sqp")); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it41b: eperm_cs, margin 2, options lead / log / sqrt / lin / sqp")

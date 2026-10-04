@@ -47,7 +47,10 @@ method_registry <- function() {
     c("pursue03_eperm",    "PURSUE 0.3 cand.: + exact permutation p-values", "absolute", "single", "", "method_pursue03_eperm"),
     c("pursue03_epermr",   "PURSUE 0.3 cand.: permutation also at chance depth imbalance", "absolute", "single", "", "method_pursue03_epermr"),
     c("pursue03_epermc",   "PURSUE 0.3 cand.: centre re-estimated per permutation", "absolute", "single", "", "method_pursue03_epermc"),
-    c("pursue03_epermcs",  "PURSUE 0.3 cand.: + scale chosen by BH discoveries", "absolute", "single", "", "method_pursue03_epermcs")))
+    c("pursue03_epermcs",  "PURSUE 0.3 cand.: + scale chosen by BH discoveries", "absolute", "single", "", "method_pursue03_epermcs"),
+    c("pursue03_epermcs1", "PURSUE 0.3 cand.: eperm_cs, selection margin 1", "absolute", "single", "", "method_pursue03_epermcs1"),
+    c("pursue03_epermx1",  "PURSUE 0.3 cand.: + unthinned lin/sqp scales, margin 1", "absolute", "single", "", "method_pursue03_epermx1"),
+    c("pursue03_epermx2",  "PURSUE 0.3 cand.: + unthinned lin/sqp scales, margin 2", "absolute", "single", "", "method_pursue03_epermx2")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr

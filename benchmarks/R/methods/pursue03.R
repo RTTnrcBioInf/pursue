@@ -144,3 +144,16 @@ method_pursue03_epermcs <- function(counts, meta, formula, tested_term, args = l
   v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh"); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_full[i], v$est[i])
 }
+# it41: eperm_cs with margin 1 (cs1); and with the unthinned lin / sqp scales as further options (x1: margin 1, x2: margin 2)
+method_pursue03_epermcs1 <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh", margin = 1L); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
+method_pursue03_epermx1 <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh", margin = 1L, extra = c("lin", "sqp")); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
+method_pursue03_epermx2 <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh", margin = 2L, extra = c("lin", "sqp")); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
