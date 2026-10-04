@@ -1,0 +1,11 @@
+runs: srv16 | 3 candidates | 960 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR       at FDR_all sig_FDR_excess rel_power mean_TP
+ eperm_cs1 PASS     0.064  mid:R11   0.057              -      0.98   12.64
+  eperm_x1 fail     0.077 bloom:x4   0.065              -      0.99   12.68
+  eperm_x2 fail     0.077 bloom:x4   0.067              -      0.97   12.62
+ s_cell
+   71.2
+   50.6
+   72.4

@@ -1,0 +1,47 @@
+runs: srv10, srv11, srv12, srv13, srv14, srv15, srv16 | 21 candidates | 6720 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR        at FDR_all sig_FDR_excess rel_power mean_TP
+ eperm_cs1 PASS     0.064   mid:R11   0.057              -      0.91   12.64
+   eperm_r PASS     0.063   mid:R19   0.060              -      0.90   12.37
+     eperm PASS     0.063   mid:R19   0.055              -      0.89   12.30
+  eperm_cs PASS     0.064   mid:R11   0.060              -      0.89   12.55
+     efull PASS     0.074   mid:R19   0.048              -      0.89   12.05
+   eperm_c PASS     0.064   mid:R11   0.060              -      0.88   12.43
+      emsf PASS     0.073   mid:R19   0.050              -      0.87   11.99
+  erdl_usf PASS     0.073   mid:R19   0.053              -      0.86   11.84
+ efull_b3w PASS     0.063   mid:R19   0.051              -      0.85   12.11
+  efull_bw PASS     0.064   mid:R19   0.051              -      0.85   12.08
+  efull_bc PASS     0.064   mid:R19   0.049              -      0.85   11.92
+  erdsl_uc PASS     0.064   mid:R19   0.048              -      0.81   11.33
+   esel_uc PASS     0.064   mid:R19   0.045              -      0.80   11.60
+   esel_um PASS     0.063   mid:R19   0.047              -      0.80   11.75
+   ersl_uc PASS     0.058 house:R23   0.028              -      0.73    9.38
+    ers_uc PASS     0.059   mid:R19   0.022              -      0.65    7.94
+  eperm_x1 fail     0.077  bloom:x4   0.065              -      0.92   12.68
+  eperm_x2 fail     0.077  bloom:x4   0.067              -      0.90   12.62
+   erdq_uc fail     0.065   mid:R19   0.052        mid:R19      0.80   11.64
+  erdl_umb fail     0.096   mid:R19   0.049              -      0.77   11.57
+   erdl_ub fail     0.095   mid:R19   0.050              -      0.77   11.41
+ s_cell
+   71.2
+   27.6
+   48.7
+   84.9
+    0.0
+  124.9
+   40.7
+   36.3
+   37.5
+   37.7
+   38.4
+   10.5
+   43.8
+   32.5
+    0.0
+    0.0
+   50.6
+   72.4
+    5.6
+   40.4
+   19.5
