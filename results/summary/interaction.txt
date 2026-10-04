@@ -1,4 +1,4 @@
-methods: adapt, aldex2, ancombc2, corncob, fastancom, fastemu, ldm, limma_logtss, linda, lm_logtss, locom, locom2, logistic_presence, maaslin3, pursue03_efullb3w, pursue03_epermcs, pursue03_epermr, wilcoxon_tss, zicoseq 
+methods: adapt, aldex2, ancombc2, corncob, fastancom, fastemu, ldm, limma_logtss, linda, lm_logtss, locom, locom2, logistic_presence, maaslin3, pursue03_efullb3w, pursue03_epermcs, pursue03_epermcs1, wilcoxon_tss, zicoseq 
 
 ===== y_fdr =====
 Data: A
@@ -6,13 +6,13 @@ Models:
 f0: y_fdr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_fdr ~ method * simulator + method * regime_id + (1 | template)
    npar   AIC   BIC   logLik -2*log(L)  Chisq Df Pr(>Chisq)    
-f0  478 21560 24940 -10302.1     20604                         
-f1  547 20787 24654  -9846.3     19693 911.51 69  < 2.2e-16 ***
+f0  478 21554 24934 -10299.3     20598                         
+f1  547 20774 24641  -9839.9     19680 918.73 69  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
             method fragility_sd_across_simulators
             locom2                      0.1985531
-   pursue03_epermr                      0.2175216
+ pursue03_epermcs1                      0.2400119
   pursue03_epermcs                      0.2406166
  pursue03_efullb3w                      0.2421349
              locom                      0.2438872
@@ -37,8 +37,8 @@ Models:
 f0: y_tpr ~ method + simulator + method * regime_id + (1 | template)
 f1: y_tpr ~ method * simulator + method * regime_id + (1 | template)
    npar   AIC   BIC   logLik -2*log(L)  Chisq Df Pr(>Chisq)    
-f0  453 21566 24740 -10329.7     20660                         
-f1  522 19982 23640  -9469.2     18938 1721.1 69  < 2.2e-16 ***
+f0  453 21590 24764 -10342.0     20684                         
+f1  522 20013 23671  -9484.7     18969 1714.5 69  < 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
             method fragility_sd_across_simulators
@@ -53,7 +53,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
                ldm                      1.1530318
            zicoseq                      1.1863262
  pursue03_efullb3w                      1.1987043
-   pursue03_epermr                      1.2178569
+ pursue03_epermcs1                      1.2175543
   pursue03_epermcs                      1.2298169
       wilcoxon_tss                      1.2788274
              adapt                      1.3035070
