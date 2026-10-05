@@ -21,6 +21,8 @@
 #                  16000 across 40 axis-C classes held it at ~6 concurrent for a week.
 #   SAFETY_PCT     percent of the learned estimate to reserve       (default 125)
 #   TAG            re-run tag, as in run_local.sh
+#   RESULTS_ROOT   where cells are written and looked up (default results); a confirmation run under a
+#                  fresh master seed uses its own root so it neither skips nor mixes with seed-1 cells
 #   CELL_CMD       override the per-cell command (testing only)
 # NOT `set -u`: in bash before 4.4, ${#arr[@]} on an empty associative array is an unbound-variable
 # error, and both the estimate table and the running-PID table are legitimately empty at the start
@@ -39,7 +41,7 @@ BUDGET_MB=$(( MEM_TOTAL_MB * MEM_PCT / 100 ))
 
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 export PURSUE_BENCH_ROOT="$ROOT/benchmarks" PURSUE_DATA_ROOT="$ROOT/benchmarks/data"
-mkdir -p logs results cache
+RR="${RESULTS_ROOT:-results}"; mkdir -p logs "$RR" cache
 
 TIME_BIN=""; [ -x /usr/bin/time ] && /usr/bin/time -f '%M' true 2>/dev/null && TIME_BIN=/usr/bin/time
 RV="$(Rscript -e 'cat(as.character(getRversion()))' 2>/dev/null || echo 0)"
@@ -87,7 +89,7 @@ axis_of() { _parse "$1"; printf "%s" "$_ax"; }
 
 run_one() {   # $1 = task line, $2 = cell id, $3 = estimate MB
   local line="$1" id="$2" est="$3" out mf rc mem start
-  out="results/axis$(axis_of "$line")"; mf="logs/$id.mem"; start=$SECONDS
+  out="$RR/axis$(axis_of "$line")"; mf="logs/$id.mem"; start=$SECONDS
   if [ -n "${CELL_CMD:-}" ]; then
     if $CELL_CMD "$line" "$id" > "logs/$id.log" 2>&1; then rc=0; else rc=$?; fi
   elif [ -n "$TIME_BIN" ]; then
@@ -163,7 +165,7 @@ while [ "$PENDING" -gt 0 ] || [ "${#PID_ID[@]}" -gt 0 ]; do
     for ((j=head; j<total && j<head+${WINDOW:-400}; j++)); do
       [ "${TAKEN[$j]}" -eq 1 ] && continue
       line="${LINES[$j]}"; id_of "$line"; id=$_ID; ax=$_ax
-      if [ -f "results/axis$ax/$id.manifest.json" ] || [ -f "results/axis$ax/$id.skipped.json" ]; then
+      if [ -f "$RR/axis$ax/$id.manifest.json" ] || [ -f "$RR/axis$ax/$id.skipped.json" ]; then
         echo "skip  $id"; TAKEN[$j]=1; PENDING=$((PENDING-1)); skip_n=$((skip_n+1)); continue
       fi
       est_of "$id"; est=$_EST
@@ -192,7 +194,7 @@ while [ "$PENDING" -gt 0 ] || [ "${#PID_ID[@]}" -gt 0 ]; do
 done
 wait
 echo ">> finished $(date '+%F %T'); peak concurrency $peak_jobs, $skip_n skipped"
-d=$(ls results/axis*/ 2>/dev/null | grep -c 'manifest.json' || true)
-s=$(ls results/axis*/ 2>/dev/null | grep -c 'skipped.json' || true)
+d=$(ls "$RR"/axis*/ 2>/dev/null | grep -c 'manifest.json' || true)
+s=$(ls "$RR"/axis*/ 2>/dev/null | grep -c 'skipped.json' || true)
 echo ">> $d cells have results; $s not producible by that simulator."
 echo ">> Re-run this command to retry anything that failed."

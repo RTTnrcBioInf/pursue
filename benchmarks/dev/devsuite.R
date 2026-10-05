@@ -66,6 +66,10 @@ for (r in EXT) S[[length(S) + 1L]] <- list(id = paste0("house:", r), sim = "hous
 S[[length(S) + 1L]] <- list(id = "bloom:x4", sim = "house", regime = "R00", ext = TRUE, bloom = 4)
 for (r in c("R00", "R06", "R11", "R17", "R19")) for (s in c("msq", "mid"))
   S[[length(S) + 1L]] <- list(id = paste0(s, ":", r), sim = s, regime = r)
+# sd2 / sps (added 2026-10-05): p13's remaining gap to LDM / ZicoSeq is msq and sd2, and sd2 had no inner-loop
+# setting. Only in a run whose --sims names them, so every earlier suite is unchanged.
+for (r in c("R00", "R06", "R08", "R13")) for (s in c("sd2", "sps"))
+  S[[length(S) + 1L]] <- list(id = paste0(s, ":", r), sim = s, regime = r)
 imp <- list(B_ref = spec(), B_null = spec(da = 0), B_prev = spec("prevalence"), B_abund = spec("abundance"),
             B_allup = spec(balance = "100_0"))
 for (b in names(imp)) S[[length(S) + 1L]] <- list(id = paste0("implant:", b), sim = "implant", spec = imp[[b]])
