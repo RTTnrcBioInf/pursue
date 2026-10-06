@@ -29,8 +29,11 @@ for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R", 
             "R/simulators/sim_house.R", "R/simulators/implant.R", "R/simulators/nullperm.R", "R/simulators/dispatch.R",
             "R/methods/elementary.R", "R/methods/external.R", "R/methods/registry.R", "R/methods/pursue03.R")) source(file.path(root, f))
 
+# The modulus is taken in double precision BEFORE the integer cast: master * 1e6 overflows R's integer range for
+# any master seed above 2147, and as.integer() then returns NA (the 2026-10-06 confirmation smoke, seed 20261005).
+# Identical to the earlier form for every master seed below that, so seed-1 cells are unchanged.
 cell_seed <- function(master, ...) { key <- paste(..., sep = "|"); h <- sum(utf8ToInt(key) * (seq_along(utf8ToInt(key)) %% 97 + 1)) %% 1e6
-  as.integer(master * 1e6 + h) %% .Machine$integer.max }
+  as.integer((master * 1e6 + h) %% .Machine$integer.max) }
 
 cell <- list(axis = opt$axis, simulator = opt$simulator, template = opt$template, regime_id = opt$regime, replicate = opt$replicate)
 cell$seed <- cell_seed(opt$`master-seed`, opt$axis, opt$simulator, opt$template, opt$regime, opt$replicate)
