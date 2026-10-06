@@ -23,7 +23,7 @@ TASKS=(
   "gingival|D__mbd_gingival_v35|--axis D --template mbd_gingival_v35 --group body_subsite --case ^supra --expected expected/gingival_aerobes.tsv|biotruth"
   "bv|D__mbd_ravel_bv|--axis D --template mbd_ravel_bv --group study_condition --case vagin|bv --expected expected/bv_taxa.tsv|biotruth"
   "spikein|D__mbd_stammler_spikein|--axis D --template mbd_stammler_spikein --spikein $SPK|spikein"
-  "crc|E__crc_genus|--axis E --template crc_genus --group diagnosis --levels control,CRC --splits 5|replicability"
+  "crc|E__crc_genus|--axis E --template crc_genus --group Diagnosis --levels Normal,Cancer --splits 5|replicability"
   "risk|E__risk_ileum|--axis E --template risk_ileum --group diagnosis --levels no,CD --splits 5|replicability"
 )
 SEL=(); for t in "${TASKS[@]}"; do [[ "${t%%|*}" =~ $ONLY ]] && SEL+=("$t"); done; TASKS=("${SEL[@]}")

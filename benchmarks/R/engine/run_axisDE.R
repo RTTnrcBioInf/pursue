@@ -10,7 +10,7 @@
 #   groupings and counts spike-in taxa called at q <= 0.05 (any call is a false positive).
 #
 # Axis E (replicability, Pelto et al. 2025):
-#   --axis E --template crc_genus --group diagnosis --splits 5
+#   --axis E --template crc_genus --group Diagnosis --levels Normal,Cancer --splits 5
 #   for each of `splits` random 50/50 splits, runs every method on both halves and
 #   reports replication% (same sign, q <= 0.05 in both), conflict% (opposite sign, both
 #   significant) and NHits per method and arm.
@@ -20,6 +20,7 @@ op <- OptionParser(option_list = list(
   make_option("--axis", type = "character"), make_option("--template", type = "character"),
   make_option("--group", type = "character", default = NULL), make_option("--levels", type = "character", default = NULL),
   make_option("--expected", type = "character", default = NULL), make_option("--spikein", type = "character", default = NULL),
+  make_option("--case", type = "character", default = NULL, help = "regex for the level that expected_direction +1 refers to; it is made the tested (second) level"),
   make_option("--splits", type = "integer", default = 5L), make_option("--n-groupings", type = "integer", default = 50L),
   make_option("--methods", type = "character", default = "all"), make_option("--out", type = "character", default = "results"),
   make_option("--tag", type = "character", default = "", help = "suffix for output files when re-running a subset of methods"),
@@ -38,20 +39,34 @@ tpl <- load_template(opt$template)
 gv <- if (!is.null(opt$group)) opt$group else tpl$group_var
 
 prep <- function(ct, meta) { keep <- rowMeans(ct > 0) >= opt$`min-prevalence` & rowSums(ct > 0) >= 3; list(counts = ct[keep, , drop = FALSE], meta = meta) }
-binary_meta <- function(meta, gv, levels = NULL) {
-  v <- as.character(meta[[gv]]); lv <- if (!is.null(levels)) levels else sort(unique(v))[1:2]
-  keep <- v %in% lv; data.frame(row.names = rownames(meta)[keep], group = factor(v[keep], levels = lv)) }
+binary_meta <- function(meta, gv, levels = NULL, case = NULL) {
+  if (!gv %in% names(meta)) { hit <- names(meta)[tolower(names(meta)) == tolower(gv)]      # e.g. crc metadata.csv has "Diagnosis"
+    if (length(hit) != 1L) stop("group column '", gv, "' is not in the metadata; columns: ", paste(names(meta), collapse = ", "))
+    gv <- hit }
+  v <- as.character(meta[[gv]])
+  if (!is.null(levels)) levels <- vapply(levels, function(l) { if (l %in% v) return(l)            # exact level, else a unique case-insensitive match
+    h <- unique(v[!is.na(v) & tolower(v) == tolower(l)]); if (length(h) == 1L) h else l }, "", USE.NAMES = FALSE)
+  lv <- if (!is.null(levels)) levels else sort(unique(v[!is.na(v)]))[1:2]
+  if (!is.null(case)) { m <- grepl(case, lv, ignore.case = TRUE)
+    if (sum(m) != 1L) stop("--case '", case, "' must match exactly one of the levels: ", paste(lv, collapse = ", "))
+    lv <- c(lv[!m], lv[m]) }
+  keep <- v %in% lv
+  if (sum(v == lv[1], na.rm = TRUE) < 5L || sum(v == lv[2], na.rm = TRUE) < 5L)
+    stop("group '", gv, "' levels ", paste(lv, collapse = " / "), " have too few samples; available: ", paste(unique(v), collapse = ", "))
+  cat(">> contrast:", lv[2], "vs", lv[1], sprintf("(%d vs %d samples)\n", sum(v == lv[2], na.rm = TRUE), sum(v == lv[1], na.rm = TRUE)))
+  data.frame(row.names = rownames(meta)[keep], group = factor(v[keep], levels = lv)) }
 
 if (opt$axis == "D" && is.null(opt$spikein)) {
   lv <- if (!is.null(opt$levels)) strsplit(opt$levels, ",")[[1]] else NULL
-  md <- binary_meta(tpl$meta, gv, lv); ct <- tpl$counts[, rownames(md), drop = FALSE]; d <- prep(ct, md)
+  md <- binary_meta(tpl$meta, gv, lv, opt$case); ct <- tpl$counts[, rownames(md), drop = FALSE]; d <- prep(ct, md)
+  contrast <- paste(rev(levels(md$group)), collapse = " vs ")
   exp <- if (!is.null(opt$expected)) read.delim(file.path(root, opt$expected), stringsAsFactors = FALSE) else NULL
   rows <- list()
   for (mid in methods) {
     run <- run_method(mid, d$counts, d$meta, ~ group, "group", args = if (mid == "pursue") list(n_cores = opt$`n-cores`) else list())
     r <- run$result
     for (arm in unique(r$arm)) { ra <- r[r$arm == arm, ]; sig <- !is.na(ra$q) & ra$q <= 0.05
-      row <- data.frame(axis = "D", template = opt$template, method = mid, arm = arm, n_tested = sum(is.finite(ra$p)), n_calls = sum(sig), runtime_s = run$runtime_s)
+      row <- data.frame(axis = "D", template = opt$template, contrast = contrast, method = mid, arm = arm, n_tested = sum(is.finite(ra$p)), n_calls = sum(sig), runtime_s = run$runtime_s)
       if (!is.null(exp)) {
         e <- exp[match(ra$feature, exp$feature), ]; known <- !is.na(e$expected_direction)
         tab <- table(called = sig[known], expected = known[known] & TRUE)
@@ -67,9 +82,10 @@ if (opt$axis == "D" && is.null(opt$spikein)) {
 
 if (opt$axis == "D" && !is.null(opt$spikein)) {
   spk <- strsplit(opt$spikein, ",")[[1]]; ct <- tpl$counts; n <- ncol(ct)
+  grp <- lapply(seq_len(opt$`n-groupings`), function(g) sample(rep(c("control", "case"), length.out = n)))   # drawn before any method runs
   rows <- list()
   for (g in seq_len(opt$`n-groupings`)) {
-    md <- data.frame(row.names = colnames(ct), group = factor(sample(rep(c("control", "case"), length.out = n)), levels = c("control", "case")))
+    md <- data.frame(row.names = colnames(ct), group = factor(grp[[g]], levels = c("control", "case")))
     d <- prep(ct, md)
     for (mid in methods) { run <- run_method(mid, d$counts, d$meta, ~ group, "group"); r <- run$result
       for (arm in unique(r$arm)) { ra <- r[r$arm == arm, ]; sig <- !is.na(ra$q) & ra$q <= 0.05
@@ -84,9 +100,10 @@ if (opt$axis == "D" && !is.null(opt$spikein)) {
 if (opt$axis == "E") {
   lv <- if (!is.null(opt$levels)) strsplit(opt$levels, ",")[[1]] else NULL
   md <- binary_meta(tpl$meta, gv, lv); ct <- tpl$counts[, rownames(md), drop = FALSE]; n <- ncol(ct)
+  perms <- lapply(seq_len(opt$splits), function(s) sample(n))                   # drawn before any method runs
   rows <- list()
   for (s in seq_len(opt$splits)) {
-    idx <- sample(n); h1 <- sort(idx[seq_len(floor(n / 2))]); h2 <- sort(idx[-seq_len(floor(n / 2))])
+    idx <- perms[[s]]; h1 <- sort(idx[seq_len(floor(n / 2))]); h2 <- sort(idx[-seq_len(floor(n / 2))])
     d1 <- prep(ct[, h1], md[h1, , drop = FALSE]); d2 <- prep(ct[, h2], md[h2, , drop = FALSE])
     common <- intersect(rownames(d1$counts), rownames(d2$counts))
     for (mid in methods) {
