@@ -1,0 +1,6 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"sd2:R13","hmp_tongue",3,"eperm_cs1",305,30,5,5,0,275,17,34.128,NA
+"sd2:R13","hmp_tongue",3,"ref_zicoseq",305,30,6,6,0,275,15,105.586,NA
+"sd2:R13","hmp_tongue",3,"ref_ldm",305,30,7,7,0,275,18,20.868,NA
+"sd2:R13","hmp_tongue",3,"ref_adapt",305,30,3,3,0,275,16,6.596,NA
+"sd2:R13","hmp_tongue",3,"ref_linda",305,30,5,5,0,275,16,2.23399999999998,NA

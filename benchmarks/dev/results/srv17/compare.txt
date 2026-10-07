@@ -1,0 +1,30 @@
+runs: srv17 | 5 candidates | 300 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+   candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power mean_TP
+     ref_ldm PASS     0.050 sps:R00   0.055              -      0.89    2.27
+   eperm_cs1 PASS     0.066 sps:R08   0.039              -      0.82    1.98
+ ref_zicoseq PASS     0.059 sps:R08   0.051              -      0.76    1.85
+   ref_linda PASS     0.057 sps:R08   0.041              -      0.61    1.42
+   ref_adapt PASS     0.066 sps:R08   0.063              -      0.45    1.13
+ s_cell
+   44.9
+  100.4
+  429.3
+    2.6
+    3.7
+runs: srv17m | 5 candidates | 200 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+   candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power mean_TP
+     ref_ldm PASS     0.069 msq:R11   0.083              -      0.97   11.40
+ ref_zicoseq PASS     0.055 msq:R11   0.060              -      0.95   11.10
+   eperm_cs1 PASS     0.055 msq:R11   0.070              -      0.90   10.55
+   ref_linda PASS     0.060 msq:R00   0.062              -      0.78    9.15
+   ref_adapt PASS     0.055 msq:R11   0.074              -      0.75    8.85
+ s_cell
+   42.9
+   93.3
+   44.5
+    0.9
+    4.8
