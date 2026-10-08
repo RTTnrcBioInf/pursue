@@ -1,0 +1,23 @@
+"axis","template","contrast","method","arm","n_tested","n_calls","runtime_s","n_calls_annotated","frac_expected_direction","enrichment_p","enrichment_or"
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","adapt","single",55,45,0.178,17,0.941176470588235,0.139900910358034,5.33454645726014
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","aldex2","single",55,35,8.789,18,0.0555555555555556,4.63037989031463e-05,Inf
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","ancombc2","single",0,0,0.0749999999999993,0,NA,NA,NA
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","corncob","single",55,48,6.482,18,NA,0.0823960944715662,Inf
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","fastancom","single",55,44,0.043,17,1,0.0802381614103814,6.13562831344017
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","fastemu","single",55,23,1923.848,10,1,0.243635210085048,2.27138705275887
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","ldm","single",55,50,24.143,18,NA,0.160311386726481,Inf
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","limma_logtss","single",55,48,0.0629999999999999,17,1,0.405773848792717,3.23236558781798
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","linda","single",55,42,0.103999999999999,18,0.944444444444444,0.00491699883784391,Inf
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","lm_logtss","single",55,48,0.0600000000000001,17,1,0.405773848792717,3.23236558781798
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","locom","single",55,31,4.225,15,1,0.00825845940158544,6.34008483774099
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","locom2","single",55,29,14.073,13,NA,0.0509694791785304,3.33540644265791
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","logistic_presence","single",55,47,0.205,16,1,1,1.5368289385274
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","maaslin3","abundance",55,18,4.063,13,1,2.73689206732952e-05,15.4524186307453
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","maaslin3","presence",55,47,4.063,16,1,1,1.5368289385274
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","maaslin3","combined",55,48,4.063,17,NA,0.405773848792717,3.23236558781798
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","pursue","abundance",55,20,4.986,13,1,0.000220967345237717,10.5206253581838
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","pursue","presence",55,23,4.986,9,1,0.560920062569631,1.62773246471171
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","pursue","combined",55,29,4.986,14,NA,0.0114135161171195,4.97732063102219
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","pursue03_epermcs1","single",55,46,13.119,18,0.944444444444444,0.0231608616193121,Inf
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","wilcoxon_tss","single",55,48,0.0950000000000001,17,1,0.405773848792717,3.23236558781798
+"D","mbd_ravel_bv","bacterial_vaginosis vs healthy","zicoseq","single",55,38,23.33,17,NA,0.00484020136244105,12.4798368683953

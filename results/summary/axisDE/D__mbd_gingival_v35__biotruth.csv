@@ -1,0 +1,23 @@
+"axis","template","contrast","method","arm","n_tested","n_calls","runtime_s","n_calls_annotated","frac_expected_direction","enrichment_p","enrichment_or"
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","adapt","single",3260,579,5.131,497,0.955734406438632,0.000432720044465561,0.609686304236694
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","aldex2","single",3260,62,406.735,50,0.98,0.0288593144427929,0.45540233031388
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","ancombc2","single",0,0,0.92,0,NA,NA,NA
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","corncob","single",3256,612,418.588,532,NA,0.00708059184498166,0.6841985344707
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","fastancom","single",3260,435,1.856,370,0.875675675675676,0.000559680352832085,0.582003402422879
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","fastemu","single",3260,280,8823.169,226,0.933628318584071,1.07031014290483e-06,0.422242194988885
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","ldm","single",3260,696,403.021,596,NA,3.43983039737689e-05,0.579030050829486
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","limma_logtss","single",3260,458,0.142,390,0.951282051282051,0.000402524553570241,0.584241817938324
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","linda","single",3260,637,6.37,548,0.897810218978102,0.000394815724004888,0.614543087184038
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","lm_logtss","single",3260,456,0.0870000000000002,388,0.948453608247423,0.000384645740264655,0.5807903153976
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","locom","single",3260,447,3134.49,373,0.949061662198391,3.76599056731384e-06,0.498271486008671
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","locom2","single",3260,378,483.479,313,NA,4.19518449228861e-06,0.481671396612572
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","logistic_presence","single",3260,579,5.517,489,0.797546012269939,3.97298062611712e-06,0.52698285536909
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","maaslin3","abundance",3260,101,122.295,81,0.765432098765432,0.00220878612630307,0.436108316972128
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","maaslin3","presence",3260,538,122.295,455,0.857142857142857,1.39796677791514e-05,0.539878329891683
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","maaslin3","combined",3260,569,122.295,486,NA,0.000154092161501776,0.583977792700389
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","pursue","abundance",3260,19,276.796,14,0.928571428571429,0.0351520257687736,0.309037025844322
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","pursue","presence",3260,0,276.796,0,NA,NA,NA
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","pursue","combined",3260,18,276.796,13,NA,0.0281426298159581,0.286887010484489
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","pursue03_epermcs1","single",3260,557,244.695,474,0.943037974683544,7.03191339074855e-05,0.566798235760886
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","wilcoxon_tss","single",3260,618,2.667,528,0.791666666666667,7.36106231483406e-05,0.578244101853981
+"D","mbd_gingival_v35","supragingival_plaque vs subgingival_plaque","zicoseq","single",3260,657,1539.374,571,NA,0.00452178606085037,0.6775350472686
