@@ -1,0 +1,51 @@
+               setting candidate cells p_any mean_fp  fpr05  excess_p
+             house:R06 eperm_cs1    40 0.050   0.050 0.0491  6.90e-01
+             house:R06   eperm_g    40 0.050   0.050 0.0491  6.90e-01
+             house:R06  eperm_gd    40 0.050   0.050 0.0491  6.90e-01
+        house:R17.null eperm_cs1    40 0.025   0.025 0.0451  9.97e-01
+        house:R17.null   eperm_g    40 0.075   0.075 0.0464  9.79e-01
+        house:R17.null  eperm_gd    40 0.050   0.050 0.0469  9.56e-01
+        house:R19.null eperm_cs1    40 0.025   0.025 0.0441  1.00e+00
+        house:R19.null   eperm_g    40 0.125   0.125 0.0371  1.00e+00
+        house:R19.null  eperm_gd    40 0.225   0.425 0.0410  1.00e+00
+        house:R21.null eperm_cs1    40 0.125   0.150 0.0513  2.44e-01
+        house:R21.null   eperm_g    40 0.100   0.150 0.0504  4.26e-01
+        house:R21.null  eperm_gd    40 0.100   0.150 0.0501  4.88e-01
+        house:R22.null eperm_cs1    40 0.025   0.025 0.0429  1.00e+00
+        house:R22.null   eperm_g    40 0.125   0.125 0.0519  1.63e-01
+        house:R22.null  eperm_gd    40 0.125   0.125 0.0519  1.63e-01
+        house:R23.null eperm_cs1    40 0.100   0.125 0.0467  9.62e-01
+        house:R23.null   eperm_g    40 0.050   0.050 0.0502  4.62e-01
+        house:R23.null  eperm_gd    40 0.050   0.050 0.0502  4.62e-01
+ implant:B_conf07.null eperm_cs1    40 0.075   0.075 0.0495  7.09e-01
+ implant:B_conf07.null   eperm_g    40 0.025   0.025 0.0484  9.52e-01
+ implant:B_conf07.null  eperm_gd    40 0.025   0.025 0.0484  9.52e-01
+   implant:B_cont.null eperm_cs1    40 0.025   0.025 0.0413  1.00e+00
+   implant:B_cont.null   eperm_g    40 0.025   0.025 0.0531  7.92e-04
+   implant:B_cont.null  eperm_gd    40 0.025   0.025 0.0531  7.92e-04
+        implant:B_null eperm_cs1    40 0.025   0.050 0.0506  2.83e-01
+        implant:B_null   eperm_g    40 0.025   0.050 0.0510  1.63e-01
+        implant:B_null  eperm_gd    40 0.025   0.050 0.0510  1.44e-01
+               mid:R06 eperm_cs1    40 0.075   0.100 0.0557  9.51e-04
+               mid:R06   eperm_g    40 0.075   0.100 0.0556  1.08e-03
+               mid:R06  eperm_gd    40 0.075   0.100 0.0557  9.51e-04
+          mid:R17.null eperm_cs1    40 0.050   0.050 0.0530  4.82e-02
+          mid:R17.null   eperm_g    40 0.025   0.025 0.0614  2.36e-10
+          mid:R17.null  eperm_gd    40 0.450   1.600 0.0657  9.17e-18
+          mid:R19.null eperm_cs1    40 0.375   0.800 0.0673  9.52e-22
+          mid:R19.null   eperm_g    40 0.700   1.625 0.0828  3.25e-68
+          mid:R19.null  eperm_gd    40 0.975   8.200 0.1029 1.41e-160
+               msq:R06 eperm_cs1    40 0.050   0.075 0.0474  9.28e-01
+               msq:R06   eperm_g    40 0.050   0.075 0.0478  8.98e-01
+               msq:R06  eperm_gd    40 0.050   0.075 0.0478  8.98e-01
+          msq:R19.null eperm_cs1    40 0.025   0.025 0.0451  9.97e-01
+          msq:R19.null   eperm_g    40 0.175   0.250 0.0234  1.00e+00
+          msq:R19.null  eperm_gd    40 0.200   0.350 0.0246  1.00e+00
+
+overall:
+ candidate cells p_any worst_setting_p_any  fpr05
+ eperm_cs1   560 0.075               0.375 0.0486
+   eperm_g   560 0.116               0.700 0.0508
+  eperm_gd   560 0.173               0.975 0.0523
+
+P(any) <= 0.075 overall: eperm_cs1
