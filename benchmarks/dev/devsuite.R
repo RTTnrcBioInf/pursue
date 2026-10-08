@@ -30,6 +30,7 @@ op <- OptionParser(option_list = list(
   make_option("--cores", type = "integer", default = 2L),
   make_option("--label", default = format(Sys.time(), "%Y%m%d-%H%M")),
   make_option("--seed", type = "integer", default = 9001L, help = "dev master seed; the benchmark uses 1"),
+  make_option("--extra", default = "", help = "extra settings, run only when named: <sim>:<regime>[.null] (.null = da_frac 0), implant:B_conf04|B_conf07|B_cont[.null]"),
   make_option("--bench-root", default = NULL)))
 opt <- parse_args(op)
 if (!is.null(opt$`bench-root`)) Sys.setenv(PURSUE_BENCH_ROOT = opt$`bench-root`)
@@ -78,13 +79,24 @@ S <- Filter(function(s) s$sim %in% sims, S)
 is_ext <- vapply(S, function(s) isTRUE(s$ext), logical(1))
 S <- switch(opt$suite, core = S[!is_ext], ext = S[is_ext], full = S, stop("--suite must be core, ext or full"))
 if (opt$settings != "all") S <- Filter(function(s) s$id %in% strsplit(opt$settings, ",")[[1]], S)
+# --extra (added 2026-10-08, it42): null versions of any regime (da_frac 0: the confounded, depth-confounded,
+# continuous and repeated-measures nulls the permutation path must hold) and the implant specs the benchmark has
+# but the core suite does not (B_conf04, B_conf07, B_cont). Appended after the filters, so no earlier suite changes.
+imp_x <- list(B_conf04 = utils::modifyList(spec(), list(conf_phi = 0.4)), B_conf07 = utils::modifyList(spec(), list(conf_phi = 0.7)),
+              B_cont = utils::modifyList(spec("abundance"), list(exposure = "continuous")))
+if (nzchar(opt$extra)) for (id in strsplit(opt$extra, ",")[[1]]) {
+  nul <- grepl("\\.null$", id); base <- sub("\\.null$", "", id); sm <- sub(":.*", "", base); rg <- sub(".*:", "", base)
+  if (sm == "implant") { sp <- if (!is.null(imp[[rg]])) imp[[rg]] else imp_x[[rg]]; if (is.null(sp)) stop("unknown implant spec: ", rg)
+    if (nul) sp$da_frac <- 0; S[[length(S) + 1L]] <- list(id = id, sim = "implant", spec = sp)
+  } else S[[length(S) + 1L]] <- list(id = id, sim = sm, regime = rg, null = nul) }
 tpls <- strsplit(opt$templates, ",")[[1]]
 TPL <- setNames(lapply(tpls, function(id) readRDS(file.path(root, "devdata", paste0(id, ".rds")))), tpls)
 
 source(file.path(root, "dev", "tools", "stress.R"))
 make_cell <- function(s, tpl, seed) {
   if (s$sim == "implant") return(implant(tpl, s$spec, seed))
-  x <- simulate_cell_data(s$sim, tpl, regimes[regimes$regime_id == s$regime, ], seed, cache_dir)
+  rg <- regimes[regimes$regime_id == s$regime, ]; if (isTRUE(s$null)) { rg$da_frac <- 0; rg$is_null <- TRUE }
+  x <- simulate_cell_data(s$sim, tpl, rg, seed, cache_dir)
   if (!is.null(s$bloom)) x <- apply_bloom(x, s$bloom, seed)
   x
 }
