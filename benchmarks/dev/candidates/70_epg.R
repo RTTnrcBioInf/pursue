@@ -67,8 +67,8 @@
 }
 .epg_memo <- new.env()
 .epg_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     paths = c("rho", "cont", "cov", "clus"), adet = FALSE) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, paths, adet)
+                     paths = c("rho", "cont", "cov", "clus"), adet = FALSE, nodet_conf = FALSE) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, paths, adet, nodet_conf)
   if (!is.null(.epg_memo$key) && identical(.epg_memo$key, key)) return(.epg_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   base <- function(rmin) { v <- .eperm_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor,
@@ -76,8 +76,11 @@
   type <- if (is.null(d)) NA else if (!is.null(d$cl)) { if (d$binary && is.null(d$Z) && d$cl_ok) "clus" else NA } else
     if (!is.null(d$Z)) "cov" else if (d$binary) "two" else "cont"
   if (is.na(type) || (type != "two" && !type %in% paths)) { val <- base(0.51)
-  } else if (type == "two") { val <- if (adet) .eps_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor,
-                                                     ps = character(0), adet = TRUE, rho_min = if ("rho" %in% paths) 0 else 0.51) else base(if ("rho" %in% paths) 0 else 0.51)
+  } else if (type == "two") { rmin <- if ("rho" %in% paths) 0 else 0.51
+    val <- if (adet && isTRUE(round(.rho_design(depth, d$g1), 2) >= rmin)) .eps_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B,
+      B2 = B2, winsor = winsor, ps = character(0), adet = TRUE, rho_min = rmin, paths = paths) else base(rmin)
+    if (nodet_conf && isFALSE(val$perm) && isTRUE(val$rho < 0.51)) {         # it46: designed depth confounding -- no detection kernel
+      val$p_full <- .sel_bh(cbind(log = val$p_log, sqrt = val$p_sqrt), margin = margin); val$path <- "efull_nodet" }
   } else {
     x <- d$x; n <- ncol(counts); rho <- round(.epg_rho(depth, d), 2)
     sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, n)
@@ -132,3 +135,34 @@ register_candidate("eperm_g", function(counts, meta, formula, tested_term) {
 register_candidate("eperm_gd", function(counts, meta, formula, tested_term) {
   v <- .epg_fit(counts, meta, formula, tested_term, adet = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
 }, notes = "it42 + it44: eperm_g with detection alone among the selection options")
+
+# --- srv18 verdicts (2026-10-09): keep the continuous-exposure path (house R22 22.85 -> 25.50, B_cont 10.60 -> 11.75;
+# nulls to be confirmed at more reps) and detection-as-option in exchangeable two-group designs (B_prev 33.2 -> 35.3);
+# drop the depth-confounded path (power down on msq / house R19, P(any) up: house R19.null 0.125, msq R19.null 0.175,
+# mid R19.null 0.70 -- heteroscedastic scores break the extreme tail), the subject-permutation path (R23 5.35 -> 3.25:
+# 20 units) and Freedman-Lane for covariates (R21 +0.2, B_conf07 -1.45). eperm_c2 is the combination.
+register_candidate("eperm_c2", function(counts, meta, formula, tested_term) {
+  v <- .epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it42/44 kept parts: eperm_cs1 + continuous-exposure permutation path + detection as a selection option (exchangeable two-group)")
+# it45: Storey's adaptive BH as PURSUE's own FDR procedure. BH controls FDR at pi0 q, so with 10-40% DA a fixed q leaves
+# 5-30% of the error budget unused (dev suite FDR 0.007-0.06 at q 0.05). q = pi0 x BH, pi0 = min(1, (1 + #{p > 0.5}) /
+# (m / 2)): Storey, Taylor & Siegmund 2004, finite-sample FDR control under independence; the +1 keeps pi0 = 1 under a
+# global null, so P(any) there is unchanged. A method's own FDR procedure is part of the method (elementary.R).
+.storey_q <- function(p) { f <- is.finite(p); q <- rep(NA_real_, length(p)); m <- sum(f); if (!m) return(q)
+  pi0 <- min(1, (1 + sum(p[f] > 0.5)) / (m * 0.5)); q[f] <- pmin(1, pi0 * stats::p.adjust(p[f], "BH")); q }
+register_candidate("eperm_c2q", function(counts, meta, formula, tested_term) {
+  v <- .epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE); data.frame(feature = v$feature, p = v$p_full, q = .storey_q(v$p_full), estimate = v$est)
+}, notes = "it45: eperm_c2 with Storey's adaptive BH (pi0 from p > 0.5, +1 correction)")
+
+# it46: no detection kernel under designed depth confounding. Local mid R19 nulls (hmp_tongue, 8 cells, efull path):
+# BH false discoveries in 8 / 8 cells with det or the lead, 2 / 8 with log or sqrt alone; null tail at p < 0.01: det 3.3x
+# nominal, lead 3.0x, log 1.5x, sqrt 1.8x. MIDASim draws presence from a depth-dependent model on top of the sampling at
+# that depth, so deep samples carry presences that no rarefaction can thin away -- detection cannot be made
+# depth-invariant there, abundance given the sampling can. Cost on house (4 cells): R17 lead 8.75 vs log 7.25, R19 10.75
+# vs 10.75. Used only where the design is depth-confounded beyond chance (rho < 0.51, the efull path).
+.sel_bh <- function(Q, margin = 1L) {                              # first column the default; LOO BH-count selection (it40)
+  hit <- apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
+  loo <- sweep(-hit, 2, colSums(hit), "+"); ifelse(loo[, 2] >= loo[, 1] + margin, Q[, 2], Q[, 1]) }
+register_candidate("eperm_c3", function(counts, meta, formula, tested_term) {
+  v <- .epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
+}, notes = "it46: eperm_c2 without the detection kernel under designed depth confounding (rho < 0.51)")

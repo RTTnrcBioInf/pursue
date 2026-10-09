@@ -22,14 +22,14 @@
 }
 .eps_memo <- new.env()
 .eps_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min)
+                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51, paths = c("rho", "cont", "cov", "clus")) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min, paths)
   if (!is.null(.eps_memo$key) && identical(.eps_memo$key, key)) return(.eps_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   rho <- if (!is.null(d) && d$binary) round(.rho_design(depth, d$g1), 2) else NA
   if (length(ps) && !isTRUE(rho >= 0.51)) ps <- character(0)       # per-sample scales need exchangeable depth
   if (is.null(d) || !d$binary || !is.null(d$Z) || !is.null(d$cl) || !isTRUE(rho >= rho_min) || (!length(ps) && !adet)) {
-    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet)
+    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet, paths = paths)
   } else {
     g1 <- d$g1; x <- d$x; n <- ncol(counts); raw <- counts
     sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, n)
