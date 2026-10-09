@@ -1,0 +1,42 @@
+             setting candidate cells  p_any mean_fp  fpr05 excess_p
+           house:R06  eperm_c2    80 0.0375  0.0375 0.0498 5.72e-01
+           house:R06 eperm_c2q    80 0.0375  0.0375 0.0498 5.72e-01
+           house:R06  eperm_c3    80 0.0375  0.0375 0.0498 5.50e-01
+      house:R19.null  eperm_c2    80 0.0500  0.0500 0.0453 1.00e+00
+      house:R19.null eperm_c2q    80 0.0500  0.0500 0.0453 1.00e+00
+      house:R19.null  eperm_c3    80 0.0375  0.0375 0.0447 1.00e+00
+      house:R22.null  eperm_c2    80 0.0625  0.0625 0.0525 3.13e-02
+      house:R22.null eperm_c2q    80 0.0625  0.0625 0.0525 3.13e-02
+      house:R22.null  eperm_c3    80 0.0625  0.0625 0.0525 3.13e-02
+ implant:B_cont.null  eperm_c2    80 0.0375  0.2000 0.0499 5.83e-01
+ implant:B_cont.null eperm_c2q    80 0.0500  0.3375 0.0499 5.83e-01
+ implant:B_cont.null  eperm_c3    80 0.0375  0.2000 0.0499 5.83e-01
+      implant:B_null  eperm_c2    80 0.0500  0.0625 0.0510 8.07e-02
+      implant:B_null eperm_c2q    80 0.0625  0.0750 0.0510 8.07e-02
+      implant:B_null  eperm_c3    80 0.0500  0.0625 0.0510 8.07e-02
+             mid:R06  eperm_c2    80 0.0625  0.0750 0.0541 7.91e-04
+             mid:R06 eperm_c2q    80 0.0750  0.0875 0.0541 7.91e-04
+             mid:R06  eperm_c3    80 0.0625  0.0750 0.0542 6.04e-04
+        mid:R17.null  eperm_c2    80 0.0750  0.0750 0.0538 1.29e-03
+        mid:R17.null eperm_c2q    80 0.0875  0.1000 0.0538 1.29e-03
+        mid:R17.null  eperm_c3    80 0.0500  0.0875 0.0543 3.73e-04
+        mid:R19.null  eperm_c2    80 0.3750  0.8750 0.0683 2.32e-46
+        mid:R19.null eperm_c2q    80 0.4000  1.0875 0.0683 2.32e-46
+        mid:R19.null  eperm_c3    80 0.1750  0.2250 0.0592 1.26e-13
+             msq:R06  eperm_c2    80 0.0375  0.1125 0.0496 6.36e-01
+             msq:R06 eperm_c2q    80 0.0500  0.1250 0.0496 6.36e-01
+             msq:R06  eperm_c3    80 0.0375  0.1125 0.0496 6.16e-01
+        msq:R19.null  eperm_c2    80 0.0500  0.0500 0.0479 9.56e-01
+        msq:R19.null eperm_c2q    80 0.0500  0.0875 0.0479 9.56e-01
+        msq:R19.null  eperm_c3    80 0.0375  0.0625 0.0479 9.51e-01
+        msq:R22.null  eperm_c2    80 0.0375  0.0625 0.0499 5.26e-01
+        msq:R22.null eperm_c2q    80 0.0375  0.0625 0.0499 5.26e-01
+        msq:R22.null  eperm_c3    80 0.0375  0.0625 0.0499 5.26e-01
+
+overall:
+ candidate cells  p_any worst_setting_p_any  fpr05
+  eperm_c2   880 0.0795               0.375 0.0516
+ eperm_c2q   880 0.0875               0.400 0.0516
+  eperm_c3   880 0.0568               0.175 0.0510
+
+P(any) <= 0.075 overall: eperm_c3
