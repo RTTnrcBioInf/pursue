@@ -67,8 +67,8 @@
 }
 .epg_memo <- new.env()
 .epg_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     paths = c("rho", "cont", "cov", "clus"), adet = FALSE, nodet_conf = FALSE) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, paths, adet, nodet_conf)
+                     paths = c("rho", "cont", "cov", "clus"), adet = FALSE, nodet_conf = FALSE, pk = character(0)) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, paths, adet, nodet_conf, pk)
   if (!is.null(.epg_memo$key) && identical(.epg_memo$key, key)) return(.epg_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   base <- function(rmin) { v <- .eperm_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor,
@@ -77,8 +77,8 @@
     if (!is.null(d$Z)) "cov" else if (d$binary) "two" else "cont"
   if (is.na(type) || (type != "two" && !type %in% paths)) { val <- base(0.51)
   } else if (type == "two") { rmin <- if ("rho" %in% paths) 0 else 0.51
-    val <- if (adet && isTRUE(round(.rho_design(depth, d$g1), 2) >= rmin)) .eps_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B,
-      B2 = B2, winsor = winsor, ps = character(0), adet = TRUE, rho_min = rmin, paths = paths) else base(rmin)
+    val <- if ((adet || length(pk)) && isTRUE(round(.rho_design(depth, d$g1), 2) >= rmin)) .eps_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B,
+      B2 = B2, winsor = winsor, ps = character(0), adet = adet, rho_min = rmin, paths = paths, pk = pk) else base(rmin)
     if (nodet_conf && isFALSE(val$perm) && isTRUE(val$rho < 0.51)) {         # it46: designed depth confounding -- no detection kernel
       val$p_full <- .sel_bh(cbind(log = val$p_log, sqrt = val$p_sqrt), margin = margin); val$path <- "efull_nodet" }
   } else {
@@ -89,6 +89,7 @@
     ct <- counts[rows, , drop = FALSE]; ct <- ct[rowSums(ct > 0) >= 3, , drop = FALSE]
     E <- .pair_graph(n, K); ok <- rowSums(counts > 0) >= 3
     hs <- c(det = "det", log = "log", sqrt = "sqrt"); combos <- list(lead = c("det", "log"), det = "det", log = "log", sqrt = "sqrt"); alts <- c(if (adet) "det", "log", "sqrt")
+    for (h in pk) { hs[[h]] <- h; combos[[h]] <- h; alts <- c(alts, h) }             # it47: extra pairwise kernels (pos)
     if (type == "clus") {                                          # subject-level units: scores summed within subject
       Mem <- stats::model.matrix(~ d$cl - 1); agg <- function(S) S %*% Mem
       g1u <- as.numeric(tapply(x, d$cl, `[`, 1)) == 1; nu <- length(g1u); G1 <- matrix(as.numeric(g1u), nu, 1)
@@ -99,7 +100,7 @@
       tstat <- function(SS) { v <- sapply(hs, function(h) { r <- .fl_resid(SS[[h]], pr); .fl_t(r, r^2, pr, I1)[, 1] })
         v[!is.finite(v)] <- 0; matrix(v, ncol = length(hs), dimnames = list(NULL, hs)) }
     }
-    sc <- function(cnt, gm, h) .perm_scores(cnt, depth, exp(gm * x + sf), h, E, rho = rho)
+    sc <- function(cnt, gm, h) if (h == "pos") .perm_scores_pos(cnt, depth, exp(gm * x + sf), E, rho = rho) else .perm_scores(cnt, depth, exp(gm * x + sf), h, E, rho = rho)
     medt <- function(gm) { SS <- list(det = NULL, log = sc(ct, gm, "log"), sqrt = NULL)
       t <- if (type == "clus") { a <- agg(SS$log); a <- a - rowMeans(a); .perm_tstat(a, a^2, G1, sum(g1u), nu - sum(g1u))[, 1] } else { r <- .fl_resid(SS$log, pr); .fl_t(r, r^2, pr, I1)[, 1] }
       stats::median(t[is.finite(t)]) }

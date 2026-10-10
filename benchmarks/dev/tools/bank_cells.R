@@ -4,7 +4,7 @@
 # can run (sd2: SparseDOSSA2 fits take hours) can be diagnosed and iterated on anywhere.
 #   Rscript benchmarks/dev/tools/bank_cells.R --settings sd2:R08,msq:R00 --templates hmp_tongue --reps 5 \
 #           --candidates eperm_cs1,ref_ldm,ref_zicoseq --out benchmarks/dev/bank/b1 --cores 16
-# One RDS per cell: list(id, template, rep, counts, meta, formula, tested_term, truth, p = features x candidates,
+# One RDS per cell: list(id, template, rep, counts, meta, formula (text; as.formula() it), tested_term, truth, p = features x candidates,
 # q = the same for candidates returning their own q, eperm = per-option p of eperm_cs1 when it is run).
 suppressMessages(library(optparse))
 op <- OptionParser(option_list = list(make_option("--settings"), make_option("--templates", default = "hmp_tongue,twinsuk_stool"),
@@ -54,7 +54,9 @@ run <- function(k) {
     if (cn == "eperm_cs1") { v <- .eperm_memo$val; g <- function(x) if (length(x) == nrow(ct)) x else rep(if (length(x) == 1L) x else NA, nrow(ct))
       ep <- data.frame(full = g(v$p_full), lead = g(v$p_ms), det = g(v$p_det), log = g(v$p_log), sqrt = g(v$p_sqrt), choice = g(v$choice),
                        gam = g(v$gam), rho = g(v$rho), perm = isTRUE(v$perm)) } }
-  saveRDS(list(id = id, template = tid, rep = rp, seed = cell_seed(id, tid, rp), counts = ct, meta = meta, formula = sim$formula, tested_term = sim$tested_term,
+  # the formula is stored as text: a formula object carries its environment, which here is the simulator's whole frame
+  # (template, fitted parameters) -- bank1's msq twinsuk cells were 54 MB each because of it (2026-10-10)
+  saveRDS(list(id = id, template = tid, rep = rp, seed = cell_seed(id, tid, rp), counts = ct, meta = meta, formula = paste(deparse(sim$formula), collapse = " "), tested_term = sim$tested_term,
                truth = truth, p = P, q = Q, secs = secs, eperm = ep), f, compress = "xz")
   cat(format(Sys.time(), "%H:%M:%S"), id, tid, rp, "\n"); f
 }

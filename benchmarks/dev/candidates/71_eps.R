@@ -22,14 +22,14 @@
 }
 .eps_memo <- new.env()
 .eps_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51, paths = c("rho", "cont", "cov", "clus")) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min, paths)
+                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51, paths = c("rho", "cont", "cov", "clus"), pk = character(0)) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min, paths, pk)
   if (!is.null(.eps_memo$key) && identical(.eps_memo$key, key)) return(.eps_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   rho <- if (!is.null(d) && d$binary) round(.rho_design(depth, d$g1), 2) else NA
   if (length(ps) && !isTRUE(rho >= 0.51)) ps <- character(0)       # per-sample scales need exchangeable depth
-  if (is.null(d) || !d$binary || !is.null(d$Z) || !is.null(d$cl) || !isTRUE(rho >= rho_min) || (!length(ps) && !adet)) {
-    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet, paths = paths)
+  if (is.null(d) || !d$binary || !is.null(d$Z) || !is.null(d$cl) || !isTRUE(rho >= rho_min) || (!length(ps) && !adet && !length(pk))) {
+    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet, paths = paths, pk = pk)
   } else {
     g1 <- d$g1; x <- d$x; n <- ncol(counts); raw <- counts
     sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, n)
@@ -41,9 +41,10 @@
     gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(medf, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
     E <- .pair_graph(n, K); ok <- rowSums(counts > 0) >= 3; cok <- counts[ok, , drop = FALSE]; rok <- raw[ok, , drop = FALSE]
     hs <- c(det = "det", log = "log", sqrt = "sqrt"); combos <- list(lead = c("det", "log"), det = "det", log = "log", sqrt = "sqrt")
-    for (h in ps) combos[[h]] <- h
+    for (h in c(pk, ps)) combos[[h]] <- h
+    hs <- c(hs, setNames(pk, pk))
     alts <- setdiff(names(combos), c("lead", if (!adet) "det"))
-    scores <- function(gm, sfb) { S <- lapply(hs, function(h) .perm_scores(cok, depth, exp(gm * x + sfb), h, E, rho = rho))
+    scores <- function(gm, sfb) { S <- lapply(hs, function(h) if (h == "pos") .perm_scores_pos(cok, depth, exp(gm * x + sfb), E, rho = rho) else .perm_scores(cok, depth, exp(gm * x + sfb), h, E, rho = rho))
       for (h in ps) S[[h]] <- .ps_scores(rok, depth, x, gm, h); S }                 # per-sample scales: raw counts (no winsorising)
     S <- scores(gm, sf); S0 <- scores(0, sf)
     G1 <- matrix(as.numeric(g1), n, 1); hh <- names(S)
