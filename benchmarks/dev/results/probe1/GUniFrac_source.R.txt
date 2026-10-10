@@ -1,0 +1,1476 @@
+# GUniFrac 1.9
+#### GUniFrac::adonis3
+function (formula, data = NULL, permutations = 999, method = "bray", 
+    strata = NULL, contr.unordered = "contr.sum", contr.ordered = "contr.poly", 
+    parallel = getOption("mc.cores"), ...) 
+{
+    EPS <- sqrt(.Machine$double.eps)
+    TOL <- 1e-07
+    Terms <- terms(formula, data = data)
+    lhs <- formula[[2]]
+    lhs <- eval(lhs, data, parent.frame())
+    formula[[2]] <- NULL
+    rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE)
+    op.c <- options()$contrasts
+    options(contrasts = c(contr.unordered, contr.ordered))
+    rhs <- model.matrix(formula, rhs.frame)
+    options(contrasts = op.c)
+    grps <- attr(rhs, "assign")
+    qrhs <- qr(rhs)
+    rhs <- rhs[, qrhs$pivot, drop = FALSE]
+    rhs <- rhs[, 1:qrhs$rank, drop = FALSE]
+    grps <- grps[qrhs$pivot][1:qrhs$rank]
+    u.grps <- unique(grps)
+    nterms <- length(u.grps) - 1
+    if (nterms < 1) 
+        stop("right-hand-side of formula has no usable terms")
+    H.s <- lapply(2:length(u.grps), function(j) {
+        Xj <- rhs[, grps %in% u.grps[1:j]]
+        qrX <- qr(Xj, tol = TOL)
+        Q <- qr.Q(qrX)
+        tcrossprod(Q[, 1:qrX$rank])
+    })
+    if (inherits(lhs, "dist")) {
+        if (any(lhs < -TOL)) 
+            stop("dissimilarities must be non-negative")
+        dmat <- as.matrix(lhs^2)
+    }
+    else if ((is.matrix(lhs) || is.data.frame(lhs)) && isSymmetric(unname(as.matrix(lhs)))) {
+        dmat <- as.matrix(lhs^2)
+        lhs <- as.dist(lhs)
+    }
+    else {
+        dist.lhs <- as.matrix(vegdist(lhs, method = method, ...))
+        dmat <- dist.lhs^2
+    }
+    n <- nrow(dmat)
+    G <- -sweep(dmat, 1, rowMeans(dmat))/2
+    SS.Exp.comb <- sapply(H.s, function(hat) sum(G * t(hat)))
+    SS.Exp.each <- c(SS.Exp.comb - c(0, SS.Exp.comb[-nterms]))
+    H.snterm <- H.s[[nterms]]
+    tIH.snterm <- t(diag(n) - H.snterm)
+    G.s <- list()
+    G.s[[1]] <- G
+    if (length(H.s) > 1) 
+        for (i in 2:(length(H.s))) G.s[[i]] <- (diag(n) - H.s[[i - 
+            1]]) %*% G %*% (diag(n) - H.s[[i - 1]])
+    if (length(H.s) > 1) 
+        for (i in length(H.s):2) H.s[[i]] <- H.s[[i]] - H.s[[i - 
+            1]]
+    SS.Res <- sum(G * tIH.snterm)
+    df.Exp <- sapply(u.grps[-1], function(i) sum(grps == i))
+    df.Res <- n - qrhs$rank
+    if (inherits(lhs, "dist")) {
+        beta.sites <- qr.coef(qrhs, as.matrix(lhs))
+        beta.spp <- NULL
+    }
+    else {
+        beta.sites <- qr.coef(qrhs, dist.lhs)
+        beta.spp <- qr.coef(qrhs, as.matrix(lhs))
+    }
+    colnames(beta.spp) <- colnames(lhs)
+    colnames(beta.sites) <- rownames(lhs)
+    F.Mod <- (SS.Exp.each/df.Exp)/(SS.Res/df.Res)
+    f.test <- function(tH, G, df.Exp, df.Res, tIH.snterm) {
+        (sum(G * tH)/df.Exp)/(sum(G * tIH.snterm)/df.Res)
+    }
+    SS.perms <- function(H, G, I) {
+        c(SS.Exp.p = sum(G * t(H)), S.Res.p = sum(G * t(I - H)))
+    }
+    getPermuteMatrix <- getFromNamespace("getPermuteMatrix", 
+        "vegan")
+    p <- getPermuteMatrix(permutations, n, strata = strata)
+    permutations <- nrow(p)
+    if (permutations) {
+        tH.s <- lapply(H.s, t)
+        if (is.null(parallel)) 
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        isParal <- hasClus || parallel > 1
+        isMulticore <- .Platform$OS.type == "unix" && !hasClus
+        if (isParal && !isMulticore && !hasClus) {
+            parallel <- makeCluster(parallel)
+        }
+        if (isParal) {
+            if (isMulticore) {
+                f.perms <- sapply(1:nterms, function(i) unlist(mclapply(1:permutations, 
+                  function(j) f.test(tH.s[[i]], G.s[[i]][p[j, 
+                    ], p[j, ]], df.Exp[i], df.Res, tIH.snterm), 
+                  mc.cores = parallel)))
+            }
+            else {
+                f.perms <- sapply(1:nterms, function(i) parSapply(parallel, 
+                  1:permutations, function(j) f.test(tH.s[[i]], 
+                    G.s[[i]][p[j, ], p[j, ]], df.Exp[i], df.Res, 
+                    tIH.snterm)))
+            }
+        }
+        else {
+            f.perms <- sapply(1:nterms, function(i) sapply(1:permutations, 
+                function(j) f.test(tH.s[[i]], G.s[[i]][p[j, ], 
+                  p[j, ]], df.Exp[i], df.Res, tIH.snterm)))
+        }
+        if (isParal && !isMulticore && !hasClus) 
+            stopCluster(parallel)
+        P <- (rowSums(t(f.perms) >= F.Mod - EPS) + 1)/(permutations + 
+            1)
+    }
+    else {
+        f.perms <- P <- rep(NA, nterms)
+    }
+    SumsOfSqs = c(SS.Exp.each, SS.Res, sum(SS.Exp.each) + SS.Res)
+    tab <- data.frame(Df = c(df.Exp, df.Res, n - 1), SumsOfSqs = SumsOfSqs, 
+        MeanSqs = c(SS.Exp.each/df.Exp, SS.Res/df.Res, NA), F.Model = c(F.Mod, 
+            NA, NA), R2 = SumsOfSqs/SumsOfSqs[length(SumsOfSqs)], 
+        P = c(P, NA, NA))
+    rownames(tab) <- c(attr(attr(rhs.frame, "terms"), "term.labels")[u.grps], 
+        "Residuals", "Total")
+    colnames(tab)[ncol(tab)] <- "Pr(>F)"
+    attr(tab, "heading") <- c("Terms added sequentially (first to last)\n")
+    class(tab) <- c("anova", class(tab))
+    out <- list(aov.tab = tab, call = match.call(), coefficients = beta.spp, 
+        coef.sites = beta.sites, f.perms = f.perms, model.matrix = rhs, 
+        terms = Terms)
+    class(out) <- "adonis"
+    out
+}
+
+#### GUniFrac::bbmix.fit.MM
+function (ct, dep, nIter = 10, winsor.qt = 1) 
+{
+    if (mean(ct == 0) >= 0.95 | sum(ct != 0) < 5) {
+        stop("The number of nonzero is too small to fit the model! Consider removing it from testing or please do not enable posterior sampling!\n")
+    }
+    prop0 <- ct/dep
+    qt <- quantile(prop0, winsor.qt)
+    prop0[prop0 >= qt] <- qt
+    var1 <- var(prop0)/2
+    mean1 <- mean(prop0)/2
+    var2 <- var(prop0)/2
+    mean2 <- 3 * mean(prop0)/2
+    pi <- 0.5
+    for (i in 1:nIter) {
+        shape1.1 <- ((1 - mean1)/var1 - 1/mean1) * mean1^2
+        shape1.2 <- shape1.1 * (1/mean1 - 1)
+        shape2.1 <- ((1 - mean2)/var2 - 1/mean2) * mean2^2
+        shape2.2 <- shape2.1 * (1/mean2 - 1)
+        m1 <- shape1.1/(shape1.1 + shape1.2)
+        s1 <- shape1.1 + shape1.2
+        m2 <- shape2.1/(shape2.1 + shape2.2)
+        s2 <- shape2.1 + shape2.2
+        f1 <- dbetabinom(ct, dep, m1, s1)
+        f2 <- dbetabinom(ct, dep, m2, s2)
+        q1 <- pi * f1/(pi * f1 + (1 - pi) * f2)
+        q2 <- 1 - q1
+        pi <- mean(q1)
+        mean1 <- sum(prop0 * q1)/sum(q1)
+        var1 <- sum((prop0 - mean1)^2 * q1)/sum(q1)
+        mean2 <- sum(prop0 * q2)/sum(q2)
+        var2 <- sum((prop0 - mean2)^2 * q2)/sum(q2)
+    }
+    return(list(shape1.1 = shape1.1, shape1.2 = shape1.2, shape2.1 = shape2.1, 
+        shape2.2 = shape2.2, pi = pi, q1 = q1))
+}
+
+#### GUniFrac::calculateK
+function (G, H, df2) 
+{
+    n <- nrow(G)
+    dG <- diag(G)
+    mu1 <- sum(dG)/(n - df2)
+    mu2 <- (sum(G^2) - sum(dG^2))/((n - df2)^2 + sum(H^4) - 2 * 
+        sum(diag(H^2)))
+    k <- mu1^2/mu2
+    list(K = k, mu1 = mu1, mu2 = mu2)
+}
+
+#### GUniFrac::dICC
+function (dist.mat, strata) 
+{
+    n <- length(strata)
+    strata <- factor(strata)
+    m <- nlevels(strata)
+    ns <- table(strata)
+    weights <- strata
+    levels(weights) <- ns
+    weights <- as.numeric(as.character(weights))
+    dist.mat <- as.matrix(dist.mat^2)
+    with.mask <- dist.mat[, ]
+    with.mask[, ] <- 0
+    for (ID in levels(strata)) {
+        ind <- strata == ID
+        with.mask[ind, ind] <- 1
+    }
+    btw.mask <- !with.mask
+    btw.mask[upper.tri(btw.mask)] <- with.mask[upper.tri(with.mask)] <- 0
+    diag(btw.mask) <- diag(with.mask) <- 0
+    SSW <- sum(dist.mat * with.mask/weights)
+    SST <- (sum(dist.mat * btw.mask) + sum(dist.mat * with.mask))/n
+    SSB <- SST - SSW
+    R2 <- SSB/SST
+    SE <- SSW/(n - m)
+    SB <- (SST - (n - 1) * SE)/(n - sum(ns^2)/n)
+    ICC <- SB/(SB + SE)
+    return(list(ICC = ICC))
+}
+
+#### GUniFrac::dICC.SE.asympt
+function (dist.mat, strata) 
+{
+    strata <- factor(strata)
+    N <- nlevels(strata)
+    if (length(strata)%%N != 0) {
+        stop("Asmptotic SE calculation only supports equal numbers of technical replicates! Consider using bootstrap SE instead!\n")
+    }
+    M <- length(strata)/N
+    M.exp <- outer(1:M, 1:M, paste)
+    M.exp <- M.exp[lower.tri(M.exp)]
+    M.exp <- strsplit(M.exp, " ")
+    strata <- as.numeric(strata)
+    obj <- sort(strata, index.return = TRUE)
+    mat <- dist.mat[obj$ix, obj$ix]
+    strata <- obj$x
+    index <- rep(1:M, N)
+    mat <- as.matrix(mat^2)
+    TN <- 0
+    for (i in 1:length(M.exp)) {
+        index1 <- as.numeric(M.exp[[i]])
+        TN <- TN + sum(mat[cbind(which(index == index1[1]), which(index == 
+            index1[2]))])
+    }
+    TN <- TN * 2/N/M/(M - 1)
+    GN <- 0
+    for (i in 1:M) {
+        for (j in 1:M) {
+            mat1 <- mat[which(index == i), which(index == j)]
+            diag(mat1) <- 0
+            GN <- GN + sum(mat1)
+        }
+    }
+    GN <- GN/N/(N - 1)/M^2
+    s11 <- 0
+    for (i in 1:length(M.exp)) {
+        index1 <- as.numeric(M.exp[[i]])
+        for (j in 1:length(M.exp)) {
+            index2 <- as.numeric(M.exp[[j]])
+            s11 <- s11 + mean(mat[cbind(which(index == index1[1]), 
+                which(index == index1[2]))] * mat[cbind(which(index == 
+                index2[1]), which(index == index2[2]))]) - TN^2
+        }
+    }
+    s11 <- 4 * s11/M^2/(M - 1)^2
+    s22 <- 0
+    for (s in 1:M) {
+        for (u in 1:M) {
+            t1 <- 0
+            t2 <- 0
+            for (v in 1:M) {
+                mat1 <- (mat[which(index == s), which(index == 
+                  v)])
+                mat2 <- (mat[which(index == u), which(index == 
+                  v)])
+                t1 <- t1 + (rowSums(mat1) - diag(mat1))
+                t2 <- t2 + (rowSums(mat2) - diag(mat2))
+            }
+            t1 <- t1/(N - 1)/M
+            t2 <- t2/(N - 1)/M
+            s22 <- s22 + mean(t1 * t2) - GN^2
+        }
+    }
+    s22 <- 4/M^2 * s22
+    s12 <- 0
+    for (i in 1:length(M.exp)) {
+        index1 <- as.numeric(M.exp[[i]])
+        vec <- mat[cbind(which(index == index1[1]), which(index == 
+            index1[2]))]
+        for (s in 1:M) {
+            t1 <- 0
+            for (u in 1:M) {
+                mat1 <- (mat[which(index == s), which(index == 
+                  u)])
+                t1 <- t1 + (rowSums(mat1) - diag(mat1))
+            }
+            t1 <- t1/(N - 1)/M
+            s12 <- s12 + mean(vec * t1) - TN * GN
+        }
+    }
+    s12 <- 4 * s12/M^2/(M - 1)
+    SE <- sqrt(TN^2/GN^4 * s22 + s11/GN^2 - 2 * TN/GN^3 * s12)/sqrt(N)
+    return(list(ICC = 1 - TN/GN, SE = SE))
+}
+
+#### GUniFrac::dICC.SE.bt
+function (dist.mat, strata, B = 199) 
+{
+    paste2 <- function(x, collapse) {
+        if (length(x) == 1) {
+            return(paste(x))
+        }
+        else {
+            return(paste(x, collapse = collapse))
+        }
+    }
+    boot.ind <- function(ind, subject) {
+        subject <- factor(subject)
+        temp <- tapply(ind, subject, paste2, collapse = " ")
+        temp <- temp[sample(levels(subject), replace = TRUE)]
+        strata <- paste0(names(temp), 1:length(temp))
+        temp <- strsplit(temp, " ")
+        return(list(ind = as.numeric(unlist(temp)), strata = factor(rep(strata, 
+            sapply(temp, length)))))
+    }
+    ind <- 1:nrow(dist.mat)
+    res <- sapply(1:B, function(i) {
+        temp <- boot.ind(ind, strata)
+        ind0 <- temp$ind
+        strata0 <- temp$strata
+        dICC(dist.mat[ind0, ind0], strata0)$ICC
+    })
+    return(list(ICC = dICC(dist.mat, strata)$ICC, SE = sd(res)))
+}
+
+#### GUniFrac::dmanova
+function (formula, data = NULL, positify = FALSE, contr.unordered = "contr.sum", 
+    contr.ordered = "contr.poly", returnG = FALSE) 
+{
+    Terms <- terms(formula, data = data)
+    lhs <- formula[[2]]
+    lhs <- eval(lhs, data, parent.frame())
+    formula[[2]] <- NULL
+    rhs.frame <- model.frame(formula, data, drop.unused.levels = TRUE)
+    op.c <- options()$contrasts
+    options(contrasts = c(contr.unordered, contr.ordered))
+    rhs <- model.matrix(formula, rhs.frame)
+    options(contrasts = op.c)
+    grps <- attr(rhs, "assign")
+    u.grps <- unique(grps)
+    nterms <- length(u.grps)
+    Z <- rhs[, grps %in% u.grps[1:(nterms - 1)], drop = F]
+    XZ <- rhs[, grps %in% u.grps[1:(nterms)], drop = F]
+    n <- nrow(XZ)
+    if (inherits(lhs, "dist")) {
+        D <- as.matrix(lhs)
+    }
+    else {
+        D <- lhs
+    }
+    D <- -D^2/2
+    G <- mean(D) + D - rowMeans(D) - matrix(rep(1, n), ncol = 1) %*% 
+        colMeans(D)
+    if (positify) {
+        G <- as.matrix(nearPD(G)$mat)
+    }
+    XZi <- solve(t(XZ) %*% XZ)
+    Zi <- solve(t(Z) %*% (Z))
+    HZ <- Z %*% Zi %*% t(Z)
+    HXZ <- XZ %*% XZi %*% t(XZ)
+    HX <- HXZ - HZ
+    HIXZ <- diag(n) - HXZ
+    HIX <- diag(n) - HX
+    df1 <- ncol(XZ) - ncol(Z)
+    df2 <- n - ncol(XZ)
+    MSS <- sum(G * HX)
+    RSS <- sum(G * HIXZ)
+    TSS <- sum(diag(G))
+    f.stat <- (MSS/df1)/(RSS/df2)
+    GXZ <- G %*% XZ
+    XZXZi <- XZ %*% XZi
+    GXZtXZXZi <- GXZ %*% t(XZXZi)
+    G.tilde <- G + XZXZi %*% (t(GXZ) %*% XZ) %*% t(XZXZi) - GXZtXZXZi - 
+        t(GXZtXZXZi)
+    obj <- calculateK(G.tilde, HIXZ, n - df2)
+    K <- obj$K
+    p.value <- pchisq(f.stat * K * df1, df = K * df1, lower.tail = F)
+    SumsOfSqs <- c(MSS, RSS, TSS)
+    tab <- data.frame(Df = c(df1, df2, n - 1), SumsOfSqs = SumsOfSqs, 
+        MeanSqs = c(MSS/df1, RSS/df2, NA), F.Model = c(f.stat, 
+            NA, NA), R2 = c(MSS/TSS, NA, NA), `Pr(>F)` = c(p.value, 
+            NA, NA))
+    rownames(tab) <- c("Model(Adjusted)", "Residuals", "Total")
+    colnames(tab)[ncol(tab)] <- c("Pr(>F)")
+    class(tab) <- c("anova", class(tab))
+    attr(tab, "heading") <- c("F stat and P value of the last term is adjusted by preceding terms!\n")
+    if (returnG == TRUE) {
+        out <- list(aov.tab = tab, df = K, G = G, call = match.call())
+    }
+    else {
+        out <- list(aov.tab = tab, df = K, call = match.call())
+    }
+    out
+}
+
+#### GUniFrac::EstPara
+function (ref.otu.tab) 
+{
+    if (is.null(rownames(ref.otu.tab))) {
+        rownames(ref.otu.tab) <- paste0("OTU", 1:nrow(ref.otu.tab))
+    }
+    samplenames = colnames(ref.otu.tab)
+    taxnames = rownames(ref.otu.tab)
+    dirmult.paras <- dirmult::dirmult(t(ref.otu.tab))
+    gamma = dirmult.paras$gamma
+    names(gamma) = names(dirmult.paras$pi)
+    ref.otu.tab = sapply(1:ncol(ref.otu.tab), function(i) gamma + 
+        ref.otu.tab[, i])
+    ref.otu.tab.p <- rdirichlet.m(ref.otu.tab)
+    colnames(ref.otu.tab.p) = samplenames
+    rownames(ref.otu.tab.p) = taxnames
+    ord = order(rowMeans(ref.otu.tab.p), decreasing = TRUE)
+    ref.otu.tab.p = ref.otu.tab.p[ord, ]
+    Si = exp(rnorm(ncol(ref.otu.tab.p)))
+    ref.otu.tab0 = t(t(ref.otu.tab.p) * Si)
+    colnames(ref.otu.tab0) = colnames(ref.otu.tab.p)
+    return(list(mu = ref.otu.tab.p, ref.otu.tab = ref.otu.tab0))
+}
+
+#### GUniFrac::find.ref.z1
+function (otu.tab, M, ref.pct = 0.5, feature.dat.type, p.max = 500) 
+{
+    p <- nrow(otu.tab)
+    n <- ncol(otu.tab)
+    if (p > p.max) {
+        ord <- order(rowSums(otu.tab), decreasing = TRUE)
+        otu.tab <- otu.tab[ord[1:p.max], ]
+        p <- p.max
+    }
+    else {
+        ord <- 1:p
+    }
+    if (feature.dat.type == "count") {
+        otu.tab <- otu.tab + 1
+    }
+    if (feature.dat.type == "proportion") {
+        otu.tab <- t(apply(otu.tab, 1, function(x) {
+            x[x == 0] <- min(x[x != 0])/2
+            return(x)
+        }))
+    }
+    otu.tab <- t(otu.tab)
+    res <- matrix(NA, p, p)
+    XXI <- solve(t(M) %*% M)
+    dof <- n - ncol(M)
+    XXIM <- XXI %*% t(M)
+    for (i in 1:(p - 1)) {
+        Y <- (as.matrix(log((otu.tab[, i])/(otu.tab[, (i + 1):p]))))
+        est <- XXIM %*% Y
+        resid <- Y - M %*% est
+        sigma <- sqrt(colSums(resid^2)/dof)
+        res[i, (i + 1):p] <- res[(i + 1):p, i] <- sigma
+    }
+    ref.ind <- order(rowMedians(res, na.rm = TRUE))[1:round(ref.pct * 
+        p)]
+    return(ord[ref.ind])
+}
+
+#### GUniFrac::gmpr
+function (x, min_ct, intersect_no) 
+{
+    .Call("_GUniFrac_gmpr", PACKAGE = "GUniFrac", x, min_ct, 
+        intersect_no)
+}
+
+#### GUniFrac::GMPR
+function (OTUmatrix, min_ct = 2, intersect_no = 4) 
+{
+    if (!(class(OTUmatrix)[1] %in% c("data.frame", "matrix"))) 
+        stop("Unknown datatype of object \"OTUmatrix\".")
+    OTUmatrix <- t(OTUmatrix)
+    SampleName <- rownames(OTUmatrix)
+    if (ncol(OTUmatrix) < nrow(OTUmatrix)) 
+        warning("Sample size is larger than OTU number. Check if samples are arranged in columns.")
+    if (length(OTUmatrix[OTUmatrix < 1 & OTUmatrix > 0]) >= 0.1 * 
+        ncol(OTUmatrix) * nrow(OTUmatrix)) 
+        stop("More than 10% values are fractional, please check.")
+    OTUmatrix <- apply(OTUmatrix, MARGIN = 2, as.integer)
+    size.factor <- gmpr(OTUmatrix, min_ct, intersect_no)
+    names(size.factor) <- SampleName
+    size.factor[abs(size.factor - 1) < 1e-10] <- NA
+    size.factor
+}
+
+#### GUniFrac::GUniFrac
+function (otu.tab, tree, size.factor = NULL, alpha = c(0, 0.5, 
+    1), verbose = TRUE) 
+{
+    if (!is.rooted(tree)) 
+        stop("Rooted phylogenetic tree required!")
+    otu.tab <- as.matrix(otu.tab)
+    if (is.null(size.factor)) {
+        row.sum <- rowSums(otu.tab)
+    }
+    else {
+        if (length(size.factor) != nrow(otu.tab)) {
+            stop("The length of size factor is not consistent with the OTU table!\n")
+        }
+        row.sum <- size.factor
+    }
+    otu.tab <- otu.tab/row.sum
+    n <- nrow(otu.tab)
+    if (is.null(rownames(otu.tab))) {
+        rownames(otu.tab) <- paste("comm", 1:n, sep = "_")
+    }
+    dimname3 <- c(paste("d", alpha, sep = "_"), "d_UW")
+    unifracs <- array(NA, c(n, n, length(alpha) + 1), dimnames = list(rownames(otu.tab), 
+        rownames(otu.tab), dimname3))
+    for (i in 1:(length(alpha) + 1)) {
+        for (j in 1:n) {
+            unifracs[j, j, i] <- 0
+        }
+    }
+    if (sum(!(colnames(otu.tab) %in% tree$tip.label)) != 0) {
+        stop("The OTU table contains unknown OTUs! OTU names\n\t\t\t\t\t\tin the OTU table and the tree should match!")
+    }
+    absent <- tree$tip.label[!(tree$tip.label %in% colnames(otu.tab))]
+    if (length(absent) != 0) {
+        tree <- drop.tip(tree, absent)
+        warning("The tree has more OTU than the OTU table!")
+    }
+    tip.label <- tree$tip.label
+    otu.tab <- otu.tab[, tip.label]
+    ntip <- length(tip.label)
+    nbr <- nrow(tree$edge)
+    edge <- tree$edge
+    edge2 <- edge[, 2]
+    br.len <- tree$edge.length
+    if (verbose) 
+        cat("Accumulate the abundance along the tree branches...\n")
+    cum <- matrix(0, nbr, n)
+    for (i in 1:ntip) {
+        tip.loc <- which(edge2 == i)
+        cum[tip.loc, ] <- cum[tip.loc, ] + otu.tab[, i]
+        node <- edge[tip.loc, 1]
+        node.loc <- which(edge2 == node)
+        while (length(node.loc)) {
+            cum[node.loc, ] <- cum[node.loc, ] + otu.tab[, i]
+            node <- edge[node.loc, 1]
+            node.loc <- which(edge2 == node)
+        }
+    }
+    if (verbose) 
+        cat("Compute pairwise distances ...\n")
+    unifracs[, , ] <- PairwiseD(cum, br.len, alpha)$unifracs
+    if (verbose) 
+        cat("Completed!\n")
+    return(list(unifracs = unifracs))
+}
+
+#### GUniFrac::na.pad
+function (vec, ind) 
+{
+    vec0 <- numeric(length(ind))
+    vec0[!ind] <- vec
+    vec0[ind] <- NA
+    return(vec0)
+}
+
+#### GUniFrac::PairwiseD
+function (cum, b, a) 
+{
+    .Call("_GUniFrac_PairwiseD", PACKAGE = "GUniFrac", cum, b, 
+        a)
+}
+
+#### GUniFrac::perm.fdr.adj
+function (F0, Fp) 
+{
+    ord <- order(F0, decreasing = T)
+    F0 <- F0[ord]
+    perm.no <- ncol(Fp)
+    Fp <- as.vector(Fp)
+    Fp <- Fp[!is.na(Fp)]
+    Fp <- sort(c(Fp, F0), decreasing = F)
+    n <- length(Fp)
+    m <- length(F0)
+    FPN <- (n + 1) - match(F0, Fp) - 1:m
+    p.adj.fdr <- FPN/perm.no/(1:m)
+    p.adj.fdr[p.adj.fdr == 0] <- 0.5/perm.no/which(p.adj.fdr == 
+        0)
+    p.adj.fdr <- pmin(1, rev(cummin(rev(p.adj.fdr))))[order(ord)]
+    return(p.adj.fdr)
+}
+
+#### GUniFrac::perm.fwer.adj
+function (F0, Fp) 
+{
+    ord <- order(F0, decreasing = T)
+    m <- length(F0)
+    F0 <- F0[ord]
+    Fp <- Fp[ord, , drop = FALSE]
+    col.max <- Fp[m, ]
+    p.adj.fwer <- sapply(m:1, function(i) {
+        x <- F0[i]
+        y <- Fp[i, ]
+        col.max <<- ifelse(y > col.max, y, col.max)
+        mean(c(1, col.max >= x))
+    })
+    p.adj.fwer <- rev(p.adj.fwer)
+    p.adj.fwer <- pmin(1, rev(cummin(rev(p.adj.fwer))))[order(ord)]
+    return(p.adj.fwer)
+}
+
+#### GUniFrac::PermanovaG
+function (formula, data = NULL, ...) 
+{
+    save.seed <- get(".Random.seed", .GlobalEnv)
+    lhs <- formula[[2]]
+    lhs <- eval(lhs, data, parent.frame())
+    rhs <- as.character(formula)[3]
+    array.flag <- is.array(lhs)
+    list.flag <- is.list(lhs)
+    if (!array.flag & !list.flag) {
+        stop("The left side of the formula should be either a list or an array of distance matrices!\n")
+    }
+    if (array.flag) {
+        if (length(dim(lhs)) != 3) {
+            stop("The array should be three-dimensional!\n")
+        }
+        else {
+            len <- dim(lhs)[3]
+        }
+    }
+    if (list.flag) {
+        len <- length(lhs)
+    }
+    p.perms <- list()
+    p.obs <- list()
+    aov.tab.list <- list()
+    for (i_ in 1:len) {
+        assign(".Random.seed", save.seed, .GlobalEnv)
+        if (array.flag) {
+            Y <- as.dist(lhs[, , i_])
+        }
+        if (list.flag) {
+            Y <- as.dist(lhs[[i_]])
+        }
+        obj <- adonis(as.formula(paste("Y", "~", rhs)), data, 
+            ...)
+        perm.mat <- obj$f.perms
+        p.perms[[i_]] <- 1 - (apply(perm.mat, 2, rank) - 1)/nrow(perm.mat)
+        p.obs[[i_]] <- obj$aov.tab[1:ncol(perm.mat), "Pr(>F)"]
+        aov.tab.list[[i_]] <- obj$aov.tab
+    }
+    omni.pv <- NULL
+    indiv.pv <- NULL
+    for (j_ in 1:ncol(perm.mat)) {
+        p.perms.j <- sapply(p.perms, function(x) x[, j_])
+        p.obj.j <- sapply(p.obs, function(x) x[j_])
+        omni.pv <- c(omni.pv, mean(c(rowMins(p.perms.j) <= min(p.obj.j), 
+            1)))
+        indiv.pv <- rbind(indiv.pv, p.obj.j)
+    }
+    colnames(indiv.pv) <- paste0("D", 1:ncol(indiv.pv), ".p.value")
+    rownames(indiv.pv) <- 1:nrow(indiv.pv)
+    p.tab <- data.frame(indiv.pv, omni.p.value = omni.pv)
+    rownames(p.tab) <- rownames(obj$aov.tab)[1:ncol(perm.mat)]
+    list(p.tab = p.tab, aov.tab.list = aov.tab.list)
+}
+
+#### GUniFrac::PermanovaG2
+function (formula, data = NULL, ...) 
+{
+    save.seed <- get(".Random.seed", .GlobalEnv)
+    lhs <- formula[[2]]
+    lhs <- eval(lhs, data, parent.frame())
+    rhs <- as.character(formula)[3]
+    array.flag <- is.array(lhs)
+    list.flag <- is.list(lhs)
+    if (!array.flag & !list.flag) {
+        stop("The left side of the formula should be either a list or an array of distance matrices!\n")
+    }
+    if (array.flag) {
+        if (length(dim(lhs)) != 3) {
+            stop("The array should be three-dimensional!\n")
+        }
+        else {
+            len <- dim(lhs)[3]
+        }
+    }
+    if (list.flag) {
+        len <- length(lhs)
+    }
+    p.perms <- list()
+    p.obs <- list()
+    aov.tab.list <- list()
+    for (i_ in 1:len) {
+        assign(".Random.seed", save.seed, .GlobalEnv)
+        if (array.flag) {
+            Y <- as.dist(lhs[, , i_])
+        }
+        if (list.flag) {
+            Y <- as.dist(lhs[[i_]])
+        }
+        obj <- adonis3(as.formula(paste("Y", "~", rhs)), data, 
+            ...)
+        perm.mat <- obj$f.perms
+        p.perms[[i_]] <- 1 - (apply(perm.mat, 2, rank) - 1)/nrow(perm.mat)
+        p.obs[[i_]] <- obj$aov.tab[1:ncol(perm.mat), "Pr(>F)"]
+        aov.tab.list[[i_]] <- obj$aov.tab
+    }
+    omni.pv <- NULL
+    indiv.pv <- NULL
+    for (j_ in 1:ncol(perm.mat)) {
+        p.perms.j <- sapply(p.perms, function(x) x[, j_])
+        p.obj.j <- sapply(p.obs, function(x) x[j_])
+        omni.pv <- c(omni.pv, mean(c(rowMins(p.perms.j) <= min(p.obj.j), 
+            1)))
+        indiv.pv <- rbind(indiv.pv, p.obj.j)
+    }
+    colnames(indiv.pv) <- paste0("D", 1:ncol(indiv.pv), ".p.value")
+    rownames(indiv.pv) <- 1:nrow(indiv.pv)
+    p.tab <- data.frame(indiv.pv, omni.p.value = omni.pv)
+    rownames(p.tab) <- rownames(obj$aov.tab)[1:ncol(perm.mat)]
+    list(p.tab = p.tab, aov.tab.list = aov.tab.list)
+}
+
+#### GUniFrac::Rarefy
+function (otu.tab, depth = min(rowSums(otu.tab))) 
+{
+    otu.tab <- as.matrix(otu.tab)
+    ind <- (rowSums(otu.tab) < depth)
+    sam.discard <- rownames(otu.tab)[ind]
+    otu.tab <- otu.tab[!ind, ]
+    rarefy <- function(x, depth) {
+        y <- sample(rep(1:length(x), x), depth)
+        z <- tabulate(y, nbins = length(x))
+        z
+    }
+    otu.tab.rff <- t(apply(otu.tab, 1, rarefy, depth))
+    rownames(otu.tab.rff) <- rownames(otu.tab)
+    colnames(otu.tab.rff) <- colnames(otu.tab)
+    return(list(otu.tab.rff = otu.tab.rff, discard = sam.discard))
+}
+
+#### GUniFrac::rdirichlet.m
+function (alpha) 
+{
+    Gam <- matrix(rgamma(length(alpha), shape = alpha), nrow(alpha), 
+        ncol(alpha))
+    t(t(Gam)/colSums(Gam))
+}
+
+#### GUniFrac::SimulateMSeq
+function (ref.otu.tab, model.paras = NULL, nSam = 100, nOTU = 500, 
+    diff.otu.pct = 0.1, diff.otu.direct = c("balanced", "unbalanced"), 
+    diff.otu.mode = c("abundant", "rare", "mix"), covariate.type = c("binary", 
+        "continuous"), grp.ratio = 1, covariate.eff.mean = 1, 
+    covariate.eff.sd = 0, confounder.type = c("none", "binary", 
+        "continuous", "both"), conf.cov.cor = 0.6, conf.diff.otu.pct = 0, 
+    conf.nondiff.otu.pct = 0.1, confounder.eff.mean = 0, confounder.eff.sd = 0, 
+    error.sd = 0, depth.mu = 10000, depth.theta = 5, depth.conf.factor = 0) 
+{
+    diff.otu.direct <- match.arg(diff.otu.direct)
+    diff.otu.mode <- match.arg(diff.otu.mode)
+    covariate.type <- match.arg(covariate.type)
+    confounder.type <- match.arg(confounder.type)
+    ref.otu.tab0 <- ref.otu.tab
+    if (is.null(model.paras)) {
+        model.paras <- EstPara(ref.otu.tab = ref.otu.tab)
+    }
+    sample.names <- colnames(model.paras$ref.otu.tab)
+    ref.otu.tab <- model.paras$ref.otu.tab[(1:(nOTU)), ]
+    dim(ref.otu.tab)
+    idx.otu <- rownames(ref.otu.tab)
+    idx.sample <- sample(sample.names, nSam)
+    idx.nonsample <- colnames(ref.otu.tab)[!(colnames(ref.otu.tab) %in% 
+        idx.sample)]
+    ref.otu.tab = ref.otu.tab[, idx.sample]
+    ref.otu.tab.unselect = ref.otu.tab0[c(1:(nOTU)), ][, idx.nonsample]
+    if (confounder.type == "none") {
+        confounder.type <- "continuous"
+        confounder.eff.mean <- 0
+        confounder.eff.sd <- 0
+        Z <- NULL
+    }
+    if (confounder.type == "continuous") 
+        Z <- cbind(rnorm(nSam))
+    if (confounder.type == "binary") 
+        Z <- cbind(c(rep(0, nSam%/%2), rep(1, nSam - nSam%/%2)))
+    if (confounder.type == "both") 
+        Z <- cbind(rnorm(nSam), c(rep(0, nSam%/%2), rep(1, nSam - 
+            nSam%/%2)))
+    rho <- sqrt(conf.cov.cor^2/(1 - conf.cov.cor^2))
+    if (covariate.type == "continuous") {
+        X <- rho * scale(scale(Z) %*% rep(1, ncol(Z))) + rnorm(nSam)
+    }
+    if (covariate.type == "binary") {
+        X <- rho * scale(scale(Z) %*% rep(1, ncol(Z))) + rnorm(nSam)
+        X <- cbind(ifelse(X <= quantile(X, grp.ratio/(1 + grp.ratio)), 
+            0, 1))
+    }
+    rownames(X) <- colnames(ref.otu.tab)
+    covariate.eff.mean1 = covariate.eff.mean
+    covariate.eff.mean2 = covariate.eff.mean
+    if (diff.otu.direct == "balanced") {
+        if (diff.otu.mode == "abundant") {
+            eta.diff <- sample(c(rnorm(floor(nOTU/2), mean = -covariate.eff.mean2, 
+                sd = covariate.eff.sd), rnorm(nOTU - floor(nOTU/2), 
+                mean = covariate.eff.mean2, sd = covariate.eff.sd))) %*% 
+                t(scale(X))
+        }
+        else if (diff.otu.mode == "rare") {
+            eta.diff <- sample(c(rnorm(floor(nOTU/2), mean = -covariate.eff.mean2, 
+                sd = covariate.eff.sd), rnorm(nOTU - floor(nOTU/2), 
+                mean = covariate.eff.mean2, sd = covariate.eff.sd))) %*% 
+                t(scale(X))
+        }
+        else {
+            eta.diff <- c(sample(c(rnorm(floor(nOTU/4), mean = -covariate.eff.mean1, 
+                sd = covariate.eff.sd), rnorm(floor(nOTU/2) - 
+                floor(nOTU/4), mean = covariate.eff.mean1, sd = covariate.eff.sd))), 
+                sample(c(rnorm(floor((nOTU - floor(nOTU/2))/2), 
+                  mean = -covariate.eff.mean2, sd = covariate.eff.sd), 
+                  rnorm(nOTU - floor(nOTU/2) - floor((nOTU - 
+                    floor(nOTU/2))/2), mean = covariate.eff.mean2, 
+                    sd = covariate.eff.sd)))) %*% t(scale(X))
+        }
+    }
+    if (diff.otu.direct == "unbalanced") {
+        if (diff.otu.mode == "abundant") {
+            eta.diff <- rnorm(nOTU, mean = covariate.eff.mean2, 
+                sd = covariate.eff.sd) %*% t(scale(X))
+        }
+        else if (diff.otu.mode == "rare") {
+            eta.diff <- rnorm(nOTU, mean = covariate.eff.mean2, 
+                sd = covariate.eff.sd) %*% t(scale(X))
+        }
+        else {
+            eta.diff <- c(sample(c(rnorm(floor(nOTU/2), mean = covariate.eff.mean1, 
+                sd = covariate.eff.sd))), sample(c(rnorm(nOTU - 
+                floor(nOTU/2), mean = covariate.eff.mean2, sd = covariate.eff.sd)))) %*% 
+                t(scale(X))
+        }
+    }
+    eta.conf <- sample(c(rnorm(floor(nOTU/2), mean = -confounder.eff.mean, 
+        sd = confounder.eff.sd), rnorm(nOTU - floor(nOTU/2), 
+        mean = confounder.eff.mean, sd = confounder.eff.sd))) %*% 
+        t(scale(scale(Z) %*% rep(1, ncol(Z))))
+    otu.ord <- 1:(nOTU)
+    diff.otu.ind <- NULL
+    diff.otu.num <- round(diff.otu.pct * nOTU)
+    if (diff.otu.mode == "mix") 
+        diff.otu.ind <- c(diff.otu.ind, sample(otu.ord, diff.otu.num))
+    if (diff.otu.mode == "abundant") 
+        diff.otu.ind <- c(diff.otu.ind, sample(otu.ord[1:round(length(otu.ord)/4)], 
+            diff.otu.num))
+    if (diff.otu.mode == "rare") 
+        diff.otu.ind <- c(diff.otu.ind, sample(otu.ord[round(3 * 
+            length(otu.ord)/4):length(otu.ord)], diff.otu.num))
+    if (length(diff.otu.ind) >= round(nOTU * conf.diff.otu.pct)) {
+        conf.otu.ind1 <- sample(diff.otu.ind, round(nOTU * conf.diff.otu.pct))
+    }
+    else {
+        conf.otu.ind1 <- diff.otu.ind
+    }
+    conf.otu.ind <- c(conf.otu.ind1, sample(setdiff(1:(nOTU), 
+        diff.otu.ind), round(conf.nondiff.otu.pct * nOTU)))
+    eta.diff[setdiff(1:(nOTU), diff.otu.ind), ] <- 0
+    eta.conf[setdiff(1:(nOTU), conf.otu.ind), ] <- 0
+    eta.error <- matrix(rnorm(nOTU * nSam, 0, error.sd), nOTU, 
+        nSam)
+    eta.exp <- exp(t(eta.diff + eta.conf + eta.error))
+    eta.exp <- eta.exp * t(ref.otu.tab)
+    ref.otu.tab.prop <- eta.exp/rowSums(eta.exp)
+    ref.otu.tab.prop <- t(ref.otu.tab.prop)
+    nSeq <- rnegbin(nSam, mu = depth.mu * exp(scale(X) * depth.conf.factor), 
+        theta = depth.theta)
+    otu.tab.sim <- sapply(1:ncol(ref.otu.tab.prop), function(i) rmultinom(1, 
+        nSeq[i], ref.otu.tab.prop[, i]))
+    colnames(otu.tab.sim) <- rownames(eta.exp)
+    rownames(otu.tab.sim) <- rownames(ref.otu.tab)
+    diff.otu.ind = (1:nOTU) %in% diff.otu.ind
+    conf.otu.ind = (1:nOTU) %in% conf.otu.ind
+    return(list(otu.tab.sim = otu.tab.sim, covariate = X, confounder = Z, 
+        diff.otu.ind = diff.otu.ind, otu.names = idx.otu, conf.otu.ind = conf.otu.ind))
+}
+
+#### GUniFrac::SimulateMSeqC
+function (ref.otu.tab, model.paras = NULL, nSubject = 40, nOTU = 50, 
+    nTime = 2, error.sd = 1, MgX = 0.5, SgX = 0, X.diff.otu.pct = 0.1, 
+    grp.ratio = 1, balanced.X = TRUE, MgT = 0, SgT = 0, SbT = 0, 
+    T.diff.otu.pct = 0, balanced.T = TRUE, MgXT = 0, SgXT = 0, 
+    XT.diff.otu.pct = 0, balanced.XT = TRUE, conf.cov.cor = 0.6, 
+    confounder = c("X", "T"), MgZ = 0.5, SgZ = 0, Z.diff.otu.pct = 0.05, 
+    Z.nondiff.otu.pct = 0.1, depth.mu = 10000, depth.theta = 5, 
+    depth.conf.factor = 0) 
+{
+    confounder <- match.arg(confounder)
+    if (confounder == "X") {
+        if (Z.diff.otu.pct > X.diff.otu.pct) 
+            stop("Z.diff.otu.pct should not be larger than X.diff.otu.pct!\n")
+    }
+    if (confounder == "T") {
+        if (Z.diff.otu.pct > T.diff.otu.pct) 
+            stop("Z.diff.otu.pct should not be larger than T.diff.otu.pct!\n")
+    }
+    if (is.null(model.paras)) {
+        model.paras <- EstPara(ref.otu.tab)
+    }
+    sample.names <- colnames(model.paras$ref.otu.tab)
+    idx.sample <- sample(sample.names, nSubject, replace = T)
+    OTU <- model.paras$ref.otu.tab[, idx.sample, drop = F]
+    otu.names <- names(sort(rowMeans(OTU), decreasing = T))[1:nOTU]
+    otu_tab <- OTU[otu.names, , drop = F]
+    error.mean <- 0
+    otu.tab <- otu_tab[, rep(1:nSubject, each = nTime)]
+    colnames(otu.tab) <- paste0(paste0("rep", 1:nTime), "_", 
+        rep(paste0("Subject", 1:nSubject), each = nTime))
+    nSam <- ncol(otu.tab)
+    SubjectID <- as.numeric(gsub(".*Subject", "", colnames(otu.tab)))
+    time <- as.numeric(as.factor(gsub("_.*", "", colnames(otu.tab)))) - 
+        1
+    X <- as.vector(ifelse(SubjectID <= quantile(unique(SubjectID), 
+        grp.ratio/(1 + grp.ratio)), 0, 1))
+    rho <- sqrt(conf.cov.cor^2/(1 - conf.cov.cor^2))
+    if (confounder == "X") {
+        Z <- as.vector(rho * scale(X) + rnorm(nSam))
+    }
+    else {
+        Z <- as.vector(rho * scale(time) + rnorm(nSam))
+    }
+    meta <- cbind.data.frame(X, Z, SubjectID, time)
+    rownames(meta) <- colnames(otu.tab)
+    error <- replicate(nSam, rnorm(nOTU, error.mean, error.sd))
+    otu.ord <- 1:nOTU
+    X.diff.otu.ind <- T.diff.otu.ind <- XT.diff.otu.ind <- NULL
+    X.diff.otu.num <- round(X.diff.otu.pct * nOTU)
+    X.diff.otu.ind <- c(X.diff.otu.ind, sample(otu.ord, X.diff.otu.num))
+    T.diff.otu.num <- round(T.diff.otu.pct * nOTU)
+    T.diff.otu.ind <- c(T.diff.otu.ind, sample(otu.ord, T.diff.otu.num))
+    Z.diff.otu.num <- round(Z.diff.otu.pct * nOTU)
+    Z.nondiff.otu.num <- round(Z.nondiff.otu.pct * nOTU)
+    if (confounder == "T") {
+        Z.diff.otu.ind <- c(sample(T.diff.otu.ind, Z.diff.otu.num), 
+            sample(setdiff(otu.ord, T.diff.otu.ind), Z.nondiff.otu.num))
+    }
+    else {
+        Z.diff.otu.ind <- c(sample(X.diff.otu.ind, Z.diff.otu.num), 
+            sample(setdiff(otu.ord, X.diff.otu.ind), Z.nondiff.otu.num))
+    }
+    if (balanced.X) {
+        coef.X <- sample(c(rnorm(floor(nOTU/2), mean = -MgX, 
+            sd = SgX), rnorm(nOTU - floor(nOTU/2), mean = MgX, 
+            sd = SgX)))
+    }
+    else {
+        coef.X <- rnorm(nOTU, MgX, SgX)
+    }
+    coef.X[setdiff(otu.ord, X.diff.otu.ind)] <- 0
+    eta.X <- coef.X %*% t(scale(X))
+    if (balanced.T) {
+        coef.T <- sample(c(rnorm(floor(nOTU/2), mean = -MgT, 
+            sd = SgT), rnorm(nOTU - floor(nOTU/2), mean = MgT, 
+            sd = SgT)))
+    }
+    else {
+        coef.T <- rnorm(nOTU, MgT, SgT)
+    }
+    coef.T[setdiff(otu.ord, T.diff.otu.ind)] <- 0
+    coef.T.Subject <- replicate(nSubject, rnorm(nOTU, coef.T, 
+        SbT))
+    coef.T <- matrix(data = apply(coef.T.Subject, 2, function(x) rep(x, 
+        nTime)), ncol = ncol(coef.T.Subject) * nTime)
+    eta.T <- t(t(coef.T) * as.vector(scale(time)))
+    if (balanced.XT) {
+        coef.XT <- sample(c(rnorm(floor(nOTU/2), mean = -MgXT, 
+            sd = SgXT), rnorm(nOTU - floor(nOTU/2), mean = MgXT, 
+            sd = SgXT)))
+    }
+    else {
+        coef.XT <- rnorm(nOTU, MgXT, SgXT)
+    }
+    coef.XT[setdiff(otu.ord, XT.diff.otu.ind)] <- 0
+    coef.XT.Subject <- replicate(nSubject, rnorm(nOTU, coef.XT, 
+        0))
+    coef.XT <- matrix(data = apply(coef.XT.Subject, 2, function(x) rep(x, 
+        nTime)), ncol = ncol(coef.XT.Subject) * nTime)
+    eta.XT <- t(t(coef.XT) * as.vector(scale(time) * scale(X)))
+    coef.Z <- sample(c(rnorm(floor(nOTU/2), mean = -MgZ, sd = SgZ), 
+        rnorm(nOTU - floor(nOTU/2), mean = MgZ, sd = SgZ)))
+    coef.Z[setdiff(otu.ord, Z.diff.otu.ind)] <- 0
+    eta.Z <- coef.Z %*% t(scale(Z))
+    eta.exp <- exp(t(eta.X + eta.Z + eta.T + eta.XT + error))
+    eta.exp <- eta.exp * t(otu.tab)
+    otu.tab.prop <- t(eta.exp/rowSums(eta.exp))
+    nSeq <- rnegbin(ncol(otu.tab.prop), mu = depth.mu * exp(scale(X) * 
+        depth.conf.factor), theta = depth.theta)
+    otu.tab.sim <- sapply(1:ncol(otu.tab.prop), function(i) rmultinom(1, 
+        nSeq[i], otu.tab.prop[, i]))
+    colnames(otu.tab.sim) <- rownames(eta.exp)
+    rownames(otu.tab.sim) <- colnames(eta.exp)
+    otu.names <- colnames(eta.exp)
+    X.diff.otu.ind = (1:nOTU) %in% X.diff.otu.ind
+    T.diff.otu.ind = (1:nOTU) %in% T.diff.otu.ind
+    XT.diff.otu.ind = (1:nOTU) %in% XT.diff.otu.ind
+    Z.diff.otu.ind = (1:nOTU) %in% Z.diff.otu.ind
+    return(list(otu.tab.sim = otu.tab.sim, meta = meta, otu.names = otu.names, 
+        X.diff.otu.ind = X.diff.otu.ind, T.diff.otu.ind = T.diff.otu.ind, 
+        XT.diff.otu.ind = XT.diff.otu.ind, Z.diff.otu.ind = Z.diff.otu.ind))
+}
+
+#### GUniFrac::ZicoSeq
+function (meta.dat, feature.dat, grp.name, adj.name = NULL, feature.dat.type = c("count", 
+    "proportion", "other"), prev.filter = 0, mean.abund.filter = 0, 
+    max.abund.filter = 0, min.prop = 0, is.winsor = TRUE, outlier.pct = 0.03, 
+    winsor.end = c("top", "bottom", "both"), is.post.sample = TRUE, 
+    post.sample.no = 25, link.func = list(function(x) sign(x) * 
+        (abs(x))^0.5), stats.combine.func = max, perm.no = 99, 
+    strata = NULL, ref.pct = 0.5, stage.no = 6, excl.pct = 0.2, 
+    p.max = 500, is.fwer = FALSE, verbose = TRUE, return.feature.dat = TRUE) 
+{
+    this.call <- match.call()
+    feature.dat.type <- match.arg(feature.dat.type)
+    winsor.end <- match.arg(winsor.end)
+    if (!is.null(strata)) {
+        if (length(strata) == 1 & is.character(strata)) {
+            strata <- factor(meta.dat[, strata])
+        }
+        else {
+            strata <- factor(strata)
+        }
+        if (length(strata) != nrow(meta.dat)) {
+            stop("'strata' parameter is not correct. Dimension does not match!\n")
+        }
+    }
+    if (is.null(rownames(feature.dat)[1])) {
+        rownames(feature.dat) <- paste0("S", 1:nrow(feature.dat))
+    }
+    sds <- rowSds(feature.dat)
+    if (sum(sds == 0) != 0) {
+        stop(paste("Feature ", paste(which(sds == 0), collapse = ","), 
+            "have identical values (e.g. all 0s)! Please remove them!\n"))
+    }
+    if (perm.no < 99) {
+        warning("To obtain stable results, number of permutations should be at least 99!\n")
+    }
+    if (feature.dat.type == "count") {
+        if (sum(feature.dat < 0 | (feature.dat < 1 & feature.dat > 
+            0)) != 0) {
+            stop("It seems the feature data are not counts. Please check!\n")
+        }
+    }
+    if (feature.dat.type == "proportion") {
+        if (sum(feature.dat < 0 | feature.dat > 1) != 0) {
+            stop("It seems the feature data are not proportions. Please check!\n")
+        }
+    }
+    if (feature.dat.type %in% c("proportion", "other") & is.post.sample == 
+        TRUE) {
+        cat("For proportion and other data types,  posterior sampling will not be performed!\n")
+        is.post.sample <- FALSE
+    }
+    if (feature.dat.type == "other") {
+        stage.no <- 1
+    }
+    if (feature.dat.type == "count" & nrow(meta.dat) <= 40) {
+        cat("For sample size less than 40, posterior sampling will not be used!\n")
+        is.post.sample <- FALSE
+    }
+    if (feature.dat.type == "count" & is.post.sample == FALSE) {
+        if (min(coef(summary(lm(sqrt(colSums(feature.dat)) ~ 
+            meta.dat[, grp.name])))[-1, "Pr(>|t|)"]) < 0.05) {
+            warning("The sequencing depth is correlated with the variable of interest!\n\t\t\t\t\t\t\tRarefaction is recommended to control for false positves!\n")
+        }
+    }
+    if (feature.dat.type %in% c("count", "proportion")) {
+        temp <- t(t(feature.dat)/colSums(feature.dat))
+        filter.ind <- rowMeans(temp != 0) >= prev.filter & rowMeans(temp) >= 
+            mean.abund.filter & rowMaxs(temp) >= max.abund.filter
+        names(filter.ind) <- rownames(feature.dat)
+        if (verbose) 
+            cat(sum(!filter.ind), " features are filtered!\n")
+        filter.features <- rownames(feature.dat)[!filter.ind]
+        feature.dat <- feature.dat[filter.ind, ]
+    }
+    else {
+        filter.ind <- rep(TRUE, ncol(feature.dat))
+        filter.features <- NULL
+    }
+    if (feature.dat.type %in% c("count", "proportion")) {
+        ind <- colSums(feature.dat) != 0
+        if (sum(!ind) != 0) {
+            warning(sum(!ind), " samples have all zeros after filtering! They will be removed! \n")
+            feature.dat <- feature.dat[, ind, drop = FALSE]
+            meta.dat <- meta.dat[ind, ]
+            if (!is.null(strata)) {
+                strata <- strata[ind]
+            }
+        }
+    }
+    if (feature.dat.type == "proportion") {
+        feature.dat <- t(t(feature.dat)/colSums(feature.dat))
+    }
+    sample.no <- ncol(feature.dat)
+    otu.no <- nrow(feature.dat)
+    row.names <- rownames(feature.dat)
+    depth <- colSums(feature.dat)
+    if (verbose) 
+        cat("The data has ", sample.no, " samples and ", otu.no, 
+            " features will be tested!\n")
+    if (feature.dat.type %in% c("count", "proportion") & sum(rowSums(feature.dat != 
+        0) <= 2) != 0) {
+        warning("Some features have less than 3 nonzero values! \n               They have virtually no statistical power. Please consider removing them in the analysis!\n")
+    }
+    if (is.winsor == TRUE) {
+        depth <- colSums(feature.dat)
+        cat("On average, ", round(length(depth) * outlier.pct), 
+            " outlier counts will be replaced for each feature!\n")
+        feature.dat <- apply(feature.dat, 1, function(x) {
+            if (feature.dat.type == "count") {
+                x <- x/depth
+            }
+            if (winsor.end == "top") {
+                qt <- quantile(x, 1 - outlier.pct)
+                x[x >= qt] <- qt
+            }
+            if (winsor.end == "bottom") {
+                qt <- quantile(x, outlier.pct)
+                x[x <= qt] <- qt
+            }
+            if (winsor.end == "both") {
+                qt1 <- quantile(x, 1 - outlier.pct/2)
+                qt2 <- quantile(x, outlier.pct/2)
+                x[x >= qt1] <- qt1
+                x[x <= qt2] <- qt2
+            }
+            if (feature.dat.type == "count") {
+                return(round(x * depth))
+            }
+            else {
+                return(x)
+            }
+        })
+        feature.dat <- t(feature.dat)
+        sds <- rowSds(feature.dat)
+        if (sum(sds == 0) != 0) {
+            stop(paste("After winsorization, feature ", paste(which(sds == 
+                0), collapse = ","), "have identical values! Did you set the \"outlier.pct\" too high or some features are extremely sparse?\n"))
+        }
+    }
+    if (feature.dat.type == "proportion") {
+        feature.dat <- t(t(feature.dat)/colSums(feature.dat))
+    }
+    depth <- colSums(feature.dat)
+    if (is.post.sample == TRUE) {
+        if (verbose) 
+            cat("Fitting beta mixture ...\n")
+        feature.dat.p <- apply(feature.dat, 1, function(x) {
+            err1 <- try(res <- bbmix.fit.MM(x, depth), silent = TRUE)
+            if (!inherits(err1, "try-error")) {
+                prop1.1 <- rbeta(sample.no * post.sample.no, 
+                  shape1 = x + res$shape1.1, shape2 = res$shape1.2 + 
+                    depth - x)
+                prop1.2 <- rbeta(sample.no * post.sample.no, 
+                  shape1 = x + res$shape2.1, shape2 = res$shape2.2 + 
+                    depth - x)
+                prop <- ifelse(runif(sample.no * post.sample.no) <= 
+                  res$q1, prop1.1, prop1.2)
+            }
+            else {
+                prop <- x/depth
+                v <- var(prop)
+                m <- mean(prop)
+                a1 <- ((1 - m)/v - 1/m) * m^2
+                a2 <- a1 * (1/m - 1)
+                if (is.na(a1) | a1 < 0) {
+                  prop <- rbeta(sample.no * post.sample.no, shape1 = x + 
+                    1, shape2 = otu.no + depth - x)
+                }
+                else {
+                  prop <- rbeta(sample.no * post.sample.no, shape1 = x + 
+                    a1, shape2 = a2 + depth - x)
+                }
+            }
+            return(prop)
+        })
+        feature.dat.p <- t(feature.dat.p)
+        feature.dat.p.list <- list()
+        st <- 1
+        end <- sample.no
+        for (i in 1:post.sample.no) {
+            feature.dat.p.list[[i]] <- feature.dat.p[, st:end]
+            st <- st + sample.no
+            end <- end + sample.no
+        }
+    }
+    else {
+        feature.dat.p.list <- list()
+        if (feature.dat.type == "count") {
+            feature.dat.p.list[[1]] <- t(t(feature.dat)/depth)
+        }
+        else {
+            feature.dat.p.list[[1]] <- feature.dat
+        }
+        post.sample.no <- 1
+    }
+    if (feature.dat.type %in% c("count", "proportion")) {
+        for (i in 1:post.sample.no) {
+            temp <- feature.dat.p.list[[i]]
+            temp[temp <= min.prop] <- min.prop
+            feature.dat.p.list[[i]] <- temp
+        }
+    }
+    if (is.null(adj.name)) {
+        M0 <- model.matrix(~1, meta.dat)
+    }
+    else {
+        data0 <- meta.dat[, c(adj.name), drop = FALSE]
+        if (sum(is.na(data0)) != 0) {
+            stop("Please remove or impute NAs in the variables to be adjusted!\n")
+        }
+        M0 <- model.matrix(~., data0)
+    }
+    data1 <- meta.dat[, c(grp.name), drop = FALSE]
+    if (sum(is.na(data1)) != 0) {
+        stop("Please remove or impute NAs in the variable of interest!\n")
+    }
+    M1 <- model.matrix(~., data1)[, -1, drop = FALSE]
+    M01 <- cbind(M0, M1)
+    qrX0 <- qr(M0, tol = 1e-07)
+    Q0 <- qr.Q(qrX0)
+    Q0 <- Q0[, 1:qrX0$rank, drop = FALSE]
+    H0 <- (Q0 %*% t(Q0))
+    qrX1 <- qr(M1, tol = 1e-07)
+    Q1 <- qr.Q(qrX1)
+    Q1 <- Q1[, 1:qrX1$rank, drop = FALSE]
+    qrX01 <- qr(M01, tol = 1e-07)
+    Q01 <- qr.Q(qrX01)
+    Q01 <- Q01[, 1:qrX01$rank, drop = FALSE]
+    R0 <- as.matrix(resid(lm(Q1 ~ Q0 - 1)))
+    pX0 <- ncol(Q0)
+    pX1 <- ncol(Q1)
+    pX01 <- ncol(Q01)
+    df.model <- pX01 - pX0
+    df.residual <- sample.no - pX01
+    func.no <- length(link.func)
+    if (feature.dat.type %in% c("count", "proportion")) {
+        if (verbose) 
+            cat("Finding the references ...\n")
+        ref.ind <- find.ref.z1(feature.dat, M0, ref.pct = ref.pct, 
+            feature.dat.type = feature.dat.type, p.max = p.max)
+        divisor <- colSums(feature.dat[ref.ind, , drop = FALSE])/depth
+    }
+    else {
+        ref.ind <- NULL
+    }
+    if (verbose) 
+        cat("Permutation testing ...\n")
+    for (i in 1:stage.no) {
+        if (feature.dat.type == "other") {
+            divisor <- 1
+        }
+        else {
+            divisor[divisor == 0] <- 0.5 * min(divisor[divisor != 
+                0])
+        }
+        Y <- matrix(NA, sample.no, func.no * otu.no * post.sample.no)
+        for (k in 1:post.sample.no) {
+            for (j in 1:func.no) {
+                func <- link.func[[j]]
+                feature.dat.p <- feature.dat.p.list[[k]]
+                Y[, (k - 1) * func.no * otu.no + func.no * (0:(otu.no - 
+                  1)) + j] <- func(t(feature.dat.p)/divisor)
+            }
+        }
+        Y <- t(Y)
+        TSS <- rowSums(Y^2)
+        MSS01 <- rowSums((Y %*% Q01)^2)
+        MSS0 <- rowSums((Y %*% Q0)^2)
+        MSS <- (MSS01 - MSS0)
+        RSS <- (TSS - MSS01)
+        getPermuteMatrix <- getFromNamespace("getPermuteMatrix", 
+            "vegan")
+        perm.ind <- getPermuteMatrix(perm.no, sample.no, strata = strata)
+        perm.no <- nrow(perm.ind)
+        MRSSp <- sapply(1:perm.no, function(ii) {
+            if (verbose) {
+                if (ii%%10 == 0) 
+                  cat(".")
+            }
+            Rp <- R0[perm.ind[ii, ], , drop = FALSE]
+            Rp <- Rp - H0 %*% Rp
+            qrRp <- qr(Rp, tol = 1e-07)
+            Q1p <- qr.Q(qrRp)
+            Q1p <- Q1p[, 1:qrRp$rank, drop = FALSE]
+            MSS01p <- MSS0 + rowSums((Y %*% Q1p)^2)
+            MSSp <- (MSS01p - MSS0)
+            RSSp <- (TSS - MSS01p)
+            c(MSSp, RSSp)
+        })
+        unit <- func.no * otu.no * post.sample.no
+        MSSp <- MRSSp[1:unit, ]
+        RSSp <- MRSSp[(unit + 1):(2 * unit), ]
+        RSS.m <- array(RSS, c(func.no, otu.no, post.sample.no))
+        RSS.m <- t(apply(RSS.m, c(1, 2), mean))
+        F0.m <- array((MSS/df.model)/(RSS/df.residual), c(func.no, 
+            otu.no, post.sample.no))
+        F0.m <- t(apply(F0.m, c(1, 2), mean))
+        R2.m <- array(MSS/TSS, c(func.no, otu.no, post.sample.no))
+        R2.m <- t(apply(R2.m, c(1, 2), mean))
+        F0 <- (MSS/df.model)/(RSS/df.residual)
+        Fp <- (MSSp/df.model)/(RSSp/df.residual)
+        F0 <- array(F0, c(func.no, otu.no, post.sample.no))
+        Fp <- array(Fp, c(func.no, otu.no, post.sample.no, perm.no))
+        F0 <- apply(F0, c(1, 2), mean)
+        Fp <- apply(Fp, c(1, 2, 4), mean)
+        F0 <- apply(F0, 2, stats.combine.func)
+        Fp <- apply(Fp, c(2, 3), stats.combine.func)
+        if (verbose) 
+            cat("\n")
+        if (mean(is.na(F0)) >= 0.1) {
+            warning("More than 10% observed F stats have NA! Please check! \n")
+        }
+        if (mean(is.na(Fp)) >= 0.1) {
+            warning("More than 10% permuted F stats have NA! Please check! \n")
+        }
+        na.ind <- is.na(F0)
+        F0 <- F0[!na.ind]
+        Fp <- Fp[!na.ind, ]
+        which.nan.ind <- which(!na.ind)
+        p.raw <- rowMeans(cbind(Fp, F0) >= F0)
+        if (i == stage.no) {
+            break
+        }
+        else {
+            if (mean(p.raw <= 0.05) >= excl.pct) {
+                ind <- order(p.raw)[1:round(length(p.raw) * excl.pct)]
+            }
+            else {
+                ind <- which(p.raw <= 0.05)
+            }
+            new.ref.ind <- setdiff(ref.ind, which.nan.ind[ind])
+            divisor <- colSums(feature.dat[new.ref.ind, , drop = FALSE])/depth
+        }
+    }
+    p.adj.fdr <- perm.fdr.adj(F0, Fp)
+    p.raw <- na.pad(p.raw, na.ind)
+    p.adj.fdr <- na.pad(p.adj.fdr, na.ind)
+    names(p.raw) <- names(p.adj.fdr) <- rownames(R2.m) <- rownames(RSS.m) <- rownames(F0.m) <- row.names
+    colnames(R2.m) <- colnames(F0.m) <- colnames(RSS.m) <- paste0("Func", 
+        1:func.no)
+    if (is.fwer) {
+        p.adj.fwer <- perm.fwer.adj(F0, Fp)
+        p.adj.fwer <- na.pad(p.adj.fwer, na.ind)
+        names(p.adj.fwer) <- row.names
+    }
+    else {
+        p.adj.fwer <- NULL
+    }
+    if (feature.dat.type != "other") {
+        temp.dat <- Reduce("+", feature.dat.p.list)/length(feature.dat.p.list)
+        divisor <- colSums(temp.dat[ref.ind, ])
+        divisor[divisor == 0] <- 0.5 * min(divisor[divisor != 
+            0])
+        temp.dat <- t(t(temp.dat)/divisor)
+    }
+    else {
+        temp.dat <- feature.dat.p.list[[1]]
+    }
+    coef.list <- NULL
+    for (j in 1:func.no) {
+        func <- link.func[[j]]
+        coef.list[[j]] <- solve(t(M01) %*% M01) %*% t(M01) %*% 
+            t(func(temp.dat))
+    }
+    if (!return.feature.dat) {
+        feature.dat <- NULL
+    }
+    if (verbose) 
+        cat("Completed!\n")
+    return(list(call = this.call, feature.dat = feature.dat, 
+        meta.dat = meta.dat, grp.name = grp.name, filter.features = filter.features, 
+        ref.features = row.names[ref.ind], R2 = R2.m, F0 = F0.m, 
+        RSS = RSS.m, df.model = df.model, df.residual = df.residual, 
+        coef.list = coef.list, p.raw = p.raw, p.adj.fdr = p.adj.fdr, 
+        p.adj.fwer = p.adj.fwer))
+}
+
+#### GUniFrac::ZicoSeq.plot
+function (ZicoSeq.obj, pvalue.type = c("p.adj.fdr", "p.raw", 
+    "p.adj.fwer"), cutoff = 0.1, text.size = 10, out.dir = NULL, 
+    file.name = "ZicoSeq.plot.pdf", width = 10, height = 6) 
+{
+    grp.name <- ZicoSeq.obj$grp.name
+    meta.dat <- ZicoSeq.obj$meta.dat
+    feature.dat <- ZicoSeq.obj$feature.dat
+    feature.dat.type <- ZicoSeq.obj$call$feature.dat.type
+    if (is.null(feature.dat)) {
+        stop("No 'feature.dat' found. Please set 'return.feature.dat = TRUE' when running ZicoSeq!\n")
+    }
+    if (feature.dat.type %in% c("count", "proportion")) {
+        feature.dat <- t(t(feature.dat)/colSums(feature.dat))
+        prevalence <- rowMeans(feature.dat != 0)
+        abundance <- rowMeans(feature.dat)
+    }
+    if (feature.dat.type == "other") {
+        abundance <- rowMeans(feature.dat)
+        prevalence <- rowSds(feature.dat)
+    }
+    if (!(length(unique(meta.dat[, grp.name])) > 2 & !is.numeric(meta.dat[, 
+        grp.name]))) {
+        coefs <- sapply(ZicoSeq.obj$coef.list, function(x) x[grep(grp.name, 
+            rownames(x)), ])
+        colnames(coefs) <- paste0("coef_Func", 1:length(ZicoSeq.obj$coef.list))
+    }
+    if (!is.numeric(meta.dat[, grp.name]) & length(unique(meta.dat[, 
+        grp.name])) == 2) {
+        level2 <- rownames(ZicoSeq.obj$coef.list[[1]])[grep(paste0("^", 
+            grp.name), rownames(ZicoSeq.obj$coef.list[[1]]))]
+        level2 <- gsub(grp.name, "", level2)
+        base <- setdiff(unique(meta.dat[, grp.name]), level2)
+    }
+    ZicoSeq.obj$R2 <- ZicoSeq.obj$R2 + runif(length(ZicoSeq.obj$R2), 
+        0, 1e-05)
+    R2 <- rowMaxs(ZicoSeq.obj$R2)
+    if (length(unique(meta.dat[, grp.name])) > 2 & !is.numeric(meta.dat[, 
+        grp.name])) {
+        plot.data <- data.frame(pvals = ZicoSeq.obj[[pvalue.type]], 
+            prevalence = prevalence, abundance = abundance, R2 = R2, 
+            taxa = rownames(ZicoSeq.obj$R2))
+        plot.data[plot.data$pvals > cutoff, "taxa"] <- ""
+    }
+    else {
+        signs <- t(sign(coefs))[t(ZicoSeq.obj$R2 == R2)]
+        signs[signs == 0] <- 1
+        plot.data <- data.frame(pvals = ZicoSeq.obj[[pvalue.type]], 
+            prevalence = prevalence, abundance = abundance, R2 = R2 * 
+                signs, taxa = rownames(ZicoSeq.obj$R2))
+        plot.data[plot.data$pvals > cutoff, "taxa"] <- ""
+    }
+    if (is.numeric(meta.dat[, grp.name])) {
+        title.name = paste0("Association between ", grp.name, 
+            " and  taxa abundance")
+    }
+    if (!is.numeric(meta.dat[, grp.name]) & length(unique(meta.dat[, 
+        grp.name])) > 2) {
+        title.name = paste0("Association between ", grp.name, 
+            " and  taxa abundance")
+    }
+    if (!is.numeric(meta.dat[, grp.name]) & length(unique(meta.dat[, 
+        grp.name])) == 2) {
+        title.name = paste0("Differential abundance between ", 
+            paste0(base, " (reference) and ", level2))
+    }
+    pvals <- R2 <- taxa <- NULL
+    plot.obj <- ggplot(plot.data, aes(x = R2, y = -log10(pvals))) + 
+        geom_point(aes(size = abundance, color = prevalence)) + 
+        geom_vline(aes(xintercept = 0), color = "gray", linetype = "dashed") + 
+        geom_hline(aes(yintercept = -log10(cutoff)), color = "gray", 
+            linetype = "dashed") + scale_colour_gradient2(low = "white", 
+        high = "#006D2C") + scale_y_continuous(limits = c(0, 
+        max(-log10(plot.data$pvals)) * 1.3)) + ggrepel::geom_text_repel(aes(label = taxa), 
+        max.overlaps = Inf, color = "black") + labs(x = bquote(R^2), 
+        y = paste0("-log10(", pvalue.type, ")"), color = ifelse(feature.dat.type == 
+            "other", "Standard deviation", "Prevalence"), size = ifelse(feature.dat.type == 
+            "other", "Mean value", "Mean abundance")) + theme_bw() + 
+        theme(axis.text = element_text(color = "black", size = text.size), 
+            axis.title = element_text(color = "black", size = text.size), 
+            legend.text = element_text(color = "black", size = text.size), 
+            legend.title = element_text(color = "black", size = text.size)) + 
+        ggtitle(title.name)
+    if (!is.null(out.dir)) {
+        print(plot.obj)
+        ggsave(paste0(out.dir, file.name), width = width, height = height)
+    }
+    return(plot.obj)
+}
+
