@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"bloom:x4","hmp_tongue",13,"eperm_c3",254,23,2,2,0,231,6,38.66,NA
+"bloom:x4","hmp_tongue",13,"eperm_c4",254,23,2,2,0,231,6,45.359,NA
+"bloom:x4","hmp_tongue",13,"eperm_c4q",254,23,2,2,0,231,6,0.000999999999990564,NA

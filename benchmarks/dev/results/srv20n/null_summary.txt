@@ -1,0 +1,27 @@
+        setting candidate cells  p_any mean_fp  fpr05 excess_p
+      house:R06  eperm_c3    80 0.0375  0.0375 0.0498 0.550006
+      house:R06  eperm_c4    80 0.0500  0.0625 0.0504 0.397199
+      house:R06 eperm_c4q    80 0.0500  0.0625 0.0504 0.397199
+ implant:B_null  eperm_c3    80 0.0500  0.0625 0.0510 0.080652
+ implant:B_null  eperm_c4    80 0.0625  0.0875 0.0510 0.064839
+ implant:B_null eperm_c4q    80 0.0750  0.1000 0.0510 0.064839
+        mid:R06  eperm_c3    80 0.0625  0.0750 0.0542 0.000604
+        mid:R06  eperm_c4    80 0.0750  0.1000 0.0553 0.000019
+        mid:R06 eperm_c4q    80 0.0875  0.1125 0.0553 0.000019
+        msq:R06  eperm_c3    80 0.0375  0.1125 0.0496 0.616108
+        msq:R06  eperm_c4    80 0.0375  0.1125 0.0493 0.704121
+        msq:R06 eperm_c4q    80 0.0500  0.1250 0.0493 0.704121
+        sd2:R06  eperm_c3    80 0.0750  0.0875 0.0491 0.897925
+        sd2:R06  eperm_c4    80 0.0875  0.1125 0.0493 0.840521
+        sd2:R06 eperm_c4q    80 0.0875  0.1125 0.0493 0.840521
+        sps:R06  eperm_c3    40 0.0500  0.0500 0.0475 0.896133
+        sps:R06  eperm_c4    40 0.0500  0.0500 0.0481 0.832115
+        sps:R06 eperm_c4q    40 0.0500  0.0500 0.0481 0.832115
+
+overall:
+ candidate cells  p_any worst_setting_p_any  fpr05
+  eperm_c3   440 0.0523              0.0750 0.0503
+  eperm_c4   440 0.0614              0.0875 0.0506
+ eperm_c4q   440 0.0682              0.0875 0.0506
+
+P(any) <= 0.075 overall: eperm_c3, eperm_c4, eperm_c4q
