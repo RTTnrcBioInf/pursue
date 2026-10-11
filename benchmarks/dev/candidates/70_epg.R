@@ -67,8 +67,8 @@
 }
 .epg_memo <- new.env()
 .epg_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     paths = c("rho", "cont", "cov", "clus"), adet = FALSE, nodet_conf = FALSE, pk = character(0)) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, paths, adet, nodet_conf, pk)
+                     paths = c("rho", "cont", "cov", "clus"), adet = FALSE, nodet_conf = FALSE, pk = character(0), minsw = 1L) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, paths, adet, nodet_conf, pk, minsw)
   if (!is.null(.epg_memo$key) && identical(.epg_memo$key, key)) return(.epg_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   base <- function(rmin) { v <- .eperm_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor,
@@ -78,9 +78,9 @@
   if (is.na(type) || (type != "two" && !type %in% paths)) { val <- base(0.51)
   } else if (type == "two") { rmin <- if ("rho" %in% paths) 0 else 0.51
     val <- if ((adet || length(pk)) && isTRUE(round(.rho_design(depth, d$g1), 2) >= rmin)) .eps_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B,
-      B2 = B2, winsor = winsor, ps = character(0), adet = adet, rho_min = rmin, paths = paths, pk = pk) else base(rmin)
+      B2 = B2, winsor = winsor, ps = character(0), adet = adet, rho_min = rmin, paths = paths, pk = pk, minsw = minsw) else base(rmin)
     if (nodet_conf && isFALSE(val$perm) && isTRUE(val$rho < 0.51)) {         # it46: designed depth confounding -- no detection kernel
-      val$p_full <- .sel_bh(cbind(log = val$p_log, sqrt = val$p_sqrt), margin = margin); val$path <- "efull_nodet" }
+      val$p_full <- .sel_bh(cbind(log = val$p_log, sqrt = val$p_sqrt), margin = margin, minsw = minsw); val$path <- "efull_nodet" }
   } else {
     x <- d$x; n <- ncol(counts); rho <- round(.epg_rho(depth, d), 2)
     sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, n)
@@ -119,7 +119,7 @@
     pl <- P[, "lead"]; Q <- P[, c("lead", alts), drop = FALSE]
     hit <- apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
     loo <- sweep(-hit, 2, colSums(hit), "+"); la <- loo[, alts, drop = FALSE]; ia <- max.col(la, ties.method = "last"); altn <- la[cbind(seq_len(nrow(la)), ia)]
-    use <- altn >= loo[, "lead"] + margin; pfull <- ifelse(use, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
+    use <- altn >= loo[, "lead"] + margin & altn >= minsw; pfull <- ifelse(use, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
     xc <- x - mean(x); deg <- 2 * nrow(E) / n; est <- rep(NA_real_, nrow(counts))
     est[ok] <- if (type == "clus") rowSums(S$log[, x == 1, drop = FALSE]) / sum(x[E[, 1]] != x[E[, 2]]) / log(2) else drop(.fl_resid(S$log, pr) %*% pr$w) / deg / log(2)
     val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, p_det = P[, "det"], p_log = P[, "log"], p_sqrt = P[, "sqrt"],
@@ -161,9 +161,9 @@ register_candidate("eperm_c2q", function(counts, meta, formula, tested_term) {
 # that depth, so deep samples carry presences that no rarefaction can thin away -- detection cannot be made
 # depth-invariant there, abundance given the sampling can. Cost on house (4 cells): R17 lead 8.75 vs log 7.25, R19 10.75
 # vs 10.75. Used only where the design is depth-confounded beyond chance (rho < 0.51, the efull path).
-.sel_bh <- function(Q, margin = 1L) {                              # first column the default; LOO BH-count selection (it40)
+.sel_bh <- function(Q, margin = 1L, minsw = 1L) {                              # first column the default; LOO BH-count selection (it40)
   hit <- apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
-  loo <- sweep(-hit, 2, colSums(hit), "+"); ifelse(loo[, 2] >= loo[, 1] + margin, Q[, 2], Q[, 1]) }
+  loo <- sweep(-hit, 2, colSums(hit), "+"); ifelse(loo[, 2] >= loo[, 1] + margin & loo[, 2] >= minsw, Q[, 2], Q[, 1]) }
 register_candidate("eperm_c3", function(counts, meta, formula, tested_term) {
   v <- .epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE); data.frame(feature = v$feature, p = v$p_full, estimate = v$est)
 }, notes = "it46: eperm_c2 without the detection kernel under designed depth confounding (rho < 0.51)")

@@ -22,14 +22,14 @@
 }
 .eps_memo <- new.env()
 .eps_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51, paths = c("rho", "cont", "cov", "clus"), pk = character(0)) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min, paths, pk)
+                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51, paths = c("rho", "cont", "cov", "clus"), pk = character(0), minsw = 1L) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min, paths, pk, minsw)
   if (!is.null(.eps_memo$key) && identical(.eps_memo$key, key)) return(.eps_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   rho <- if (!is.null(d) && d$binary) round(.rho_design(depth, d$g1), 2) else NA
   if (length(ps) && !isTRUE(rho >= 0.51)) ps <- character(0)       # per-sample scales need exchangeable depth
   if (is.null(d) || !d$binary || !is.null(d$Z) || !is.null(d$cl) || !isTRUE(rho >= rho_min) || (!length(ps) && !adet && !length(pk))) {
-    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet, paths = paths, pk = pk)
+    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet, paths = paths, pk = pk, minsw = minsw)
   } else {
     g1 <- d$g1; x <- d$x; n <- ncol(counts); raw <- counts
     sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, n)
@@ -60,7 +60,7 @@
     pl <- P[, "lead"]; Q <- P[, c("lead", alts), drop = FALSE]
     hit <- apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
     loo <- sweep(-hit, 2, colSums(hit), "+"); la <- loo[, alts, drop = FALSE]; ia <- max.col(la, ties.method = "last"); altn <- la[cbind(seq_len(nrow(la)), ia)]
-    use <- altn >= loo[, "lead"] + margin; pfull <- ifelse(use, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
+    use <- altn >= loo[, "lead"] + margin & altn >= minsw; pfull <- ifelse(use, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
     ncross <- sum(g1[E[, 1]] != g1[E[, 2]]); est <- rep(NA_real_, nrow(counts)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / ncross / log(2)
     val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = if (length(ps)) "two_ps" else "two",
                 choice = ifelse(use, alts[ia], "lead"), P = P)
