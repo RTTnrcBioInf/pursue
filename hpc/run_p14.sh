@@ -7,6 +7,7 @@
 #   git pull && mkdir -p logs && (nohup bash hpc/run_p14.sh > logs/run_p14.log 2>&1 &)
 set -o pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"; mkdir -p logs
-export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1
+# No OMP_NUM_THREADS export here: GNU nproc honours it, so run_adaptive.sh computed MAXJOBS = 1 (first p14 launch,
+# 2026-10-11). run_adaptive.sh sets the thread variables itself, after it has counted the cores.
 export PURSUE_FOCUS="pursue03_epermcs1,pursue03_epermc5,pursue03_epermc5q"
 M=pursue03_epermc5,pursue03_epermc5q TAG=p14 bash hpc/run_p03.sh
