@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
 # pursue03.R -- PURSUE 0.3 candidates from the R&D programme, as benchmark methods.
-# The implementations live in benchmarks/dev/candidates/ (05_enull.R, 60_erd.R) and are sourced from
+# The implementations live in benchmarks/dev/candidates/ (05_enull.R, 60_erd.R, 70-73) and are sourced from
 # there into a private environment, so the benchmark runs exactly the code the dev suite scored.
 # Design and results: claude/rd-notebook.md (it5, it8, it11, srv2, srv3).
 #
@@ -22,11 +22,11 @@
   e <- new.env(parent = globalenv())
   e$register_candidate <- function(name, fn, notes = "") invisible(NULL)
   dir <- file.path(Sys.getenv("PURSUE_BENCH_ROOT", unset = "."), "dev", "candidates")
-  for (f in c("05_enull.R", "60_erd.R")) sys.source(file.path(dir, f), envir = e)
+  for (f in c("05_enull.R", "60_erd.R", "70_epg.R", "71_eps.R", "72_pos.R", "73_sel.R")) sys.source(file.path(dir, f), envir = e)
   e
 })
-.p03_result <- function(feats, p, est = NA_real_) {
-  .finish(data.frame(feature = feats, arm = "single", p = p, q = NA, estimate = est, se = NA, ci_lo = NA, ci_hi = NA,
+.p03_result <- function(feats, p, est = NA_real_, q = NA_real_) {      # q = NA: BH in .finish; else the method's own q
+  .finish(data.frame(feature = feats, arm = "single", p = p, q = q, estimate = est, se = NA, ci_lo = NA, ci_hi = NA,
                      status = ifelse(is.finite(p), NA, "not_tested"), stringsAsFactors = FALSE))
 }
 method_pursue03_erdl <- function(counts, meta, formula, tested_term, args = list()) {
@@ -156,4 +156,16 @@ method_pursue03_epermx1 <- function(counts, meta, formula, tested_term, args = l
 method_pursue03_epermx2 <- function(counts, meta, formula, tested_term, args = list()) {
   v <- .p03$.eperm_fit(counts, meta, formula, tested_term, rho_min = 0.51, recentre = TRUE, sel = "bh", margin = 2L, extra = c("lin", "sqp")); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
+# Phase 2 (claude/rd-notebook-phase2.md). it42-it48: the permutation path for continuous exposure, detection alone
+# as an option, no detection under designed depth confounding, the abundance-given-presence kernel (pos), and an
+# option used only once it has >= 2 leave-one-out discoveries (eperm_c5); c5q adds Storey's adaptive BH, applied only
+# when plain BH rejects (its own q).
+method_pursue03_epermc5 <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE, pk = "pos", minsw = 2L); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i])
+}
+method_pursue03_epermc5q <- function(counts, meta, formula, tested_term, args = list()) {
+  v <- .p03$.epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE, pk = "pos", minsw = 2L); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i], q = .p03$.storey_gq(v$p_full)[i])
 }

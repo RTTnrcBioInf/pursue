@@ -50,7 +50,9 @@ method_registry <- function() {
     c("pursue03_epermcs",  "PURSUE 0.3 cand.: + scale chosen by BH discoveries", "absolute", "single", "", "method_pursue03_epermcs"),
     c("pursue03_epermcs1", "PURSUE 0.3 cand.: eperm_cs, selection margin 1", "absolute", "single", "", "method_pursue03_epermcs1"),
     c("pursue03_epermx1",  "PURSUE 0.3 cand.: + unthinned lin/sqp scales, margin 1", "absolute", "single", "", "method_pursue03_epermx1"),
-    c("pursue03_epermx2",  "PURSUE 0.3 cand.: + unthinned lin/sqp scales, margin 2", "absolute", "single", "", "method_pursue03_epermx2")))
+    c("pursue03_epermx2",  "PURSUE 0.3 cand.: + unthinned lin/sqp scales, margin 2", "absolute", "single", "", "method_pursue03_epermx2"),
+    c("pursue03_epermc5",  "PURSUE 0.3 cand.: eperm_c5 (pos kernel, selection floor)", "absolute", "single", "", "method_pursue03_epermc5"),
+    c("pursue03_epermc5q", "PURSUE 0.3 cand.: eperm_c5 + gated adaptive BH", "absolute", "single", "", "method_pursue03_epermc5q")))
 }
 .mr <- method_registry(); names(.mr) <- c("id", "label", "estimand", "arms", "package", "fn")
 method_registry <- function() .mr
