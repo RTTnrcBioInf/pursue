@@ -1,0 +1,50 @@
+               setting  candidate cells  p_any mean_fp  fpr05 excess_p
+             house:R06   eperm_c5    80 0.0375  0.0375 0.0505 3.55e-01
+             house:R06  eperm_c5q    80 0.0375  0.0375 0.0505 3.55e-01
+             house:R06  eperm_c5w    80 0.0375  0.0375 0.0507 2.96e-01
+             house:R06 eperm_c5ws    80 0.0375  0.0375 0.0505 3.66e-01
+ implant:B_conf07.null   eperm_c5    80 0.0375  0.0375 0.0511 5.40e-02
+ implant:B_conf07.null  eperm_c5q    80 0.0375  0.0375 0.0511 5.40e-02
+ implant:B_conf07.null  eperm_c5w    80 0.0375  0.0375 0.0491 8.97e-01
+ implant:B_conf07.null eperm_c5ws    80 0.0375  0.0375 0.0485 9.84e-01
+   implant:B_cont.null   eperm_c5    80 0.0250  0.1750 0.0498 6.11e-01
+   implant:B_cont.null  eperm_c5q    80 0.0250  0.3000 0.0498 6.11e-01
+   implant:B_cont.null  eperm_c5w    80 0.0250  0.2625 0.0497 6.91e-01
+   implant:B_cont.null eperm_c5ws    80 0.0250  0.3500 0.0494 8.21e-01
+        implant:B_null   eperm_c5    80 0.0500  0.0625 0.0509 9.19e-02
+        implant:B_null  eperm_c5q    80 0.0500  0.0625 0.0509 9.19e-02
+        implant:B_null  eperm_c5w    80 0.0500  0.0500 0.0507 1.39e-01
+        implant:B_null eperm_c5ws    80 0.0500  0.0500 0.0511 5.16e-02
+               mid:R06   eperm_c5    80 0.0625  0.0750 0.0536 2.82e-03
+               mid:R06  eperm_c5q    80 0.0625  0.0750 0.0536 2.82e-03
+               mid:R06  eperm_c5w    80 0.0500  0.0500 0.0538 1.46e-03
+               mid:R06 eperm_c5ws    80 0.0750  0.1000 0.0531 7.59e-03
+          mid:R17.null   eperm_c5    80 0.0500  0.0875 0.0543 3.73e-04
+          mid:R17.null  eperm_c5q    80 0.0500  0.0875 0.0543 3.73e-04
+          mid:R17.null  eperm_c5w    80 0.0500  0.0875 0.0543 3.73e-04
+          mid:R17.null eperm_c5ws    80 0.0500  0.0875 0.0543 3.73e-04
+          mid:R19.null   eperm_c5    80 0.1625  0.2000 0.0593 7.27e-14
+          mid:R19.null  eperm_c5q    80 0.1625  0.2000 0.0593 7.27e-14
+          mid:R19.null  eperm_c5w    80 0.1625  0.2000 0.0593 7.27e-14
+          mid:R19.null eperm_c5ws    80 0.1625  0.2000 0.0593 7.27e-14
+               msq:R06   eperm_c5    80 0.0125  0.0750 0.0498 5.75e-01
+               msq:R06  eperm_c5q    80 0.0125  0.0750 0.0498 5.75e-01
+               msq:R06  eperm_c5w    80 0.0250  0.1250 0.0504 3.85e-01
+               msq:R06 eperm_c5ws    80 0.0250  0.1375 0.0503 4.06e-01
+               sd2:R06   eperm_c5    80 0.0625  0.0625 0.0491 8.84e-01
+               sd2:R06  eperm_c5q    80 0.0625  0.0625 0.0491 8.84e-01
+               sd2:R06  eperm_c5w    80 0.0750  0.1125 0.0491 8.95e-01
+               sd2:R06 eperm_c5ws    80 0.0625  0.0625 0.0489 9.44e-01
+               sps:R06   eperm_c5    40 0.0500  0.0500 0.0475 8.96e-01
+               sps:R06  eperm_c5q    40 0.0500  0.0500 0.0475 8.96e-01
+               sps:R06  eperm_c5w    40 0.0500  0.0500 0.0492 6.60e-01
+               sps:R06 eperm_c5ws    40 0.0500  0.0500 0.0490 6.91e-01
+
+overall:
+  candidate cells  p_any worst_setting_p_any  fpr05
+   eperm_c5   760 0.0553               0.163 0.0511
+  eperm_c5q   760 0.0553               0.163 0.0511
+  eperm_c5w   760 0.0566               0.163 0.0508
+ eperm_c5ws   760 0.0579               0.163 0.0506
+
+P(any) <= 0.075 overall: eperm_c5, eperm_c5q, eperm_c5w, eperm_c5ws
