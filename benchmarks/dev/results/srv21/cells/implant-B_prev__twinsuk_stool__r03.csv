@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_prev","twinsuk_stool",3,"eperm_c5",2274,240,62,60,2,2034,77,191.356,NA
+"implant:B_prev","twinsuk_stool",3,"eperm_c5q",2274,240,67,65,2,2034,77,0.000999999999976353,NA
+"implant:B_prev","twinsuk_stool",3,"eperm_c5w",2274,240,66,64,2,2034,76,188.327,NA
+"implant:B_prev","twinsuk_stool",3,"eperm_c5ws",2274,240,63,61,2,2034,71,118.747,NA

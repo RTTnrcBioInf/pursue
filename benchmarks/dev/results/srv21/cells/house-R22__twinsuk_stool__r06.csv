@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"house:R22","twinsuk_stool",6,"eperm_c5",389,43,27,27,0,346,14,64.2820000000002,NA
+"house:R22","twinsuk_stool",6,"eperm_c5q",389,43,27,27,0,346,14,0.00100000000020373,NA
+"house:R22","twinsuk_stool",6,"eperm_c5w",389,43,25,25,0,346,14,61.1770000000001,NA
+"house:R22","twinsuk_stool",6,"eperm_c5ws",389,43,25,25,0,346,12,47.7339999999999,NA

@@ -1,0 +1,5 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"house:R25","hmp_tongue",7,"eperm_c5",319,30,0,0,0,289,18,35.569,NA
+"house:R25","hmp_tongue",7,"eperm_c5q",319,30,0,0,0,289,18,0.000999999999748979,NA
+"house:R25","hmp_tongue",7,"eperm_c5w",319,30,0,0,0,289,18,34.8110000000001,NA
+"house:R25","hmp_tongue",7,"eperm_c5ws",319,30,0,0,0,289,18,33.7670000000003,NA
