@@ -1,0 +1,21 @@
+        setting candidate cells  p_any mean_fp  fpr05 excess_p
+ house:R19.null eperm_c5q    80 0.0375  0.0375 0.0447 1.00e+00
+ house:R19.null eperm_c6a    80 0.0375  0.0375 0.0447 1.00e+00
+ house:R19.null eperm_c6b    80 0.0375  0.0375 0.0446 1.00e+00
+   mid:R17.null eperm_c5q    80 0.1000  0.1125 0.0516 1.03e-01
+   mid:R17.null eperm_c6a    80 0.1000  0.1125 0.0516 1.03e-01
+   mid:R17.null eperm_c6b    80 0.0875  0.1000 0.0511 1.84e-01
+   mid:R19.null eperm_c5q    80 0.1500  0.2000 0.0609 3.42e-18
+   mid:R19.null eperm_c6a    80 0.1500  0.1750 0.0608 6.42e-18
+   mid:R19.null eperm_c6b    80 0.1375  0.1625 0.0602 3.11e-16
+   msq:R19.null eperm_c5q    80 0.0375  0.0375 0.0471 9.91e-01
+   msq:R19.null eperm_c6a    80 0.0375  0.0375 0.0471 9.91e-01
+   msq:R19.null eperm_c6b    80 0.0375  0.0625 0.0465 9.98e-01
+
+overall:
+ candidate cells  p_any worst_setting_p_any  fpr05
+ eperm_c5q   320 0.0813               0.150 0.0513
+ eperm_c6a   320 0.0813               0.150 0.0512
+ eperm_c6b   320 0.0750               0.138 0.0508
+
+P(any) <= 0.075 overall: eperm_c6b

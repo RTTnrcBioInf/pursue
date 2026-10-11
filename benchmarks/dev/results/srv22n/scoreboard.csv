@@ -1,0 +1,4 @@
+"candidate","worst_FPR","worst_FPR_at","worst_FDR","worst_FDR_at","mean_TP","rel_power","secs_per_cell","errors","settings","fdr_flags","FDR_all","FDR_all_p","calibrated"
+"eperm_c5q",0.0608832311802609,"mid:R19.null",NA,NA,NA,NA,77.1507406249999,0,4,"",NA,1,TRUE
+"eperm_c6a",0.0607889360364608,"mid:R19.null",NA,NA,NA,NA,0.000640624999977435,0,4,"",NA,1,TRUE
+"eperm_c6b",0.0601917334590602,"mid:R19.null",NA,NA,NA,NA,75.144315625,0,4,"",NA,1,TRUE
