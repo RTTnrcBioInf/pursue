@@ -7,6 +7,9 @@
 # Single-threaded BLAS exported; cores from CORES. Resumable; pushes its results.
 #   git pull && mkdir -p logs && (CORES=24 nohup nice -n 10 bash hpc/run_srv24.sh > logs/run_srv24.log 2>&1 &)
 set -o pipefail
+# Shared server: if memory runs out, the kernel's OOM killer should take these jobs first, not other users' (2026-10-12).
+# A non-root process may raise its own oom_score_adj; every child (Rscript, its forked workers) inherits it.
+echo 1000 > /proc/self/oom_score_adj 2>/dev/null || true
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"; mkdir -p logs benchmarks/dev/results
 CORES="${CORES:-48}"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1
