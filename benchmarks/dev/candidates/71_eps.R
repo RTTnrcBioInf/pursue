@@ -17,19 +17,21 @@
 .ps_scores <- function(counts, depth, x, gm, h) {
   e <- gm * x; D <- pmax(floor(depth * exp(e - max(e))), 1)
   Y <- as.matrix(counts); storage.mode(Y) <- "double"
-  F <- if (h == "dps") .erd_f_var(Y, depth, D) else .erl_f_var(Y, depth, D)
+  F <- if (h == "dps") .erd_f_var(Y, depth, D) else if (h == "pps") {          # it51: abundance given presence, per sample
+    f <- .erd_f_var(Y, depth, D); L <- .erl_f_var(Y, depth, D, off = 0) - f * rep(log(D), each = nrow(Y))   # E[log RA; Y_D > 0]
+    cc <- rowSums(L) / pmax(rowSums(f), 1e-12); L - cc * f } else .erl_f_var(Y, depth, D)                   # f (log RA - pooled mean | present)
   q <- qr(cbind(1, log(D))); F - t(qr.fitted(q, t(F)))
 }
 .eps_memo <- new.env()
 .eps_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, K = 60L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51, paths = c("rho", "cont", "cov", "clus"), pk = character(0), minsw = 1L) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min, paths, pk, minsw)
+                     ps = c("dps", "lps"), adet = FALSE, rho_min = 0.51, paths = c("rho", "cont", "cov", "clus"), pk = character(0), minsw = 1L, cmb = list()) {
+  key <- list(counts, meta, formula, tested_term, thr, margin, K, B, B2, winsor, ps, adet, rho_min, paths, pk, minsw, cmb)
   if (!is.null(.eps_memo$key) && identical(.eps_memo$key, key)) return(.eps_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   rho <- if (!is.null(d) && d$binary) round(.rho_design(depth, d$g1), 2) else NA
   if (length(ps) && !isTRUE(rho >= 0.51)) ps <- character(0)       # per-sample scales need exchangeable depth
   if (is.null(d) || !d$binary || !is.null(d$Z) || !is.null(d$cl) || !isTRUE(rho >= rho_min) || (!length(ps) && !adet && !length(pk))) {
-    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet, paths = paths, pk = pk, minsw = minsw)
+    val <- .epg_fit(counts, meta, formula, tested_term, thr = thr, margin = margin, K = K, B = B, B2 = B2, winsor = winsor, adet = adet, paths = paths, pk = pk, minsw = minsw, cmb = cmb)
   } else {
     g1 <- d$g1; x <- d$x; n <- ncol(counts); raw <- counts
     sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, n)
@@ -42,9 +44,11 @@
     E <- .pair_graph(n, K); ok <- rowSums(counts > 0) >= 3; cok <- counts[ok, , drop = FALSE]; rok <- raw[ok, , drop = FALSE]
     hs <- c(det = "det", log = "log", sqrt = "sqrt"); combos <- list(lead = c("det", "log"), det = "det", log = "log", sqrt = "sqrt")
     for (h in c(pk, ps)) combos[[h]] <- h
-    hs <- c(hs, setNames(pk, pk))
+    hs <- c(hs, setNames(pk, pk)); for (nm in names(cmb)) combos[[nm]] <- cmb[[nm]]   # it52: max-|t| omnibus combos over existing kernels
     alts <- setdiff(names(combos), c("lead", if (!adet) "det"))
-    scores <- function(gm, sfb) { S <- lapply(hs, function(h) if (h == "pos") .perm_scores_pos(cok, depth, exp(gm * x + sfb), E, rho = rho) else .perm_scores(cok, depth, exp(gm * x + sfb), h, E, rho = rho))
+    scores <- function(gm, sfb) { S <- lapply(hs, function(h) { h0 <- grepl("0$", h); hb <- sub("0$", "", h)   # it50: "<kernel>0" = raw counts, no size factors
+        cc <- if (h0) rok else cok; bb <- exp(gm * x + if (h0) 0 else sfb)
+        if (hb == "pos") .perm_scores_pos(cc, depth, bb, E, rho = rho) else .perm_scores(cc, depth, bb, hb, E, rho = rho) })
       for (h in ps) S[[h]] <- .ps_scores(rok, depth, x, gm, h); S }                 # per-sample scales: raw counts (no winsorising)
     S <- scores(gm, sf); S0 <- scores(0, sf)
     G1 <- matrix(as.numeric(g1), n, 1); hh <- names(S)
