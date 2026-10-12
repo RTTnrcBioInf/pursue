@@ -1,0 +1,2163 @@
+>> dev suite srv23 (2026-10-12 11:21:30)
+devsuite 'srv23': 3 candidates x 44 settings x 2 templates x 10 reps = 880 cells, 24 cores
+candidates: eperm_c5q, eperm_c8, eperm_c8s 
+
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Iteration 4: Log-likelihood value: -295107855.360989
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 5: Log-likelihood value: -294674071.999151
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Iteration 14: Log-likelihood value: -293793773.92042
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 5: Log-likelihood value: -6745318.73247884
+Warning: stack imbalance in '::', 71 then 73
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 7: Log-likelihood value: -294066086.735202
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 10: Log-likelihood value: -6742605.38833605
+Warning: stack imbalance in '::', 71 then 73
+Iteration 11: Log-likelihood value: -6742605.3883358
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '::', 71 then 73
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 14: Log-likelihood value: -293793773.92042
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Iteration 7: Log-likelihood value: -294066086.735202
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 7: Log-likelihood value: -6742670.62281152
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Warning: stack imbalance in '::', 71 then 73
+Iteration 9: Log-likelihood value: -6742605.3920582
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 5: Log-likelihood value: -294674071.999151
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Iteration 8: Log-likelihood value: -293905246.804682
+Warning: stack imbalance in '::', 71 then 73
+Iteration 8: Log-likelihood value: -293905246.804682
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Iteration 8: Log-likelihood value: -293905246.804682
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -6742670.62281152
+Warning: stack imbalance in '::', 71 then 73
+Iteration 8: Log-likelihood value: -6742607.17105979
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 7: Log-likelihood value: -294066086.735202
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 5: Log-likelihood value: -6745318.73247884
+Warning: stack imbalance in '::', 71 then 73
+Iteration 8: Log-likelihood value: -6742607.17105979
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 363. Therefore, candidiate null genes are sampled with replacement.
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -6742605.38833605
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 11: Log-likelihood value: -6742605.3883358
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Iteration 5: Log-likelihood value: -294674071.999151
+Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 302. Therefore, candidiate null genes are sampled with replacement.
+Warning: stack imbalance in '::', 71 then 73
+Note: The number of DE genes detected in the source data is 33 and the number of DE genes required to be included in the simulated data is 40. Therefore, candidiate DE genes are sampled with replacement.
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Warning: stack imbalance in '<-', 69 then 71
+Warning: stack imbalance in '{', 65 then 67
+Warning: stack imbalance in 'switch', 58 then 60
+Warning: stack imbalance in '{', 54 then 56
+Warning: stack imbalance in '<-', 49 then 51
+Warning: stack imbalance in '{', 45 then 47
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -6789165.25646325
+Iteration 2: Log-likelihood value: -6771823.48364651
+Iteration 3: Log-likelihood value: -6758880.74122444
+Iteration 4: Log-likelihood value: -6750217.97441675
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 5: Log-likelihood value: -6745318.73247884
+Iteration 6: Log-likelihood value: -6743222.84452849
+Iteration 7: Log-likelihood value: -6742670.62281152
+Iteration 8: Log-likelihood value: -6742607.17105979
+Iteration 9: Log-likelihood value: -6742605.3920582
+Iteration 10: Log-likelihood value: -6742605.38833605
+Iteration 11: Log-likelihood value: -6742605.3883358
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 1: Log-likelihood value: -296768019.342459
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 2: Log-likelihood value: -296167344.620733
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 3: Log-likelihood value: -295610077.102368
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 4: Log-likelihood value: -295107855.360989
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 5: Log-likelihood value: -294674071.999151
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 6: Log-likelihood value: -294322967.992155
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 8: Log-likelihood value: -293905246.804682
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 9: Log-likelihood value: -293825851.681113
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 15: Log-likelihood value: -293793773.920405
+880 cells in 161.13 min
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR       at FDR_all sig_FDR_excess rel_power mean_TP
+ eperm_c5q PASS     0.061  mid:R11   0.055              -      0.96   11.74
+  eperm_c8 fail     0.479 bloom:x4   0.075       bloom:x4      0.99   12.16
+ eperm_c8s fail     0.479 bloom:x4   0.074       bloom:x4      0.99   12.14
+ s_cell
+   55.9
+   43.7
+   43.8
+
+=== per setting: TP / FDR / FPR ===
+
+bloom:x4  (DA per cell 33.9)
+ candidate    TP     FP   FDR   FPR    s
+  eperm_c8 20.10 176.25 0.737 0.479 47.2
+ eperm_c8s 20.10 176.25 0.737 0.479 47.3
+ eperm_c5q  6.85   0.80 0.074 0.054 47.1
+
+house:R00  (DA per cell 35.5)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 7.95 0.75 0.078 0.049 41.5
+ eperm_c8s 7.70 0.55 0.063 0.048 40.9
+  eperm_c8 7.65 0.55 0.063 0.049 40.9
+
+house:R01  (DA per cell 36.5)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.85 0.10 0.075 0.045 11.3
+  eperm_c8 0.85 0.10 0.075 0.045  9.4
+ eperm_c8s 0.85 0.10 0.075 0.045  9.3
+
+house:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.00 0.05 0.050 0.051 40.0
+  eperm_c8 0.00 0.05 0.050 0.051 39.4
+ eperm_c8s 0.00 0.05 0.050 0.051 39.5
+
+house:R08  (DA per cell 89.3)
+ candidate    TP   FP   FDR   FPR    s
+  eperm_c8 30.65 0.75 0.021 0.048 41.2
+ eperm_c5q 30.55 0.75 0.021 0.048 41.8
+ eperm_c8s 30.50 0.80 0.024 0.048 41.3
+
+house:R09  (DA per cell 143.2)
+ candidate    TP   FP   FDR   FPR    s
+  eperm_c8 54.55 2.35 0.042 0.051 41.2
+ eperm_c5q 54.50 2.35 0.042 0.051 42.0
+ eperm_c8s 54.25 2.30 0.041 0.052 41.4
+
+house:R11  (DA per cell 41.8)
+ candidate    TP   FP   FDR   FPR    s
+  eperm_c8 10.80 0.65 0.067 0.050 40.5
+ eperm_c8s 10.60 0.55 0.061 0.049 40.3
+ eperm_c5q 10.35 0.60 0.078 0.049 42.7
+
+house:R13  (DA per cell 37.4)
+ candidate    TP   FP   FDR   FPR    s
+  eperm_c8 22.35 1.60 0.059 0.049 38.9
+ eperm_c5q 22.30 1.60 0.059 0.049 41.0
+ eperm_c8s 22.25 1.55 0.057 0.049 38.7
+
+house:R15  (DA per cell 34.4)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.80 0.20 0.049 0.046 41.6
+  eperm_c8 0.80 0.20 0.049 0.046 40.8
+ eperm_c8s 0.80 0.20 0.049 0.047 40.8
+
+house:R16  (DA per cell 36.9)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 9.75 0.55 0.037 0.046 43.1
+  eperm_c8 9.75 0.55 0.037 0.046 42.6
+ eperm_c8s 9.75 0.55 0.037 0.046 42.5
+
+house:R17  (DA per cell 37.2)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 5.55 0.25 0.030 0.047 37.1
+  eperm_c8 5.55 0.25 0.030 0.047  0.0
+ eperm_c8s 5.55 0.25 0.030 0.047  0.0
+
+house:R19  (DA per cell 38.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 9.90 0.45 0.041 0.047 55.1
+  eperm_c8 9.90 0.45 0.041 0.047  0.0
+ eperm_c8s 9.90 0.45 0.041 0.047  0.0
+
+house:R21  (DA per cell 36.2)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 2.85 0.10 0.024 0.053 22.2
+  eperm_c8 2.85 0.10 0.024 0.053  0.0
+ eperm_c8s 2.85 0.10 0.024 0.053  0.0
+
+house:R22  (DA per cell 38.9)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c8s 26.15 1.55 0.053 0.045 51.5
+ eperm_c5q 26.10 1.60 0.054 0.046 50.9
+  eperm_c8 26.00 1.55 0.052 0.046 51.4
+
+house:R23  (DA per cell 35.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 5.55 0.05 0.004 0.046 20.6
+  eperm_c8 5.55 0.05 0.004 0.046  0.0
+ eperm_c8s 5.55 0.05 0.004 0.046  0.0
+
+house:R24  (DA per cell 36.6)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 9.80 0.60 0.055 0.049 42.7
+  eperm_c8 9.80 0.60 0.055 0.049 40.4
+ eperm_c8s 9.60 0.60 0.059 0.048 40.4
+
+house:R25  (DA per cell 33.1)
+ candidate    TP    FP   FDR   FPR    s
+  eperm_c8 12.05 95.85 0.820 0.355 38.1
+ eperm_c8s 12.05 95.85 0.820 0.355 38.5
+ eperm_c5q  1.30  3.50 0.324 0.092 38.3
+
+implant:B_abund  (DA per cell 123.6)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 1.00 0.35 0.088 0.058 89.8
+  eperm_c8 1.00 0.40 0.109 0.058 91.2
+ eperm_c8s 1.00 0.40 0.109 0.058 91.8
+
+implant:B_allup  (DA per cell 127.4)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c5q 27.90 1.65 0.060 0.057 86.4
+  eperm_c8 27.90 1.65 0.060 0.057 86.9
+ eperm_c8s 27.90 1.65 0.060 0.057 89.1
+
+implant:B_conf04  (DA per cell 123.1)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c5q 24.40 1.70 0.043 0.058 30.2
+  eperm_c8 24.40 1.70 0.043 0.058  0.0
+ eperm_c8s 24.40 1.70 0.043 0.058  0.0
+
+implant:B_conf07  (DA per cell 122.8)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c5q 16.90 1.10 0.046 0.050 31.6
+  eperm_c8 16.90 1.10 0.046 0.050  0.0
+ eperm_c8s 16.90 1.10 0.046 0.050  0.0
+
+implant:B_cont  (DA per cell 125.6)
+ candidate    TP   FP   FDR   FPR    s
+  eperm_c8 13.30 1.65 0.073 0.048 95.3
+ eperm_c5q 13.00 1.80 0.075 0.049 95.1
+ eperm_c8s 12.50 1.75 0.070 0.049 95.6
+
+implant:B_null  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.00 0.00 0.000 0.052 77.9
+  eperm_c8 0.00 0.00 0.000 0.052 75.8
+ eperm_c8s 0.00 0.00 0.000 0.052 77.0
+
+implant:B_prev  (DA per cell 126.0)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c5q 35.80 1.55 0.044 0.045 91.9
+  eperm_c8 35.80 1.55 0.044 0.045 93.3
+ eperm_c8s 35.80 1.55 0.044 0.045 94.0
+
+implant:B_ref  (DA per cell 126.5)
+ candidate    TP   FP   FDR   FPR     s
+ eperm_c8s 27.25 1.10 0.060 0.044 100.1
+  eperm_c8 27.15 1.10 0.069 0.044  99.4
+ eperm_c5q 27.10 1.05 0.054 0.044  98.7
+
+mid:R00  (DA per cell 36.8)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c8s 4.25 0.85 0.098 0.055 60.7
+  eperm_c8 3.85 0.75 0.100 0.054 60.4
+ eperm_c5q 3.80 0.75 0.096 0.051 63.5
+
+mid:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.00 0.00 0.000 0.056 62.1
+  eperm_c8 0.00 0.00 0.000 0.056 59.2
+ eperm_c8s 0.00 0.00 0.000 0.056 59.1
+
+mid:R11  (DA per cell 38.2)
+ candidate   TP   FP   FDR   FPR    s
+  eperm_c8 3.85 0.60 0.085 0.064 59.4
+ eperm_c5q 3.80 0.55 0.102 0.061 62.6
+ eperm_c8s 3.80 0.65 0.092 0.063 59.3
+
+mid:R17  (DA per cell 37.4)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 3.05 0.40 0.124 0.053 54.8
+  eperm_c8 3.05 0.40 0.124 0.053  0.0
+ eperm_c8s 3.05 0.40 0.124 0.053  0.0
+
+mid:R19  (DA per cell 39.7)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 2.05 0.30 0.077 0.056 88.9
+  eperm_c8 2.05 0.30 0.077 0.056  0.0
+ eperm_c8s 2.05 0.30 0.077 0.056  0.0
+
+msq:R00  (DA per cell 37.0)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c8s 11.70 1.05 0.068 0.051 46.3
+  eperm_c8 11.35 0.95 0.065 0.053 46.8
+ eperm_c5q 11.00 1.05 0.083 0.053 51.1
+
+msq:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.00 0.00 0.000 0.047 51.4
+  eperm_c8 0.00 0.00 0.000 0.047 47.8
+ eperm_c8s 0.00 0.00 0.000 0.047 47.9
+
+msq:R11  (DA per cell 36.8)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c8s 11.55 0.75 0.075 0.055 50.9
+  eperm_c8 11.10 0.70 0.076 0.055 50.9
+ eperm_c5q 10.40 0.80 0.072 0.057 53.1
+
+msq:R17  (DA per cell 36.1)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c5q 10.90 0.70 0.056 0.048 45.5
+  eperm_c8 10.90 0.70 0.056 0.048  0.0
+ eperm_c8s 10.90 0.70 0.056 0.048  0.0
+
+msq:R19  (DA per cell 38.1)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 9.90 0.35 0.030 0.052 81.5
+  eperm_c8 9.90 0.35 0.030 0.052  0.0
+ eperm_c8s 9.90 0.35 0.030 0.052  0.0
+
+msq:R22  (DA per cell 36.6)
+ candidate   TP   FP   FDR   FPR    s
+  eperm_c8 8.70 0.60 0.048 0.053 62.2
+ eperm_c5q 8.65 0.55 0.042 0.050 62.6
+ eperm_c8s 8.45 0.35 0.024 0.054 61.9
+
+sd2:R00  (DA per cell 28.7)
+ candidate   TP   FP   FDR   FPR    s
+  eperm_c8 0.70 0.35 0.055 0.049 78.8
+ eperm_c8s 0.70 0.35 0.055 0.049 78.9
+ eperm_c5q 0.50 0.20 0.022 0.049 80.8
+
+sd2:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.00 0.05 0.050 0.048 73.8
+  eperm_c8 0.00 0.05 0.050 0.048 71.4
+ eperm_c8s 0.00 0.05 0.050 0.048 72.2
+
+sd2:R08  (DA per cell 75.5)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 4.60 0.10 0.009 0.049 81.7
+  eperm_c8 4.60 0.10 0.009 0.049 77.9
+ eperm_c8s 4.60 0.10 0.009 0.049 77.9
+
+sd2:R13  (DA per cell 29.6)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 7.90 0.40 0.055 0.048 78.5
+  eperm_c8 7.80 0.40 0.055 0.048 75.5
+ eperm_c8s 7.80 0.40 0.055 0.048 75.2
+
+sps:R00  (DA per cell 37.3)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 1.70 0.30 0.065 0.046 46.1
+  eperm_c8 1.70 0.30 0.065 0.048 42.8
+ eperm_c8s 1.60 0.30 0.073 0.048 41.7
+
+sps:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 0.00 0.10 0.100 0.045 48.8
+  eperm_c8 0.00 0.10 0.100 0.045 44.0
+ eperm_c8s 0.00 0.10 0.100 0.045 44.0
+
+sps:R08  (DA per cell 93.4)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c5q 4.30 0.00 0.000 0.052 47.1
+  eperm_c8 4.30 0.00 0.000 0.052 43.0
+ eperm_c8s 4.30 0.00 0.000 0.052 43.6
+
+sps:R13  (DA per cell 39.6)
+ candidate   TP   FP   FDR   FPR    s
+  eperm_c8 2.40 0.50 0.093 0.046 42.0
+ eperm_c8s 2.40 0.50 0.093 0.047 42.7
+ eperm_c5q 2.20 0.30 0.053 0.046 47.6
+
+wrote /mnt/workspace/analyses/robertas/pursue/benchmarks/dev/results/srv23
