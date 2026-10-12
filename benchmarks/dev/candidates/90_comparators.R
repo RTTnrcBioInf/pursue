@@ -16,6 +16,6 @@ local({
     r <- r[r$arm %in% c("single", "combined") | !duplicated(r$feature), ]
     data.frame(feature = r$feature, p = r$p, q = r$q, estimate = r$estimate)
   } }
-  for (m in c("adapt", "zicoseq", "linda", "ldm"))
+  for (m in c("adapt", "zicoseq", "linda", "ldm", "logistic_presence"))      # logistic presence added 2026-10-12 (axis B leader)
     register_candidate(paste0("ref_", m), wrap(paste0("method_", m)), notes = paste("reference comparator:", m, "(benchmark wrapper, own q)"))
 })
