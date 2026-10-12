@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"mid:R06","hmp_tongue",25,"eperm_c5q",235,0,0,0,0,235,11,44.7220000000002,NA
+"mid:R06","hmp_tongue",25,"eperm_c8",235,0,0,0,0,235,11,42.6550000000002,NA
+"mid:R06","hmp_tongue",25,"eperm_c8s",235,0,0,0,0,235,11,41.2080000000001,NA

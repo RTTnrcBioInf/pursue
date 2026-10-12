@@ -1,0 +1,4 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_null","hmp_tongue",3,"eperm_c5q",263,0,0,0,0,263,10,36.501,NA
+"implant:B_null","hmp_tongue",3,"eperm_c8",263,0,0,0,0,263,10,34.666,NA
+"implant:B_null","hmp_tongue",3,"eperm_c8s",263,0,0,0,0,263,10,35.471,NA
