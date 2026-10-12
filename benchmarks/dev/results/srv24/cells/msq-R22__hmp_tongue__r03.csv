@@ -1,0 +1,7 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"msq:R22","hmp_tongue",3,"eperm_c5q",286,25,6,6,0,261,20,62.841,NA
+"msq:R22","hmp_tongue",3,"ref_zicoseq",286,25,7,6,1,261,19,80.653,NA
+"msq:R22","hmp_tongue",3,"ref_ldm",286,25,6,6,0,261,23,41.773,NA
+"msq:R22","hmp_tongue",3,"ref_adapt",0,25,0,0,0,0,0,0.00200000000000955,"comparator returned no p-values: not_applicable_needs_binary"
+"msq:R22","hmp_tongue",3,"ref_linda",286,25,6,6,0,261,24,1.13500000000005,NA
+"msq:R22","hmp_tongue",3,"ref_logistic_presence",268,25,0,0,0,243,11,0.370000000000005,NA
