@@ -1,0 +1,14 @@
+             setting candidate cells  p_any mean_fp  fpr05 excess_p
+      house:R22.null eperm_c10   320 0.0531  0.0625 0.0506  0.19124
+      house:R22.null eperm_c5q   320 0.0375  0.0406 0.0509  0.09207
+ implant:B_cont.null eperm_c10   320 0.0281  0.0781 0.0509  0.00376
+ implant:B_cont.null eperm_c5q   320 0.0187  0.0906 0.0505  0.06053
+        msq:R22.null eperm_c10   320 0.0469  0.1281 0.0508  0.11822
+        msq:R22.null eperm_c5q   320 0.0500  0.1187 0.0502  0.34977
+
+overall:
+ candidate cells  p_any worst_setting_p_any  fpr05
+ eperm_c10   960 0.0427              0.0531 0.0508
+ eperm_c5q   960 0.0354              0.0500 0.0505
+
+P(any) <= 0.075 overall: eperm_c10, eperm_c5q
