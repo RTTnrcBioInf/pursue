@@ -1,0 +1,700 @@
+>> guard: scope in pursue.slice -- all PURSUE runs together capped at 90G
+>> smoke: one house R22 cell (2026-10-13 14:52:13)
+cell A__house__hmp_stool__R22__r001: 100 samples x 500 features (291 after filter), 1 methods
+  pursue03_epermc10    40.3s  ok
+wrote A__house__hmp_stool__R22__r001__smoke 
+axis A: 1000 cells | axis B: 1550 | axis C: 2000 | realism: 25
+submit with: sbatch --array=1-N%200 hpc/slurm/axisA.sbatch  (N from above; %200 caps concurrent tasks)
+  525 hpc/tasks_p15/axisA_run.txt
+  105 hpc/tasks_p15/axisB_run.txt
+  630 total
+>> axis A (2026-10-13 14:53:06)
+>> hpc/tasks_p15/axisA_run.txt
+>> RAM 147330MB total, budget 82944MB (75%), floor 8192MB, max 48 jobs
+>> learned memory for 0 cell classes from logs/*.mem (reserve 125% of observed, default 8192MB)
+>> 525 cells, started 2026-10-13 14:53:08
+.. 2026-10-13 14:53:08  running 0/48  reserved 0/82944MB  used 18214MB  avail 129116MB  done 0  pending 525
+ok    A__house__hmp_stool__R00__r001__p15  39s  est 8192MB used 1127MB
+ok    A__house__hmp_stool__R22__r005__p15  39s  est 8192MB used 1117MB
+ok    A__house__hmp_stool__R22__r003__p15  40s  est 8192MB used 1134MB
+ok    A__house__hmp_stool__R22__r007__p15  41s  est 8192MB used 1086MB
+ok    A__house__hmp_stool__R22__r006__p15  41s  est 8192MB used 1116MB
+ok    A__house__hmp_stool__R22__r004__p15  42s  est 8192MB used 1086MB
+ok    A__house__hmp_stool__R22__r008__p15  42s  est 8192MB used 1086MB
+ok    A__house__hmp_stool__R22__r002__p15  43s  est 8192MB used 1094MB
+ok    A__house__hmp_stool__R22__r001__p15  51s  est 8192MB used 1086MB
+ok    A__house__hmp_stool__R22__r009__p15  57s  est 8192MB used 1086MB
+ok    A__house__hmp_gingiva__R00__r001__p15  32s  est 8192MB used 1166MB
+ok    A__house__hmp_gingiva__R22__r004__p15  36s  est 8192MB used 1150MB
+ok    A__house__hmp_gingiva__R22__r003__p15  36s  est 8192MB used 1126MB
+ok    A__house__hmp_stool__R22__r020__p15  39s  est 1418MB used 1111MB
+ok    A__house__hmp_stool__R22__r010__p15  41s  est 1418MB used 1108MB
+ok    A__house__hmp_stool__R22__r012__p15  42s  est 1418MB used 1131MB
+ok    A__house__hmp_stool__R22__r013__p15  43s  est 1418MB used 1106MB
+ok    A__house__hmp_stool__R22__r017__p15  43s  est 1418MB used 1128MB
+ok    A__house__hmp_gingiva__R22__r005__p15  40s  est 8192MB used 1126MB
+ok    A__house__hmp_stool__R22__r015__p15  43s  est 1418MB used 1134MB
+ok    A__house__hmp_stool__R22__r018__p15  43s  est 1418MB used 1168MB
+ok    A__house__hmp_stool__R22__r016__p15  43s  est 1418MB used 1139MB
+ok    A__house__hmp_stool__R22__r011__p15  46s  est 1418MB used 1095MB
+ok    A__house__hmp_gingiva__R22__r001__p15  44s  est 8192MB used 1126MB
+ok    A__house__hmp_stool__R22__r014__p15  49s  est 1418MB used 1086MB
+ok    A__house__hmp_stool__R22__r019__p15  50s  est 1418MB used 1158MB
+ok    A__house__hmp_gingiva__R22__r006__p15  37s  est 8192MB used 1126MB
+ok    A__house__hmp_gingiva__R22__r002__p15  51s  est 8192MB used 1126MB
+ok    A__house__hmp_gingiva__R22__r007__p15  38s  est 8192MB used 1126MB
+ok    A__house__hmp_skin_ear__R22__r001__p15  14s  est 8192MB used 1217MB
+ok    A__house__hmp_gingiva__R22__r009__p15  34s  est 1438MB used 1126MB
+ok    A__house__hmp_gingiva__R22__r019__p15  34s  est 1438MB used 1126MB
+ok    A__house__hmp_skin_ear__R00__r001__p15  31s  est 8192MB used 1497MB
+ok    A__house__hmp_gingiva__R22__r012__p15  35s  est 1438MB used 1126MB
+ok    A__house__hmp_gingiva__R22__r018__p15  37s  est 1438MB used 1127MB
+ok    A__house__hmp_gingiva__R22__r011__p15  38s  est 1438MB used 1126MB
+ok    A__house__hmp_gingiva__R22__r015__p15  40s  est 1438MB used 1126MB
+ok    A__house__hmp_skin_ear__R22__r002__p15  34s  est 8192MB used 1217MB
+ok    A__house__hmp_gingiva__R22__r016__p15  41s  est 1438MB used 1126MB
+ok    A__house__hmp_gingiva__R22__r013__p15  42s  est 1438MB used 1155MB
+ok    A__house__hmp_gingiva__R22__r017__p15  42s  est 1438MB used 1146MB
+ok    A__house__hmp_gingiva__R22__r014__p15  43s  est 1438MB used 1126MB
+ok    A__house__hmp_gingiva__R22__r020__p15  43s  est 1438MB used 1132MB
+ok    A__house__hmp_gingiva__R22__r008__p15  50s  est 8192MB used 1126MB
+ok    A__house__hmp_skin_ear__R22__r012__p15  27s  est 1522MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r004__p15  36s  est 8192MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r005__p15  32s  est 8192MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r011__p15  30s  est 1522MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r015__p15  31s  est 1522MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r009__p15  32s  est 1522MB used 1226MB
+ok    A__house__hmp_gingiva__R22__r010__p15  51s  est 1438MB used 1132MB
+ok    A__house__hmp_skin_ear__R22__r003__p15  41s  est 8192MB used 1216MB
+ok    A__house__hmp_skin_ear__R22__r008__p15  36s  est 1522MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r006__p15  36s  est 1522MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r017__p15  21s  est 1522MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r013__p15  38s  est 1522MB used 1216MB
+ok    A__house__hmp_skin_ear__R22__r010__p15  39s  est 1522MB used 1217MB
+ok    A__house__hmp_skin_ear__R22__r014__p15  39s  est 1522MB used 1221MB
+ok    A__house__hmp_skin_ear__R22__r020__p15  23s  est 1522MB used 1216MB
+ok    A__house__hmp_skin_ear__R22__r007__p15  39s  est 1522MB used 1217MB
+ok    A__house__hmp_vagina__R00__r001__p15  20s  est 8192MB used 1084MB
+ok    A__house__hmp_vagina__R22__r004__p15  13s  est 8192MB used 1084MB
+ok    A__house__hmp_vagina__R22__r001__p15  22s  est 8192MB used 1084MB
+ok    A__house__hmp_vagina__R22__r003__p15  20s  est 8192MB used 1084MB
+ok    A__house__hmp_skin_ear__R22__r019__p15  31s  est 1522MB used 1217MB
+ok    A__house__hmp_vagina__R22__r002__p15  21s  est 8192MB used 1084MB
+ok    A__house__hmp_skin_ear__R22__r016__p15  31s  est 1522MB used 1216MB
+ok    A__house__hmp_skin_ear__R22__r018__p15  33s  est 1522MB used 1217MB
+ok    A__house__hmp_vagina__R22__r007__p15  19s  est 8192MB used 1085MB
+ok    A__house__hmp_vagina__R22__r005__p15  24s  est 8192MB used 1085MB
+ok    A__house__hmp_vagina__R22__r008__p15  12s  est 8192MB used 1085MB
+ok    A__house__hmp_vagina__R22__r006__p15  25s  est 8192MB used 1085MB
+ok    A__house__hmp_vagina__R22__r011__p15  12s  est 1356MB used 1084MB
+ok    A__house__hmp_vagina__R22__r019__p15  12s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r017__p15  13s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r013__p15  18s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r009__p15  22s  est 8192MB used 1085MB
+ok    A__house__hmp_vagina__R22__r016__p15  19s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r018__p15  20s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r020__p15  21s  est 1356MB used 1084MB
+ok    A__house__hmp_vagina__R22__r012__p15  21s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r015__p15  21s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r014__p15  22s  est 1356MB used 1085MB
+ok    A__house__hmp_vagina__R22__r010__p15  22s  est 1356MB used 1084MB
+ok    A__house__risk_stool__R00__r001__p15  47s  est 8192MB used 749MB
+ok    A__house__risk_stool__R22__r002__p15  52s  est 8192MB used 760MB
+ok    A__house__risk_stool__R22__r001__p15  55s  est 8192MB used 713MB
+ok    A__house__risk_stool__R22__r003__p15  54s  est 8192MB used 754MB
+ok    A__house__risk_stool__R22__r005__p15  54s  est 8192MB used 763MB
+ok    A__house__risk_stool__R22__r004__p15  56s  est 8192MB used 755MB
+ok    A__house__risk_stool__R22__r006__p15  55s  est 8192MB used 770MB
+ok    A__house__risk_stool__R22__r008__p15  57s  est 8192MB used 762MB
+ok    A__house__risk_stool__R22__r007__p15  59s  est 8192MB used 756MB
+ok    A__house__risk_stool__R22__r009__p15  60s  est 8192MB used 767MB
+ok    A__house__risk_stool__R22__r010__p15  55s  est 8192MB used 753MB
+ok    A__house__risk_stool__R22__r012__p15  52s  est 951MB used 744MB
+ok    A__house__risk_stool__R22__r017__p15  54s  est 951MB used 771MB
+ok    A__house__risk_stool__R22__r015__p15  56s  est 951MB used 759MB
+ok    A__house__risk_stool__R22__r016__p15  56s  est 951MB used 757MB
+ok    A__house__risk_stool__R22__r020__p15  55s  est 951MB used 757MB
+ok    A__house__risk_stool__R22__r014__p15  58s  est 951MB used 748MB
+ok    A__house__risk_stool__R22__r013__p15  59s  est 951MB used 778MB
+ok    A__house__risk_stool__R22__r018__p15  62s  est 951MB used 762MB
+ok    A__house__risk_stool__R22__r019__p15  62s  est 951MB used 760MB
+ok    A__house__risk_stool__R22__r011__p15  64s  est 951MB used 762MB
+ok    A__msq__hmp_stool__R00__r001__p15  138s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r001__p15  142s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r003__p15  139s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r002__p15  144s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r004__p15  141s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r005__p15  143s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r006__p15  146s  est 8192MB used 1125MB
+ok    A__msq__hmp_stool__R22__r007__p15  142s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r009__p15  145s  est 8192MB used 1126MB
+ok    A__msq__hmp_stool__R22__r008__p15  157s  est 8192MB used 1126MB
+ok    A__msq__hmp_gingiva__R00__r001__p15  63s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r001__p15  63s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r003__p15  61s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r002__p15  76s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r004__p15  64s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r005__p15  64s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r006__p15  61s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r012__p15  59s  est 1397MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r007__p15  63s  est 8192MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r013__p15  61s  est 1397MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r011__p15  62s  est 1397MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r008__p15  62s  est 1397MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r014__p15  63s  est 1397MB used 1117MB
+ok    A__msq__hmp_stool__R22__r010__p15  146s  est 8192MB used 1126MB
+ok    A__msq__hmp_gingiva__R22__r009__p15  65s  est 1397MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r010__p15  66s  est 1397MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r015__p15  70s  est 1397MB used 1117MB
+ok    A__msq__hmp_stool__R22__r013__p15  144s  est 1408MB used 1126MB
+ok    A__msq__hmp_stool__R22__r018__p15  144s  est 1408MB used 1126MB
+ok    A__msq__hmp_gingiva__R22__r020__p15  60s  est 1397MB used 1117MB
+ok    A__msq__hmp_stool__R22__r012__p15  145s  est 1408MB used 1126MB
+ok    A__msq__hmp_stool__R22__r019__p15  145s  est 1408MB used 1125MB
+ok    A__msq__hmp_stool__R22__r011__p15  146s  est 1408MB used 1126MB
+ok    A__msq__hmp_gingiva__R22__r019__p15  61s  est 1397MB used 1117MB
+ok    A__msq__hmp_stool__R22__r015__p15  147s  est 1408MB used 1126MB
+ok    A__msq__hmp_stool__R22__r020__p15  147s  est 1408MB used 1126MB
+ok    A__msq__hmp_gingiva__R22__r016__p15  63s  est 1397MB used 1117MB
+ok    A__msq__hmp_gingiva__R22__r018__p15  63s  est 1397MB used 1118MB
+ok    A__msq__hmp_gingiva__R22__r017__p15  63s  est 1397MB used 1117MB
+ok    A__msq__hmp_stool__R22__r016__p15  150s  est 1408MB used 1126MB
+ok    A__msq__hmp_stool__R22__r017__p15  156s  est 1408MB used 1126MB
+ok    A__msq__hmp_stool__R22__r014__p15  162s  est 1408MB used 1126MB
+ok    A__msq__hmp_skin_ear__R00__r001__p15  77s  est 8192MB used 1218MB
+ok    A__msq__hmp_skin_ear__R22__r001__p15  79s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r002__p15  77s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r003__p15  82s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r004__p15  81s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r005__p15  78s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r006__p15  78s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r007__p15  77s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r008__p15  78s  est 8192MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r009__p15  77s  est 8192MB used 1216MB
+.. 2026-10-13 15:03:09  running 18/48  reserved 80746/82944MB  used 32718MB  avail 114612MB  done 157  pending 350
+ok    A__msq__hmp_skin_ear__R22__r010__p15  76s  est 8192MB used 1216MB
+ok    A__msq__hmp_vagina__R00__r001__p15  50s  est 8192MB used 1153MB
+ok    A__msq__hmp_skin_ear__R22__r013__p15  77s  est 1521MB used 1215MB
+ok    A__msq__hmp_skin_ear__R22__r016__p15  77s  est 1521MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r011__p15  77s  est 1521MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r015__p15  78s  est 1521MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r014__p15  79s  est 1521MB used 1216MB
+ok    A__msq__hmp_skin_ear__R22__r012__p15  80s  est 1521MB used 1216MB
+ok    A__msq__hmp_vagina__R22__r003__p15  52s  est 8192MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r001__p15  52s  est 8192MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r002__p15  52s  est 8192MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r004__p15  49s  est 8192MB used 1153MB
+ok    A__msq__hmp_skin_ear__R22__r017__p15  77s  est 1521MB used 1218MB
+ok    A__msq__hmp_skin_ear__R22__r020__p15  77s  est 1521MB used 1219MB
+ok    A__msq__hmp_skin_ear__R22__r018__p15  78s  est 1521MB used 1218MB
+ok    A__msq__hmp_vagina__R22__r005__p15  52s  est 8192MB used 1153MB
+ok    A__msq__hmp_skin_ear__R22__r019__p15  78s  est 1521MB used 1218MB
+ok    A__msq__hmp_vagina__R22__r006__p15  50s  est 8192MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r007__p15  55s  est 8192MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r008__p15  52s  est 8192MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r009__p15  51s  est 8192MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r014__p15  50s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r012__p15  50s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r016__p15  50s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r020__p15  51s  est 1442MB used 1152MB
+ok    A__msq__hmp_vagina__R22__r015__p15  51s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r011__p15  51s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r013__p15  51s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r019__p15  52s  est 1442MB used 1152MB
+ok    A__msq__hmp_vagina__R22__r010__p15  52s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r017__p15  53s  est 1442MB used 1153MB
+ok    A__msq__hmp_vagina__R22__r018__p15  53s  est 1442MB used 1153MB
+ok    A__msq__risk_stool__R00__r001__p15  125s  est 8192MB used 933MB
+ok    A__msq__risk_stool__R22__r001__p15  130s  est 8192MB used 906MB
+ok    A__msq__risk_stool__R22__r003__p15  130s  est 8192MB used 914MB
+ok    A__msq__risk_stool__R22__r002__p15  131s  est 8192MB used 914MB
+ok    A__msq__risk_stool__R22__r004__p15  138s  est 8192MB used 911MB
+ok    A__msq__risk_stool__R22__r005__p15  127s  est 8192MB used 905MB
+ok    A__mid__hmp_stool__R22__r002__p15  10s  est 8192MB used 1067MB
+ok    A__mid__hmp_stool__R22__r001__p15  10s  est 8192MB used 1067MB
+ok    A__msq__risk_stool__R22__r006__p15  135s  est 8192MB used 887MB
+ok    A__msq__risk_stool__R22__r007__p15  134s  est 8192MB used 887MB
+ok    A__mid__hmp_stool__R22__r006__p15  10s  est 1334MB used 1067MB
+ok    A__mid__hmp_stool__R22__r009__p15  10s  est 1334MB used 1067MB
+ok    A__mid__hmp_stool__R22__r007__p15  10s  est 1334MB used 1067MB
+ok    A__mid__hmp_stool__R22__r008__p15  10s  est 1334MB used 1066MB
+ok    A__mid__hmp_stool__R22__r003__p15  10s  est 1334MB used 1067MB
+ok    A__mid__hmp_stool__R22__r011__p15  10s  est 1334MB used 1068MB
+ok    A__mid__hmp_stool__R22__r004__p15  10s  est 1334MB used 1067MB
+ok    A__mid__hmp_stool__R22__r012__p15  10s  est 1334MB used 1068MB
+ok    A__mid__hmp_stool__R22__r010__p15  10s  est 1334MB used 1068MB
+ok    A__mid__hmp_stool__R22__r005__p15  11s  est 1334MB used 1066MB
+ok    A__mid__hmp_stool__R22__r014__p15  9s  est 1334MB used 1068MB
+ok    A__mid__hmp_stool__R22__r017__p15  10s  est 1334MB used 1065MB
+ok    A__mid__hmp_stool__R22__r018__p15  10s  est 1334MB used 1065MB
+ok    A__mid__hmp_stool__R22__r013__p15  10s  est 1334MB used 1068MB
+ok    A__mid__hmp_stool__R22__r015__p15  10s  est 1334MB used 1068MB
+ok    A__mid__hmp_stool__R22__r016__p15  10s  est 1334MB used 1068MB
+ok    A__msq__risk_stool__R22__r009__p15  131s  est 8192MB used 898MB
+ok    A__msq__risk_stool__R22__r008__p15  132s  est 8192MB used 897MB
+ok    A__mid__hmp_stool__R22__r020__p15  9s  est 1334MB used 1065MB
+ok    A__mid__hmp_stool__R22__r019__p15  9s  est 1334MB used 1065MB
+ok    A__mid__hmp_gingiva__R22__r002__p15  9s  est 8192MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r001__p15  10s  est 8192MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r003__p15  9s  est 8192MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r004__p15  9s  est 8192MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r005__p15  10s  est 8192MB used 1063MB
+ok    A__mid__hmp_stool__R00__r001__p15  60s  est 8192MB used 1113MB
+ok    A__mid__hmp_gingiva__R22__r014__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r008__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r006__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r011__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r007__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r010__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r018__p15  10s  est 1329MB used 1060MB
+ok    A__mid__hmp_gingiva__R22__r020__p15  10s  est 1329MB used 1060MB
+ok    A__mid__hmp_gingiva__R22__r017__p15  10s  est 1329MB used 1060MB
+ok    A__mid__hmp_gingiva__R22__r015__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r016__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r009__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r012__p15  10s  est 1329MB used 1063MB
+ok    A__mid__hmp_gingiva__R22__r019__p15  10s  est 1329MB used 1060MB
+ok    A__mid__hmp_gingiva__R22__r013__p15  11s  est 1329MB used 1063MB
+ok    A__mid__hmp_skin_ear__R22__r001__p15  11s  est 8192MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r002__p15  10s  est 8192MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r003__p15  10s  est 8192MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r005__p15  11s  est 8192MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r004__p15  11s  est 8192MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r008__p15  11s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r017__p15  11s  est 1433MB used 1142MB
+ok    A__mid__hmp_skin_ear__R22__r014__p15  11s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r012__p15  11s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r011__p15  11s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r013__p15  11s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r019__p15  11s  est 1433MB used 1142MB
+ok    A__mid__hmp_skin_ear__R22__r010__p15  11s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r006__p15  11s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r018__p15  12s  est 1433MB used 1141MB
+ok    A__mid__hmp_skin_ear__R22__r015__p15  12s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r016__p15  12s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R22__r020__p15  12s  est 1433MB used 1142MB
+ok    A__mid__hmp_skin_ear__R22__r007__p15  12s  est 1433MB used 1145MB
+ok    A__mid__hmp_skin_ear__R22__r009__p15  12s  est 1433MB used 1146MB
+ok    A__mid__hmp_skin_ear__R00__r001__p15  28s  est 8192MB used 1237MB
+ok    A__mid__hmp_gingiva__R00__r001__p15  42s  est 8192MB used 1118MB
+ok    A__mid__hmp_vagina__R22__r002__p15  9s  est 8192MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r001__p15  9s  est 8192MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r003__p15  9s  est 8192MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r004__p15  9s  est 8192MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r005__p15  10s  est 8192MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r007__p15  10s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r008__p15  10s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r019__p15  10s  est 1354MB used 1079MB
+ok    A__mid__hmp_vagina__R22__r015__p15  10s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r017__p15  10s  est 1354MB used 1079MB
+ok    A__mid__hmp_vagina__R22__r016__p15  10s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r010__p15  10s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r014__p15  10s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r018__p15  10s  est 1354MB used 1079MB
+ok    A__mid__hmp_vagina__R22__r020__p15  10s  est 1354MB used 1079MB
+ok    A__mid__hmp_vagina__R22__r013__p15  11s  est 1354MB used 1082MB
+ok    A__mid__hmp_vagina__R22__r011__p15  11s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r006__p15  11s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r009__p15  11s  est 1354MB used 1083MB
+ok    A__mid__hmp_vagina__R22__r012__p15  11s  est 1354MB used 1082MB
+ok    A__mid__risk_stool__R22__r001__p15  7s  est 8192MB used 626MB
+ok    A__mid__risk_stool__R22__r002__p15  7s  est 8192MB used 625MB
+ok    A__mid__hmp_vagina__R00__r001__p15  24s  est 8192MB used 1128MB
+ok    A__mid__risk_stool__R22__r003__p15  8s  est 8192MB used 626MB
+ok    A__mid__risk_stool__R22__r007__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r014__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r010__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r013__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r017__p15  8s  est 783MB used 627MB
+ok    A__mid__risk_stool__R22__r015__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r004__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r016__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r006__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r011__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r009__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r012__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r018__p15  8s  est 783MB used 625MB
+ok    A__mid__risk_stool__R22__r005__p15  8s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r019__p15  9s  est 783MB used 627MB
+ok    A__mid__risk_stool__R22__r008__p15  9s  est 783MB used 626MB
+ok    A__mid__risk_stool__R22__r020__p15  9s  est 783MB used 627MB
+ok    A__sd2__hmp_stool__R22__r002__p15  10s  est 8192MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r003__p15  10s  est 8192MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r001__p15  11s  est 8192MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r004__p15  9s  est 8192MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r005__p15  10s  est 8192MB used 1066MB
+ok    A__msq__risk_stool__R22__r010__p15  134s  est 8192MB used 898MB
+ok    A__msq__risk_stool__R22__r014__p15  130s  est 1133MB used 914MB
+ok    A__sd2__hmp_stool__R22__r007__p15  10s  est 1334MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r019__p15  10s  est 1334MB used 1065MB
+ok    A__sd2__hmp_stool__R22__r020__p15  10s  est 1334MB used 1065MB
+ok    A__sd2__hmp_stool__R22__r013__p15  10s  est 1334MB used 1068MB
+ok    A__sd2__hmp_stool__R22__r008__p15  10s  est 1334MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r006__p15  10s  est 1334MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r009__p15  10s  est 1334MB used 1067MB
+ok    A__sd2__hmp_stool__R22__r016__p15  10s  est 1334MB used 1068MB
+ok    A__sd2__hmp_stool__R22__r014__p15  10s  est 1334MB used 1068MB
+ok    A__sd2__hmp_stool__R22__r012__p15  10s  est 1334MB used 1068MB
+ok    A__sd2__hmp_stool__R22__r017__p15  10s  est 1334MB used 1065MB
+ok    A__sd2__hmp_stool__R22__r010__p15  10s  est 1334MB used 1068MB
+ok    A__sd2__hmp_stool__R22__r015__p15  10s  est 1334MB used 1068MB
+ok    A__sd2__hmp_stool__R22__r018__p15  11s  est 1334MB used 1065MB
+ok    A__sd2__hmp_stool__R22__r011__p15  11s  est 1334MB used 1068MB
+ok    A__sd2__hmp_gingiva__R22__r001__p15  10s  est 8192MB used 1063MB
+ok    A__msq__risk_stool__R22__r012__p15  134s  est 1133MB used 914MB
+ok    A__msq__risk_stool__R22__r018__p15  136s  est 1133MB used 920MB
+ok    A__msq__risk_stool__R22__r011__p15  136s  est 1133MB used 909MB
+ok    A__msq__risk_stool__R22__r013__p15  136s  est 1133MB used 907MB
+ok    A__msq__risk_stool__R22__r015__p15  137s  est 1133MB used 897MB
+ok    A__msq__risk_stool__R22__r017__p15  137s  est 1133MB used 903MB
+ok    A__msq__risk_stool__R22__r016__p15  138s  est 1133MB used 905MB
+ok    A__sd2__hmp_gingiva__R22__r003__p15  9s  est 8192MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r002__p15  9s  est 8192MB used 1063MB
+ok    A__msq__risk_stool__R22__r019__p15  135s  est 1143MB used 881MB
+ok    A__sd2__hmp_gingiva__R22__r008__p15  9s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r011__p15  9s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r006__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r007__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r013__p15  10s  est 1329MB used 1064MB
+ok    A__sd2__hmp_gingiva__R22__r012__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r009__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r005__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r010__p15  10s  est 1329MB used 1064MB
+ok    A__sd2__hmp_gingiva__R22__r016__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r020__p15  10s  est 1329MB used 1060MB
+ok    A__sd2__hmp_gingiva__R22__r017__p15  10s  est 1329MB used 1060MB
+ok    A__sd2__hmp_gingiva__R22__r004__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r014__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r019__p15  10s  est 1329MB used 1060MB
+ok    A__sd2__hmp_gingiva__R22__r015__p15  10s  est 1329MB used 1063MB
+ok    A__sd2__hmp_gingiva__R22__r018__p15  10s  est 1329MB used 1060MB
+ok    A__msq__risk_stool__R22__r020__p15  140s  est 1143MB used 860MB
+ok    A__sd2__hmp_skin_ear__R22__r002__p15  10s  est 8192MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r003__p15  10s  est 8192MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r001__p15  10s  est 8192MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r004__p15  10s  est 8192MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r005__p15  10s  est 8192MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r015__p15  9s  est 1433MB used 1146MB
+ok    A__sd2__hmp_gingiva__R00__r001__p15  39s  est 8192MB used 1088MB
+ok    A__sd2__hmp_skin_ear__R22__r012__p15  10s  est 1433MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r006__p15  10s  est 1433MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r013__p15  10s  est 1433MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r019__p15  10s  est 1433MB used 1142MB
+ok    A__sd2__hmp_skin_ear__R22__r010__p15  10s  est 1433MB used 1145MB
+ok    A__sd2__hmp_skin_ear__R22__r020__p15  10s  est 1433MB used 1142MB
+ok    A__sd2__hmp_skin_ear__R22__r018__p15  10s  est 1433MB used 1142MB
+ok    A__sd2__hmp_skin_ear__R22__r016__p15  10s  est 1433MB used 1145MB
+ok    A__sd2__hmp_skin_ear__R22__r011__p15  10s  est 1433MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r014__p15  10s  est 1433MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r009__p15  10s  est 1433MB used 1145MB
+ok    A__sd2__hmp_skin_ear__R22__r017__p15  10s  est 1433MB used 1141MB
+ok    A__sd2__hmp_skin_ear__R22__r008__p15  10s  est 1433MB used 1146MB
+ok    A__sd2__hmp_skin_ear__R22__r007__p15  10s  est 1433MB used 1145MB
+ok    A__sd2__hmp_skin_ear__R00__r001__p15  27s  est 8192MB used 1207MB
+ok    A__sd2__hmp_vagina__R22__r001__p15  9s  est 8192MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r002__p15  9s  est 8192MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r005__p15  8s  est 8192MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r003__p15  8s  est 8192MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r004__p15  9s  est 8192MB used 1082MB
+ok    A__sd2__hmp_vagina__R22__r006__p15  9s  est 8192MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r007__p15  9s  est 8192MB used 1083MB
+ok    A__mid__risk_stool__R00__r001__p15  80s  est 8192MB used 1031MB
+ok    A__sd2__hmp_vagina__R00__r001__p15  23s  est 8192MB used 1101MB
+ok    A__sd2__hmp_vagina__R22__r016__p15  9s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r011__p15  9s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r014__p15  9s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r017__p15  9s  est 1354MB used 1079MB
+ok    A__sd2__hmp_vagina__R22__r019__p15  9s  est 1354MB used 1079MB
+ok    A__sd2__hmp_vagina__R22__r008__p15  9s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r013__p15  9s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r018__p15  9s  est 1354MB used 1080MB
+ok    A__sd2__hmp_vagina__R22__r015__p15  9s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r009__p15  9s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r010__p15  10s  est 1354MB used 1083MB
+ok    A__sd2__hmp_vagina__R22__r012__p15  10s  est 1354MB used 1083MB
+ok    A__sd2__risk_stool__R22__r001__p15  7s  est 8192MB used 625MB
+ok    A__sd2__risk_stool__R22__r003__p15  7s  est 8192MB used 625MB
+ok    A__sd2__risk_stool__R22__r002__p15  7s  est 8192MB used 625MB
+ok    A__sd2__hmp_vagina__R22__r020__p15  9s  est 1354MB used 1079MB
+ok    A__sd2__risk_stool__R22__r004__p15  7s  est 8192MB used 625MB
+ok    A__sd2__risk_stool__R22__r005__p15  8s  est 8192MB used 625MB
+ok    A__sd2__risk_stool__R22__r007__p15  7s  est 8192MB used 625MB
+ok    A__sd2__risk_stool__R22__r006__p15  8s  est 8192MB used 625MB
+ok    A__sd2__risk_stool__R22__r012__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r009__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r020__p15  7s  est 782MB used 627MB
+ok    A__sd2__risk_stool__R22__r019__p15  7s  est 782MB used 627MB
+ok    A__sd2__risk_stool__R22__r010__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r015__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r013__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r011__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r014__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r016__p15  7s  est 782MB used 625MB
+ok    A__sd2__risk_stool__R22__r017__p15  7s  est 782MB used 627MB
+ok    A__sd2__risk_stool__R22__r018__p15  7s  est 782MB used 627MB
+ok    A__sd2__risk_stool__R22__r008__p15  7s  est 782MB used 625MB
+ok    A__sps__hmp_stool__R22__r001__p15  13s  est 8192MB used 1134MB
+ok    A__sps__hmp_stool__R22__r004__p15  12s  est 8192MB used 1134MB
+ok    A__sps__hmp_stool__R22__r002__p15  12s  est 8192MB used 1134MB
+ok    A__sps__hmp_stool__R22__r005__p15  12s  est 8192MB used 1134MB
+ok    A__sps__hmp_stool__R22__r003__p15  12s  est 8192MB used 1134MB
+ok    A__sps__hmp_stool__R22__r007__p15  12s  est 8192MB used 1134MB
+ok    A__sps__hmp_stool__R22__r006__p15  13s  est 8192MB used 1134MB
+ok    A__sd2__hmp_stool__R00__r001__p15  101s  est 8192MB used 1203MB
+ok    A__sps__hmp_stool__R22__r013__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r009__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r012__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r011__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r008__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r010__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r017__p15  12s  est 1418MB used 1134MB
+ok    A__sps__hmp_gingiva__R22__r001__p15  12s  est 8192MB used 1143MB
+ok    A__sps__hmp_stool__R22__r015__p15  12s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r016__p15  12s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r014__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r018__p15  12s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r020__p15  12s  est 1418MB used 1134MB
+ok    A__sps__hmp_stool__R22__r019__p15  13s  est 1418MB used 1134MB
+ok    A__sps__hmp_gingiva__R22__r002__p15  12s  est 8192MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r003__p15  12s  est 8192MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r005__p15  13s  est 8192MB used 1142MB
+ok    A__sps__hmp_gingiva__R22__r004__p15  13s  est 8192MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r020__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r014__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r013__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r019__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r018__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r015__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r011__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r006__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r016__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r010__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r007__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r008__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r017__p15  13s  est 1429MB used 1142MB
+ok    A__sps__hmp_gingiva__R22__r009__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_gingiva__R22__r012__p15  13s  est 1429MB used 1143MB
+ok    A__sps__hmp_skin_ear__R22__r001__p15  14s  est 8192MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r002__p15  13s  est 8192MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r003__p15  14s  est 8192MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r004__p15  13s  est 8192MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r006__p15  13s  est 8192MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r005__p15  13s  est 8192MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r012__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r007__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r011__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r008__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r010__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r009__p15  14s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r017__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_gingiva__R00__r001__p15  53s  est 8192MB used 1276MB
+ok    A__sps__hmp_skin_ear__R22__r014__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r020__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r013__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r019__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r016__p15  13s  est 1529MB used 1223MB
+ok    A__sps__hmp_skin_ear__R22__r015__p15  13s  est 1529MB used 1222MB
+ok    A__sps__hmp_skin_ear__R22__r018__p15  14s  est 1529MB used 1222MB
+ok    A__sps__hmp_skin_ear__R00__r001__p15  39s  est 8192MB used 1459MB
+ok    A__sps__hmp_vagina__R22__r002__p15  12s  est 8192MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r001__p15  13s  est 8192MB used 1110MB
+ok    A__sps__hmp_stool__R00__r001__p15  78s  est 8192MB used 1345MB
+ok    A__sd2__risk_stool__R00__r001__p15  89s  est 8192MB used 1446MB
+ok    A__sps__hmp_vagina__R22__r003__p15  13s  est 8192MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r005__p15  13s  est 8192MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r006__p15  13s  est 8192MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r007__p15  13s  est 8192MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r004__p15  14s  est 8192MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r013__p15  12s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r008__p15  13s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r011__p15  13s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r009__p15  13s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r012__p15  13s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r010__p15  13s  est 1388MB used 1110MB
+ok    A__sps__risk_stool__R22__r001__p15  10s  est 8192MB used 883MB
+ok    A__sps__hmp_vagina__R22__r020__p15  12s  est 1388MB used 1111MB
+ok    A__sps__hmp_vagina__R22__r015__p15  12s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r014__p15  12s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r017__p15  12s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r019__p15  12s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r016__p15  12s  est 1388MB used 1110MB
+ok    A__sps__hmp_vagina__R22__r018__p15  13s  est 1388MB used 1110MB
+ok    A__sps__risk_stool__R22__r002__p15  10s  est 8192MB used 883MB
+ok    A__sps__risk_stool__R22__r004__p15  10s  est 8192MB used 883MB
+ok    A__sps__risk_stool__R22__r003__p15  11s  est 8192MB used 883MB
+ok    A__sps__risk_stool__R22__r005__p15  11s  est 8192MB used 883MB
+ok    A__sps__hmp_vagina__R00__r001__p15  38s  est 8192MB used 1201MB
+ok    A__sps__risk_stool__R22__r011__p15  10s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r009__p15  10s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r008__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r013__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r007__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r018__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r006__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r010__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r015__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r020__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r019__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r014__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r017__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r012__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R22__r016__p15  11s  est 1104MB used 883MB
+ok    A__sps__risk_stool__R00__r001__p15  88s  est 8192MB used 1257MB
+>> finished 2026-10-13 15:11:45; peak concurrency 34, 0 skipped
+>> 167025 cells have results; 3400 not producible by that simulator.
+>> Re-run this command to retry anything that failed.
+>> axis B (2026-10-13 15:11:55)
+>> hpc/tasks_p15/axisB_run.txt
+>> RAM 147330MB total, budget 82944MB (75%), floor 8192MB, max 48 jobs
+>> learned memory for 0 cell classes from logs/*.mem (reserve 125% of observed, default 8192MB)
+>> 105 cells, started 2026-10-13 15:11:57
+.. 2026-10-13 15:11:57  running 0/48  reserved 0/82944MB  used 18255MB  avail 129075MB  done 0  pending 105
+ok    B__implant__hmp_stool__B_cont__r005__p15  51s  est 8192MB used 1117MB
+ok    B__implant__hmp_stool__B_cont__r006__p15  51s  est 8192MB used 1121MB
+ok    B__implant__hmp_stool__B_cont__r003__p15  52s  est 8192MB used 1140MB
+ok    B__implant__hmp_stool__B_ref__r001__p15  53s  est 8192MB used 1396MB
+ok    B__implant__hmp_stool__B_cont__r008__p15  53s  est 8192MB used 1140MB
+ok    B__implant__hmp_stool__B_cont__r009__p15  55s  est 8192MB used 1113MB
+ok    B__implant__hmp_stool__B_cont__r004__p15  58s  est 8192MB used 1231MB
+ok    B__implant__hmp_stool__B_cont__r001__p15  60s  est 8192MB used 1088MB
+ok    B__implant__hmp_stool__B_cont__r007__p15  61s  est 8192MB used 1159MB
+ok    B__implant__hmp_stool__B_cont__r002__p15  74s  est 8192MB used 1152MB
+ok    B__implant__hmp_gingiva__B_cont__r002__p15  31s  est 8192MB used 1063MB
+ok    B__implant__hmp_gingiva__B_ref__r001__p15  32s  est 8192MB used 1147MB
+ok    B__implant__hmp_gingiva__B_cont__r003__p15  32s  est 8192MB used 1063MB
+ok    B__implant__hmp_gingiva__B_cont__r001__p15  32s  est 8192MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r005__p15  33s  est 8192MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r006__p15  34s  est 8192MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r004__p15  39s  est 8192MB used 1062MB
+ok    B__implant__hmp_stool__B_cont__r010__p15  53s  est 1402MB used 1131MB
+ok    B__implant__hmp_stool__B_cont__r019__p15  54s  est 1402MB used 1159MB
+ok    B__implant__hmp_stool__B_cont__r013__p15  54s  est 1402MB used 1150MB
+ok    B__implant__hmp_stool__B_cont__r016__p15  56s  est 1402MB used 1136MB
+ok    B__implant__hmp_stool__B_cont__r020__p15  56s  est 1402MB used 1130MB
+ok    B__implant__hmp_stool__B_cont__r014__p15  57s  est 1402MB used 1126MB
+ok    B__implant__hmp_stool__B_cont__r012__p15  57s  est 1402MB used 1178MB
+ok    B__implant__hmp_gingiva__B_cont__r007__p15  32s  est 8192MB used 1062MB
+ok    B__implant__hmp_stool__B_cont__r015__p15  58s  est 1402MB used 1142MB
+ok    B__implant__hmp_stool__B_cont__r018__p15  61s  est 1402MB used 1146MB
+ok    B__implant__hmp_skin_ear__B_ref__r001__p15  24s  est 8192MB used 1248MB
+ok    B__implant__hmp_stool__B_cont__r017__p15  62s  est 1402MB used 1159MB
+ok    B__implant__hmp_skin_ear__B_cont__r001__p15  26s  est 8192MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r003__p15  22s  est 8192MB used 1145MB
+ok    B__implant__hmp_stool__B_cont__r011__p15  67s  est 1402MB used 1117MB
+ok    B__implant__hmp_skin_ear__B_cont__r002__p15  25s  est 8192MB used 1145MB
+ok    B__implant__hmp_gingiva__B_cont__r016__p15  32s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r014__p15  33s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r009__p15  33s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r017__p15  33s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r011__p15  33s  est 1329MB used 1062MB
+ok    B__implant__hmp_skin_ear__B_cont__r004__p15  25s  est 8192MB used 1145MB
+ok    B__implant__hmp_gingiva__B_cont__r010__p15  34s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r019__p15  35s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r012__p15  35s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r015__p15  35s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r018__p15  36s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r020__p15  37s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r013__p15  37s  est 1329MB used 1062MB
+ok    B__implant__hmp_gingiva__B_cont__r008__p15  38s  est 1329MB used 1062MB
+ok    B__implant__hmp_skin_ear__B_cont__r006__p15  27s  est 8192MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r009__p15  22s  est 1432MB used 1147MB
+ok    B__implant__hmp_skin_ear__B_cont__r005__p15  29s  est 8192MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r008__p15  22s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r015__p15  23s  est 1432MB used 1145MB
+ok    B__implant__hmp_vagina__B_cont__r002__p15  17s  est 8192MB used 1082MB
+ok    B__implant__hmp_skin_ear__B_cont__r012__p15  23s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r007__p15  26s  est 8192MB used 1145MB
+ok    B__implant__hmp_vagina__B_cont__r001__p15  17s  est 8192MB used 1082MB
+ok    B__implant__hmp_skin_ear__B_cont__r014__p15  23s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r011__p15  24s  est 1432MB used 1145MB
+ok    B__implant__hmp_vagina__B_ref__r001__p15  18s  est 8192MB used 1082MB
+ok    B__implant__hmp_skin_ear__B_cont__r010__p15  24s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r020__p15  23s  est 1432MB used 1145MB
+ok    B__implant__hmp_vagina__B_cont__r003__p15  17s  est 8192MB used 1082MB
+ok    B__implant__hmp_skin_ear__B_cont__r016__p15  26s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r018__p15  24s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r019__p15  24s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r017__p15  28s  est 1432MB used 1145MB
+ok    B__implant__hmp_skin_ear__B_cont__r013__p15  30s  est 1432MB used 1146MB
+ok    B__implant__hmp_vagina__B_cont__r004__p15  20s  est 8192MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r005__p15  16s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r020__p15  17s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r007__p15  17s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r011__p15  17s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r014__p15  17s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r015__p15  17s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r013__p15  18s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r018__p15  18s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r006__p15  18s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r010__p15  18s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r016__p15  18s  est 1353MB used 1081MB
+ok    B__implant__hmp_vagina__B_cont__r019__p15  18s  est 1353MB used 1081MB
+ok    B__implant__hmp_vagina__B_cont__r008__p15  19s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r017__p15  20s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r012__p15  21s  est 1353MB used 1082MB
+ok    B__implant__hmp_vagina__B_cont__r009__p15  23s  est 1353MB used 1082MB
+ok    B__implant__risk_stool__B_ref__r001__p15  84s  est 8192MB used 1239MB
+ok    B__implant__risk_stool__B_cont__r001__p15  87s  est 8192MB used 1094MB
+ok    B__implant__risk_stool__B_cont__r002__p15  89s  est 8192MB used 1263MB
+ok    B__implant__risk_stool__B_cont__r003__p15  95s  est 8192MB used 1316MB
+ok    B__implant__risk_stool__B_cont__r005__p15  93s  est 8192MB used 1249MB
+ok    B__implant__risk_stool__B_cont__r006__p15  85s  est 8192MB used 1131MB
+ok    B__implant__risk_stool__B_cont__r008__p15  90s  est 8192MB used 1171MB
+ok    B__implant__risk_stool__B_cont__r007__p15  93s  est 8192MB used 1211MB
+ok    B__implant__risk_stool__B_cont__r009__p15  90s  est 8192MB used 1191MB
+ok    B__implant__risk_stool__B_cont__r004__p15  118s  est 8192MB used 1216MB
+ok    B__implant__risk_stool__B_cont__r011__p15  87s  est 1368MB used 1163MB
+ok    B__implant__risk_stool__B_cont__r014__p15  88s  est 1368MB used 1258MB
+ok    B__implant__risk_stool__B_cont__r013__p15  89s  est 1368MB used 1185MB
+ok    B__implant__risk_stool__B_cont__r012__p15  91s  est 1368MB used 1215MB
+ok    B__implant__risk_stool__B_cont__r010__p15  97s  est 8192MB used 1211MB
+ok    B__implant__risk_stool__B_cont__r018__p15  91s  est 1579MB used 1174MB
+ok    B__implant__risk_stool__B_cont__r019__p15  92s  est 1579MB used 1187MB
+ok    B__implant__risk_stool__B_cont__r016__p15  96s  est 1368MB used 1163MB
+ok    B__implant__risk_stool__B_cont__r017__p15  95s  est 1579MB used 1217MB
+ok    B__implant__risk_stool__B_cont__r020__p15  109s  est 1579MB used 1197MB
+ok    B__implant__risk_stool__B_cont__r015__p15  118s  est 1368MB used 1170MB
+>> finished 2026-10-13 15:17:51; peak concurrency 31, 0 skipped
+>> 167130 cells have results; 3400 not producible by that simulator.
+>> Re-run this command to retry anything that failed.
+>> aggregate (2026-10-13 15:18:01)
+
+realised feature count per simulator/template, m factor (requested 200/500/1000):
+                     R04  R00  R05
+house / hmp_gingiva  200  500 1000
+house / hmp_skin_ear 200  500 1000
+house / hmp_stool    200  500 1000
+house / hmp_vagina   200  500 1000
+house / risk_stool   200  500 1000
+mid / hmp_gingiva    200  364  364
+mid / hmp_skin_ear   200  307  307
+mid / hmp_stool      200  500 1000
+mid / hmp_vagina     200  374  374
+mid / risk_stool     200  500 1000
+msq / hmp_gingiva    200  364  364
+msq / hmp_skin_ear   200  307  307
+msq / hmp_stool      200  500 1000
+msq / hmp_vagina     200  374  374
+msq / risk_stool     200  500 1000
+sd2 / hmp_gingiva     NA  364   NA
+sd2 / hmp_skin_ear    NA  307   NA
+sd2 / hmp_stool       NA 1295   NA
+sd2 / hmp_vagina      NA  374   NA
+sd2 / risk_stool      NA 2044   NA
+sps / hmp_gingiva    200  363  363
+sps / hmp_skin_ear   200  306  306
+sps / hmp_stool      200  500 1000
+sps / hmp_vagina     200  373  373
+sps / risk_stool     200  500 1000
+  !! m is NOT estimable on: mid / hmp_gingiva, mid / hmp_skin_ear, mid / hmp_vagina, msq / hmp_gingiva, msq / hmp_skin_ear, msq / hmp_vagina, sps / hmp_gingiva, sps / hmp_skin_ear, sps / hmp_vagina
+     (levels collapse to the same feature count). Drop these from any m contrast.
+  53112 of 124665 axis-A cells ran at a clamped m.
+167130 cells, 13048556 rows
+axis A : 3800 summary rows
+axis B : 548 summary rows
+axis C : 157 summary rows
+fixed-effect model matrix is rank deficient so dropping 25 columns / coefficients
+fixed-effect model matrix is rank deficient so dropping 22 columns / coefficients
+fixed-effect model matrix is rank deficient so dropping 31 columns / coefficients
+fixed-effect model matrix is rank deficient so dropping 28 columns / coefficients
+interaction analysis -> summary/interaction.txt
