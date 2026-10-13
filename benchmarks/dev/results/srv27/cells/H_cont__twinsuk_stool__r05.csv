@@ -1,0 +1,9 @@
+"setting","template","rep","candidate","m","n_sp","mean_shift","median_shift","abs_mean_shift","tested","rej","rej_sp","rej_un","p05_sp","p05_un","nt_sp","nt_un","secs","error"
+"H_cont","twinsuk_stool",5,"eperm_c10",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,2538,0,0,0,16,102,508,2030,148.647,NA
+"H_cont","twinsuk_stool",5,"ref_zicoseq",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,2538,0,0,0,23,128,508,2030,650.949,NA
+"H_cont","twinsuk_stool",5,"ref_ldm",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,2538,0,0,0,38,119,508,2030,43.2600000000002,NA
+"H_cont","twinsuk_stool",5,"ref_linda",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,2538,0,0,0,21,104,508,2030,3.37300000000005,NA
+"H_cont","twinsuk_stool",5,"ref_adapt",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,0,NA,NA,NA,NA,NA,NA,NA,0.00100000000020373,"comparator returned no p-values: not_applicable_needs_binary"
+"H_cont","twinsuk_stool",5,"ref_logistic_presence",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,2503,0,0,0,15,121,500,2003,3.72400000000016,NA
+"H_cont","twinsuk_stool",5,"ref_wilcoxon_tss",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,0,NA,NA,NA,NA,NA,NA,NA,0.00100000000020373,"no p-values: not_applicable_needs_binary_no_covariates"
+"H_cont","twinsuk_stool",5,"ref_lm_logtss",2538,508,-0.0314332124970012,-0.0881505496610686,0.18625155054994,2538,0,0,0,39,184,508,2030,0.01299999999992,NA

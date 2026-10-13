@@ -1,4 +1,4 @@
-40 cells in 4.1 min. No location signal: every call is false. fpr05 = share of taxa at p < 0.05 (nominal 0.05).
+40 cells in 0.0 min. No location signal: every call is false. fpr05 = share of taxa at p < 0.05 (nominal 0.05).
 
  setting candidate cells p_any calls calls_spread calls_other fpr05_spread fpr05_other secs
   H_cont eperm_c5q    40     0     0            0           0       0.0454      0.0469  103
