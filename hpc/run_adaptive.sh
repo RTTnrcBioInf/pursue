@@ -32,12 +32,15 @@ TASKS="${1:?usage: bash hpc/run_adaptive.sh <tasklist.txt>}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"
 [ -f "$TASKS" ] || { echo "no such task list: $TASKS"; exit 1; }
 
-MEM_PCT="${MEM_PCT:-75}"; MAXJOBS="${MAXJOBS:-$(( $(nproc) * 3 / 4 ))}"; FLOOR_MB="${FLOOR_MB:-8192}"
+# nproc without the OMP variables: GNU nproc honours OMP_NUM_THREADS, which hpc/guard.sh sets to 1 (p14 ran one cell at a time)
+MEM_PCT="${MEM_PCT:-75}"; MAXJOBS="${MAXJOBS:-$(( $(env -u OMP_NUM_THREADS -u OMP_THREAD_LIMIT nproc) * 3 / 4 ))}"; FLOOR_MB="${FLOOR_MB:-8192}"
 # integer 75% of one core is zero, and a cap of zero never launches anything -- forever
 [ "$MAXJOBS" -lt 1 ] && MAXJOBS=1
 DEFAULT_EST_MB="${DEFAULT_EST_MB:-8192}"; SAFETY_PCT="${SAFETY_PCT:-125}"; TAG="${TAG:-}"
 MEM_TOTAL_MB=$(awk '/^MemTotal:/{printf "%d", $2/1024}' /proc/meminfo)
 BUDGET_MB=$(( MEM_TOTAL_MB * MEM_PCT / 100 ))
+# under hpc/guard.sh the slice cap MEMTOTAL (e.g. 130G) binds all our runs together: schedule within 90% of it
+if [[ "${MEMTOTAL:-}" =~ ^([0-9]+)[Gg]$ ]]; then cap=$(( ${BASH_REMATCH[1]} * 1024 * 9 / 10 )); [ "$cap" -lt "$BUDGET_MB" ] && BUDGET_MB=$cap; fi
 
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 export PURSUE_BENCH_ROOT="$ROOT/benchmarks" PURSUE_DATA_ROOT="$ROOT/benchmarks/data"

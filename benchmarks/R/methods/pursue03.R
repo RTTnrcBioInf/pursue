@@ -169,3 +169,11 @@ method_pursue03_epermc5q <- function(counts, meta, formula, tested_term, args = 
   v <- .p03$.epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE, pk = "pos", minsw = 2L); i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_full[i], v$est[i], q = .p03$.storey_gq(v$p_full)[i])
 }
+# it54: eperm_c5q with a plain-correlation permutation statistic for continuous exposure without covariates (the
+# option is read by .fl_stat in 70_epg.R; fit caches cleared around the call because their keys do not include it).
+# Everything else is c5q exactly.
+method_pursue03_epermc10 <- function(counts, meta, formula, tested_term, args = list()) {
+  old <- options(pursue.flstat = "cor"); .p03$.clear_fit_memos(); on.exit({ options(old); .p03$.clear_fit_memos() })
+  v <- .p03$.epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE, pk = "pos", minsw = 2L); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i], q = .p03$.storey_gq(v$p_full)[i])
+}
