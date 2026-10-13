@@ -49,6 +49,10 @@
   for (k in seq_len(p)) for (l in seq_len(p)) V <- V + pr$Q[k, l] * cc[[k]] * cc[[l]]
   beta / sqrt(pmax(V, 1e-300))
 }
+.fl_stat <- function(r, r2, pr, P) {     # it54: plain correlation (no covariates) instead of the HC0 t, when options(pursue.flstat = "cor")
+  if (!identical(getOption("pursue.flstat"), "cor") || ncol(pr$X) > 2L) return(.fl_t(r, r2, pr, P))
+  xc <- pr$X[, ncol(pr$X)]; xc <- xc - mean(xc); Xp <- matrix(xc[P], nrow(P), ncol(P))
+  (r %*% Xp) / (sqrt(pmax(rowSums(r^2), 1e-300)) * sqrt(sum(xc^2))) }
 .epg_perm_fl <- function(S0, pr, combos, B = 4000L, B2 = 40000L, cmin = 10L, seed = 17L, chunk = 1000L, tobs, kap, med, ck = "log") {
   n <- pr$n; m <- nrow(S0[[1]]); R <- lapply(S0, .fl_resid, pr = pr); R2 <- lapply(R, function(r) r^2)
   stat <- function(tm, cmb) { a <- abs(tm[[cmb[1]]]); for (h in cmb[-1]) a <- pmax(a, abs(tm[[h]])); a }
@@ -56,13 +60,15 @@
   cnt <- matrix(0, m, length(combos), dimnames = list(NULL, names(combos))); tot <- rep(0, m)
   run <- function(rows, Bn, sd0) .with_seed(sd0, { done <- 0L; rr <- union(rows, med); at <- match(rows, rr)
     while (done < Bn) { bb <- min(chunk, Bn - done); P <- vapply(seq_len(bb), function(k) sample.int(n), integer(n))
-      tt <- function(h, r) { x <- .fl_t(R[[h]][r, , drop = FALSE], R2[[h]][r, , drop = FALSE], pr, P); x[!is.finite(x)] <- 0; x }
+      tt <- function(h, r) { x <- .fl_stat(R[[h]][r, , drop = FALSE], R2[[h]][r, , drop = FALSE], pr, P); x[!is.finite(x)] <- 0; x }
       tc <- tt(ck, rr); dl <- .root_shift(tc[match(med, rr), , drop = FALSE], kap[med, ck])
       tm <- lapply(names(S0), function(h) (if (h == ck) tc[at, , drop = FALSE] else tt(h, rows)) + outer(kap[rows, h], dl)); names(tm) <- names(S0)
       for (cc in seq_along(combos)) cnt[rows, cc] <<- cnt[rows, cc] + rowSums(stat(tm, combos[[cc]]) >= obs[rows, cc] - 1e-10)
       tot[rows] <<- tot[rows] + bb; done <- done + bb } })
   run(seq_len(m), B, seed)
   low <- which(apply(cnt, 1, min) < cmin); if (length(low) && B2 > 0) run(low, B2, seed + 1L)
+  bres <- getOption("pursue.bres", 0); B3 <- if (bres > 0) ceiling(bres * m) - B - B2 else 0   # it53: resolve p down to ~alpha / m
+  if (B3 > 0) { low3 <- which(apply(cnt, 1, min) < cmin); if (length(low3)) run(low3, B3, seed + 2L) }
   list(p = (cnt + 1) / (tot + 1), tot = tot)
 }
 .epg_memo <- new.env()
@@ -98,14 +104,14 @@
         v[!is.finite(v)] <- 0; matrix(v, ncol = length(hs), dimnames = list(NULL, hs)) }
     } else {
       pr <- .fl_prep(x, d$Z); I1 <- matrix(seq_len(n), n, 1)
-      tstat <- function(SS) { v <- sapply(hs, function(h) { r <- .fl_resid(SS[[h]], pr); .fl_t(r, r^2, pr, I1)[, 1] })
+      tstat <- function(SS) { v <- sapply(hs, function(h) { r <- .fl_resid(SS[[h]], pr); .fl_stat(r, r^2, pr, I1)[, 1] })
         v[!is.finite(v)] <- 0; matrix(v, ncol = length(hs), dimnames = list(NULL, hs)) }
     }
     sc <- function(cnt, gm, h) { h0 <- grepl("0$", h); hb <- sub("0$", "", h); bb <- exp(gm * x + if (h0) 0 else sf)   # it50: "<kernel>0" = raw counts, no size factors
       if (h0) cnt <- raw[rownames(cnt), , drop = FALSE]
       if (hb == "pos") .perm_scores_pos(cnt, depth, bb, E, rho = rho) else .perm_scores(cnt, depth, bb, hb, E, rho = rho) }
     medt <- function(gm) { SS <- list(det = NULL, log = sc(ct, gm, "log"), sqrt = NULL)
-      t <- if (type == "clus") { a <- agg(SS$log); a <- a - rowMeans(a); .perm_tstat(a, a^2, G1, sum(g1u), nu - sum(g1u))[, 1] } else { r <- .fl_resid(SS$log, pr); .fl_t(r, r^2, pr, I1)[, 1] }
+      t <- if (type == "clus") { a <- agg(SS$log); a <- a - rowMeans(a); .perm_tstat(a, a^2, G1, sum(g1u), nu - sum(g1u))[, 1] } else { r <- .fl_resid(SS$log, pr); .fl_stat(r, r^2, pr, I1)[, 1] }
       stats::median(t[is.finite(t)]) }
     flo <- medt(-2); fhi <- medt(2)
     gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(medt, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
@@ -126,7 +132,7 @@
     xc <- x - mean(x); deg <- 2 * nrow(E) / n; est <- rep(NA_real_, nrow(counts))
     est[ok] <- if (type == "clus") rowSums(S$log[, x == 1, drop = FALSE]) / sum(x[E[, 1]] != x[E[, 2]]) / log(2) else drop(.fl_resid(S$log, pr) %*% pr$w) / deg / log(2)
     val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, p_det = P[, "det"], p_log = P[, "log"], p_sqrt = P[, "sqrt"],
-                est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = type, choice = ifelse(use, alts[ia], "lead"))
+                est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = type, choice = ifelse(use, alts[ia], "lead"), P = P)
   }
   .epg_memo$key <- key; .epg_memo$val <- val; val
 }

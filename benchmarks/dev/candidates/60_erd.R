@@ -1820,6 +1820,8 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
       tot[rows] <<- tot[rows] + bb; done <- done + bb } })
   run(seq_len(m), B, seed)
   low <- which(apply(cnt, 1, min) < cmin); if (length(low) && B2 > 0) run(low, B2, seed + 1L)
+  bres <- getOption("pursue.bres", 0); B3 <- if (bres > 0) ceiling(bres * m) - B - B2 else 0   # it53: resolve p down to ~alpha / m
+  if (B3 > 0) { low3 <- which(apply(cnt, 1, min) < cmin); if (length(low3)) run(low3, B3, seed + 2L) }
   list(p = (cnt + 1) / (tot + 1), tobs = tobs, tot = tot)
 }
 .eperm_memo <- new.env()
