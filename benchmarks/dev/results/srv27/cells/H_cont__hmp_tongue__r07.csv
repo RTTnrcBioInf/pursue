@@ -1,0 +1,9 @@
+"setting","template","rep","candidate","m","n_sp","mean_shift","median_shift","abs_mean_shift","tested","rej","rej_sp","rej_un","p05_sp","p05_un","nt_sp","nt_un","secs","error"
+"H_cont","hmp_tongue",7,"eperm_c10",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,302,0,0,0,4,18,60,242,41.238,NA
+"H_cont","hmp_tongue",7,"ref_zicoseq",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,302,0,0,0,4,9,60,242,79.005,NA
+"H_cont","hmp_tongue",7,"ref_ldm",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,302,0,0,0,10,33,60,242,12.485,NA
+"H_cont","hmp_tongue",7,"ref_linda",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,302,0,0,0,4,17,60,242,1.87799999999999,NA
+"H_cont","hmp_tongue",7,"ref_adapt",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,0,NA,NA,NA,NA,NA,NA,NA,0.0029999999999859,"comparator returned no p-values: not_applicable_needs_binary"
+"H_cont","hmp_tongue",7,"ref_logistic_presence",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,293,0,0,0,4,23,59,234,0.608000000000004,NA
+"H_cont","hmp_tongue",7,"ref_wilcoxon_tss",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,0,NA,NA,NA,NA,NA,NA,NA,0.0010000000000332,"no p-values: not_applicable_needs_binary_no_covariates"
+"H_cont","hmp_tongue",7,"ref_lm_logtss",302,60,-0.0155520566365876,-0.0495517786279091,0.171951803699518,302,0,0,0,4,16,60,242,0.007000000000005,NA
