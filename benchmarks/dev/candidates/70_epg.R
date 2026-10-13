@@ -50,8 +50,9 @@
   beta / sqrt(pmax(V, 1e-300))
 }
 .fl_stat <- function(r, r2, pr, P) {     # it54: plain correlation (no covariates) instead of the HC0 t, when options(pursue.flstat = "cor")
-  if (!identical(getOption("pursue.flstat"), "cor") || ncol(pr$X) > 2L) return(.fl_t(r, r2, pr, P))
-  xc <- pr$X[, ncol(pr$X)]; xc <- xc - mean(xc); Xp <- matrix(xc[P], nrow(P), ncol(P))
+  fs <- getOption("pursue.flstat", "hc0")                            # it55: "corz" = the same with covariates (Freedman-Lane:
+  if (!(fs == "corz" || (fs == "cor" && ncol(pr$X) <= 2L))) return(.fl_t(r, r2, pr, P))   #   x residualised on 1 + Z)
+  xc <- pr$X[, ncol(pr$X)]; xc <- if (ncol(pr$X) <= 2L) xc - mean(xc) else qr.resid(pr$q0, xc); Xp <- matrix(xc[P], nrow(P), ncol(P))
   (r %*% Xp) / (sqrt(pmax(rowSums(r^2), 1e-300)) * sqrt(sum(xc^2))) }
 .epg_perm_fl <- function(S0, pr, combos, B = 4000L, B2 = 40000L, cmin = 10L, seed = 17L, chunk = 1000L, tobs, kap, med, ck = "log") {
   n <- pr$n; m <- nrow(S0[[1]]); R <- lapply(S0, .fl_resid, pr = pr); R2 <- lapply(R, function(r) r^2)
