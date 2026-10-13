@@ -4,13 +4,13 @@
 #           10 reps (nothing else differs between the two candidates);
 #   srv25n: their nulls (house R22, msq R22, B_cont; da_frac 0) at 40 reps.
 # bank3 locally: twinsuk B_cont 21.2 -> 32.8 TP per cell (ZicoSeq 37.8, LDM 33.8), hmp_tongue 3.6 -> 4.0 (5.8 / 5.4).
-# Shared server: our jobs are the OOM killer's first choice; single-threaded BLAS; cores from CORES. Resumable; pushes.
-#   git pull && mkdir -p logs && (CORES=16 nohup nice -n 10 bash hpc/run_srv25.sh > logs/run_srv25.log 2>&1 &)
+# hpc/guard.sh: shared memory cap for all our runs (MEMTOTAL, default 100G; MEMMAX per run), OOM-killer first choice,
+# single-threaded BLAS. Cores from CORES. Resumable; pushes.
+#   git pull && mkdir -p logs && (MEMTOTAL=130G CORES=16 nohup nice -n 10 bash hpc/run_srv25.sh > logs/run_srv25.log 2>&1 &)
+source "$(dirname "${BASH_SOURCE[0]}")/guard.sh" "$@"
 set -o pipefail
-echo 1000 > /proc/self/oom_score_adj 2>/dev/null || true
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; cd "$ROOT"; mkdir -p logs benchmarks/dev/results
 CORES="${CORES:-16}"
-export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 C=eperm_c5q,eperm_c10
 L=srv25; R=benchmarks/dev/results/$L
 echo ">> dev suite $L ($(date '+%F %T'))"
