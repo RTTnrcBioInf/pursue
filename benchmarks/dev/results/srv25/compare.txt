@@ -1,0 +1,26 @@
+runs: srv25 | 2 candidates | 120 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power mean_TP
+ eperm_c10 PASS     0.048 msq:R22   0.063              -      1.00   18.62
+ eperm_c5q PASS     0.050 msq:R22   0.057              -      0.84   15.92
+ s_cell
+   62.5
+   68.0
+
+=== per setting: TP / FDR / FPR ===
+
+house:R22  (DA per cell 38.9)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 26.25 1.30 0.045 0.044 46.3
+ eperm_c5q 26.10 1.60 0.054 0.046 50.6
+
+implant:B_cont  (DA per cell 125.6)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 19.60 1.65 0.062 0.047 86.9
+ eperm_c5q 13.00 1.80 0.075 0.049 93.5
+
+msq:R22  (DA per cell 36.6)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 10.00 0.80 0.081 0.048 54.3
+ eperm_c5q  8.65 0.55 0.042 0.050 60.0
