@@ -1,0 +1,2 @@
+"setting","template","rep","candidate","m","n_sp","mean_shift","median_shift","abs_mean_shift","tested","rej","rej_sp","rej_un","p05_sp","p05_un","nt_sp","nt_un","secs","error"
+"H_all","twinsuk_stool",12,"eperm_c12",2579,2579,0.0345326348201715,0.00318852197871871,0.398226410709931,2579,0,0,0,122,0,2579,0,151.384,NA

@@ -1,0 +1,21 @@
+200 cells in 15.2 min. No location signal: every call is false. fpr05 = share of taxa at p < 0.05 (nominal 0.05).
+
+ setting candidate cells p_any calls calls_spread calls_other fpr05_spread fpr05_other  secs
+   H_all eperm_c12    40 0.150 1.450        1.450       0.000       0.0719         NaN  47.2
+   H_bal eperm_c12    40 0.025 0.050        0.025       0.025       0.0577      0.0499 101.0
+  H_cont eperm_c12    40 0.000 0.000        0.000       0.000       0.0486      0.0481  98.9
+    H_rd eperm_c12    40 0.025 0.025        0.000       0.025       0.0543      0.0517  80.5
+   H_unb eperm_c12    40 0.025 0.025        0.000       0.025       0.0580      0.0522  91.2
+
+location diagnostic on the altered taxa (absolute scale, sd units; binary: case - control, continuous: correlation with z):
+ setting      template    m   n_sp mean_shift median_shift abs_mean_shift
+   H_all    hmp_tongue  298  297.9   3.57e-02     0.024299          0.398
+   H_bal    hmp_tongue  304   60.7   6.69e-04    -0.000318          0.300
+  H_cont    hmp_tongue  297   59.4   2.73e-05    -0.011892          0.167
+    H_rd    hmp_tongue  266   53.0   2.65e-02     0.012653          0.393
+   H_unb    hmp_tongue  302   60.3   2.46e-02     0.009611          0.410
+   H_all twinsuk_stool 2537 2536.7   5.22e-02     0.028982          0.415
+   H_bal twinsuk_stool 2532  506.3   7.06e-02     0.016978          0.325
+  H_cont twinsuk_stool 2534  506.9   2.72e-02    -0.019875          0.174
+    H_rd twinsuk_stool 2272  458.2   7.27e-02     0.058072          0.427
+   H_unb twinsuk_stool 2548  509.5   4.44e-02     0.024310          0.412

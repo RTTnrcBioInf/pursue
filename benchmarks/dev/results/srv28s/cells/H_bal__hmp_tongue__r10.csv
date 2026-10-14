@@ -1,0 +1,2 @@
+"setting","template","rep","candidate","m","n_sp","mean_shift","median_shift","abs_mean_shift","tested","rej","rej_sp","rej_un","p05_sp","p05_un","nt_sp","nt_un","secs","error"
+"H_bal","hmp_tongue",10,"eperm_c12",301,60,0.0385954523230576,0.0385066803681201,0.248269531175379,301,0,0,0,2,20,60,241,43.247,NA
