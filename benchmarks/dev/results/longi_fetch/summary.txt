@@ -1,0 +1,16 @@
+2026-10-14 16:28:04 fetch_longitudinal
+
+packages: HMP16SData MISSING, HMP2Data MISSING, microbiomeDataSets 1.18.0, phyloseq 1.54.2, SummarizedExperiment 1.40.0 
+!! HMP16SData V35 failed: error in evaluating the argument 'x' in selecting a method for function 'assay': there is no package called ‘HMP16SData’ 
+!! HMP2Data momspi16S failed: there is no package called ‘HMP2Data’ 
+!! HMP2Data IBD16S failed: there is no package called ‘HMP2Data’ 
+!! HMP2Data T2D16S failed: there is no package called ‘HMP2Data’ 
+== baboon_grieneisen: 613 taxa (>= 5% prevalence) x 16234 samples; median depth 47009 (wild baboons; new to the project) 
+   subject column: baboon_id; time column: collection_date 
+   subjects 585; samples per subject: median 18, max 177; subjects with >= 2 samples 523, >= 5 samples 448 
+   metadata columns: sample, baboon_id, collection_date, sex, age, social_group, group_size, rain_month_mm, season, hydro_year, month, readcount, plate, post_pcr_dna_ng, diet_PC1, diet_PC2, diet_PC3, diet_PC4, diet_PC5, diet_PC6, diet_PC7, diet_PC8, diet_PC9, diet_PC10, diet_PC11, diet_PC12, diet_PC13, diet_shannon_h, asv_richness, asv_shannon_h, pc1_bc, pc2_bc, pc3_bc, pc4_bc, pc5_bc 
+     sex                          F=8716  M=7518 
+     season                       dry=6650  wet=9584 
+
+files: baboon_grieneisen.rds 
+6,7M	benchmarks/data/longitudinal

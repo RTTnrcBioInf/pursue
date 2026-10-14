@@ -1,0 +1,432 @@
+>> guard: scope in pursue.slice -- all PURSUE runs together capped at 20G
+Bioconductor version 3.22 (BiocManager 1.30.27), R 4.5.3 (2026-03-11)
+Installing package(s) 'HMP16SData', 'HMP2Data', 'microbiomeDataSets'
+also installing the dependencies ‘dbplyr’, ‘DBI’, ‘filelock’, ‘blob’, ‘KEGGREST’, ‘systemfonts’, ‘textshaping’, ‘BiocFileCache’, ‘RSQLite’, ‘AnnotationDbi’, ‘httr2’, ‘BiocBaseUtils’, ‘xml2’, ‘svglite’, ‘AnnotationHub’, ‘ExperimentHub’, ‘kableExtra’, ‘MultiAssayExperiment’
+
+trying URL 'https://cloud.r-project.org/src/contrib/dbplyr_2.6.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/DBI_1.3.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/filelock_1.0.3.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/blob_1.3.0.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/bioc/src/contrib/KEGGREST_1.50.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/systemfonts_1.3.2.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/textshaping_1.0.5.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/bioc/src/contrib/BiocFileCache_3.0.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/RSQLite_3.53.3.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/bioc/src/contrib/AnnotationDbi_1.72.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/httr2_1.3.0.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/bioc/src/contrib/BiocBaseUtils_1.12.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/xml2_1.6.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/svglite_2.2.2.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/bioc/src/contrib/AnnotationHub_4.0.0.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/bioc/src/contrib/ExperimentHub_3.0.0.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/kableExtra_1.4.1.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/bioc/src/contrib/MultiAssayExperiment_1.36.2.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/data/experiment/src/contrib/HMP16SData_1.30.0.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/data/experiment/src/contrib/HMP2Data_1.24.0.tar.gz'
+trying URL 'https://bioconductor.org/packages/3.22/data/experiment/src/contrib/microbiomeDataSets_1.18.0.tar.gz'
+* installing *source* package ‘DBI’ ...
+** this is package ‘DBI’ version ‘1.3.0’
+** package ‘DBI’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (DBI)
+* installing *source* package ‘filelock’ ...
+** this is package ‘filelock’ version ‘1.0.3’
+** package ‘filelock’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C compiler: ‘x86_64-conda-linux-gnu-cc (conda-forge gcc 15.3.0-4) 15.3.0’
+rm -f filelock.so init.o filelock-unix.o locklist.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG   -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib    -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c init.c -o init.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG   -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib    -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c filelock-unix.c -o filelock-unix.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG   -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib    -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c locklist.c -o locklist.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -shared -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/lib -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/home/robertas_tupikas/.conda/envs/pursue-bench/lib -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib -o filelock.so init.o filelock-unix.o locklist.o -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/lib -lR
+installing to /home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/00LOCK-filelock/00new/filelock/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (filelock)
+* installing *source* package ‘blob’ ...
+** this is package ‘blob’ version ‘1.3.0’
+** package ‘blob’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (blob)
+* installing *source* package ‘KEGGREST’ ...
+** this is package ‘KEGGREST’ version ‘1.50.0’
+** package ‘KEGGREST’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (KEGGREST)
+* installing *source* package ‘systemfonts’ ...
+** this is package ‘systemfonts’ version ‘1.3.2’
+** package ‘systemfonts’ successfully unpacked and MD5 sums checked
+** using staged installation
+Found pkg-config cflags and libs!
+Using PKG_CFLAGS=
+Using PKG_LIBS=-L/home/robertas_tupikas/.conda/envs/pursue-bench/lib -lfontconfig -lfreetype
+** libs
+using C++ compiler: ‘x86_64-conda-linux-gnu-c++ (conda-forge gcc 15.3.0-4) 15.3.0’
+rm -f systemfonts.so caches.o cpp11.o dev_metrics.o font_matching.o font_local.o font_variation.o font_registry.o ft_cache.o string_shape.o font_metrics.o font_outlines.o font_fallback.o string_metrics.o emoji.o cache_store.o init.o unix/FontManagerLinux.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG  -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib    -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c caches.cpp -o caches.o
+In file included from caches.h:6,
+                 from caches.cpp:1:
+FontDescriptor.h:8:10: fatal error: ft2build.h: No such file or directory
+    8 | #include <ft2build.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+make: *** [/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/etc/Makeconf:211: caches.o] Error 1
+ERROR: compilation failed for package ‘systemfonts’
+* removing ‘/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/systemfonts’
+Warning in install.packages(...) :
+  installation of package ‘systemfonts’ had non-zero exit status
+* installing *source* package ‘httr2’ ...
+** this is package ‘httr2’ version ‘1.3.0’
+** package ‘httr2’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (httr2)
+* installing *source* package ‘BiocBaseUtils’ ...
+** this is package ‘BiocBaseUtils’ version ‘1.12.0’
+** package ‘BiocBaseUtils’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (BiocBaseUtils)
+* installing *source* package ‘xml2’ ...
+** this is package ‘xml2’ version ‘1.6.0’
+** package ‘xml2’ successfully unpacked and MD5 sums checked
+** using staged installation
+Found pkg-config cflags and libs!
+Using PKG_CFLAGS=-I/usr/include/libxml2
+Using PKG_LIBS=-lxml2
+** libs
+using C compiler: ‘x86_64-conda-linux-gnu-cc (conda-forge gcc 15.3.0-4) 15.3.0’
+using C++ compiler: ‘x86_64-conda-linux-gnu-c++ (conda-forge gcc 15.3.0-4) 15.3.0’
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c connection.cpp -o connection.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c init.c -o init.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c xml2_doc.cpp -o xml2_doc.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c xml2_init.c -o xml2_init.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c xml2_namespace.cpp -o xml2_namespace.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c xml2_node.cpp -o xml2_node.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c xml2_output.cpp -o xml2_output.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c xml2_schema.cpp -o xml2_schema.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c xml2_url.cpp -o xml2_url.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -I../inst/include -I/usr/include/libxml2 -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0 -DSTRICT_R_HEADERS -DR_NO_REMAP  -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c xml2_xpath.cpp -o xml2_xpath.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -shared -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/lib -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/home/robertas_tupikas/.conda/envs/pursue-bench/lib -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib -o xml2.so connection.o init.o xml2_doc.o xml2_init.o xml2_namespace.o xml2_node.o xml2_output.o xml2_schema.o xml2_url.o xml2_xpath.o -lxml2 -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/lib -lR
+/home/robertas_tupikas/.conda/envs/pursue-bench/bin/x86_64-conda-linux-gnu-ld: cannot find -lxml2: No such file or directory
+collect2: error: ld returned 1 exit status
+make: *** [/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/share/make/shlib.mk:10: xml2.so] Error 1
+ERROR: compilation failed for package ‘xml2’
+* removing ‘/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/xml2’
+Warning in install.packages(...) :
+  installation of package ‘xml2’ had non-zero exit status
+* installing *source* package ‘dbplyr’ ...
+** this is package ‘dbplyr’ version ‘2.6.0’
+** package ‘dbplyr’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (dbplyr)
+ERROR: dependency ‘systemfonts’ is not available for package ‘textshaping’
+Perhaps try a variation of:
+install.packages('systemfonts')
+* removing ‘/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/textshaping’
+Warning in install.packages(...) :
+  installation of package ‘textshaping’ had non-zero exit status
+* installing *source* package ‘RSQLite’ ...
+** this is package ‘RSQLite’ version ‘3.53.3’
+** package ‘RSQLite’ successfully unpacked and MD5 sums checked
+** using staged installation
+Found libcurl (deduped): -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib -lcurl
+** libs
+using C compiler: ‘x86_64-conda-linux-gnu-cc (conda-forge gcc 15.3.0-4) 15.3.0’
+using C++ compiler: ‘x86_64-conda-linux-gnu-c++ (conda-forge gcc 15.3.0-4) 15.3.0’
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c DbColumn.cpp -o DbColumn.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c DbColumnDataSource.cpp -o DbColumnDataSource.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c DbColumnDataSourceFactory.cpp -o DbColumnDataSourceFactory.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c DbColumnStorage.cpp -o DbColumnStorage.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c DbConnection.cpp -o DbConnection.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c DbDataFrame.cpp -o DbDataFrame.o
+In file included from vendor/boost/smart_ptr/detail/sp_thread_sleep.hpp:22,
+                 from vendor/boost/smart_ptr/detail/yield_k.hpp:23,
+                 from vendor/boost/smart_ptr/detail/spinlock_gcc_atomic.hpp:14,
+                 from vendor/boost/smart_ptr/detail/spinlock.hpp:42,
+                 from vendor/boost/smart_ptr/detail/spinlock_pool.hpp:25,
+                 from vendor/boost/smart_ptr/shared_ptr.hpp:29,
+                 from vendor/boost/shared_ptr.hpp:17,
+                 from DbColumn.h:9,
+                 from DbDataFrame.cpp:3:
+vendor/boost/config/pragma_message.hpp:24:34: note: '#pragma message: The practice of declaring the Bind placeholders (_1, _2, ...) in the global namespace is deprecated. Please use <boost/bind/bind.hpp> + using namespace boost::placeholders, or define BOOST_BIND_GLOBAL_PLACEHOLDERS to retain the current behavior.'
+   24 | # define BOOST_PRAGMA_MESSAGE(x) _Pragma(BOOST_STRINGIZE(message(x)))
+      |                                  ^~~~~~~
+vendor/boost/bind.hpp:36:1: note: in expansion of macro 'BOOST_PRAGMA_MESSAGE'
+   36 | BOOST_PRAGMA_MESSAGE(
+      | ^~~~~~~~~~~~~~~~~~~~
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c DbResult.cpp -o DbResult.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c SqliteColumnDataSource.cpp -o SqliteColumnDataSource.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c SqliteColumnDataSourceFactory.cpp -o SqliteColumnDataSourceFactory.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c SqliteDataFrame.cpp -o SqliteDataFrame.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c SqliteResult.cpp -o SqliteResult.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c SqliteResultImpl.cpp -o SqliteResultImpl.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c affinity.c -o affinity.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c connection.cpp -o connection.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c cpp11.cpp -o cpp11.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c ext-csv.c -o ext-csv.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c ext-http.c -o ext-http.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c ext-math.c -o ext-math.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c ext-regexp.c -o ext-regexp.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c ext-series.c -o ext-series.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c ext-uuid.c -o ext-uuid.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c extensions.cpp -o extensions.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c has_http_vfs.cpp -o has_http_vfs.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c httpvfs_stats.cpp -o httpvfs_stats.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c import-file.c -o import-file.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c result.cpp -o result.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -fvisibility-inlines-hidden -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix   -c rsqlite.cpp -o rsqlite.o
+x86_64-conda-linux-gnu-cc -std=gnu23 -I"/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/include" -DNDEBUG -Ivendor -DRSQLITE_USE_BUNDLED_SQLITE -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_PERCENTILE -DSQLITE_ENABLE_STAT4 -DSQLITE_SOUNDEX -DSQLITE_USE_URI=1 -DSQLITE_MAX_LENGTH=2147483647 -DHAVE_USLEEP=1 -DRSQLITE_ENABLE_HTTPVFS -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -I'/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/cpp11/include' -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -I/home/robertas_tupikas/.conda/envs/pursue-bench/include -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib   -fvisibility=hidden -fpic  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /home/robertas_tupikas/.conda/envs/pursue-bench/include -fdebug-prefix-map=/home/conda/feedstock_root/build_artifacts/r-base-split_1781522246325/work=/usr/local/src/conda/r-base-4.5.3 -fdebug-prefix-map=/home/robertas_tupikas/.conda/envs/pursue-bench=/usr/local/src/conda-prefix  -c vendor/sqlite3/sqlite3.c -o vendor/sqlite3/sqlite3.o
+x86_64-conda-linux-gnu-c++ -std=gnu++17 -shared -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/lib -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/home/robertas_tupikas/.conda/envs/pursue-bench/lib -Wl,-rpath-link,/home/robertas_tupikas/.conda/envs/pursue-bench/lib -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib -o RSQLite.so DbColumn.o DbColumnDataSource.o DbColumnDataSourceFactory.o DbColumnStorage.o DbConnection.o DbDataFrame.o DbResult.o SqliteColumnDataSource.o SqliteColumnDataSourceFactory.o SqliteDataFrame.o SqliteResult.o SqliteResultImpl.o affinity.o connection.o cpp11.o ext-csv.o ext-http.o ext-math.o ext-regexp.o ext-series.o ext-uuid.o extensions.o has_http_vfs.o httpvfs_stats.o import-file.o result.o rsqlite.o vendor/sqlite3/sqlite3.o -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib -lcurl -L/home/robertas_tupikas/.conda/envs/pursue-bench/lib/R/lib -lR
+installing to /home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/00LOCK-RSQLite/00new/RSQLite/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (RSQLite)
+* installing *source* package ‘MultiAssayExperiment’ ...
+** this is package ‘MultiAssayExperiment’ version ‘1.36.2’
+** package ‘MultiAssayExperiment’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (MultiAssayExperiment)
+* installing *source* package ‘BiocFileCache’ ...
+** this is package ‘BiocFileCache’ version ‘3.0.0’
+** package ‘BiocFileCache’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (BiocFileCache)
+* installing *source* package ‘AnnotationDbi’ ...
+** this is package ‘AnnotationDbi’ version ‘1.72.0’
+** package ‘AnnotationDbi’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Creating a new generic function for ‘packageName’ in package ‘AnnotationDbi’
+Creating a generic function for ‘ls’ from package ‘base’ in package ‘AnnotationDbi’
+Creating a generic function for ‘eapply’ from package ‘base’ in package ‘AnnotationDbi’
+Creating a generic function for ‘exists’ from package ‘base’ in package ‘AnnotationDbi’
+Creating a generic function for ‘sample’ from package ‘base’ in package ‘AnnotationDbi’
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (AnnotationDbi)
+ERROR: dependencies ‘systemfonts’, ‘textshaping’ are not available for package ‘svglite’
+Perhaps try a variation of:
+install.packages(c('systemfonts', 'textshaping'))
+* removing ‘/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/svglite’
+Warning in install.packages(...) :
+  installation of package ‘svglite’ had non-zero exit status
+* installing *source* package ‘AnnotationHub’ ...
+** this is package ‘AnnotationHub’ version ‘4.0.0’
+** package ‘AnnotationHub’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (AnnotationHub)
+ERROR: dependencies ‘xml2’, ‘svglite’ are not available for package ‘kableExtra’
+Perhaps try a variation of:
+install.packages(c('xml2', 'svglite'))
+* removing ‘/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/kableExtra’
+Warning in install.packages(...) :
+  installation of package ‘kableExtra’ had non-zero exit status
+* installing *source* package ‘ExperimentHub’ ...
+** this is package ‘ExperimentHub’ version ‘3.0.0’
+** package ‘ExperimentHub’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (ExperimentHub)
+ERROR: dependency ‘kableExtra’ is not available for package ‘HMP16SData’
+Perhaps try a variation of:
+install.packages('kableExtra')
+* removing ‘/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/HMP16SData’
+Warning in install.packages(...) :
+  installation of package ‘HMP16SData’ had non-zero exit status
+ERROR: dependency ‘kableExtra’ is not available for package ‘HMP2Data’
+Perhaps try a variation of:
+install.packages('kableExtra')
+* removing ‘/home/robertas_tupikas/R/x86_64-conda-linux-gnu-library/4.5/HMP2Data’
+Warning in install.packages(...) :
+  installation of package ‘HMP2Data’ had non-zero exit status
+* installing *source* package ‘microbiomeDataSets’ ...
+** this is package ‘microbiomeDataSets’ version ‘1.18.0’
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (microbiomeDataSets)
+
+The downloaded source packages are in
+	‘/tmp/RtmpuEWVDu/downloaded_packages’
+packages: HMP16SData MISSING, HMP2Data MISSING, microbiomeDataSets 1.18.0, phyloseq 1.54.2, SummarizedExperiment 1.40.0 
+!! HMP16SData V35 failed: error in evaluating the argument 'x' in selecting a method for function 'assay': there is no package called ‘HMP16SData’ 
+!! HMP2Data momspi16S failed: there is no package called ‘HMP2Data’ 
+!! HMP2Data IBD16S failed: there is no package called ‘HMP2Data’ 
+!! HMP2Data T2D16S failed: there is no package called ‘HMP2Data’ 
+
+see ?microbiomeDataSets and browseVignettes('microbiomeDataSets') for documentation
+downloading 1 resources
+retrieving 1 resource
+
+loading from cache
+see ?microbiomeDataSets and browseVignettes('microbiomeDataSets') for documentation
+downloading 1 resources
+retrieving 1 resource
+
+loading from cache
+see ?microbiomeDataSets and browseVignettes('microbiomeDataSets') for documentation
+downloading 1 resources
+retrieving 1 resource
+
+loading from cache
+see ?microbiomeDataSets and browseVignettes('microbiomeDataSets') for documentation
+downloading 1 resources
+retrieving 1 resource
+
+loading from cache
+see ?microbiomeDataSets and browseVignettes('microbiomeDataSets') for documentation
+downloading 1 resources
+retrieving 1 resource
+
+loading from cache
+Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
+Also defined by ‘tidytree’
+Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
+Also defined by ‘tidytree’
+Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
+Also defined by ‘tidytree’
+Found more than one class "phylo" in cache; using the first, from namespace 'phyloseq'
+Also defined by ‘tidytree’
+== baboon_grieneisen: 613 taxa (>= 5% prevalence) x 16234 samples; median depth 47009 (wild baboons; new to the project) 
+   subject column: baboon_id; time column: collection_date 
+   subjects 585; samples per subject: median 18, max 177; subjects with >= 2 samples 523, >= 5 samples 448 
+   metadata columns: sample, baboon_id, collection_date, sex, age, social_group, group_size, rain_month_mm, season, hydro_year, month, readcount, plate, post_pcr_dna_ng, diet_PC1, diet_PC2, diet_PC3, diet_PC4, diet_PC5, diet_PC6, diet_PC7, diet_PC8, diet_PC9, diet_PC10, diet_PC11, diet_PC12, diet_PC13, diet_shannon_h, asv_richness, asv_shannon_h, pc1_bc, pc2_bc, pc3_bc, pc4_bc, pc5_bc 
+     sex                          F=8716  M=7518 
+     season                       dry=6650  wet=9584 
+
+files: baboon_grieneisen.rds 
+6,7M	benchmarks/data/longitudinal
