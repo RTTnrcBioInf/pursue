@@ -1,0 +1,231 @@
+runs: srv28 | 2 candidates | 1680 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+ candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power mean_TP
+ eperm_c12 PASS     0.063 mid:R11   0.055              -      0.99   11.99
+ eperm_c10 PASS     0.061 mid:R11   0.056              -      0.98   11.96
+ s_cell
+   56.4
+   55.0
+
+=== per setting: TP / FDR / FPR ===
+
+bloom:x4  (DA per cell 33.9)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 6.85 0.80 0.074 0.054 46.4
+ eperm_c12 6.60 0.80 0.074 0.054 49.8
+
+house:R00  (DA per cell 35.5)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 7.95 0.75 0.078 0.049 41.3
+ eperm_c12 7.95 0.75 0.078 0.049 44.6
+
+house:R01  (DA per cell 36.5)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 0.85 0.10 0.075 0.045 11.2
+ eperm_c12 0.85 0.10 0.075 0.045 14.2
+
+house:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 0.00 0.05 0.050 0.051 39.8
+ eperm_c12 0.00 0.05 0.050 0.051 42.0
+
+house:R08  (DA per cell 89.3)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c12 30.70 0.75 0.021 0.048 45.0
+ eperm_c10 30.55 0.75 0.021 0.048 41.5
+
+house:R09  (DA per cell 143.2)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 54.50 2.35 0.042 0.051 41.5
+ eperm_c12 54.50 2.35 0.042 0.051 45.0
+
+house:R11  (DA per cell 41.8)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 10.35 0.60 0.078 0.049 42.2
+ eperm_c12 10.35 0.60 0.078 0.049 45.3
+
+house:R13  (DA per cell 37.4)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 22.30 1.60 0.059 0.049 40.6
+ eperm_c12 22.30 1.60 0.059 0.049 43.8
+
+house:R15  (DA per cell 34.4)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 0.90 0.20 0.045 0.046 44.3
+ eperm_c10 0.80 0.20 0.049 0.046 41.0
+
+house:R16  (DA per cell 36.9)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 9.75 0.55 0.037 0.046 42.6
+ eperm_c12 9.75 0.55 0.037 0.046 46.1
+
+house:R17  (DA per cell 37.2)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 5.55 0.25 0.030 0.047 36.8
+ eperm_c12 5.55 0.25 0.030 0.047 36.7
+
+house:R19  (DA per cell 38.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 9.90 0.45 0.041 0.047 54.7
+ eperm_c12 9.90 0.45 0.041 0.047 54.6
+
+house:R21  (DA per cell 36.2)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 2.85 0.10 0.024 0.053 21.9
+ eperm_c12 2.85 0.10 0.024 0.053 21.9
+
+house:R22  (DA per cell 38.9)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 26.25 1.30 0.045 0.044 46.9
+ eperm_c12 26.25 1.30 0.045 0.044 46.5
+
+house:R23  (DA per cell 35.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 5.55 0.05 0.004 0.046 20.3
+ eperm_c12 5.55 0.05 0.004 0.046 20.2
+
+house:R24  (DA per cell 36.6)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 9.80 0.60 0.055 0.049 42.3
+ eperm_c12 9.80 0.60 0.055 0.049 45.5
+
+house:R25  (DA per cell 33.1)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 1.55 3.00 0.283 0.089 42.0
+ eperm_c10 1.30 3.50 0.324 0.092 38.0
+
+implant:B_abund  (DA per cell 123.6)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 1.00 0.35 0.088 0.058 88.9
+ eperm_c12 0.85 0.35 0.088 0.058 93.2
+
+implant:B_allup  (DA per cell 127.4)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 27.90 1.65 0.060 0.057 85.6
+ eperm_c12 27.90 1.65 0.060 0.057 89.2
+
+implant:B_conf04  (DA per cell 123.1)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 24.40 1.70 0.043 0.058 30.2
+ eperm_c12 24.40 1.70 0.043 0.058 29.5
+
+implant:B_conf07  (DA per cell 122.8)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 16.90 1.10 0.046 0.050 31.4
+ eperm_c12 16.90 1.10 0.046 0.050 30.7
+
+implant:B_cont  (DA per cell 125.6)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 19.60 1.65 0.062 0.047 88.8
+ eperm_c12 19.60 1.65 0.062 0.047 87.6
+
+implant:B_null  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 0.00 0.00 0.000 0.052 77.1
+ eperm_c12 0.00 0.00 0.000 0.052 79.7
+
+implant:B_prev  (DA per cell 126.0)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 35.80 1.55 0.044 0.045 91.1
+ eperm_c12 35.80 1.55 0.044 0.045 94.5
+
+implant:B_ref  (DA per cell 126.5)
+ candidate    TP   FP   FDR   FPR     s
+ eperm_c10 27.10 1.05 0.054 0.044  97.1
+ eperm_c12 27.10 1.05 0.054 0.044 101.1
+
+mid:R00  (DA per cell 36.8)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 3.95 0.55 0.079 0.053 62.9
+ eperm_c10 3.80 0.75 0.096 0.051 63.2
+
+mid:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 0.00 0.00 0.000 0.056 61.5
+ eperm_c12 0.00 0.15 0.050 0.056 61.5
+
+mid:R11  (DA per cell 38.2)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 3.80 0.55 0.102 0.061 61.6
+ eperm_c12 3.70 0.50 0.107 0.063 62.0
+
+mid:R17  (DA per cell 37.4)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 3.05 0.40 0.124 0.053 54.5
+ eperm_c12 3.05 0.40 0.124 0.053 54.4
+
+mid:R19  (DA per cell 39.7)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 2.05 0.30 0.077 0.056 88.3
+ eperm_c12 2.05 0.30 0.077 0.056 88.3
+
+msq:R00  (DA per cell 37.0)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c12 11.05 1.05 0.083 0.053 52.8
+ eperm_c10 11.00 1.05 0.083 0.053 50.3
+
+msq:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 0.00 0.00 0.000 0.047 51.2
+ eperm_c12 0.00 0.00 0.000 0.047 52.5
+
+msq:R11  (DA per cell 36.8)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 10.40 0.80 0.072 0.057 52.6
+ eperm_c12 10.40 0.75 0.068 0.056 54.6
+
+msq:R17  (DA per cell 36.1)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 10.90 0.70 0.056 0.048 45.2
+ eperm_c12 10.90 0.70 0.056 0.048 45.1
+
+msq:R19  (DA per cell 38.1)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 9.90 0.35 0.030 0.052 81.2
+ eperm_c12 9.90 0.35 0.030 0.052 81.1
+
+msq:R22  (DA per cell 36.6)
+ candidate    TP   FP   FDR   FPR    s
+ eperm_c10 10.00 0.80 0.081 0.048 56.8
+ eperm_c12 10.00 0.80 0.081 0.048 55.4
+
+sd2:R00  (DA per cell 28.7)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 0.90 0.20 0.038 0.049 81.3
+ eperm_c10 0.50 0.20 0.022 0.049 79.4
+
+sd2:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 0.00 0.05 0.050 0.048 72.7
+ eperm_c12 0.00 0.05 0.050 0.048 73.6
+
+sd2:R08  (DA per cell 75.5)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 4.85 0.10 0.007 0.049 81.6
+ eperm_c10 4.60 0.10 0.009 0.049 80.5
+
+sd2:R13  (DA per cell 29.6)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 8.00 0.35 0.032 0.048 79.0
+ eperm_c10 7.90 0.40 0.055 0.048 77.0
+
+sps:R00  (DA per cell 37.3)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 1.80 0.10 0.025 0.046 46.4
+ eperm_c10 1.70 0.30 0.065 0.046 46.4
+
+sps:R06  (DA per cell 0.0)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 0.00 0.10 0.100 0.045 48.5
+ eperm_c12 0.00 0.10 0.100 0.045 47.1
+
+sps:R08  (DA per cell 93.4)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c12 4.60 0.10 0.025 0.057 47.1
+ eperm_c10 4.30 0.00 0.000 0.052 46.8
+
+sps:R13  (DA per cell 39.6)
+ candidate   TP   FP   FDR   FPR    s
+ eperm_c10 2.20 0.30 0.053 0.046 46.6
+ eperm_c12 2.20 0.30 0.053 0.045 47.1
