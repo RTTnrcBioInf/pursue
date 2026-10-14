@@ -1,0 +1,3 @@
+"candidate","worst_FPR","worst_FPR_at","worst_FDR","worst_FDR_at","mean_TP","rel_power","secs_per_cell","errors","settings","fdr_flags","FDR_all","FDR_all_p","calibrated"
+"eperm_c10",0.0535593449722561,"mid:R06",NA,NA,NA,NA,60.2379583333333,0,6,"",NA,1,TRUE
+"eperm_c12",0.0535593449722561,"mid:R06",NA,NA,NA,NA,61.4426625,0,6,"",NA,1,TRUE
