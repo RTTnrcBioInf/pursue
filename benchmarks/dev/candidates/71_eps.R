@@ -59,7 +59,9 @@
     kap[!is.finite(kap)] <- 0
     med <- which(rownames(cok) %in% rownames(ct))
     tobs <- t1 + kap * .root_shift(t1[med, "log", drop = FALSE], kap[med, "log"])
-    pm <- .perm_multi(S0, g1, combos, B = B, B2 = B2, tobs = tobs, kap = kap, med = med)
+    own <- intersect(getOption("pursue.own", character(0)), setdiff(colnames(t1), "log"))   # it56 (81_own.R); default none
+    for (h in own) tobs[, h] <- t1[, h] + kap[, h] * .root_shift(t1[med, h, drop = FALSE], kap[med, h])
+    pm <- .perm_multi(S0, g1, combos, B = B, B2 = B2, tobs = tobs, kap = kap, med = med, own = own)
     P <- matrix(NA_real_, nrow(counts), ncol(pm$p), dimnames = list(rownames(counts), colnames(pm$p))); P[ok, ] <- pm$p
     pl <- P[, "lead"]; Q <- P[, c("lead", alts), drop = FALSE]
     hit <- apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })

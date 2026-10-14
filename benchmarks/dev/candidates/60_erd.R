@@ -1798,7 +1798,7 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
     dn <- pmin(pmax(dn, -3), 3); d0 <- d1; f0 <- f1; d1 <- dn; f1 <- f(d1); if (max(abs(f1)) < tol) break }
   d1
 }
-.perm_multi <- function(S, g1, combos, B = 4000L, B2 = 40000L, cmin = 10L, seed = 17L, chunk = 2000L, tobs = NULL, kap = NULL, med = NULL, ck = "log") {
+.perm_multi <- function(S, g1, combos, B = 4000L, B2 = 40000L, cmin = 10L, seed = 17L, chunk = 2000L, tobs = NULL, kap = NULL, med = NULL, ck = "log", own = character(0)) {
   n <- length(g1); n1 <- sum(g1); n0 <- n - n1; m <- nrow(S[[1]])
   S <- lapply(S, function(s) s - rowMeans(s)); S2 <- lapply(S, function(s) s^2)
   if (is.null(tobs)) { tobs <- sapply(names(S), function(h) .perm_tstat(S[[h]], S2[[h]], matrix(as.numeric(g1), n, 1), n1, n0)[, 1]); tobs[!is.finite(tobs)] <- 0
@@ -1815,7 +1815,9 @@ register_candidate("efull_bc", function(counts, meta, formula, tested_term) {
       if (!rc) { tm <- lapply(names(S), tt, r = rows); names(tm) <- names(S)
       } else {                                                     # centre from the median rows of the centring kernel, applied to every kernel
         tc <- tt(ck, rr); dl <- .root_shift(tc[match(med, rr), , drop = FALSE], kap[med, ck])
-        tm <- lapply(names(S), function(h) (if (h == ck) tc[at, , drop = FALSE] else tt(h, rows)) + outer(kap[rows, h], dl)); names(tm) <- names(S) }
+        tm <- lapply(names(S), function(h) { if (h %in% own && h != ck) {   # it56: a kernel centred on its own median taxon
+            th <- tt(h, rr); return(th[at, , drop = FALSE] + outer(kap[rows, h], .root_shift(th[match(med, rr), , drop = FALSE], kap[med, h]))) }
+          (if (h == ck) tc[at, , drop = FALSE] else tt(h, rows)) + outer(kap[rows, h], dl) }); names(tm) <- names(S) }
       for (cc in seq_along(combos)) cnt[rows, cc] <<- cnt[rows, cc] + rowSums(stat(tm, combos[[cc]]) >= obs[rows, cc] - 1e-10)
       tot[rows] <<- tot[rows] + bb; done <- done + bb } })
   run(seq_len(m), B, seed)
