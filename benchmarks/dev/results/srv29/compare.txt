@@ -1,0 +1,73 @@
+runs: srv29 | 6 candidates | 648 cell-candidate rows
+
+=== scoreboard: calibration gate, then power ===
+             candidate gate worst_FPR      at FDR_all sig_FDR_excess rel_power
+             eperm_c12 PASS     0.058 msq:R21   0.041              -      0.94
+             ref_linda PASS     0.060 msq:R21   0.043              -      0.86
+             ref_adapt PASS     0.059 msq:R21   0.053              -      0.86
+           ref_zicoseq PASS     0.060 msq:R21   0.051              -      0.78
+ ref_logistic_presence PASS     0.059 msq:R20   0.052              -      0.63
+               ref_ldm fail     0.058 msq:R21   0.046              -      0.68
+ mean_TP s_cell
+    8.81   25.1
+    7.75    1.9
+    7.67    5.9
+    6.87  132.8
+    6.16    0.8
+    5.95   26.8
+
+=== per setting: TP / FDR / FPR ===
+
+house:R20  (DA per cell 35.2)
+             candidate   TP   FP   FDR   FPR    s
+             ref_adapt 6.50 0.65 0.071 0.057  6.5
+             eperm_c12 6.20 0.40 0.042 0.055 22.3
+             ref_linda 6.00 0.50 0.054 0.054  1.9
+ ref_logistic_presence 5.80 0.60 0.071 0.059  0.4
+           ref_zicoseq 4.85 0.60 0.100 0.056 85.3
+               ref_ldm 4.10 0.35 0.048 0.049 18.3
+
+house:R21  (DA per cell 36.2)
+             candidate   TP   FP   FDR   FPR    s
+             ref_adapt 3.15 0.20 0.045 0.053  6.5
+             ref_linda 3.10 0.15 0.031 0.055  1.6
+             eperm_c12 2.85 0.10 0.024 0.053 22.0
+ ref_logistic_presence 2.65 0.25 0.037 0.059  0.4
+           ref_zicoseq 2.65 0.25 0.043 0.054 86.2
+               ref_ldm 2.15 0.15 0.037 0.047 13.0
+
+implant:B_conf04  (DA per cell 69.5)
+             candidate    TP   FP   FDR   FPR     s
+ ref_logistic_presence 15.46 1.08 0.046 0.059   1.5
+             eperm_c12 15.15 0.54 0.023 0.050  25.2
+             ref_adapt 13.08 0.46 0.018 0.054   7.1
+             ref_linda 12.54 0.15 0.003 0.049   2.7
+           ref_zicoseq 10.46 0.46 0.022 0.046 191.3
+               ref_ldm  7.77 0.23 0.012 0.041  18.5
+
+implant:B_conf07  (DA per cell 90.9)
+             candidate    TP   FP   FDR   FPR     s
+             eperm_c12 12.53 0.47 0.035 0.042  28.1
+ ref_logistic_presence 12.40 0.53 0.036 0.045   1.5
+             ref_linda 10.33 0.53 0.052 0.042   3.3
+             ref_adapt  9.53 0.47 0.043 0.044   7.2
+           ref_zicoseq  6.33 0.20 0.021 0.039 259.0
+               ref_ldm  4.67 0.27 0.040 0.039  27.2
+
+msq:R20  (DA per cell 36.7)
+             candidate    TP   FP   FDR   FPR    s
+               ref_ldm 10.70 0.75 0.059 0.052 49.5
+             eperm_c12 10.10 0.30 0.025 0.054 27.6
+           ref_zicoseq 10.00 0.70 0.053 0.051 87.9
+             ref_linda  9.05 0.85 0.052 0.059  1.1
+             ref_adapt  8.55 0.70 0.053 0.055  4.1
+ ref_logistic_presence  0.45 0.20 0.067 0.059  0.5
+
+msq:R21  (DA per cell 36.9)
+             candidate   TP   FP   FDR   FPR    s
+           ref_zicoseq 6.95 0.50 0.047 0.060 87.1
+               ref_ldm 6.30 0.60 0.068 0.058 34.4
+             eperm_c12 6.05 0.75 0.088 0.058 25.6
+             ref_linda 5.45 0.45 0.055 0.060  1.0
+             ref_adapt 5.20 0.35 0.071 0.059  4.0
+ ref_logistic_presence 0.20 0.05 0.050 0.054  0.5
