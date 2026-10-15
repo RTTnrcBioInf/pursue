@@ -86,3 +86,58 @@ rm_cell <- function(tpl, spec, seed = 1L) {
                      exposure = x, subject = factor(sj), visit = vis, depth = N, stringsAsFactors = FALSE)
   list(counts = Xn, meta = meta, truth = truth, tested_term = "group", formula = ~ group, design = spec$design)
 }
+
+# ---- house with a within-subject exposure and more than two visits (2026-10-15, it57 check) -------------------------
+# A code check for c13's paired path where the development data cannot reach (hmp_tongue has two subjects with a third
+# visit): simulate_house()'s generator (R/simulators/sim_house.R, unchanged) with the subject structure of R23 -- a
+# per-taxon subject intercept on log abundance, ICC 0.3 -- but the exposure assigned WITHIN subject. Copied here so the
+# benchmark generator stays as it is. Per subject: `vis` visits (or a random number in vis_range), and for a fraction
+# `mixed` of the subjects a random 1 .. v-1 of them exposed; the other subjects are all unexposed (no within-subject
+# contrast: c13 must leave them out). Truth as in house: abundance / prevalence / both, absolute scale.
+RM_SPECS[["HW5"]] <- list(gen = "house", design = "within", vis = 5L, vis_range = NULL, mixed = 1, n_per_group = 50L, m = 500L,
+                          da_frac = 0.10, effect = "medium", signal_type = "mixed", balance = "balanced")
+RM_SPECS[["HWv"]] <- utils::modifyList(RM_SPECS$HW5, list(vis_range = 2:8, mixed = 0.8))
+RM_SPECS[["HW5.null"]] <- utils::modifyList(RM_SPECS$HW5, list(da_frac = 0))
+RM_SPECS[["HWv.null"]] <- utils::modifyList(RM_SPECS$HWv, list(da_frac = 0))
+
+simulate_house_within <- function(template, spec, seed = 1L) {
+  set.seed(seed)
+  prof <- template_profile(template); m <- spec$m; n_subj <- max(6L, round(2L * spec$n_per_group / 5L))
+  v <- if (is.null(spec$vis_range)) rep(spec$vis, n_subj) else spec$vis_range[sample.int(length(spec$vis_range), n_subj, TRUE)]
+  subject <- rep(seq_len(n_subj), v); n <- length(subject)
+  mix <- seq_len(n_subj) %in% sample.int(n_subj, round(spec$mixed * n_subj))
+  x <- integer(n)
+  for (s in which(mix)) { ii <- which(subject == s); x[ii[sample.int(length(ii), sample.int(length(ii) - 1L, 1L))]] <- 1L }
+  N <- pmax(sample(prof$depth, n, replace = TRUE), 200L)
+  idx <- sample(seq_len(prof$n_features), m, replace = m > prof$n_features)
+  psi <- pmin(pmax(prof$prevalence[idx], 0.05), 0.995)
+  mu  <- prof$mean_log_relab[idx]; mu[!is.finite(mu)] <- stats::median(mu, na.rm = TRUE)
+  sg  <- prof$sd_log_relab[idx]; sg[!is.finite(sg) | sg < 0.3] <- stats::median(sg[is.finite(sg) & sg >= 0.3], na.rm = TRUE); sg <- pmin(sg, 2.5)
+  es <- effect_sizes(spec$effect); n_da <- round(spec$da_frac * m)
+  typ <- rep("none", m); lfc2 <- numeric(m); logor <- numeric(m)
+  if (n_da > 0) {
+    da <- sample.int(m, n_da)
+    kind <- switch(spec$signal_type, abundance = rep("abundance", n_da), prevalence = rep("prevalence", n_da),
+                   mixed = sample(c("abundance", "prevalence", "both"), n_da, replace = TRUE))
+    p_up <- switch(spec$balance, balanced = 0.5, "80_20" = 0.8, "100_0" = 1.0)
+    sgn <- ifelse(stats::runif(n_da) < p_up, 1, -1)
+    typ[da] <- kind
+    lfc2[da] <- ifelse(kind %in% c("abundance", "both"), sgn * es$lfc2, 0)
+    logor[da] <- ifelse(kind %in% c("prevalence", "both"), sgn * es$logor, 0)
+  }
+  beta <- lfc2 * log(2); icc <- 0.3
+  A <- matrix(0, n, m)
+  for (j in seq_len(m)) {
+    S <- stats::rbinom(n, 1L, stats::plogis(stats::qlogis(psi[j]) + logor[j] * x))
+    u_subj <- stats::rnorm(n_subj, 0, sqrt(icc / (1 - icc)) * sg[j])[subject]
+    A[, j] <- exp(mu[j] + beta[j] * x + u_subj + stats::rnorm(n, 0, sg[j])) * S
+  }
+  tot <- rowSums(A); tot[tot <= 0] <- 1; R <- A / tot
+  X <- matrix(0L, n, m); for (i in seq_len(n)) if (sum(R[i, ]) > 0) X[i, ] <- stats::rpois(m, N[i] * R[i, ])
+  feat <- sprintf("F%04d", seq_len(m)); colnames(X) <- feat; rownames(X) <- sprintf("S%04d", seq_len(n))
+  truth <- data.frame(feature = feat, truth_type = typ, truth_abs = as.integer(typ != "none"), truth_lfc2 = lfc2, truth_logor = logor,
+                      stringsAsFactors = FALSE)
+  meta <- data.frame(row.names = rownames(X), group = factor(ifelse(x == 1L, "case", "control"), levels = c("control", "case")),
+                     exposure = x, subject = factor(subject), depth = N, stringsAsFactors = FALSE)
+  list(counts = t(X), meta = meta, truth = truth, tested_term = "group", formula = ~ group, design = spec$design)
+}

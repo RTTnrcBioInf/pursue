@@ -16,6 +16,7 @@ op <- OptionParser(option_list = list(
   make_option("--candidates", default = "eperm_c12"),
   make_option("--settings", default = "P_subj,P_pair,P_subj.null,P_pair.null"),
   make_option("--template", default = "hmp_tongue"),
+  make_option("--house-templates", default = "hmp_tongue,twinsuk_stool", help = "templates for the house settings (HW*)"),
   make_option("--map", default = "devdata/hmp16s_subjects.csv"),
   make_option("--reps", type = "integer", default = 10L),
   make_option("--null-reps", type = "integer", default = 20L),
@@ -39,23 +40,29 @@ miss <- setdiff(cand, ls(.cands)); if (length(miss)) stop("unknown candidates: "
 sets <- strsplit(opt$settings, ",")[[1]]
 miss <- setdiff(sets, names(RM_SPECS)); if (length(miss)) stop("unknown settings: ", paste(miss, collapse = ", "))
 
-mp <- if (grepl("^/", opt$map)) opt$map else file.path(root, opt$map); if (!file.exists(mp)) stop("no subject map: ", mp, " (run dev/tools/hmp_subjects.R on the server)")
-TPL <- rm_template(readRDS(file.path(root, "devdata", paste0(opt$template, ".rds"))), utils::read.csv(mp, stringsAsFactors = FALSE))
-cat(sprintf("template %s: %d of the template's samples matched; %d samples after de-duplication, %d subjects, %d with >= 2 visits\n",
-            TPL$id, TPL$n_matched, TPL$n_samples, TPL$n_subjects, TPL$n_subj2))
+is_house <- function(s) identical(RM_SPECS[[s]]$gen, "house")
+TPL <- NULL; if (!all(vapply(sets, is_house, logical(1)))) {
+  mp <- if (grepl("^/", opt$map)) opt$map else file.path(root, opt$map); if (!file.exists(mp)) stop("no subject map: ", mp, " (run dev/tools/hmp_subjects.R on the server)")
+  TPL <- rm_template(readRDS(file.path(root, "devdata", paste0(opt$template, ".rds"))), utils::read.csv(mp, stringsAsFactors = FALSE))
+  cat(sprintf("template %s: %d of the template's samples matched; %d samples after de-duplication, %d subjects, %d with >= 2 visits\n",
+              TPL$id, TPL$n_matched, TPL$n_samples, TPL$n_subjects, TPL$n_subj2)) }
+htp <- strsplit(opt$`house-templates`, ",")[[1]]
+HT <- setNames(lapply(htp, function(id) readRDS(file.path(root, "devdata", paste0(id, ".rds")))), htp)
 cell_seed <- function(...) { k <- paste(..., sep = "|"); as.integer((opt$seed * 1e5 + sum(utf8ToInt(k) * seq_along(utf8ToInt(k)))) %% .Machine$integer.max) }
 
-jobs <- do.call(rbind, lapply(sets, function(s) data.frame(set = s, rep = seq_len(if (grepl("[.]null$", s)) opt$`null-reps` else opt$reps), stringsAsFactors = FALSE)))
+jobs <- do.call(rbind, lapply(sets, function(s) expand.grid(set = s, tp = if (is_house(s)) htp else opt$template,
+  rep = seq_len(if (grepl("[.]null$", s)) opt$`null-reps` else opt$reps), stringsAsFactors = FALSE)))
 cat(sprintf("rm suite '%s': %d candidates x %d cells, %d cores\n", opt$label, length(cand), nrow(jobs), opt$cores))
 odir <- file.path(root, "dev", "results", opt$label); cdir <- file.path(odir, "cells")
 dir.create(cdir, recursive = TRUE, showWarnings = FALSE); progress <- file.path(odir, "progress.log")
 
 run_job <- function(k) {
-  st <- jobs$set[k]; rep <- jobs$rep[k]
-  ck <- file.path(cdir, sprintf("%s__%s__r%02d.csv", st, opt$template, rep))
+  st <- jobs$set[k]; rep <- jobs$rep[k]; tid <- jobs$tp[k]
+  ck <- file.path(cdir, sprintf("%s__%s__r%02d.csv", st, tid, rep))
   if (file.exists(ck)) { prev <- tryCatch(utils::read.csv(ck, stringsAsFactors = FALSE), error = function(e) NULL)
     if (!is.null(prev) && all(cand %in% prev$candidate)) return(prev[prev$candidate %in% cand, ]) }
-  sim <- rm_cell(TPL, RM_SPECS[[st]], cell_seed("rm", st, opt$template, rep))
+  sim <- if (is_house(st)) simulate_house_within(HT[[tid]], RM_SPECS[[st]], cell_seed("rm", st, tid, rep)) else
+    rm_cell(TPL, RM_SPECS[[st]], cell_seed("rm", st, opt$template, rep))
   if (!is.null(sim$unsupported)) { message("unsupported: ", sim$unsupported); return(NULL) }
   keep <- rowMeans(sim$counts > 0) >= 0.10 & rowSums(sim$counts > 0) >= 3
   ct <- sim$counts[keep, , drop = FALSE]; pos <- sim$truth$truth_abs[match(rownames(ct), sim$truth$feature)] == 1L
@@ -67,7 +74,7 @@ run_job <- function(k) {
     t0 <- proc.time()[["elapsed"]]
     r <- tryCatch(.cands[[cn]]$fn(ct, meta, sim$formula, sim$tested_term), error = function(e) e)
     el <- proc.time()[["elapsed"]] - t0
-    base <- data.frame(setting = st, template = opt$template, rep = rep, candidate = cn, design = sim$design, m = nrow(ct),
+    base <- data.frame(setting = st, template = tid, rep = rep, candidate = cn, design = sim$design, m = nrow(ct),
                        n_pos = sum(pos), stringsAsFactors = FALSE)
     if (inherits(r, "error")) return(cbind(base, tested = 0, rej = NA, tp = NA, fp = NA, null_n = NA, null_p05 = NA, secs = el,
                                            error = substr(conditionMessage(r), 1, 120)))
@@ -96,8 +103,8 @@ sm <- sm[order(sm$setting, -sm$TP, sm$fpr05), ]
 write.csv(sm, file.path(odir, "summary.csv"), row.names = FALSE)
 options(width = 200); sm$secs <- round(sm$secs, 1)
 sink(file.path(odir, "summary.txt"), split = TRUE)
-cat(sprintf("%s: %d samples, %d subjects (%d with >= 2 visits). %d cells in %.1f min.\n", TPL$id, TPL$n_samples, TPL$n_subjects, TPL$n_subj2,
-            nrow(jobs), (proc.time()[["elapsed"]] - t_start) / 60))
+if (!is.null(TPL)) cat(sprintf("%s: %d samples, %d subjects (%d with >= 2 visits). ", TPL$id, TPL$n_samples, TPL$n_subjects, TPL$n_subj2))
+cat(sprintf("%d cells in %.1f min.\n", nrow(jobs), (proc.time()[["elapsed"]] - t_start) / 60))
 cat("TP / FP per cell at the method's own q <= 0.05; FDR pooled; p_any_false = share of cells with any false call;\n",
     "fpr05 = share of null taxa at p < 0.05 (nominal 0.05). On .null settings every call is false.\n\n", sep = "")
 for (s in unique(sm$setting)) { cat("==", s, "\n"); print(format(sm[sm$setting == s, -1], digits = 3), row.names = FALSE); cat("\n") }

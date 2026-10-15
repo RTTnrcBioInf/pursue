@@ -7,8 +7,8 @@
 # but the partners' between-person variation stays in every score, so the pairing is not used: c12's null FPR (0.014)
 # sits with the methods that ignore subjects (0.015-0.025).
 #
-# The pairwise statistic has a natural paired form. Take the pair graph to be the within-subject (exposed, unexposed)
-# pairs only, compare each pair at its common depth as everywhere else (same kernels, size factors, thinning by
+# The pairwise statistic has a natural paired form. Take the pair graph to be the within-subject pairs only (all of a
+# subject's visit pairs: label-free, so the within-subject permutation is exact; same-label pairs cancel), compare each pair at its common depth as everywhere else (same kernels, size factors, thinning by
 # exp(gamma x) for the compositional centre), and permute the exposure WITHIN subject -- for two visits, a sign flip of
 # each subject's kernel difference. Under H0 (a subject's visits exchangeable with respect to the exposure, which a
 # randomised within-subject assignment guarantees) that is exact; the Welch t of the scores over the flipped labels is
@@ -25,7 +25,9 @@
   feats <- rownames(counts); counts <- counts[, use, drop = FALSE]; depth <- depth0[use]; x <- d$x[use]; g1 <- d$g1[use]
   cl <- droplevels(cl0[use]); n <- ncol(counts)
   blk <- lapply(split(seq_len(n), cl), function(ii) list(i = ii, k = sum(x[ii] == 1)))
-  E <- do.call(rbind, lapply(blk, function(b) { a <- b$i[x[b$i] == 1]; z <- b$i[x[b$i] == 0]; cbind(rep(a, each = length(z)), rep(z, length(a))) }))
+  # every within-subject pair, whatever its labels: the graph must not depend on the exposure, or permuting the labels
+  # within subject is not exact (same-label pairs cancel in the group sum; with two visits it is the one pair)
+  E <- do.call(rbind, lapply(blk, function(b) t(utils::combn(b$i, 2L))))
   two <- all(vapply(blk, function(b) length(b$i) == 2L && b$k == 1L, logical(1)))       # two visits, one exposed: a sign flip
   gen <- if (two) { A <- vapply(blk, function(b) b$i[1], 1L); Z <- vapply(blk, function(b) b$i[2], 1L); nb <- length(blk)
     function() { f <- stats::runif(nb) < 0.5; A * f + Z * (!f) } } else
@@ -61,7 +63,7 @@
   hit <- apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
   loo <- sweep(-hit, 2, colSums(hit), "+"); la <- loo[, alts, drop = FALSE]; ia <- max.col(la, ties.method = "last"); altn <- la[cbind(seq_len(nrow(la)), ia)]
   usek <- altn >= loo[, "lead"] + margin & altn >= minsw; pfull <- ifelse(usek, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
-  est <- rep(NA_real_, length(feats)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / nrow(E) / log(2)
+  est <- rep(NA_real_, length(feats)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / sum(x[E[, 1]] != x[E[, 2]]) / log(2)
   val <- list(feature = feats, p_full = pfull, p_ms = pl, est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = "pair",
               n_subj = length(blk), choice = ifelse(usek, alts[ia], "lead"), P = P)
   .epp_memo$key <- key; .epp_memo$val <- val; val
