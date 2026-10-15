@@ -1,7 +1,7 @@
 "candidate","worst_FPR","worst_FPR_at","worst_FDR","worst_FDR_at","mean_TP","rel_power","secs_per_cell","errors","settings","fdr_flags","FDR_all","FDR_all_p","calibrated"
-"eperm_c12",0.0521770682148041,"house:R20.null",NA,NA,NA,NA,26.9457492521368,0,6,"",NA,1,TRUE
-"ref_adapt",0.0544267053701016,"house:R20.null",NA,NA,NA,NA,7.11008723884142,0,6,"",NA,1,TRUE
-"ref_linda",0.0554426705370102,"house:R20.null",NA,NA,NA,NA,2.30842420465337,0,6,"",NA,1,TRUE
-"ref_logistic_presence",0.0580516014234875,"house:R20.null",NA,NA,NA,NA,0.725022340930653,0,6,"",NA,1,TRUE
-"ref_zicoseq",0.0541942237236523,"implant:B_conf07.null",NA,NA,NA,NA,146.477127184236,0,6,"",NA,1,TRUE
-"ref_ldm",0.0515965166908563,"house:R20.null",NA,NA,NA,NA,13.8730958333333,1,6,"",NA,1,FALSE
+"eperm_c12",0.0521770682148041,"house:R20.null",NA,NA,NA,NA,28.165315491453,0,6,"",NA,1,TRUE
+"ref_adapt",0.0544267053701016,"house:R20.null",NA,NA,NA,NA,7.04878714387465,0,6,"",NA,1,TRUE
+"ref_linda",0.0554426705370102,"house:R20.null",NA,NA,NA,NA,2.53746029202279,0,6,"",NA,1,TRUE
+"ref_logistic_presence",0.0580516014234875,"house:R20.null",NA,NA,NA,NA,0.888446723646704,0,6,"",NA,1,TRUE
+"ref_zicoseq",0.0524814990834408,"msq:R20.null",NA,NA,NA,NA,178.939868162393,0,6,"",NA,1,TRUE
+"ref_ldm",0.0515965166908563,"house:R20.null",NA,NA,NA,NA,15.3803696937322,1,6,"",NA,1,FALSE
