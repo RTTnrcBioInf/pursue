@@ -13,8 +13,8 @@
 #
 # Tuning templates are read from benchmarks/devdata/ (as the dev suite reads them, so the cached sparseDOSSA2 fits match);
 # evaluation templates through load_template(), as the full run did. sparseDOSSA2 and MIDASim reuse cache/.
-# Resumable: one csv per (simulator, template) in results/realism/, existing files kept; failures go to <file>.err and are
-# retried on the next run. Summary: benchmarks/dev/results/realism/{summary.txt, realism.csv}.
+# Resumable: one csv per (simulator, template) in results/realism/, finished files kept; unsupported pairs and failures
+# (<file>.err) are retried on the next run. Summary: benchmarks/dev/results/realism/{summary.txt, realism.csv}.
 #   Rscript benchmarks/dev/tools/realism_all.R --cores 6
 # -----------------------------------------------------------------------------
 suppressMessages(library(optparse))
@@ -28,9 +28,13 @@ for (f in c("R/engine/templates.R", "R/engine/regimes.R", "R/engine/metrics.R", 
 cache <- file.path(dirname(root), "cache"); out <- file.path(dirname(root), "results", "realism")
 rdir <- file.path(root, "dev", "results", "realism"); for (d in c(cache, out, rdir)) dir.create(d, recursive = TRUE, showWarnings = FALSE)
 
-# keep the simulated table the gate scores (realism_gate calls simulate_cell_data by name)
+# keep the simulated table the gate scores (realism_gate calls simulate_cell_data by name). The gate sets m to the
+# template's feature count; sparseDOSSA2 always keeps the template's own features and so declares the m sweep unsupported,
+# which made it refuse every realism task (first run, 2026-10-15). m is not a regime factor here: give sd2 the reference m.
 .last <- new.env(); .sim0 <- simulate_cell_data
-simulate_cell_data <- function(...) { s <- .sim0(...); .last$s <- s; s }
+simulate_cell_data <- function(simulator, template, regime, seed, cache_dir = NULL) {
+  if (identical(simulator, "sd2")) regime$m <- reference_regime()$m
+  s <- .sim0(simulator, template, regime, seed, cache_dir); .last$s <- s; s }
 
 treg <- read_template_registry()
 tpl_load <- function(id) {
@@ -47,7 +51,7 @@ sims <- strsplit(opt$sims, ",")[[1]]; tpls <- strsplit(opt$templates, ",")[[1]]
 tasks <- expand.grid(tpl = tpls, sim = sims, stringsAsFactors = FALSE)[, c("sim", "tpl")]   # heavy simulators first
 one <- function(k) {
   s <- tasks$sim[k]; t <- tasks$tpl[k]; f <- file.path(out, sprintf("%s__%s.csv", s, t)); fe <- paste0(f, ".err")
-  if (file.exists(f)) return(sprintf("kept  %s %s", s, t))
+  if (file.exists(f) && is.finite(utils::read.csv(f)$auroc[1])) return(sprintf("kept  %s %s", s, t))   # unsupported rows are retried
   t0 <- Sys.time()
   res <- tryCatch({
     if (!simulator_available(s)) stop("simulator package not installed")
@@ -59,6 +63,7 @@ one <- function(k) {
   }, error = function(e) e)
   if (inherits(res, "error")) { writeLines(conditionMessage(res), fe); return(sprintf("FAIL  %s %s: %s", s, t, conditionMessage(res))) }
   utils::write.csv(res, f, row.names = FALSE); if (file.exists(fe)) file.remove(fe)
+  if (!is.finite(res$auroc[1])) return(sprintf("unsup %s %s (%s)", s, t, res$note[1]))
   sprintf("ok    %s %s  AUROC %.3f  %ds", s, t, res$auroc[1], res$seconds[1]) }
 msg <- parallel::mclapply(seq_len(nrow(tasks)), function(k) { m <- one(k); message(m); m }, mc.cores = opt$cores, mc.preschedule = FALSE)
 msg <- vapply(msg, function(m) if (is.character(m)) m else paste("worker died:", conditionMessage(attr(m, "condition") %||% simpleError("?"))), "")
