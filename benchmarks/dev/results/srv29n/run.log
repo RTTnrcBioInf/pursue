@@ -897,42 +897,44 @@ Iteration 9: Log-likelihood value: -293825851.681113
 Iteration 9: Log-likelihood value: -293825851.681113
 Iteration 9: Log-likelihood value: -293825851.681113
 Iteration 9: Log-likelihood value: -293825851.681113
-on 7: Log-likelihood value: -294066086.735202
-Iteration 4: Log-likelihood value: -6750217.97441675
-Iteration 4: Log-likelihood value: -6750217.97441675
-Iteration 6: Log-likelihood value: -294322967.992155
-Iteration 5: Log-likelihood value: -6745318.73247884
-Iteration 5: Log-likelihood value: -6745318.73247884
-Iteration 6: Log-likelihood value: -6743222.84452849
-Iteration 6: Log-likelihood value: -6743222.84452849
-Iteration 6: Log-likelihood value: -294322967.992155
-Iteration 7: Log-likelihood value: -6742670.62281152
-Iteration 10: Log-likelihood value: -293798912.241967
-Iteration 7: Log-likelihood value: -6742670.62281152
-Iteration 8: Log-likelihood value: -6742607.17105979
-Iteration 8: Log-likelihood value: -6742607.17105979
-Iteration 9: Log-likelihood value: -6742605.3920582
-Iteration 9: Log-likelihood value: -6742605.3920582
-Iteration 10: Log-likelihood value: -6742605.38833605
-Iteration 10: Log-likelihood value: -6742605.38833605
-Iteration 11: Log-likelihood value: -6742605.3883358
-Iteration 11: Log-likelihood value: -6742605.3883358
-Iteration 10: Log-likelihood value: -293798912.241967
-Iteration 4: Log-likelihood value: -295107855.360989
-Iteration 4: Log-likelihood value: -295107855.360989
-Iteration 2: Log-likelihood value: -296167344.620733
 Iteration 10: Log-likelihood value: -293798912.241967
 Iteration 10: Log-likelihood value: -293798912.241967
-Iteration 6: Log-likelihood value: -294322967.992155
-Iteration 2: Log-likelihood value: -296167344.620733
-Iteration 9: Log-likelihood value: -293825851.681113
-Iteration 8: Log-likelihood value: -293905246.804682
-Iteration 6: Log-likelihood value: -294322967.992155
-Iteration 9: Log-likelihood value: -293825851.681113
-Iteration 8: Log-likelihood value: -293905246.804682
-Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
+Iteration 10: Log-likelihood value: -293798912.241967
 Iteration 11: Log-likelihood value: -293794061.544685
-Iteration 7: Log-likelihood value: -294066086.735202
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 11: Log-likelihood value: -293794061.544685
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 12: Log-likelihood value: -293793776.161429
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 13: Log-likelihood value: -293793773.920829
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 14: Log-likelihood value: -293793773.92042
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+Iteration 15: Log-likelihood value: -293793773.920405
+12:58:38 msq:R20 twinsuk_stool 5 
+12:59:32 msq:R20 twinsuk_stool 1 
+12:59:36 msq:R20 twinsuk_stool 4 
+12:59:38 msq:R20 twinsuk_stool 3 
+12:59:46 msq:R20 twinsuk_stool 2 
+30 of 30 cells banked in benchmarks/dev/bank/bank4 
+1,2M	benchmarks/dev/bank/bank4
+g-likelihood value: -294066086.735202
 Iteration 11: Log-likelihood value: -293794061.544685
 Iteration 5: Log-likelihood value: -294674071.999151
 Iteration 5: Log-likelihood value: -294674071.999151
@@ -1903,3 +1905,4 @@ Iteration 15: Log-likelihood value: -293793773.920405
 12:47:49 msq:R20 twinsuk_stool 5 
 30 of 30 cells banked in benchmarks/dev/bank/bank4 
 1,2M	benchmarks/dev/bank/bank4
+>> done 2026-10-15 12:47:54
