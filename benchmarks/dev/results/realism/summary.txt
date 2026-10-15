@@ -1,0 +1,159 @@
+2026-10-15 11:11:57 realism gate (protocol 4.4), 200 real vs 200 simulated samples, seed 1
+AUROC > 0.9 = low realism (down-weighted 0.5 in the summary ranking). real_* use all template samples.
+
+ok    sd2 risk_stool  AUROC NA  9s 
+ok    sd2 hmp_stool  AUROC NA  13s 
+ok    sd2 hmp_gingiva  AUROC NA  13s 
+ok    sd2 hmp_skin_ear  AUROC NA  14s 
+ok    sd2 hmp_vagina  AUROC NA  13s 
+ok    sd2 hmp_tongue  AUROC NA  0s 
+ok    sd2 twinsuk_stool  AUROC NA  0s 
+ok    sps risk_stool  AUROC 1.000  183s 
+ok    sps hmp_stool  AUROC 1.000  122s 
+ok    sps hmp_gingiva  AUROC 1.000  44s 
+ok    sps hmp_skin_ear  AUROC 1.000  40s 
+ok    sps hmp_vagina  AUROC 0.999  45s 
+ok    sps hmp_tongue  AUROC 1.000  39s 
+ok    sps twinsuk_stool  AUROC NA  10s 
+ok    mid risk_stool  AUROC 0.937  99s 
+ok    mid hmp_stool  AUROC 0.798  62s 
+ok    mid hmp_gingiva  AUROC 0.877  20s 
+ok    mid hmp_skin_ear  AUROC 0.825  28s 
+ok    mid hmp_vagina  AUROC 0.958  27s 
+ok    mid hmp_tongue  AUROC 0.840  15s 
+ok    mid twinsuk_stool  AUROC 0.992  424s 
+ok    msq risk_stool  AUROC NA  8s 
+ok    msq hmp_stool  AUROC 0.417  91s 
+ok    msq hmp_gingiva  AUROC 0.470  34s 
+ok    msq hmp_skin_ear  AUROC 0.765  63s 
+ok    msq hmp_vagina  AUROC 0.635  44s 
+ok    msq hmp_tongue  AUROC 0.622  33s 
+ok    msq twinsuk_stool  AUROC 0.998  1659s 
+ok    house risk_stool  AUROC 1.000  16s 
+ok    house hmp_stool  AUROC 1.000  15s 
+ok    house hmp_gingiva  AUROC 1.000  14s 
+ok    house hmp_skin_ear  AUROC 1.000  13s 
+ok    house hmp_vagina  AUROC 0.999  11s 
+ok    house hmp_tongue  AUROC 1.000  2s 
+ok    house twinsuk_stool  AUROC 1.000  5s 
+
+ simulator      template       pool auroc ks_median  frob real_cor50 sim_cor50
+     house   hmp_gingiva evaluation 1.000     0.075 0.197      0.142     0.062
+     house  hmp_skin_ear evaluation 1.000     0.050 0.170      0.152     0.075
+     house     hmp_stool evaluation 1.000     0.065 0.207      0.151     0.059
+     house    hmp_vagina evaluation 0.999     0.035 0.215      0.144     0.065
+     house    risk_stool evaluation 1.000     0.083 0.261      0.196     0.061
+     house    hmp_tongue     tuning 1.000     0.080 0.289      0.259     0.066
+     house twinsuk_stool     tuning 1.000     0.110 0.195      0.122     0.070
+       msq   hmp_gingiva evaluation 0.470     0.040 0.076      0.142     0.134
+       msq  hmp_skin_ear evaluation 0.765     0.035 0.091      0.152     0.143
+       msq     hmp_stool evaluation 0.417     0.035 0.074      0.151     0.135
+       msq    hmp_vagina evaluation 0.635     0.022 0.089      0.144     0.127
+       msq    risk_stool evaluation    NA        NA    NA         NA        NA
+       msq    hmp_tongue     tuning 0.622     0.045 0.074      0.259     0.261
+       msq twinsuk_stool     tuning 0.998     0.130 0.094      0.122     0.147
+       mid   hmp_gingiva evaluation 0.877     0.050 0.123      0.142     0.108
+       mid  hmp_skin_ear evaluation 0.825     0.040 0.119      0.152     0.115
+       mid     hmp_stool evaluation 0.798     0.050 0.129      0.151     0.103
+       mid    hmp_vagina evaluation 0.958     0.030 0.129      0.144     0.109
+       mid    risk_stool evaluation 0.937     0.054 0.172      0.196     0.107
+       mid    hmp_tongue     tuning 0.840     0.065 0.163      0.259     0.190
+       mid twinsuk_stool     tuning 0.992     0.070 0.110      0.122     0.127
+       sd2   hmp_gingiva evaluation    NA        NA    NA         NA        NA
+       sd2  hmp_skin_ear evaluation    NA        NA    NA         NA        NA
+       sd2     hmp_stool evaluation    NA        NA    NA         NA        NA
+       sd2    hmp_vagina evaluation    NA        NA    NA         NA        NA
+       sd2    risk_stool evaluation    NA        NA    NA         NA        NA
+       sd2    hmp_tongue     tuning    NA        NA    NA         NA        NA
+       sd2 twinsuk_stool     tuning    NA        NA    NA         NA        NA
+       sps   hmp_gingiva evaluation 1.000     0.080 0.217      0.142     0.134
+       sps  hmp_skin_ear evaluation 1.000     0.070 0.174      0.152     0.064
+       sps     hmp_stool evaluation 1.000     0.055 0.205      0.151     0.123
+       sps    hmp_vagina evaluation 0.999     0.030 0.189      0.144     0.060
+       sps    risk_stool evaluation 1.000     0.076 0.258      0.196     0.170
+       sps    hmp_tongue     tuning 1.000     0.080 0.329      0.259     0.184
+       sps twinsuk_stool     tuning    NA        NA    NA         NA        NA
+ real_sd_rich sim_sd_rich real_rich sim_rich real_top1 sim_top1 real_zero
+       33.702      10.320      85.0     76.0     0.352    0.382     0.749
+       23.856       9.344      48.0     43.0     0.669    0.610     0.828
+      106.489      34.952     240.0    202.0     0.147    0.203     0.803
+       20.767       9.252      30.0     32.0     0.829    0.602     0.906
+      191.846      63.478     440.0    364.0     0.167    0.278     0.784
+       31.903      12.771     137.5    116.0     0.148    0.197     0.662
+      217.353     100.830    1012.0    834.5     0.115    0.217     0.690
+       33.702      27.870      85.0     88.0     0.352    0.338     0.749
+       23.856      19.880      48.0     52.0     0.669    0.642     0.828
+      106.489      79.480     240.0    273.0     0.147    0.146     0.803
+       20.767      16.856      30.0     29.5     0.829    0.807     0.906
+           NA          NA        NA       NA        NA       NA        NA
+       31.903      22.076     137.5    139.5     0.148    0.146     0.662
+      217.353     144.473    1012.0    488.0     0.115    0.116     0.690
+       33.702      31.654      85.0     76.0     0.352    0.367     0.749
+       23.856      21.687      48.0     44.0     0.669    0.618     0.828
+      106.489      84.554     240.0    207.5     0.147    0.152     0.803
+       20.767      15.208      30.0     29.5     0.829    0.562     0.906
+      191.846     155.142     440.0    380.0     0.167    0.151     0.784
+       31.903      29.771     137.5    117.0     0.148    0.143     0.662
+      217.353     168.289    1012.0    894.0     0.115    0.109     0.690
+           NA          NA        NA       NA        NA       NA        NA
+           NA          NA        NA       NA        NA       NA        NA
+           NA          NA        NA       NA        NA       NA        NA
+           NA          NA        NA       NA        NA       NA        NA
+           NA          NA        NA       NA        NA       NA        NA
+           NA          NA        NA       NA        NA       NA        NA
+           NA          NA        NA       NA        NA       NA        NA
+       33.702      18.057      85.0     73.0     0.352    0.230     0.749
+       23.856       7.964      48.0     32.0     0.669    0.293     0.828
+      106.489      85.561     240.0    199.0     0.147    0.157     0.803
+       20.767       7.852      30.0     27.0     0.829    0.383     0.906
+      191.846     156.465     440.0    332.5     0.167    0.199     0.784
+       31.903      21.598     137.5    123.0     0.148    0.135     0.662
+           NA          NA        NA       NA        NA       NA        NA
+ sim_zero
+    0.791
+    0.861
+    0.847
+    0.917
+    0.829
+    0.712
+    0.748
+    0.746
+    0.820
+    0.785
+    0.911
+       NA
+    0.652
+    0.845
+    0.771
+    0.842
+    0.837
+    0.915
+    0.811
+    0.705
+    0.725
+       NA
+       NA
+       NA
+       NA
+       NA
+       NA
+       NA
+    0.798
+    0.896
+    0.844
+    0.928
+    0.833
+    0.695
+       NA
+
+mean over evaluation templates
+ simulator auroc ks_median  frob sim_cor50 real_cor50 sim_sd_rich real_sd_rich
+     house 1.000     0.062 0.210     0.064      0.157      25.469       75.332
+       mid 0.879     0.045 0.134     0.108      0.157      61.649       75.332
+       msq 0.572     0.033 0.082     0.135      0.147      36.022       46.203
+       sps 1.000     0.062 0.209     0.110      0.157      55.180       75.332
+ flagged
+       5
+       2
+       0
+       5
