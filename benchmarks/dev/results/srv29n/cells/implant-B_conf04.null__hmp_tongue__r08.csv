@@ -1,0 +1,7 @@
+"setting","template","rep","candidate","tested","n_pos","rej","tp","fp","null_n","null_p05","secs","error"
+"implant:B_conf04.null","hmp_tongue",8,"eperm_c12",265,0,0,0,0,265,10,25.058,NA
+"implant:B_conf04.null","hmp_tongue",8,"ref_adapt",265,0,0,0,0,265,14,8.20600000000002,NA
+"implant:B_conf04.null","hmp_tongue",8,"ref_linda",265,0,0,0,0,265,13,1.57900000000006,NA
+"implant:B_conf04.null","hmp_tongue",8,"ref_zicoseq",265,0,0,0,0,265,10,85.0989999999999,NA
+"implant:B_conf04.null","hmp_tongue",8,"ref_ldm",265,0,0,0,0,265,14,10.025,NA
+"implant:B_conf04.null","hmp_tongue",8,"ref_logistic_presence",256,0,0,0,0,256,19,0.408000000000015,NA

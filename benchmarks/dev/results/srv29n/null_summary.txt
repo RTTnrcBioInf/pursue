@@ -1,0 +1,85 @@
+               setting             candidate cells  p_any mean_fp  fpr05
+        house:R20.null             eperm_c12    40 0.0250  0.0250 0.0522
+        house:R20.null             ref_adapt    40 0.0250  0.0250 0.0544
+        house:R20.null               ref_ldm    40 0.0250  0.0250 0.0516
+        house:R20.null             ref_linda    40 0.0500  0.0500 0.0554
+        house:R20.null ref_logistic_presence    40 0.0500  0.0500 0.0581
+        house:R20.null           ref_zicoseq    40 0.0500  0.0500 0.0517
+        house:R21.null             eperm_c12    40 0.1250  0.1500 0.0513
+        house:R21.null             ref_adapt    40 0.0500  0.0500 0.0515
+        house:R21.null               ref_ldm    40 0.0000  0.0000 0.0475
+        house:R21.null             ref_linda    40 0.0250  0.0250 0.0523
+        house:R21.null ref_logistic_presence    40 0.0500  0.0500 0.0552
+        house:R21.null           ref_zicoseq    40 0.0750  0.1000 0.0489
+ implant:B_conf04.null             eperm_c12    22 0.0455  0.0455 0.0409
+ implant:B_conf04.null             ref_adapt    22 0.0455  0.0455 0.0434
+ implant:B_conf04.null               ref_ldm    22 0.0455  0.0455 0.0381
+ implant:B_conf04.null             ref_linda    22 0.0455  0.0455 0.0381
+ implant:B_conf04.null ref_logistic_presence    22 0.0455  0.0455 0.0456
+ implant:B_conf04.null           ref_zicoseq    22 0.0455  0.0455 0.0393
+ implant:B_conf07.null             eperm_c12    25 0.0400  0.0400 0.0503
+ implant:B_conf07.null             ref_adapt    25 0.0400  0.0400 0.0498
+ implant:B_conf07.null               ref_ldm    24 0.0000  0.0000 0.0485
+ implant:B_conf07.null             ref_linda    25 0.0400  0.0400 0.0470
+ implant:B_conf07.null ref_logistic_presence    25 0.0800  0.1600 0.0563
+ implant:B_conf07.null           ref_zicoseq    25 0.0000  0.0000 0.0498
+          msq:R20.null             eperm_c12    40 0.0750  0.0750 0.0502
+          msq:R20.null             ref_adapt    40 0.1250  0.1250 0.0506
+          msq:R20.null               ref_ldm    40 0.0750  0.1000 0.0486
+          msq:R20.null             ref_linda    40 0.0750  0.0750 0.0545
+          msq:R20.null ref_logistic_presence    40 0.0750  0.1250 0.0553
+          msq:R20.null           ref_zicoseq    40 0.0750  0.0750 0.0525
+          msq:R21.null             eperm_c12    40 0.0250  0.0250 0.0500
+          msq:R21.null             ref_adapt    40 0.0000  0.0000 0.0516
+          msq:R21.null               ref_ldm    40 0.0000  0.0000 0.0496
+          msq:R21.null             ref_linda    40 0.0250  0.0750 0.0542
+          msq:R21.null ref_logistic_presence    40 0.0500  0.0500 0.0518
+          msq:R21.null           ref_zicoseq    40 0.0250  0.0250 0.0519
+ excess_p
+ 1.25e-01
+ 9.67e-03
+ 2.00e-01
+ 2.05e-03
+ 1.49e-05
+ 1.89e-01
+ 2.44e-01
+ 2.09e-01
+ 9.18e-01
+ 1.08e-01
+ 3.33e-03
+ 7.26e-01
+ 1.00e+00
+ 9.99e-01
+ 1.00e+00
+ 1.00e+00
+ 9.79e-01
+ 1.00e+00
+ 4.35e-01
+ 5.63e-01
+ 8.06e-01
+ 9.66e-01
+ 1.69e-04
+ 5.48e-01
+ 4.52e-01
+ 3.78e-01
+ 7.85e-01
+ 6.78e-03
+ 2.35e-03
+ 8.72e-02
+ 4.95e-01
+ 1.91e-01
+ 5.85e-01
+ 1.11e-02
+ 1.72e-01
+ 1.44e-01
+
+overall:
+             candidate cells  p_any worst_setting_p_any  fpr05
+             eperm_c12   207 0.0580               0.125 0.0496
+             ref_adapt   207 0.0483               0.125 0.0506
+               ref_ldm   206 0.0243               0.075 0.0478
+             ref_linda   207 0.0435               0.075 0.0508
+ ref_logistic_presence   207 0.0580               0.080 0.0542
+           ref_zicoseq   207 0.0483               0.075 0.0496
+
+P(any) <= 0.075 overall: eperm_c12, ref_adapt, ref_ldm, ref_linda, ref_logistic_presence, ref_zicoseq
