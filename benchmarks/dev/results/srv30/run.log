@@ -1,0 +1,65 @@
+>> guard: scope in pursue.slice -- all PURSUE runs together capped at 90G
+>> subject map (2026-10-15 16:02:20)
+4189 samples, 234 subjects, 15 sites -> /mnt/workspace/analyses/robertas/pursue/benchmarks/devdata/hmp16s_subjects.csv
+hmp_tongue: 349 of 350 samples matched; 303 after de-duplication; 207 subjects, 94 with >= 2 visits; visits 1=175 2=126 3=2
+>> rm suite srv30 (2026-10-15 16:02:21)
+template hmp_tongue_long: 349 of the template's samples matched; 303 samples after de-duplication, 207 subjects, 94 with >= 2 visits
+rm suite 'srv30': 10 candidates x 120 cells, 8 cores
+hmp_tongue_long: 303 samples, 207 subjects (94 with >= 2 visits). 120 cells in 43.7 min.
+TP / FP per cell at the method's own q <= 0.05; FDR pooled; p_any_false = share of cells with any false call;
+fpr05 = share of null taxa at p < 0.05 (nominal 0.05). On .null settings every call is false.
+
+== P_pair 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05 secs
+        ref_zicoseq_st    20  27.4 5.40 0.50 0.0847        0.35 0.0501 59.2
+            ref_ldm_cl    20  27.4 5.20 0.15 0.0280        0.15 0.0540 72.6
+          ref_linda_re    20  27.4 5.15 0.35 0.0636        0.20 0.0562 19.6
+ ref_logistic_presence    20  27.4 4.90 0.10 0.0200        0.10 0.0269  0.3
+             eperm_c12    20  27.4 4.35 0.00 0.0000        0.00 0.0158 11.7
+             ref_linda    20  27.4 3.90 0.10 0.0250        0.10 0.0187  3.1
+             ref_adapt    20  27.4 3.90 0.00 0.0000        0.00 0.0191  4.1
+               ref_ldm    20  27.4 2.60 0.05 0.0189        0.05 0.0195  7.4
+           ref_zicoseq    20  27.4 2.35 0.05 0.0208        0.05 0.0213 56.8
+       ref_logistic_cr    20  27.4 1.80 0.15 0.0769        0.10 0.0374  0.2
+
+== P_pair.null 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05 secs
+             eperm_c12    40     0  0 0.000   0       0.000 0.0142 12.5
+             ref_linda    40     0  0 0.000   0       0.000 0.0153  3.1
+             ref_adapt    40     0  0 0.000   0       0.000 0.0163  4.1
+           ref_zicoseq    40     0  0 0.000   0       0.000 0.0174 56.5
+               ref_ldm    40     0  0 0.000   0       0.000 0.0184  4.7
+ ref_logistic_presence    40     0  0 0.000   0       0.000 0.0246  0.3
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0354  0.1
+            ref_ldm_cl    40     0  0 0.000   0       0.000 0.0451 41.4
+        ref_zicoseq_st    40     0  0 0.125   1       0.075 0.0471 59.0
+          ref_linda_re    40     0  0 0.000   0       0.000 0.0534 19.4
+
+== P_subj 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05 secs
+ ref_logistic_presence    20  27.2 6.05 1.80 0.2293        0.55 0.0825  0.3
+             ref_adapt    20  27.2 5.05 1.60 0.2406        0.65 0.0876  4.1
+             ref_linda    20  27.2 4.75 1.70 0.2636        0.60 0.0902  3.1
+               ref_ldm    20  27.2 4.45 1.55 0.2583        0.60 0.0848  9.9
+           ref_zicoseq    20  27.2 3.75 0.85 0.1848        0.45 0.0862 57.1
+             eperm_c12    20  27.2 3.20 0.20 0.0588        0.15 0.0395 12.7
+          ref_linda_re    20  27.2 2.60 0.25 0.0877        0.15 0.0453 19.7
+            ref_ldm_cl    20  27.2 1.95 0.15 0.0714        0.15 0.0423 19.3
+       ref_logistic_cr    20  27.2 1.05 0.00 0.0000        0.00 0.0333  0.2
+
+== P_subj.null 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05 secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0399  0.2
+            ref_ldm_cl    40     0  0 0.075   1       0.075 0.0527 18.3
+             eperm_c12    40     0  0 0.150   1       0.075 0.0532 11.8
+          ref_linda_re    40     0  0 0.175   1       0.100 0.0551 19.3
+ ref_logistic_presence    40     0  0 0.900   1       0.325 0.0935  0.3
+               ref_ldm    40     0  0 2.250   1       0.275 0.0986  7.7
+           ref_zicoseq    40     0  0 3.200   1       0.400 0.0998 56.8
+             ref_linda    40     0  0 3.050   1       0.375 0.1016  3.1
+             ref_adapt    40     0  0 2.900   1       0.350 0.1039  4.0
+
+errors (cells):
+                
+                 not applicable: exposure is fixed per subject (ZicoSeq permutes within
+  ref_zicoseq_st                                                                     60

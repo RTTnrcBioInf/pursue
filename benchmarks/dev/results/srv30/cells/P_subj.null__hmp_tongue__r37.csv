@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_subj.null","hmp_tongue",37,"eperm_c12","subject",278,0,278,0,0,0,278,5,13.076,NA
+"P_subj.null","hmp_tongue",37,"ref_linda","subject",278,0,278,0,0,0,278,16,3.13300000000004,NA
+"P_subj.null","hmp_tongue",37,"ref_linda_re","subject",278,0,278,0,0,0,278,7,20.1000000000001,NA
+"P_subj.null","hmp_tongue",37,"ref_ldm","subject",278,0,278,0,0,0,278,16,31.912,NA
+"P_subj.null","hmp_tongue",37,"ref_ldm_cl","subject",278,0,278,0,0,0,278,6,16.1109999999999,NA
+"P_subj.null","hmp_tongue",37,"ref_zicoseq","subject",278,0,278,0,0,0,278,21,57.2759999999998,NA
+"P_subj.null","hmp_tongue",37,"ref_zicoseq_st","subject",278,0,0,NA,NA,NA,NA,NA,0.000999999999976353,"not applicable: exposure is fixed per subject (ZicoSeq permutes within strata only)"
+"P_subj.null","hmp_tongue",37,"ref_adapt","subject",278,0,278,0,0,0,278,15,4.29999999999995,NA
+"P_subj.null","hmp_tongue",37,"ref_logistic_presence","subject",278,0,270,1,0,1,270,29,0.270999999999958,NA
+"P_subj.null","hmp_tongue",37,"ref_logistic_cr","subject",278,0,265,0,0,0,265,10,0.238000000000056,NA

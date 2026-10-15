@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","hmp_tongue",1,"eperm_c12","paired",278,0,278,0,0,0,278,8,15.713,NA
+"P_pair.null","hmp_tongue",1,"ref_linda","paired",278,0,278,0,0,0,278,10,3.17899999999986,NA
+"P_pair.null","hmp_tongue",1,"ref_linda_re","paired",278,0,278,0,0,0,278,20,19.915,NA
+"P_pair.null","hmp_tongue",1,"ref_ldm","paired",278,0,278,0,0,0,278,7,6.327,NA
+"P_pair.null","hmp_tongue",1,"ref_ldm_cl","paired",278,0,278,0,0,0,278,18,43.855,NA
+"P_pair.null","hmp_tongue",1,"ref_zicoseq","paired",278,0,278,0,0,0,278,7,61.9469999999999,NA
+"P_pair.null","hmp_tongue",1,"ref_zicoseq_st","paired",278,0,278,0,0,0,278,13,60.8919999999998,NA
+"P_pair.null","hmp_tongue",1,"ref_adapt","paired",278,0,278,0,0,0,278,6,4.07500000000005,NA
+"P_pair.null","hmp_tongue",1,"ref_logistic_presence","paired",278,0,269,0,0,0,269,10,0.307999999999993,NA
+"P_pair.null","hmp_tongue",1,"ref_logistic_cr","paired",278,0,269,0,0,0,269,15,0.149999999999864,NA
