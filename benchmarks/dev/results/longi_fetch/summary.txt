@@ -1,7 +1,96 @@
-2026-10-14 16:28:04 fetch_longitudinal
+2026-10-15 13:25:21 fetch_longitudinal
 
-packages: HMP16SData MISSING, HMP2Data MISSING, microbiomeDataSets 1.18.0, phyloseq 1.54.2, SummarizedExperiment 1.40.0 
-!! HMP16SData V35 failed: error in evaluating the argument 'x' in selecting a method for function 'assay': there is no package called ‘HMP16SData’ 
+packages: HMP16SData 1.30.0, HMP2Data MISSING, microbiomeDataSets 1.18.0, phyloseq 1.54.2, SummarizedExperiment 1.40.0 
+== hmp16s_stool: 4800 taxa (>= 5% prevalence) x 319 samples; median depth 4180 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 210; samples per subject: median 2, max 3; subjects with >= 2 samples 107, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=191  2=126  3=2 
+     SEX                          Female=135  Male=184 
+== hmp16s_tongue_dorsum: 4955 taxa (>= 5% prevalence) x 316 samples; median depth 4734 (tuning site: usable for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 208; samples per subject: median 2, max 3; subjects with >= 2 samples 106, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=187  2=127  3=2 
+     SEX                          Female=132  Male=184 
+== hmp16s_attached_keratinized_gingiva: 3713 taxa (>= 5% prevalence) x 313 samples; median depth 4246 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 207; samples per subject: median 2, max 3; subjects with >= 2 samples 104, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=187  2=124  3=2 
+     SEX                          Female=129  Male=184 
+== hmp16s_supragingival_plaque: 5378 taxa (>= 5% prevalence) x 313 samples; median depth 4424 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 206; samples per subject: median 2, max 3; subjects with >= 2 samples 105, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=186  2=125  3=2 
+     SEX                          Female=131  Male=182 
+== hmp16s_buccal_mucosa: 4706 taxa (>= 5% prevalence) x 311 samples; median depth 4256 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 203; samples per subject: median 2, max 3; subjects with >= 2 samples 106, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=182  2=127  3=2 
+     SEX                          Female=128  Male=183 
+== hmp16s_palatine_tonsils: 5675 taxa (>= 5% prevalence) x 312 samples; median depth 4302 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 208; samples per subject: median 1, max 3; subjects with >= 2 samples 102, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=185  2=125  3=2 
+     SEX                          Female=128  Male=184 
+== hmp16s_subgingival_plaque: 5562 taxa (>= 5% prevalence) x 309 samples; median depth 4224 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 206; samples per subject: median 1, max 3; subjects with >= 2 samples 102, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=183  2=125  3=1 
+     SEX                          Female=129  Male=180 
+== hmp16s_throat: 5029 taxa (>= 5% prevalence) x 306 samples; median depth 4142 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 202; samples per subject: median 2, max 3; subjects with >= 2 samples 102, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=181  2=123  3=2 
+     SEX                          Female=126  Male=180 
+== hmp16s_hard_palate: 4916 taxa (>= 5% prevalence) x 301 samples; median depth 4545 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 198; samples per subject: median 2, max 3; subjects with >= 2 samples 101, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=175  2=124  3=2 
+     SEX                          Female=124  Male=177 
+== hmp16s_right_retroauricular_crease: 2013 taxa (>= 5% prevalence) x 297 samples; median depth 4488 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 212; samples per subject: median 1, max 3; subjects with >= 2 samples 83, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=176  2=119  3=2 
+     SEX                          Female=125  Male=172 
+== hmp16s_saliva: 6109 taxa (>= 5% prevalence) x 290 samples; median depth 3767 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 195; samples per subject: median 1, max 3; subjects with >= 2 samples 94, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=170  2=119  3=1 
+     SEX                          Female=119  Male=171 
+== hmp16s_left_retroauricular_crease: 1947 taxa (>= 5% prevalence) x 284 samples; median depth 4238 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 208; samples per subject: median 1, max 3; subjects with >= 2 samples 75, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=166  2=117  3=1 
+     SEX                          Female=126  Male=158 
+== hmp16s_anterior_nares: 2364 taxa (>= 5% prevalence) x 265 samples; median depth 4084 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 188; samples per subject: median 1, max 3; subjects with >= 2 samples 76, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=150  2=114  3=1 
+     SEX                          Female=102  Male=163 
+== hmp16s_right_antecubital_fossa: 1511 taxa (>= 5% prevalence) x 200 samples; median depth 768 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 154; samples per subject: median 1, max 2; subjects with >= 2 samples 46, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=118  2=81  3=1 
+     SEX                          Female=77  Male=123 
+== hmp16s_left_antecubital_fossa: 1443 taxa (>= 5% prevalence) x 191 samples; median depth 695 (overlaps an HMP evaluation site or untouched: not for development) 
+   subject column: RSID; time column: VISITNO 
+   subjects 151; samples per subject: median 1, max 3; subjects with >= 2 samples 39, >= 5 samples 0 
+   metadata columns: RSID, VISITNO, SEX, RUN_CENTER, HMP_BODY_SITE, HMP_BODY_SUBSITE, SRS_SAMPLE_ID 
+     VISITNO                      1=112  2=78  3=1 
+     SEX                          Female=71  Male=120 
 !! HMP2Data momspi16S failed: there is no package called ‘HMP2Data’ 
 !! HMP2Data IBD16S failed: there is no package called ‘HMP2Data’ 
 !! HMP2Data T2D16S failed: there is no package called ‘HMP2Data’ 
@@ -12,5 +101,5 @@ packages: HMP16SData MISSING, HMP2Data MISSING, microbiomeDataSets 1.18.0, phylo
      sex                          F=8716  M=7518 
      season                       dry=6650  wet=9584 
 
-files: baboon_grieneisen.rds 
-6,7M	benchmarks/data/longitudinal
+files: baboon_grieneisen.rds, hmp16s_anterior_nares.rds, hmp16s_attached_keratinized_gingiva.rds, hmp16s_buccal_mucosa.rds, hmp16s_hard_palate.rds, hmp16s_left_antecubital_fossa.rds, hmp16s_left_retroauricular_crease.rds, hmp16s_palatine_tonsils.rds, hmp16s_right_antecubital_fossa.rds, hmp16s_right_retroauricular_crease.rds, hmp16s_saliva.rds, hmp16s_stool.rds, hmp16s_subgingival_plaque.rds, hmp16s_supragingival_plaque.rds, hmp16s_throat.rds, hmp16s_tongue_dorsum.rds 
+11M	benchmarks/data/longitudinal
