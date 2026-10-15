@@ -68,10 +68,17 @@
               n_subj = length(blk), choice = ifelse(usek, alts[ia], "lead"), P = P)
   .epp_memo$key <- key; .epp_memo$val <- val; val
 }
+# srv31 (house, > 2 visits): the within-subject path is valid with any visit pattern (null FPR 0.050), but it uses only
+# within-subject contrasts. Where people differ in how much of their time is exposed (HW5: 1-4 of 5 visits) or some are
+# never exposed (HWv), the exposure also varies BETWEEN people, and that information is thrown away (c13 5.80 / 2.40 TP
+# vs c12 6.25 / 5.25). Dispatch on the design alone (labels and subjects, never the counts, so each path keeps its own
+# validity): the within-subject path only when >= 90% of the exposure's variance lies within subjects -- every person
+# exposed for about the same share of visits (paired, crossover, balanced pre/post); otherwise c12's clustered path.
+.within_share <- function(x, cl) { v <- sum((x - mean(x))^2); if (v <= 0) return(0); sum((x - stats::ave(x, cl))^2) / v }
 .is_paired <- function(meta, formula, tested_term) {
   d <- .epg_design(meta, formula, tested_term)
   !is.null(d) && d$binary && is.null(d$Z) && !is.null(d$cl) && !d$cl_ok &&
-    sum(tapply(d$x, d$cl, function(v) length(unique(v)) == 2L)) >= 6L
+    sum(tapply(d$x, d$cl, function(v) length(unique(v)) == 2L)) >= 6L && .within_share(d$x, d$cl) >= 0.9
 }
 register_candidate("eperm_c13", function(counts, meta, formula, tested_term) {
   .with_opts({
