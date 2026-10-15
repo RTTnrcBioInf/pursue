@@ -1,0 +1,12 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"HW5.null","twinsuk_stool",20,"eperm_c12","within",374,0,374,0,0,0,374,15,17.8800000000001,NA
+"HW5.null","twinsuk_stool",20,"eperm_c13","within",374,0,374,0,0,0,374,18,4.8610000000001,NA
+"HW5.null","twinsuk_stool",20,"ref_linda","within",374,0,374,0,0,0,374,26,3.05399999999986,NA
+"HW5.null","twinsuk_stool",20,"ref_linda_re","within",374,0,374,0,0,0,374,26,27.2740000000001,NA
+"HW5.null","twinsuk_stool",20,"ref_ldm","within",374,0,374,0,0,0,374,20,7.87699999999995,NA
+"HW5.null","twinsuk_stool",20,"ref_ldm_cl","within",374,0,374,0,0,0,374,24,14.8810000000001,NA
+"HW5.null","twinsuk_stool",20,"ref_zicoseq","within",374,0,374,0,0,0,374,20,82.0820000000001,NA
+"HW5.null","twinsuk_stool",20,"ref_zicoseq_st","within",374,0,374,0,0,0,374,23,81.308,NA
+"HW5.null","twinsuk_stool",20,"ref_adapt","within",374,0,374,0,0,0,374,21,4.86300000000006,NA
+"HW5.null","twinsuk_stool",20,"ref_logistic_presence","within",374,0,372,0,0,0,372,27,0.40099999999984,NA
+"HW5.null","twinsuk_stool",20,"ref_logistic_cr","within",374,0,371,0,0,0,371,22,0.317000000000007,NA

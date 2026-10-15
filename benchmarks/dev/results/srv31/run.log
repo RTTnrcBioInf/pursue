@@ -1,0 +1,63 @@
+>> guard: scope in pursue.slice -- all PURSUE runs together capped at 90G
+>> rm suite srv31 (2026-10-15 17:52:06)
+rm suite 'srv31': 11 candidates x 200 cells, 12 cores
+200 cells in 69.9 min.
+TP / FP per cell at the method's own q <= 0.05; FDR pooled; p_any_false = share of cells with any false call;
+fpr05 = share of null taxa at p < 0.05 (nominal 0.05). On .null settings every call is false.
+
+== HW5 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05 secs
+          ref_linda_re    20    35 7.60 0.75 0.0898        0.45 0.0610 23.9
+             ref_linda    20    35 7.40 0.45 0.0573        0.35 0.0552  3.0
+             ref_adapt    20    35 7.35 0.50 0.0637        0.30 0.0547  4.2
+ ref_logistic_presence    20    35 6.75 0.35 0.0493        0.30 0.0538  0.3
+             eperm_c12    20    35 6.25 0.30 0.0458        0.15 0.0407 18.4
+           ref_zicoseq    20    35 5.80 0.50 0.0794        0.35 0.0509 70.2
+             eperm_c13    20    35 5.80 0.50 0.0794        0.35 0.0520 18.5
+        ref_zicoseq_st    20    35 5.75 0.50 0.0800        0.40 0.0556 70.1
+               ref_ldm    20    35 5.35 0.50 0.0855        0.40 0.0505 11.2
+            ref_ldm_cl    20    35 4.20 0.40 0.0870        0.35 0.0522 28.8
+       ref_logistic_cr    20    35 1.20 0.05 0.0400        0.05 0.0414  0.2
+
+== HW5.null 
+             candidate cells n_pos TP     FP FDR p_any_false  fpr05 secs
+             eperm_c12    80     0  0 0.0250   1      0.0250 0.0401 19.8
+       ref_logistic_cr    80     0  0 0.0000   0      0.0000 0.0409  0.2
+            ref_ldm_cl    80     0  0 0.0500   1      0.0500 0.0489 26.1
+               ref_ldm    80     0  0 0.0375   1      0.0375 0.0496  8.0
+             eperm_c13    80     0  0 0.0750   1      0.0750 0.0498 18.7
+        ref_zicoseq_st    80     0  0 0.1250   1      0.0875 0.0505 72.1
+             ref_adapt    80     0  0 0.0625   1      0.0625 0.0506  4.4
+           ref_zicoseq    80     0  0 0.0625   1      0.0625 0.0510 72.3
+             ref_linda    80     0  0 0.0625   1      0.0625 0.0527  3.1
+          ref_linda_re    80     0  0 0.0750   1      0.0750 0.0544 24.3
+ ref_logistic_presence    80     0  0 0.0750   1      0.0750 0.0551  0.3
+
+== HWv 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05 secs
+             ref_linda    20    33 6.20 0.65 0.0949        0.40 0.0528  3.1
+             ref_adapt    20    33 6.10 0.45 0.0687        0.30 0.0518  4.5
+ ref_logistic_presence    20    33 5.80 0.20 0.0333        0.15 0.0520  0.3
+          ref_linda_re    20    33 5.70 0.35 0.0579        0.25 0.0511 23.3
+           ref_zicoseq    20    33 5.30 0.35 0.0619        0.30 0.0547 70.7
+             eperm_c12    20    33 5.25 0.10 0.0187        0.05 0.0413 16.2
+               ref_ldm    20    33 3.80 0.50 0.1163        0.25 0.0504 11.9
+        ref_zicoseq_st    20    33 3.45 0.10 0.0282        0.10 0.0504 71.0
+             eperm_c13    20    33 2.40 0.15 0.0588        0.10 0.0417 17.2
+            ref_ldm_cl    20    33 2.15 0.05 0.0227        0.05 0.0481 28.5
+       ref_logistic_cr    20    33 0.60 0.00 0.0000        0.00 0.0392  0.2
+
+== HWv.null 
+             candidate cells n_pos TP     FP FDR p_any_false  fpr05 secs
+       ref_logistic_cr    80     0  0 0.0250   1      0.0250 0.0439  0.2
+             eperm_c12    80     0  0 0.0875   1      0.0875 0.0460 16.7
+        ref_zicoseq_st    80     0  0 0.1000   1      0.0875 0.0497 70.4
+            ref_ldm_cl    80     0  0 0.1000   1      0.0625 0.0502 26.0
+             eperm_c13    80     0  0 0.0750   1      0.0750 0.0504 16.9
+          ref_linda_re    80     0  0 0.0875   1      0.0625 0.0557 22.6
+               ref_ldm    80     0  0 0.1125   1      0.1000 0.0569  8.4
+ ref_logistic_presence    80     0  0 0.0750   1      0.0750 0.0577  0.3
+             ref_adapt    80     0  0 0.1625   1      0.1250 0.0590  4.2
+           ref_zicoseq    80     0  0 0.2250   1      0.1750 0.0596 69.3
+             ref_linda    80     0  0 0.1625   1      0.1250 0.0602  3.1
+

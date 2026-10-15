@@ -1,0 +1,12 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"HWv.null","hmp_tongue",10,"eperm_c12","within",267,0,267,0,0,0,267,11,16.2150000000001,NA
+"HWv.null","hmp_tongue",10,"eperm_c13","within",267,0,267,0,0,0,267,6,4.67500000000018,NA
+"HWv.null","hmp_tongue",10,"ref_linda","within",267,0,267,0,0,0,267,14,3.02300000000014,NA
+"HWv.null","hmp_tongue",10,"ref_linda_re","within",267,0,267,0,0,0,267,9,17.9949999999999,NA
+"HWv.null","hmp_tongue",10,"ref_ldm","within",267,0,267,0,0,0,267,15,39.672,NA
+"HWv.null","hmp_tongue",10,"ref_ldm_cl","within",267,0,267,0,0,0,267,13,25.192,NA
+"HWv.null","hmp_tongue",10,"ref_zicoseq","within",267,0,267,0,0,0,267,13,57.0940000000001,NA
+"HWv.null","hmp_tongue",10,"ref_zicoseq_st","within",267,0,267,0,0,0,267,11,59.1130000000003,NA
+"HWv.null","hmp_tongue",10,"ref_adapt","within",267,0,267,0,0,0,267,16,3.99200000000019,NA
+"HWv.null","hmp_tongue",10,"ref_logistic_presence","within",267,0,259,0,0,0,259,12,0.317999999999756,NA
+"HWv.null","hmp_tongue",10,"ref_logistic_cr","within",267,0,257,0,0,0,257,10,0.18100000000004,NA
