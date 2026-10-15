@@ -1,0 +1,20 @@
+hmp_tongue_long: 303 samples, 207 subjects (94 with >= 2 visits). 120 cells in 10.0 min.
+TP / FP per cell at the method's own q <= 0.05; FDR pooled; p_any_false = share of cells with any false call;
+fpr05 = share of null taxa at p < 0.05 (nominal 0.05). On .null settings every call is false.
+
+== P_pair 
+ candidate cells n_pos   TP   FP    FDR p_any_false  fpr05 secs
+ eperm_c13    20  27.4 5.75 0.15 0.0254        0.15 0.0508 22.2
+
+== P_pair.null 
+ candidate cells n_pos TP    FP FDR p_any_false  fpr05 secs
+ eperm_c13    40     0  0 0.075   1       0.075 0.0459 22.6
+
+== P_subj 
+ candidate cells n_pos  TP  FP    FDR p_any_false  fpr05 secs
+ eperm_c13    20  27.2 3.2 0.2 0.0588        0.15 0.0395 20.2
+
+== P_subj.null 
+ candidate cells n_pos TP   FP FDR p_any_false  fpr05 secs
+ eperm_c13    40     0  0 0.15   1       0.075 0.0532 19.3
+
