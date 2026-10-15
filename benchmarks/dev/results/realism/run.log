@@ -1,164 +1,78 @@
->> guard: scope in pursue.slice -- all PURSUE runs together capped at 70G
->> realism gate (2026-10-15 10:41:13)
-ok    sd2 hmp_tongue  AUROC NA  0s
-ok    sd2 twinsuk_stool  AUROC NA  0s
-ok    sd2 risk_stool  AUROC NA  9s
-ok    sd2 hmp_vagina  AUROC NA  13s
-ok    sd2 hmp_gingiva  AUROC NA  13s
-ok    sd2 hmp_stool  AUROC NA  13s
-ok    sd2 hmp_skin_ear  AUROC NA  14s
-Note: The number of null genes (not DE) in the source data is 1784 and the number of null genes required to be included in the simulated data is 2044. Therefore, candidiate null genes are sampled with replacement.
-Note: The number of null genes (not DE) in the source data is 292 and the number of null genes required to be included in the simulated data is 403. Therefore, candidiate null genes are sampled with replacement.
-Note: The number of null genes (not DE) in the source data is 330 and the number of null genes required to be included in the simulated data is 374. Therefore, candidiate null genes are sampled with replacement.
-Note: The number of null genes (not DE) in the source data is 231 and the number of null genes required to be included in the simulated data is 364. Therefore, candidiate null genes are sampled with replacement.
-Note: The number of null genes (not DE) in the source data is 243 and the number of null genes required to be included in the simulated data is 307. Therefore, candidiate null genes are sampled with replacement.
-Note: The number of null genes (not DE) in the source data is 781 and the number of null genes required to be included in the simulated data is 1295. Therefore, candidiate null genes are sampled with replacement.
-ok    sps hmp_tongue  AUROC 1.000  39s
-ok    sps hmp_skin_ear  AUROC 1.000  40s
-ok    sps hmp_gingiva  AUROC 1.000  44s
-ok    sps hmp_vagina  AUROC 0.999  45s
-ok    sps twinsuk_stool  AUROC NA  10s
-The number of samples is larger than the number of taxa, please make sure rows are samples
-ok    mid hmp_gingiva  AUROC 0.877  20s
-The number of samples is larger than the number of taxa, please make sure rows are samples
-ok    mid hmp_skin_ear  AUROC 0.825  28s
-ok    mid hmp_vagina  AUROC 0.958  27s
-ok    mid hmp_tongue  AUROC 0.840  15s
-ok    msq risk_stool  AUROC NA  8s
-ok    mid hmp_stool  AUROC 0.798  62s
-Iteration 1: Log-likelihood value: -7657055.52496467
-Iteration 1: Log-likelihood value: -4403535.08454252
-ok    sps hmp_stool  AUROC 1.000  122s
-Iteration 2: Log-likelihood value: -4390133.08564809
-Iteration 2: Log-likelihood value: -7613020.31134821
-Iteration 3: Log-likelihood value: -4379037.22205963
-Iteration 4: Log-likelihood value: -4370915.72694369
-Iteration 5: Log-likelihood value: -4365773.99494015
-Iteration 6: Log-likelihood value: -4363130.78743758
-Iteration 3: Log-likelihood value: -7575100.8343521
-Iteration 7: Log-likelihood value: -4362125.99819767
-Iteration 1: Log-likelihood value: -5242374.15054062
-Iteration 8: Log-likelihood value: -4361882.32500465
-Iteration 9: Log-likelihood value: -4361852.42034361
-Iteration 4: Log-likelihood value: -7545444.69210801
-Iteration 2: Log-likelihood value: -5222245.51088481
-Iteration 10: Log-likelihood value: -4361851.22918685
-Iteration 11: Log-likelihood value: -4361851.22312362
-ok    mid risk_stool  AUROC 0.937  99s
-Iteration 3: Log-likelihood value: -5204453.53455995
-Iteration 12: Log-likelihood value: -4361851.22312309
-Iteration 5: Log-likelihood value: -7524807.53196597
-ok    msq hmp_gingiva  AUROC 0.470  34s
-Iteration 4: Log-likelihood value: -5189521.76607308
-Iteration 1: Log-likelihood value: -6789165.25646325
-Iteration 6: Log-likelihood value: -7512813.49507148
-Iteration 5: Log-likelihood value: -5177956.76242821
-Iteration 2: Log-likelihood value: -6771823.48364651
-Iteration 6: Log-likelihood value: -5170019.87397948
-Iteration 3: Log-likelihood value: -6758880.74122444
-Iteration 1: Log-likelihood value: -2024653.25428651
-Iteration 7: Log-likelihood value: -7507630.67914265
-Iteration 4: Log-likelihood value: -6750217.97441675
-Iteration 2: Log-likelihood value: -2015826.4954305
-Iteration 7: Log-likelihood value: -5165542.73889838
-Iteration 3: Log-likelihood value: -2006790.52290313
-Iteration 5: Log-likelihood value: -6745318.73247884
-Iteration 4: Log-likelihood value: -1998401.87881807
-Iteration 8: Log-likelihood value: -7506280.03046278
-Iteration 8: Log-likelihood value: -5163694.29703485
-Iteration 6: Log-likelihood value: -6743222.84452849
-Iteration 5: Log-likelihood value: -1990879.78685523
-Iteration 7: Log-likelihood value: -6742670.62281152
-Iteration 6: Log-likelihood value: -1984481.37449007
-Iteration 9: Log-likelihood value: -5163212.27275496
-Iteration 7: Log-likelihood value: -1979435.18297484
-Iteration 9: Log-likelihood value: -7506132.53256589
-Iteration 8: Log-likelihood value: -6742607.17105979
-Iteration 8: Log-likelihood value: -1975856.23024671
-Iteration 10: Log-likelihood value: -5163147.16807452
-Iteration 9: Log-likelihood value: -6742605.3920582
-Iteration 9: Log-likelihood value: -1973667.87940388
-Iteration 10: Log-likelihood value: -6742605.38833605
-Iteration 10: Log-likelihood value: -1972597.54870615
-Iteration 11: Log-likelihood value: -5163144.29440558
-Iteration 10: Log-likelihood value: -7506129.01623458
-ok    sps risk_stool  AUROC 1.000  183s
-Iteration 11: Log-likelihood value: -1972239.15142701
-Iteration 11: Log-likelihood value: -6742605.3883358
-ok    msq hmp_tongue  AUROC 0.622  33s
-Iteration 12: Log-likelihood value: -1972177.00334582
-Iteration 12: Log-likelihood value: -5163144.2813344
-Iteration 13: Log-likelihood value: -1972173.51967926
-Iteration 11: Log-likelihood value: -7506129.01093222
-Iteration 14: Log-likelihood value: -1972173.49269165
-Iteration 13: Log-likelihood value: -5163144.28133385
-Iteration 15: Log-likelihood value: -1972173.49268605
-ok    msq hmp_skin_ear  AUROC 0.765  63s
-ok    msq hmp_vagina  AUROC 0.635  44s
-Iteration 12: Log-likelihood value: -7506129.01093208
-ok    house risk_stool  AUROC 1.000  16s
-ok    msq hmp_stool  AUROC 0.417  91s
-ok    house hmp_stool  AUROC 1.000  15s
-ok    house hmp_gingiva  AUROC 1.000  14s
-ok    house hmp_tongue  AUROC 1.000  2s
-ok    house twinsuk_stool  AUROC 1.000  5s
-ok    house hmp_vagina  AUROC 0.999  11s
-ok    house hmp_skin_ear  AUROC 1.000  13s
-Iteration 1: Log-likelihood value: -296768019.342459
-Iteration 2: Log-likelihood value: -296167344.620733
-Iteration 3: Log-likelihood value: -295610077.102368
-ok    mid twinsuk_stool  AUROC 0.992  424s
-Iteration 4: Log-likelihood value: -295107855.360989
-Iteration 5: Log-likelihood value: -294674071.999151
-Iteration 6: Log-likelihood value: -294322967.992155
-Iteration 7: Log-likelihood value: -294066086.735202
-Iteration 8: Log-likelihood value: -293905246.804682
-Iteration 9: Log-likelihood value: -293825851.681113
-Iteration 10: Log-likelihood value: -293798912.241967
-Iteration 11: Log-likelihood value: -293794061.544685
-Iteration 12: Log-likelihood value: -293793776.161429
-Iteration 13: Log-likelihood value: -293793773.920829
-Iteration 14: Log-likelihood value: -293793773.92042
-Iteration 15: Log-likelihood value: -293793773.920405
-ok    msq twinsuk_stool  AUROC 0.998  1659s
-2026-10-15 11:11:57 realism gate (protocol 4.4), 200 real vs 200 simulated samples, seed 1
+>> guard: scope in pursue.slice -- all PURSUE runs together capped at 90G
+>> realism gate (2026-10-15 13:21:11)
+ok    sd2 hmp_tongue  AUROC 1.000  2s
+ok    sd2 hmp_vagina  AUROC 1.000  9s
+kept  sps risk_stool
+kept  sps hmp_stool
+kept  sps hmp_gingiva
+kept  sps hmp_skin_ear
+ok    sd2 hmp_gingiva  AUROC 0.999  10s
+kept  sps hmp_vagina
+kept  sps hmp_tongue
+kept  mid risk_stool
+kept  mid hmp_stool
+kept  mid hmp_gingiva
+kept  mid hmp_skin_ear
+kept  mid hmp_vagina
+kept  mid hmp_tongue
+kept  mid twinsuk_stool
+ok    sd2 hmp_skin_ear  AUROC 0.999  10s
+kept  msq hmp_stool
+kept  msq hmp_gingiva
+kept  msq hmp_skin_ear
+kept  msq hmp_vagina
+kept  msq hmp_tongue
+kept  msq twinsuk_stool
+kept  house risk_stool
+kept  house hmp_stool
+kept  house hmp_gingiva
+kept  house hmp_skin_ear
+kept  house hmp_vagina
+kept  house hmp_tongue
+kept  house twinsuk_stool
+ok    sd2 hmp_stool  AUROC 0.998  12s
+ok    sd2 risk_stool  AUROC 0.965  15s
+unsup msq risk_stool (unsupported)
+unsup sps twinsuk_stool (unsupported)
+ok    sd2 twinsuk_stool  AUROC 0.943  22s
+2026-10-15 13:21:35 realism gate (protocol 4.4), 200 real vs 200 simulated samples, seed 1
 AUROC > 0.9 = low realism (down-weighted 0.5 in the summary ranking). real_* use all template samples.
 
-ok    sd2 risk_stool  AUROC NA  9s 
-ok    sd2 hmp_stool  AUROC NA  13s 
-ok    sd2 hmp_gingiva  AUROC NA  13s 
-ok    sd2 hmp_skin_ear  AUROC NA  14s 
-ok    sd2 hmp_vagina  AUROC NA  13s 
-ok    sd2 hmp_tongue  AUROC NA  0s 
-ok    sd2 twinsuk_stool  AUROC NA  0s 
-ok    sps risk_stool  AUROC 1.000  183s 
-ok    sps hmp_stool  AUROC 1.000  122s 
-ok    sps hmp_gingiva  AUROC 1.000  44s 
-ok    sps hmp_skin_ear  AUROC 1.000  40s 
-ok    sps hmp_vagina  AUROC 0.999  45s 
-ok    sps hmp_tongue  AUROC 1.000  39s 
-ok    sps twinsuk_stool  AUROC NA  10s 
-ok    mid risk_stool  AUROC 0.937  99s 
-ok    mid hmp_stool  AUROC 0.798  62s 
-ok    mid hmp_gingiva  AUROC 0.877  20s 
-ok    mid hmp_skin_ear  AUROC 0.825  28s 
-ok    mid hmp_vagina  AUROC 0.958  27s 
-ok    mid hmp_tongue  AUROC 0.840  15s 
-ok    mid twinsuk_stool  AUROC 0.992  424s 
-ok    msq risk_stool  AUROC NA  8s 
-ok    msq hmp_stool  AUROC 0.417  91s 
-ok    msq hmp_gingiva  AUROC 0.470  34s 
-ok    msq hmp_skin_ear  AUROC 0.765  63s 
-ok    msq hmp_vagina  AUROC 0.635  44s 
-ok    msq hmp_tongue  AUROC 0.622  33s 
-ok    msq twinsuk_stool  AUROC 0.998  1659s 
-ok    house risk_stool  AUROC 1.000  16s 
-ok    house hmp_stool  AUROC 1.000  15s 
-ok    house hmp_gingiva  AUROC 1.000  14s 
-ok    house hmp_skin_ear  AUROC 1.000  13s 
-ok    house hmp_vagina  AUROC 0.999  11s 
-ok    house hmp_tongue  AUROC 1.000  2s 
-ok    house twinsuk_stool  AUROC 1.000  5s 
+ok    sd2 risk_stool  AUROC 0.965  15s 
+ok    sd2 hmp_stool  AUROC 0.998  12s 
+ok    sd2 hmp_gingiva  AUROC 0.999  10s 
+ok    sd2 hmp_skin_ear  AUROC 0.999  10s 
+ok    sd2 hmp_vagina  AUROC 1.000  9s 
+ok    sd2 hmp_tongue  AUROC 1.000  2s 
+ok    sd2 twinsuk_stool  AUROC 0.943  22s 
+kept  sps risk_stool 
+kept  sps hmp_stool 
+kept  sps hmp_gingiva 
+kept  sps hmp_skin_ear 
+kept  sps hmp_vagina 
+kept  sps hmp_tongue 
+unsup sps twinsuk_stool (unsupported) 
+kept  mid risk_stool 
+kept  mid hmp_stool 
+kept  mid hmp_gingiva 
+kept  mid hmp_skin_ear 
+kept  mid hmp_vagina 
+kept  mid hmp_tongue 
+kept  mid twinsuk_stool 
+unsup msq risk_stool (unsupported) 
+kept  msq hmp_stool 
+kept  msq hmp_gingiva 
+kept  msq hmp_skin_ear 
+kept  msq hmp_vagina 
+kept  msq hmp_tongue 
+kept  msq twinsuk_stool 
+kept  house risk_stool 
+kept  house hmp_stool 
+kept  house hmp_gingiva 
+kept  house hmp_skin_ear 
+kept  house hmp_vagina 
+kept  house hmp_tongue 
+kept  house twinsuk_stool 
 
  simulator      template       pool auroc ks_median  frob real_cor50 sim_cor50
      house   hmp_gingiva evaluation 1.000     0.075 0.197      0.142     0.062
@@ -182,13 +96,13 @@ ok    house twinsuk_stool  AUROC 1.000  5s
        mid    risk_stool evaluation 0.937     0.054 0.172      0.196     0.107
        mid    hmp_tongue     tuning 0.840     0.065 0.163      0.259     0.190
        mid twinsuk_stool     tuning 0.992     0.070 0.110      0.122     0.127
-       sd2   hmp_gingiva evaluation    NA        NA    NA         NA        NA
-       sd2  hmp_skin_ear evaluation    NA        NA    NA         NA        NA
-       sd2     hmp_stool evaluation    NA        NA    NA         NA        NA
-       sd2    hmp_vagina evaluation    NA        NA    NA         NA        NA
-       sd2    risk_stool evaluation    NA        NA    NA         NA        NA
-       sd2    hmp_tongue     tuning    NA        NA    NA         NA        NA
-       sd2 twinsuk_stool     tuning    NA        NA    NA         NA        NA
+       sd2   hmp_gingiva evaluation 0.999     0.045 0.203      0.142     0.062
+       sd2  hmp_skin_ear evaluation 0.999     0.040 0.170      0.152     0.065
+       sd2     hmp_stool evaluation 0.998     0.035 0.197      0.151     0.060
+       sd2    hmp_vagina evaluation 1.000     0.030 0.201      0.144     0.059
+       sd2    risk_stool evaluation 0.965     0.050 0.247      0.196     0.069
+       sd2    hmp_tongue     tuning 1.000     0.055 0.295      0.259     0.074
+       sd2 twinsuk_stool     tuning 0.943     0.075 0.179      0.122     0.078
        sps   hmp_gingiva evaluation 1.000     0.080 0.217      0.142     0.134
        sps  hmp_skin_ear evaluation 1.000     0.070 0.174      0.152     0.064
        sps     hmp_stool evaluation 1.000     0.055 0.205      0.151     0.123
@@ -218,13 +132,13 @@ ok    house twinsuk_stool  AUROC 1.000  5s
       191.846     155.142     440.0    380.0     0.167    0.151     0.784
        31.903      29.771     137.5    117.0     0.148    0.143     0.662
       217.353     168.289    1012.0    894.0     0.115    0.109     0.690
-           NA          NA        NA       NA        NA       NA        NA
-           NA          NA        NA       NA        NA       NA        NA
-           NA          NA        NA       NA        NA       NA        NA
-           NA          NA        NA       NA        NA       NA        NA
-           NA          NA        NA       NA        NA       NA        NA
-           NA          NA        NA       NA        NA       NA        NA
-           NA          NA        NA       NA        NA       NA        NA
+       33.702       6.454      85.0     90.0     0.352    0.386     0.749
+       23.856       6.087      48.0     51.5     0.669    0.563     0.828
+      106.489      15.004     240.0    250.5     0.147    0.200     0.803
+       20.767       6.923      30.0     35.0     0.829    0.604     0.906
+      191.846      70.336     440.0    374.5     0.167    0.319     0.784
+       31.903       7.219     137.5    135.0     0.148    0.227     0.662
+      217.353     108.807    1012.0    770.0     0.115    0.235     0.690
        33.702      18.057      85.0     73.0     0.352    0.230     0.749
        23.856       7.964      48.0     32.0     0.669    0.293     0.828
       106.489      85.561     240.0    199.0     0.147    0.157     0.803
@@ -254,13 +168,13 @@ ok    house twinsuk_stool  AUROC 1.000  5s
     0.811
     0.705
     0.725
-       NA
-       NA
-       NA
-       NA
-       NA
-       NA
-       NA
+    0.751
+    0.831
+    0.806
+    0.909
+    0.825
+    0.664
+    0.768
     0.798
     0.896
     0.844
@@ -274,9 +188,11 @@ mean over evaluation templates
      house 1.000     0.062 0.210     0.064      0.157      25.469       75.332
        mid 0.879     0.045 0.134     0.108      0.157      61.649       75.332
        msq 0.572     0.033 0.082     0.135      0.147      36.022       46.203
+       sd2 0.992     0.040 0.204     0.063      0.157      20.961       75.332
        sps 1.000     0.062 0.209     0.110      0.157      55.180       75.332
  flagged
        5
        2
        0
+       5
        5
