@@ -52,7 +52,7 @@ get asd_morton feature-table.biom          "$A/deblur/vsearch/clustered_table/fe
 
 # --- axis E: Nearing et al. 2022, all 38 datasets' tables (figshare 14531724, CC BY 4.0); the Arctic freshwater and
 #     office sets are inside ---
-get nearing2022 16S_rRNA_Microbiome_Datasets.zip "https://ndownloader.figshare.com/files/27857901"
+get nearing2022 16S_rRNA_Microbiome_Datasets.tar.gz "https://ndownloader.figshare.com/files/27857901"   # a gzipped tar, not a zip
 
 # --- axis D: Vandeputte et al. 2017 (Nature 551:507): deblurred OTU table + flow-cytometry counts of the disease cohort
 #     (barakbri/CompositionalAnalysis_CodeBase @ 252e220, taken from the paper's supplement), and the paper's
@@ -70,8 +70,8 @@ for f in "$D"/wagner2025/*; do [ -f "$f" ] && note "$(printf '%-8s %-60s %10s  %
 
 note ""; note "archive contents (file names only):"
 for t in "$D"/microbiomehd/*.tar.gz; do [ -f "$t" ] && { note "  $(basename "$t"):"; tar -tzf "$t" 2>/dev/null | sed 's/^/    /' | tee -a "$M.tmp" >/dev/null; }; done
-z="$D/nearing2022/16S_rRNA_Microbiome_Datasets.zip"
-[ -f "$z" ] && { note "  $(basename "$z") (top-level entries):"; unzip -Z1 "$z" 2>/dev/null | awk -F/ '{print $1"/"$2}' | sort -u | sed 's/^/    /' | tee -a "$M.tmp" >/dev/null; }
+z="$D/nearing2022/16S_rRNA_Microbiome_Datasets.tar.gz"
+[ -f "$z" ] && { note "  $(basename "$z") (datasets under Hackathon/Studies):"; tar -tzf "$z" 2>/dev/null | grep "^Hackathon/Studies/" | awk -F/ 'NF > 3 {print $3}' | sort -u | sed 's/^/    /' | tee -a "$M.tmp" >/dev/null; }
 note ""; note "total on disk: $(du -sh "$D" | cut -f1)"
 mv "$M.tmp" "$M"; cp logs/run_fetch_conf2.log "$R/run.log" 2>/dev/null || true
 git add "$R" && git commit -q -m "conf2 candidate real data (D / E): download manifest only; data stay on the server" \
