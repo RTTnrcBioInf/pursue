@@ -1,38 +1,38 @@
-conf2 candidate data -- 2026-10-16 11:00:01
+conf2 candidate data -- 2026-10-16 11:08:32
 
-fetched  microbiomehd/cdi_schubert_results.tar.gz                        2183881  4655b22631158c23cf1d0fb702823c56  https://zenodo.org/records/1146764/files/cdi_schubert_results.tar.gz?download=1
-fetched  microbiomehd/edd_singh_results.tar.gz                            616701  9e369e1e62cb87a53f56059194e74b99  https://zenodo.org/records/1146764/files/edd_singh_results.tar.gz?download=1
-fetched  microbiomehd/par_scheperjans_results.tar.gz                     1420362  b0789854ef54157f4f41255340c880de  https://zenodo.org/records/1146764/files/par_scheperjans_results.tar.gz?download=1
-fetched  microbiomehd/t1d_alkanani_results.tar.gz                        7326799  556eb450ee0d4c4a435f9167308cf0d0  https://zenodo.org/records/1146764/files/t1d_alkanani_results.tar.gz?download=1
-fetched  microbiomehd/ob_zupancic_results.tar.gz                        12388020  e3de99636c5f811765f3adade2c01ce6  https://zenodo.org/records/1146764/files/ob_zupancic_results.tar.gz?download=1
-fetched  microbiomehd/ob_gordon_2008_v2_results.tar.gz                   6456239  23ebfb3e6c78d2e9794dbe0659813314  https://zenodo.org/records/1146764/files/ob_gordon_2008_v2_results.tar.gz?download=1
-fetched  gems1/GEMS1.rda                                                  420636  ff9dfcb64038251fbe997236c1b71ed4  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data/GEMS1.rda
-fetched  gems1/GEMS_16S_rRNA_V1-V2_assay.txt                             5194690  76ecad171199bce2357135bf67a7f11f  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/assayData/GEMS_16S_rRNA_%28V1-V2%29_assay.txt
-fetched  gems1/GEMS_Participant.txt                                        56698  a9542cde98485e25dd9746014ed69cb1  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/sampleMetadata/GEMS_Participant.txt
-fetched  gems1/GEMS_Sample.txt                                             80802  d4979e787b8224819c7d3b2900d6a9cc  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/sampleMetadata/GEMS_Sample.txt
-fetched  gems1/GEMS_OntologyMetadata.txt                                 1034942  8709927a67e5b8109dd5131fc69df43f  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/ontology/GEMS_OntologyMetadata.txt
-fetched  asd_morton/age_sex_matched-v2.biom                               927543  61bc3340b733905a0de061152ba03211  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/age_sex_matched-v2.biom
-fetched  asd_morton/age_sex_match_metadata.txt                             46717  60c72b9e82ab5ef2c4e91a9a0cfa1a64  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/age_sex_match_metadata.txt
-fetched  asd_morton/sibling_matched-v2.biom                               390743  17bda8fa86e3f14a7bbe64c7529b4bd1  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/sibling_matched-v2.biom
-fetched  asd_morton/sibling_match_metadata.txt                             16906  a68e5951baecb5dcd1a81aed4228377b  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/sibling_match_metadata.txt
-fetched  asd_morton/feature-table.biom                                   2415309  5ffdfebaf4c9437287d1a613030ece40  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/deblur/vsearch/clustered_table/feature-table.biom
-fetched  nearing2022/16S_rRNA_Microbiome_Datasets.zip                  253151868  3bf04686142ba000b3b6f7825cc1a606  https://ndownloader.figshare.com/files/27857901
-fetched  vandeputte2017/gut_otu_table.RData                               122145  a517688c3b32901e4be0ae3525dbec0c  https://raw.githubusercontent.com/barakbri/CompositionalAnalysis_CodeBase/252e220510be4f94ee1b8310762f937fa1cbf62c/Crohn/gut_otu_table.RData
-fetched  vandeputte2017/FlowCytometryCounts.csv                             1191  5020cba86c3e220f050e3aa5b26e8e21  https://raw.githubusercontent.com/barakbri/CompositionalAnalysis_CodeBase/252e220510be4f94ee1b8310762f937fa1cbf62c/Crohn/FlowCytometryCounts.csv
-fetched  vandeputte2017/README_bundle.md                                     511  f1ebadc329ae3b0cc1dc9893a8ff5db5  https://raw.githubusercontent.com/barakbri/CompositionalAnalysis_CodeBase/252e220510be4f94ee1b8310762f937fa1cbf62c/Crohn/README.md
-fetched  vandeputte2017/MOESM2_supplementary_tables.xlsx                   93175  a442dcec7dc9ed663835253445802792  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM2_ESM.xlsx
-fetched  vandeputte2017/MOESM7_source_data.csv                             80636  0341470fe716b7149136d2e1ede8fad9  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM7_ESM.csv
-fetched  vandeputte2017/MOESM8_source_data.csv                             21669  dfc6f3be0d41e8cd9ff60f47af30055c  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM8_ESM.csv
-fetched  vandeputte2017/MOESM9_source_data.csv                              8974  1c647c676e841023db2eccefe7ef0a80  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM9_ESM.csv
-fetched  vandeputte2017/MOESM10_source_data.csv                             6919  3d8c43ec075fc005c038f724422923bc  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM10_ESM.csv
-fetched  vandeputte2017/MOESM11_source_data.csv                             3079  9b90c02ec3ae060bf375d7dff9dc2923  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM11_ESM.csv
-fetched  vandeputte2017/MOESM12_source_data.csv                            21669  dfc6f3be0d41e8cd9ff60f47af30055c  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM12_ESM.csv
-fetched  vandeputte2017/MOESM13_source_data.csv                            11498  5335ae87e6085cc43c6792023818b63e  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM13_ESM.csv
-fetched  vandeputte2017/MOESM14_source_data.csv                             3598  e18b39cb7c4fac27ad44aae0ef607c5a  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM14_ESM.csv
-fetched  vandeputte2017/MOESM15_source_data.csv                             1182  a4fdb42087784e19b1ab73dcb14b4b20  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM15_ESM.csv
-fetched  vandeputte2017/MOESM16_source_data.csv                             7354  9899b1e3087a59c6c7a60f9a87df8682  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM16_ESM.csv
-fetched  vandeputte2017/MOESM17_source_data.csv                            16350  23a042531091b1000e8d74d44832dfd8  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM17_ESM.csv
-fetched  vandeputte2017/MOESM18_source_data.csv                             6453  c30fdb1d10948132019e70d07650aef9  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM18_ESM.csv
+kept     microbiomehd/cdi_schubert_results.tar.gz                        2183881  4655b22631158c23cf1d0fb702823c56  https://zenodo.org/records/1146764/files/cdi_schubert_results.tar.gz?download=1
+kept     microbiomehd/edd_singh_results.tar.gz                            616701  9e369e1e62cb87a53f56059194e74b99  https://zenodo.org/records/1146764/files/edd_singh_results.tar.gz?download=1
+kept     microbiomehd/par_scheperjans_results.tar.gz                     1420362  b0789854ef54157f4f41255340c880de  https://zenodo.org/records/1146764/files/par_scheperjans_results.tar.gz?download=1
+kept     microbiomehd/t1d_alkanani_results.tar.gz                        7326799  556eb450ee0d4c4a435f9167308cf0d0  https://zenodo.org/records/1146764/files/t1d_alkanani_results.tar.gz?download=1
+kept     microbiomehd/ob_zupancic_results.tar.gz                        12388020  e3de99636c5f811765f3adade2c01ce6  https://zenodo.org/records/1146764/files/ob_zupancic_results.tar.gz?download=1
+kept     microbiomehd/ob_gordon_2008_v2_results.tar.gz                   6456239  23ebfb3e6c78d2e9794dbe0659813314  https://zenodo.org/records/1146764/files/ob_gordon_2008_v2_results.tar.gz?download=1
+kept     gems1/GEMS1.rda                                                  420636  ff9dfcb64038251fbe997236c1b71ed4  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data/GEMS1.rda
+kept     gems1/GEMS_16S_rRNA_V1-V2_assay.txt                             5194690  76ecad171199bce2357135bf67a7f11f  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/assayData/GEMS_16S_rRNA_%28V1-V2%29_assay.txt
+kept     gems1/GEMS_Participant.txt                                        56698  a9542cde98485e25dd9746014ed69cb1  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/sampleMetadata/GEMS_Participant.txt
+kept     gems1/GEMS_Sample.txt                                             80802  d4979e787b8224819c7d3b2900d6a9cc  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/sampleMetadata/GEMS_Sample.txt
+kept     gems1/GEMS_OntologyMetadata.txt                                 1034942  8709927a67e5b8109dd5131fc69df43f  https://raw.githubusercontent.com/microbiomeDB/microbiomeData/ced9da6f012842596ffa411b473e2781f296f384/data-raw/GEMS1/ontology/GEMS_OntologyMetadata.txt
+kept     asd_morton/age_sex_matched-v2.biom                               927543  61bc3340b733905a0de061152ba03211  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/age_sex_matched-v2.biom
+kept     asd_morton/age_sex_match_metadata.txt                             46717  60c72b9e82ab5ef2c4e91a9a0cfa1a64  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/age_sex_match_metadata.txt
+kept     asd_morton/sibling_matched-v2.biom                               390743  17bda8fa86e3f14a7bbe64c7529b4bd1  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/sibling_matched-v2.biom
+kept     asd_morton/sibling_match_metadata.txt                             16906  a68e5951baecb5dcd1a81aed4228377b  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/sibling_match_metadata.txt
+kept     asd_morton/feature-table.biom                                   2415309  5ffdfebaf4c9437287d1a613030ece40  https://raw.githubusercontent.com/mortonjt/asd_multiomics_analyses/2df2e187d8614a2304d816a6ba2763fc88a009c7/sfari/data/sra/Combined/deblur/vsearch/clustered_table/feature-table.biom
+kept     nearing2022/16S_rRNA_Microbiome_Datasets.tar.gz               253151868  3bf04686142ba000b3b6f7825cc1a606  https://ndownloader.figshare.com/files/27857901
+kept     vandeputte2017/gut_otu_table.RData                               122145  a517688c3b32901e4be0ae3525dbec0c  https://raw.githubusercontent.com/barakbri/CompositionalAnalysis_CodeBase/252e220510be4f94ee1b8310762f937fa1cbf62c/Crohn/gut_otu_table.RData
+kept     vandeputte2017/FlowCytometryCounts.csv                             1191  5020cba86c3e220f050e3aa5b26e8e21  https://raw.githubusercontent.com/barakbri/CompositionalAnalysis_CodeBase/252e220510be4f94ee1b8310762f937fa1cbf62c/Crohn/FlowCytometryCounts.csv
+kept     vandeputte2017/README_bundle.md                                     511  f1ebadc329ae3b0cc1dc9893a8ff5db5  https://raw.githubusercontent.com/barakbri/CompositionalAnalysis_CodeBase/252e220510be4f94ee1b8310762f937fa1cbf62c/Crohn/README.md
+kept     vandeputte2017/MOESM2_supplementary_tables.xlsx                   93175  a442dcec7dc9ed663835253445802792  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM2_ESM.xlsx
+kept     vandeputte2017/MOESM7_source_data.csv                             80636  0341470fe716b7149136d2e1ede8fad9  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM7_ESM.csv
+kept     vandeputte2017/MOESM8_source_data.csv                             21669  dfc6f3be0d41e8cd9ff60f47af30055c  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM8_ESM.csv
+kept     vandeputte2017/MOESM9_source_data.csv                              8974  1c647c676e841023db2eccefe7ef0a80  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM9_ESM.csv
+kept     vandeputte2017/MOESM10_source_data.csv                             6919  3d8c43ec075fc005c038f724422923bc  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM10_ESM.csv
+kept     vandeputte2017/MOESM11_source_data.csv                             3079  9b90c02ec3ae060bf375d7dff9dc2923  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM11_ESM.csv
+kept     vandeputte2017/MOESM12_source_data.csv                            21669  dfc6f3be0d41e8cd9ff60f47af30055c  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM12_ESM.csv
+kept     vandeputte2017/MOESM13_source_data.csv                            11498  5335ae87e6085cc43c6792023818b63e  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM13_ESM.csv
+kept     vandeputte2017/MOESM14_source_data.csv                             3598  e18b39cb7c4fac27ad44aae0ef607c5a  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM14_ESM.csv
+kept     vandeputte2017/MOESM15_source_data.csv                             1182  a4fdb42087784e19b1ab73dcb14b4b20  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM15_ESM.csv
+kept     vandeputte2017/MOESM16_source_data.csv                             7354  9899b1e3087a59c6c7a60f9a87df8682  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM16_ESM.csv
+kept     vandeputte2017/MOESM17_source_data.csv                            16350  23a042531091b1000e8d74d44832dfd8  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM17_ESM.csv
+kept     vandeputte2017/MOESM18_source_data.csv                             6453  c30fdb1d10948132019e70d07650aef9  https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fnature24460/MediaObjects/41586_2017_BFnature24460_MOESM18_ESM.csv
 manual   wagner2025/table 1.xlsx                                          297265  0b6e8f5f60d6ea2cf9d65b6b8d9e4f3d  (saved by hand)
 manual   wagner2025/table 2.xlsx                                           76750  427bb5e2b740316c991bc33943d9d4ff  (saved by hand)
 manual   wagner2025/table 4.xlsx                                           11885  b2506b67fd6a60573df58365f5cb8605  (saved by hand)
@@ -119,6 +119,45 @@ archive contents (file names only):
     t1d_alkanani_results/summary_file.txt
     t1d_alkanani_results/RDP/RDP_classifications.denovo.txt
     t1d_alkanani_results/RDP/t1d_alkanani.otu_table.100.denovo.rdp_assigned
-  16S_rRNA_Microbiome_Datasets.zip (top-level entries):
+  16S_rRNA_Microbiome_Datasets.tar.gz (datasets under Hackathon/Studies):
+    ArcticFireSoils
+    ArcticFreshwaters
+    ArcticTransects
+    art_scher
+    asd_son
+    BISCUIT
+    Blueberry
+    cdi_schubert
+    cdi_vincent
+    Chemerin
+    crc_baxter
+    crc_zeller
+    edd_singh
+    Exercise
+    glass_plastic_oberbeckmann
+    GWMC_ASIA_NA
+    GWMC_HOT_COLD
+    hiv_dinh
+    hiv_lozupone
+    hiv_noguerajulian
+    ibd_gevers
+    ibd_papa
+    Ji_WTP_DS
+    MALL
+    ob_goodrich
+    ob_ross
+    ob_turnbaugh
+    ob_zhu
+    ob_zupancic
+    Office
+    par_scheperjans
+    sed_plastic_hoellein
+    sed_plastic_rosato
+    seston_plastic_mccormick
+    sw_plastic_frere
+    sw_sed_detender
+    t1d_alkanani
+    t1d_mejialeon
+    wood_plastic_kesy
 
 total on disk: 282M
