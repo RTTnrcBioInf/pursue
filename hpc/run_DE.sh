@@ -6,7 +6,7 @@
 #   P=24 nohup bash hpc/run_DE.sh > logs/run_DE.log 2>&1 &
 #   SEED: master seed for the random splits and spike-in groupings (default 1; the confirmation passes its own)
 #   SET=conf2 (protocol 13, 2026-10-21) adds conf2's real data to conf1's tasks: Vandeputte 2017 with measured load (D),
-#   six replicability datasets with GEMS1's four sites and their six cross-site pairs (E). OUT / SUMMARY redirect output;
+#   five replicability datasets with GEMS1's four sites and their six cross-site pairs (E; t1d_alkanani dropped, protocol 13). OUT / SUMMARY redirect output;
 #   per-job logs go to logs/DE_<SET> (conf1: logs/DE); DE_LOG names the run log copied into SUMMARY.
 #
 # One process per (task, method), P at a time, one BLAS thread each. Splits and spike-in groupings
@@ -36,7 +36,6 @@ if [ "${SET:-conf1}" = conf2 ]; then
     "vandeputte|D__d2_vandeputte|--axis D --qmp --template d2_vandeputte --group group --levels healthy,CD --case CD|qmp"
     "cdi|E__e2_cdi_schubert|--axis E --template e2_cdi_schubert --group DiseaseClass --levels H,CDI --splits 5|replicability"
     "pd|E__e2_par_scheperjans|--axis E --template e2_par_scheperjans --group DiseaseClass --levels H,PAR --splits 5|replicability"
-    "t1d|E__e2_t1d_alkanani|--axis E --template e2_t1d_alkanani --group DiseaseClass --levels H,T1D --splits 5|replicability"
     "arctic|E__e2_arctic_freshwater|--axis E --template e2_arctic_freshwater --group comparison --splits 5|replicability"
     "asd|E__e2_asd_dan2020|--axis E --template e2_asd_dan2020 --group Status --levels Control,ASD --splits 5|replicability"
   )

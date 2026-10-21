@@ -15,7 +15,7 @@ mbd_ravel_bv	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Ravel_2011
 mbd_stammler_spikein	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Stammler_2016_16S_spikein_count_matrix.tsv		0.02	500	NA	NA	three spike-in taxa at constant load, only 17 samples: weak null check, not a primary Axis D signal
 e2_cdi_schubert	axisE2	MicrobiomeHD cdi_schubert (Duvallet 2017; Zenodo 1146764)	microbiomehd_tar	conf2/microbiomehd/cdi_schubert_results.tar.gz		0.05	1000	DiseaseClass	NA	conf2 axis E: C. difficile vs healthy (nonCDI diarrhoea excluded via --levels); genus
 e2_par_scheperjans	axisE2	MicrobiomeHD par_scheperjans	microbiomehd_tar	conf2/microbiomehd/par_scheperjans_results.tar.gz		0.05	1000	DiseaseClass	NA	conf2 axis E: Parkinson's vs control; genus
-e2_t1d_alkanani	axisE2	MicrobiomeHD t1d_alkanani	microbiomehd_tar	conf2/microbiomehd/t1d_alkanani_results.tar.gz		0.05	1000	DiseaseClass	NA	conf2 axis E: type 1 diabetes incl. new-onset vs healthy; genus
+e2_t1d_alkanani	axisE2	MicrobiomeHD t1d_alkanani	microbiomehd_tar	conf2/microbiomehd/t1d_alkanani_results.tar.gz		0.05	1000	DiseaseClass	NA	DROPPED from conf2 (protocol 13, 2026-10-21): T1D / H include autoantibody+ / - first-degree relatives; new-onset vs controls 35 / 20 too small
 e2_gems1_bangladesh	axisE2	GEMS1 (microbiomeData @ ced9da6)	gems1_txt	conf2/gems1	Country == "Bangladesh"	0.05	1000	case_control	NA	conf2 axis E: diarrhoea case vs control, one site; genus counts
 e2_gems1_kenya	axisE2	GEMS1 (microbiomeData @ ced9da6)	gems1_txt	conf2/gems1	Country == "Kenya"	0.05	1000	case_control	NA	conf2 axis E: one GEMS1 site
 e2_gems1_mali	axisE2	GEMS1 (microbiomeData @ ced9da6)	gems1_txt	conf2/gems1	Country == "Mali"	0.05	1000	case_control	NA	conf2 axis E: one GEMS1 site

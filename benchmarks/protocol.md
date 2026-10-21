@@ -421,3 +421,12 @@ and end times, and the protocol version.
   counts: every sample of Table S1 (30 samples) sums to exactly 10 500 and Table S2 (12 samples, the spike-in trial) to
   3 480–3 490, both with non-integer entries; Tables S4, S7, S8 are summaries. Rebuilding counts from the SRA reads for
   12 samples was judged not worth a read-processing pipeline (Robert); Vandeputte 2017 carries the absolute-scale test.
+- 2026-10-21 — **`t1d_alkanani` dropped from conf2's axis E** (pre-launch data check, before the code tag). Its
+  MicrobiomeHD classes are not T1D vs healthy: T1D = 35 new-onset + 21 autoantibody-positive first-degree relatives of
+  T1D patients (not diabetic); H = 20 healthy controls + 32 autoantibody-negative relatives (study `Arm` column). The
+  relatives fail the one-sample-per-unrelated-person criterion (as `edd_singh` did), and new-onset vs healthy controls
+  alone (35 vs 20, ~17 / 10 per half) fails the ≥ ~25 per group per half criterion. No replacement: every left-out
+  dataset failed one of the same criteria, and the remaining five (CDI, GEMS1 × 4 with the 6 site pairs, Arctic
+  freshwater, Parkinson's, ASD) keep the spread of effect strengths (strong CDI; moderate GEMS1, Arctic; weak PD, ASD)
+  and platforms (454, HiSeq, MiSeq). ASD Dan2020's 139 controls are age- and sex-matched, one per case (139 match ids),
+  not siblings (Robert).
