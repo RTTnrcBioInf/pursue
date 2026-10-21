@@ -1,5 +1,5 @@
-conf2 data check -- 2026-10-21 12:12:51
-R 4.5.3; rhdf5 MISSING (needed for e2_asd_dan2020)
+conf2 data check -- 2026-10-21 12:26:30
+R 4.5.3; rhdf5 2.54.1
 
 == e2_cdi_schubert  [axisE2, microbiomehd_tar]
    loader: 261 features x 336 samples with metadata; counts integer (raw)
@@ -70,7 +70,12 @@ R 4.5.3; rhdf5 MISSING (needed for e2_asd_dan2020)
    contrast Watershed vs Lake: 477 vs 498 samples; a 50/50 split leaves ~238 vs 249 per half
 
 == e2_asd_dan2020  [axisE2, biom_morton]
-   LOAD FAILED: rhdf5 is required to read /mnt/workspace/analyses/robertas/pursue/benchmarks/data/conf2/asd_morton/age_sex_matched-v2.biom 
+   loader: 1472 features x 692 samples with metadata; counts integer (raw)
+   subset Cohort == "Dan2020": 278 of 692 samples
+   template: 744 taxa (prevalence >= 0.05) x 278 samples (depth >= 1000); depth min / median / max 25,072 / 42,903 / 60,019
+   metadata columns: sampleid, Age, Sex, Status, Control_Type, Cohort, Subjects_Location, Variable_Region, Match_IDs  
+   Status: ASD = 139; Control = 139
+   contrast ASD vs Control: 139 vs 139 samples; a 50/50 split leaves ~69 vs 69 per half
 
 == d2_vandeputte  [axisD2, vandeputte_bundle]
    loader: 1980 features x 95 samples with metadata; counts integer (raw)
@@ -111,7 +116,7 @@ GEMS1 cross-site pairs (run_DE.sh crossstudy): taxa shared after each site's pre
    e2_gems1_kenya / e2_gems1_gambia: 106 / 107 taxa, 95 shared
    e2_gems1_mali / e2_gems1_gambia: 98 / 107 taxa, 87 shared
 
-conf2 data check FAILED: e2_asd_dan2020
+conf2 data check: every template loads and every contrast has samples
 
 == repeated-measures templates (rm_suite.R --dry; cells need 40 subjects with two samples)
 template hmp_stool: 348 samples matched; 301 after de-duplication, 205 subjects, 94 with >= 2 samples; pairs: earliest
@@ -128,4 +133,4 @@ template rm_baboon: 16230 samples matched; 16230 after de-duplication, 585 subje
   rm_baboon: 613 taxa; samples per subject min 1, median 18, max 177; OK (523 >= 40 subjects with 2 samples)
 rm dry check: all templates usable 
 
-commit 08585f88; data check exit 1, rm check exit 0
+commit 7f772df1; data check exit 0, rm check exit 0
