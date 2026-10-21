@@ -1,5 +1,5 @@
 # Template registry. path is relative to $PURSUE_DATA_ROOT (default benchmarks/data). subset is an R expression on the metadata.
-# pool: tuning | evaluation | axisD (biological truth) | axisE (replicability). group_var: a real binary/categorical grouping used by Axes C/E.
+# pool: tuning | evaluation | axisD (biological truth) | axisE (replicability) | axisD2 / axisE2 / axisRM (conf2 additions, protocol 13, 2026-10-21; not in the axis C task list). group_var: a real binary/categorical grouping used by Axes C/E.
 id	pool	source	format	path	subset	min_prevalence	min_depth	group_var	sps_group	notes
 hmp_stool	evaluation	MicrobeDS/HMPv35 (Qiita 1928)	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:feces"	0.05	1000	NA	sequencecenter	high-complexity gut, 388 samples
 hmp_tongue	tuning	MicrobeDS/HMPv35	phyloseq_rda	MicrobeDS/HMPv35.rda	body_site == "UBERON:tongue"	0.05	1000	NA	sequencecenter	oral, 365 samples
@@ -13,3 +13,16 @@ crc_genus	axisE	Zenodo 7382814 (Baxter+Zackular+Zeller, genus)	csv_samples_x_fea
 mbd_gingival_v35	axisD	MicrobiomeBenchmarkData (Zenodo 6911027)	tsv_features_x_samples	mbd/HMP_2012_16S_gingival_V35_count_matrix.tsv		0.05	1000	body_subsite	body_subsite	aerobic vs anaerobic ground truth, 311 samples
 mbd_ravel_bv	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Ravel_2011_16S_BV_count_matrix.tsv		0.02	500	study_condition	study_condition	BV vs healthy, low complexity
 mbd_stammler_spikein	axisD	MicrobiomeBenchmarkData	tsv_features_x_samples	mbd/Stammler_2016_16S_spikein_count_matrix.tsv		0.02	500	NA	NA	three spike-in taxa at constant load, only 17 samples: weak null check, not a primary Axis D signal
+e2_cdi_schubert	axisE2	MicrobiomeHD cdi_schubert (Duvallet 2017; Zenodo 1146764)	microbiomehd_tar	conf2/microbiomehd/cdi_schubert_results.tar.gz		0.05	1000	DiseaseClass	NA	conf2 axis E: C. difficile vs healthy (nonCDI diarrhoea excluded via --levels); genus
+e2_par_scheperjans	axisE2	MicrobiomeHD par_scheperjans	microbiomehd_tar	conf2/microbiomehd/par_scheperjans_results.tar.gz		0.05	1000	DiseaseClass	NA	conf2 axis E: Parkinson's vs control; genus
+e2_t1d_alkanani	axisE2	MicrobiomeHD t1d_alkanani	microbiomehd_tar	conf2/microbiomehd/t1d_alkanani_results.tar.gz		0.05	1000	DiseaseClass	NA	conf2 axis E: type 1 diabetes incl. new-onset vs healthy; genus
+e2_gems1_bangladesh	axisE2	GEMS1 (microbiomeData @ ced9da6)	gems1_txt	conf2/gems1	Country == "Bangladesh"	0.05	1000	case_control	NA	conf2 axis E: diarrhoea case vs control, one site; genus counts
+e2_gems1_kenya	axisE2	GEMS1 (microbiomeData @ ced9da6)	gems1_txt	conf2/gems1	Country == "Kenya"	0.05	1000	case_control	NA	conf2 axis E: one GEMS1 site
+e2_gems1_mali	axisE2	GEMS1 (microbiomeData @ ced9da6)	gems1_txt	conf2/gems1	Country == "Mali"	0.05	1000	case_control	NA	conf2 axis E: one GEMS1 site
+e2_gems1_gambia	axisE2	GEMS1 (microbiomeData @ ced9da6)	gems1_txt	conf2/gems1	Country == "The Gambia"	0.05	1000	case_control	NA	conf2 axis E: one GEMS1 site
+e2_arctic_freshwater	axisE2	Nearing 2022 (figshare 14531724) ArcticFreshwaters	nearing_tar	conf2/nearing2022/16S_rRNA_Microbiome_Datasets.tar.gz::ArcticFreshwaters		0.05	1000	comparison	NA	conf2 axis E: Arctic lake vs watershed; genus
+e2_asd_dan2020	axisE2	Morton 2023 ASD cohorts (asd_multiomics_analyses @ 2df2e18)	biom_morton	conf2/asd_morton/age_sex_matched-v2.biom	Cohort == "Dan2020"	0.05	1000	Status	NA	conf2 axis E: ASD vs age/sex-matched controls, Dan2020 only
+d2_vandeputte	axisD2	Vandeputte 2017 disease cohort (Brill et al. bundle @ 252e220)	vandeputte_bundle	conf2/vandeputte2017		0.05	1000	group	NA	conf2 axis D: Crohn's vs healthy with flow-cytometry cell counts (meta$cell_count)
+rm_buccal	axisRM	MicrobeDS/HMPv35 (Qiita 1928)	phyloseq_rda	MicrobeDS/HMPv35.rda	grepl("buccal", bodysite, ignore.case = TRUE)	0.05	1000	NA	sequencecenter	conf2 repeated measures: buccal mucosa, never used before; subjects from devdata/hmp16s_subjects.csv
+rm_throat	axisRM	MicrobeDS/HMPv35 (Qiita 1928)	phyloseq_rda	MicrobeDS/HMPv35.rda	grepl("^throat", bodysite, ignore.case = TRUE)	0.05	1000	NA	sequencecenter	conf2 repeated measures: throat, never used before
+rm_baboon	axisRM	microbiomeDataSets::GrieneisenTSData (Grieneisen 2021)	template_rds	longitudinal/baboon_grieneisen.rds		0.05	1000	NA	NA	conf2 repeated measures: wild baboon gut series; subject = baboon_id

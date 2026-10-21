@@ -72,7 +72,8 @@ rm_cell <- function(tpl, spec, seed = 1L) {
   v <- tpl$meta; subj2 <- names(which(table(v$subject) >= 2L))
   if (length(subj2) < spec$n_subj) return(list(unsupported = sprintf("subjects_with_2_visits[%d<%d]", length(subj2), spec$n_subj)))
   S <- sort(sample(subj2, spec$n_subj))
-  idx <- unlist(lapply(S, function(s) { w <- which(v$subject == s); w[order(v$visit[w])][1:2] }))
+  rnd <- identical(tpl$pick, "random")                                     # conf2 baboons: two samples per animal at random
+  idx <- unlist(lapply(S, function(s) { w <- which(v$subject == s); w <- w[order(v$visit[w])]; if (rnd) w[sort(sample.int(length(w), 2L))] else w[1:2] }))
   X <- tpl$counts[, idx, drop = FALSE]; sj <- v$subject[idx]; vis <- v$visit[idx]; n <- length(idx)
   x <- if (spec$design == "subject") { cs <- sample(S, spec$n_subj %/% 2L); as.integer(sj %in% cs) } else
     as.integer(unlist(lapply(seq_along(S), function(k) sample(c(0L, 1L)))))                    # pairs are adjacent: 2k-1, 2k

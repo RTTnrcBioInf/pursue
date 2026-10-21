@@ -22,7 +22,7 @@
   e <- new.env(parent = globalenv())
   e$register_candidate <- function(name, fn, notes = "") invisible(NULL)
   dir <- file.path(Sys.getenv("PURSUE_BENCH_ROOT", unset = "."), "dev", "candidates")
-  for (f in c("05_enull.R", "60_erd.R", "70_epg.R", "71_eps.R", "72_pos.R", "73_sel.R")) sys.source(file.path(dir, f), envir = e)
+  for (f in c("05_enull.R", "60_erd.R", "70_epg.R", "71_eps.R", "72_pos.R", "73_sel.R", "82_pair.R")) sys.source(file.path(dir, f), envir = e)
   e
 })
 .p03_result <- function(feats, p, est = NA_real_, q = NA_real_) {      # q = NA: BH in .finish; else the method's own q
@@ -175,5 +175,16 @@ method_pursue03_epermc5q <- function(counts, meta, formula, tested_term, args = 
 method_pursue03_epermc10 <- function(counts, meta, formula, tested_term, args = list()) {
   old <- options(pursue.flstat = "cor"); .p03$.clear_fit_memos(); on.exit({ options(old); .p03$.clear_fit_memos() })
   v <- .p03$.epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE, pk = "pos", minsw = 2L); i <- match(rownames(counts), v$feature)
+  .p03_result(rownames(counts), v$p_full[i], v$est[i], q = .p03$.storey_gq(v$p_full)[i])
+}
+# it56 + it57 (claude/rd-notebook-phase2.md, 2026-10-14/15): c10 with the pos kernel centred on its own median taxon (c12),
+# plus an exact within-subject permutation path for paired designs -- within-subject pairs, exposure permuted within
+# subject -- taken only when >= 90% of the exposure's variance lies within subjects (a rule on the design, never the
+# counts); every other design runs c12. The conf2 release candidate (protocol section 13, 2026-10-21).
+method_pursue03_epermc13 <- function(counts, meta, formula, tested_term, args = list()) {
+  old <- options(pursue.flstat = "cor", pursue.own = "pos"); .p03$.clear_fit_memos(); on.exit({ options(old); .p03$.clear_fit_memos() })
+  v <- if (.p03$.is_paired(meta, formula, tested_term)) .p03$.epp_fit(counts, meta, formula, tested_term) else
+    .p03$.epg_fit(counts, meta, formula, tested_term, paths = "cont", adet = TRUE, nodet_conf = TRUE, pk = "pos", minsw = 2L)
+  i <- match(rownames(counts), v$feature)
   .p03_result(rownames(counts), v$p_full[i], v$est[i], q = .p03$.storey_gq(v$p_full)[i])
 }

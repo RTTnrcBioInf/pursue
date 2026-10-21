@@ -1,5 +1,6 @@
 #!/usr/bin/env Rscript
-# merge_DE.R -- per-(task, method) outputs of run_DE.sh -> one table per task plus a summary.
+# merge_DE.R -- per-(task, method) outputs of run_DE.sh -> one table per task plus a summary (biotruth, spikein, qmp,
+# replicability, crossstudy).
 #   Rscript hpc/merge_DE.R results/axisDE results/summary/axisDE
 a <- commandArgs(TRUE); src <- a[1]; dst <- a[2]; dir.create(dst, recursive = TRUE, showWarnings = FALSE)
 f <- list.files(src, pattern = "^[DE]__.*\\.csv$", full.names = TRUE)
@@ -14,6 +15,11 @@ for (t in sort(unique(task))) {
     cat("contrast:", unique(x$contrast), "\n")
     k <- intersect(c("method", "arm", "n_tested", "n_calls", "n_calls_annotated", "frac_expected_direction", "enrichment_or", "enrichment_p", "runtime_s"), names(x))
     y <- x[order(-x$n_calls), k]; num <- vapply(y, is.numeric, TRUE); y[num] <- lapply(y[num], signif, 3); print(y, row.names = FALSE)
+  } else if (grepl("qmp$", t)) {                                  # conf2: truth from measured load (protocol 13)
+    cat("contrast:", unique(x$contrast), "\n")
+    k <- intersect(c("method", "estimand", "arm", "n_tested", "n_calls", "sign_agreement", "recall_reference", "calls_outside_reference",
+                     "spearman_lfc_abs", "disagree_called", "disagree_absolute_direction", "disagree_any_called", "disagree_any_absolute_direction", "runtime_s"), names(x))
+    y <- x[order(x$estimand, -x$recall_reference), k]; num <- vapply(y, is.numeric, TRUE); y[num] <- lapply(y[num], signif, 3); print(y, row.names = FALSE)
   } else if (grepl("spikein$", t)) {
     y <- do.call(rbind, lapply(split(x, list(x$method, x$arm), drop = TRUE), function(d) data.frame(method = d$method[1], arm = d$arm[1],
       groupings = nrow(d), mean_calls = mean(d$n_calls), spikein_calls = sum(d$spikein_calls), groupings_with_spikein_call = sum(d$spikein_calls > 0))))
