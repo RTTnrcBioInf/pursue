@@ -369,3 +369,55 @@ and end times, and the protocol version.
   unverified pending installation.
 - (freeze date, first evaluation-pool submission, smoke-test CSVs committed) — to be entered
   by Robert.
+- 2026-10-21 — **conf2 pre-registration** (agreed with Robert 2026-10-17; written before any conf2 run and before
+  any of the new data were opened). What the second confirmation runs, on what, and how it is read:
+  - **Build.** The release candidate is `eperm_c13` (registered for the engine as `pursue03_epermc13`): c12 plus an
+    exact within-subject permutation path for paired designs, taken only when ≥ 90% of the exposure's variance lies
+    within subjects (a rule on the design, never on the counts). Code tag `conf2-code` at the launching commit; the
+    charter's freeze applies to every file the run executes until its summaries are pushed.
+  - **Axes A–C.** Fresh master seed **20261021**, stated here before the run; evaluation pool, five simulators, the
+    conf1 method roster (c13, PURSUE 0.2, ZicoSeq, ADAPT, LDM, LinDA, Wilcoxon, logistic on presence, limma and LM on
+    log-TSS, fastANCOM) into `results_conf2/`. Realism (§4.4), computed 2026-10-15 by
+    `benchmarks/dev/tools/realism_all.R` (§4.4 code unchanged): mean AUROC over the evaluation templates — msq 0.57
+    (0 of 4 flagged; risk_stool not producible), mid 0.88 (2 of 5), sd2 0.99 (5 of 5), house 1.00 (5 of 5), sps 1.00
+    (5 of 5). The 0.5 down-weighting applies as written; no simulator is excluded.
+  - **Axis D, new truth sets** (closes the §8 QMP item). (i) **Vandeputte et al. 2017** (Nature 551:507): stool of 66
+    healthy subjects and 29 with Crohn's disease, 16S counts plus flow-cytometry cell counts per sample. Load-scaled
+    abundance = count / depth × cells; per taxon, the load-scaled log₂ fold change is the difference in group means of
+    log₂(load-scaled + c), c = half the taxon's smallest positive value; the reference set is the taxa with BH q ≤ 0.05
+    in a Wilcoxon test of load-scaled abundance. Reported per method: sign agreement of its calls with the load-scaled
+    fold change; recall of the reference set and the number of calls outside it (not an FDR — this truth is itself
+    estimated); Spearman correlation of its estimates with the load-scaled fold changes; and its direction on the taxa
+    whose relative and load-scaled directions disagree. Separately for absolute- and relative-estimand methods.
+    (ii) **Wagner et al. 2025** (Front Microbiol 16:1481197): piglets, antibiotic vs control, with a constant synthetic
+    spike-in and flow-cytometry loads; spike-in taxa are absolute nulls — metric as Stammler's (calls on spike-in taxa),
+    reported descriptively, not ranked. Run only if the supplementary tables hold raw counts; otherwise from the SRA
+    reads (PRJNA800240, PRJNA1229264) or dropped, recorded either way. conf1's D sets (gingival, BV, Stammler) are
+    reported as a regression check, not scored for the release.
+  - **Axis E, new datasets** (closes the §9 item). Six, chosen for one sample per unrelated person, ≥ ~25 per group per
+    half, a range of effect strengths (conf1's two were weak), and a range of platforms, regions, hosts and environments:
+    `cdi_schubert` (C. difficile 94 vs healthy 155; MicrobiomeHD), GEMS1 (moderate-to-severe diarrhoea vs control,
+    Bangladesh / Kenya / Mali / The Gambia, each site a dataset; the 6 site pairs are the cross-study replication test),
+    Arctic freshwater (lake vs watershed; Nearing et al. 2022, genus table), `t1d_alkanani` (type 1 diabetes incl.
+    new-onset 56 vs healthy 55), `par_scheperjans` (Parkinson's 72 vs 72), ASD Dan2020 (139 vs 139, age- and sex-matched;
+    Morton et al. 2023). Metrics as §9. Repeat samples of a person are dropped at loading (first kept), logged. Left out:
+    `ob_turnbaugh`, `ob_zupancic` (relatives, repeat samples), David2021 and `asd_son` (siblings), `edd_singh` (controls
+    are patients' family members), `hiv_noguerajulian` (34 controls; confounded), the office set (near-null, 99.8% zeros).
+    conf1's E sets are a regression check. Provenance: `benchmarks/dev/results/conf2_fetch/manifest.txt` (URLs, md5s).
+  - **Real-data repeated measures** (new). Development showed that R23 cannot carry repeated-measures claims: house's
+    subject effect barely survives into the counts (label-free ICC across two visits 0.01 / −0.04 for log abundance /
+    presence, against 0.38 / 0.28 on real tongue samples), so comparators that ignore subjects lose far less there (FDR
+    0.07–0.10) than on real data (0.18–0.26). conf2 runs `benchmarks/dev/tools/rm.R`'s cells — 40 subjects × 2 samples;
+    exposure fixed per subject (P_subj) or varying within subject (P_pair); implanted signal (20 reps) and exact nulls
+    (40 reps) — on held-out data only: the evaluation templates with HMP subject labels (`hmp_stool`, `hmp_gingiva`,
+    `hmp_skin_ear`), two HMP sites never used (buccal mucosa, throat; from the MicrobeDS object of the HMP templates, subset by body site, or from HMP16SData where absent), and the
+    wild-baboon series (Grieneisen et al.; two samples per animal at random). Methods: c13 and each comparator both as
+    the benchmark runs it and with the subject handling its package supports (`benchmarks/dev/candidates/91_rm_refs.R`).
+    Metrics: true / false calls per cell, FDR, null-taxon FPR at p < 0.05, P(any false call) on nulls.
+  - **Spread-only change.** The development rule (srv27) fails P(any) on H_all for every method that can see spread
+    (c12 0.15 against 0.10); the calls are shared across methods and cluster in a few cells (compositional coupling plus
+    chance splits). Recorded as a limitation of the field, not a release gate; the spread suite stays a development check.
+- 2026-10-21 — **Wagner et al. 2025 dropped from conf2's axis D.** Its supplementary ASV tables are normalised, not
+  counts: every sample of Table S1 (30 samples) sums to exactly 10 500 and Table S2 (12 samples, the spike-in trial) to
+  3 480–3 490, both with non-integer entries; Tables S4, S7, S8 are summaries. Rebuilding counts from the SRA reads for
+  12 samples was judged not worth a read-processing pipeline (Robert); Vandeputte 2017 carries the absolute-scale test.
