@@ -1,0 +1,131 @@
+conf2 data check -- 2026-10-21 12:12:51
+R 4.5.3; rhdf5 MISSING (needed for e2_asd_dan2020)
+
+== e2_cdi_schubert  [axisE2, microbiomehd_tar]
+   loader: 261 features x 336 samples with metadata; counts integer (raw)
+   template: 116 taxa (prevalence >= 0.05) x 334 samples (depth >= 1000); depth min / median / max 573.0 / 4,822.5 / 16,219.0
+   metadata columns: submitted_to_insdc, investigation_type, project_name, experimental_factor, lat_lon, geo_loc_name, biome, feature, material, env_package, samp_collect_device, samp_mat_process, samp_size, nucl_acid_ext, nucl_acid_amp, lib_reads_seqd, lib_const_meth, target_gene, target_subfragment, sfffile_id, pcr_primers, mid, adapters, pcr_cond, seq_meth, seq_qual_check, chimera_check, url, sop, host_common_name ... 
+   DiseaseClass: CDI = 91; H = 154; nonCDI = 89
+   contrast CDI vs H: 91 vs 154 samples; a 50/50 split leaves ~45 vs 77 per half
+
+== e2_par_scheperjans  [axisE2, microbiomehd_tar]
+   loader: 148 features x 148 samples with metadata; counts integer (raw)
+   template: 92 taxa (prevalence >= 0.05) x 147 samples (depth >= 1000); depth min / median / max 1,114 / 2,643 / 5,532
+   metadata columns: DiseaseState, instrument_model, scientific_name, study_accession, secondary_study_accession, sample_accession, run_accession, fastq_ftp, DiseaseClass  
+   DiseaseClass: H = 73; PAR = 74
+   contrast PAR vs H: 74 vs 73 samples; a 50/50 split leaves ~37 vs 36 per half
+
+== e2_t1d_alkanani  [axisE2, microbiomehd_tar]
+   loader: 85 features x 112 samples with metadata; counts integer (raw)
+   template: 57 taxa (prevalence >= 0.05) x 108 samples (depth >= 1000); depth min / median / max 1,369.0 / 10,112.5 / 99,929.0
+   metadata columns: Arm, Age, Autoabno, Gender, DiseaseState, DiseaseClass  
+   DiseaseClass: H = 52; T1D = 56
+   contrast T1D vs H: 56 vs 52 samples; a 50/50 split leaves ~28 vs 26 per half
+
+== e2_gems1_bangladesh  [axisE2, gems1_txt]
+   loader: 483 features x 1015 samples with metadata; counts integer (raw)
+   subset Country == "Bangladesh": 218 of 1015 samples
+   template: 104 taxa (prevalence >= 0.05) x 209 samples (depth >= 1000); depth min / median / max 1,093 / 3,421 / 11,135
+   metadata columns: participant, case_control, Country, age_months  
+   participant: 209 distinct for 209 samples (one sample each)
+   case_control: <blank> = 3; Case = 95; Control = 111
+   contrast Case vs Control: 95 vs 111 samples; a 50/50 split leaves ~47 vs 55 per half
+   age (months) min / median / max 0.0 / 16.5 / 58.0
+
+== e2_gems1_kenya  [axisE2, gems1_txt]
+   loader: 483 features x 1015 samples with metadata; counts integer (raw)
+   subset Country == "Kenya": 313 of 1015 samples
+   template: 106 taxa (prevalence >= 0.05) x 312 samples (depth >= 1000); depth min / median / max 960 / 3,261 / 7,881
+   metadata columns: participant, case_control, Country, age_months  
+   participant: 312 distinct for 312 samples (one sample each)
+   case_control: <blank> = 6; Case = 166; Control = 140
+   contrast Case vs Control: 166 vs 140 samples; a 50/50 split leaves ~83 vs 70 per half
+   age (months) min / median / max 0 / 12 / 57
+
+== e2_gems1_mali  [axisE2, gems1_txt]
+   loader: 483 features x 1015 samples with metadata; counts integer (raw)
+   subset Country == "Mali": 212 of 1015 samples
+   template: 98 taxa (prevalence >= 0.05) x 212 samples (depth >= 1000); depth min / median / max 1,404 / 3,628 / 10,175
+   metadata columns: participant, case_control, Country, age_months  
+   participant: 212 distinct for 212 samples (one sample each)
+   case_control: Case = 110; Control = 102
+   contrast Case vs Control: 110 vs 102 samples; a 50/50 split leaves ~55 vs 51 per half
+   age (months) min / median / max 0 / 11 / 52
+
+== e2_gems1_gambia  [axisE2, gems1_txt]
+   loader: 483 features x 1015 samples with metadata; counts integer (raw)
+   subset Country == "The Gambia": 272 of 1015 samples
+   template: 107 taxa (prevalence >= 0.05) x 269 samples (depth >= 1000); depth min / median / max 1,025 / 3,639 / 10,733
+   metadata columns: participant, case_control, Country, age_months  
+   participant: 269 distinct for 269 samples (one sample each)
+   case_control: Case = 138; Control = 131
+   contrast Case vs Control: 138 vs 131 samples; a 50/50 split leaves ~69 vs 65 per half
+   age (months) min / median / max 2 / 17 / 58
+
+== e2_arctic_freshwater  [axisE2, nearing_tar]
+   loader: 3688 features x 2466 samples with metadata; counts integer (raw)
+   template: 803 taxa (prevalence >= 0.05) x 975 samples (depth >= 1000); depth min / median / max 983 / 6,370 / 42,790
+   metadata columns: comparison  
+   comparison: Lake = 498; Watershed = 477
+   contrast Watershed vs Lake: 477 vs 498 samples; a 50/50 split leaves ~238 vs 249 per half
+
+== e2_asd_dan2020  [axisE2, biom_morton]
+   LOAD FAILED: rhdf5 is required to read /mnt/workspace/analyses/robertas/pursue/benchmarks/data/conf2/asd_morton/age_sex_matched-v2.biom 
+
+== d2_vandeputte  [axisD2, vandeputte_bundle]
+   loader: 1980 features x 95 samples with metadata; counts integer (raw)
+   template: 1052 taxa (prevalence >= 0.05) x 95 samples (depth >= 1000); depth min / median / max 8,369 / 19,743 / 56,697
+   metadata columns: sample, group, cell_count  
+   group: CD = 29; healthy = 66
+   contrast CD vs healthy: 29 vs 66 samples
+   cell_count: 0 NA; median load healthy 1.16e+11, CD 3.77e+10 (cells / g) -- the paper reports lower load in Crohn's disease
+
+== rm_buccal  [axisRM, phyloseq_rda]
+   loader: 10730 features x 6000 samples with metadata; counts integer (raw)
+   subset grepl("buccal", bodysite, ignore.case = TRUE): 362 of 6000 samples
+   template: 547 taxa (prevalence >= 0.05) x 334 samples (depth >= 1000); depth min / median / max 920.0 / 4,682.5 / 77,257.0
+   metadata columns: X.SampleID, BarcodeSequence, LinkerPrimerSequence, run_prefix, animations_gradient, animations_trajectory, body_habitat, body_product, body_site, bodysite, dna_extracted, elevation, env, env_biome, env_feature, env_material, env_package, geo_loc_name, host_common_name, host_scientific_name, host_subject_id, host_taxid, latitude, longitude, physical_specimen_location, physical_specimen_remaining, psn, public, sample_type, scientific_name ... 
+   host_subject_id: 297 distinct for 334 samples -- REPEATED samples per subject
+   (subjects and visits: rm_suite.R --dry)
+
+== rm_throat  [axisRM, phyloseq_rda]
+   loader: 10730 features x 6000 samples with metadata; counts integer (raw)
+   subset grepl("^throat", bodysite, ignore.case = TRUE): 371 of 6000 samples
+   template: 533 taxa (prevalence >= 0.05) x 337 samples (depth >= 1000); depth min / median / max 1,020 / 4,521 / 37,656
+   metadata columns: X.SampleID, BarcodeSequence, LinkerPrimerSequence, run_prefix, animations_gradient, animations_trajectory, body_habitat, body_product, body_site, bodysite, dna_extracted, elevation, env, env_biome, env_feature, env_material, env_package, geo_loc_name, host_common_name, host_scientific_name, host_subject_id, host_taxid, latitude, longitude, physical_specimen_location, physical_specimen_remaining, psn, public, sample_type, scientific_name ... 
+   host_subject_id: 288 distinct for 337 samples -- REPEATED samples per subject
+   (subjects and visits: rm_suite.R --dry)
+
+== rm_baboon  [axisRM, template_rds]
+   loader: 613 features x 16234 samples with metadata; counts integer (raw)
+   template: 613 taxa (prevalence >= 0.05) x 16230 samples (depth >= 1000); depth min / median / max 1,017.0 / 47,015.5 / 467,725.0
+   metadata columns: sample, baboon_id, collection_date, sex, age, social_group, group_size, rain_month_mm, season, hydro_year, month, readcount, plate, post_pcr_dna_ng, diet_PC1, diet_PC2, diet_PC3, diet_PC4, diet_PC5, diet_PC6, diet_PC7, diet_PC8, diet_PC9, diet_PC10, diet_PC11, diet_PC12, diet_PC13, diet_shannon_h, asv_richness, asv_shannon_h ... 
+   subject: 585 distinct for 16230 samples -- REPEATED samples per subject
+   (subjects and visits: rm_suite.R --dry)
+
+GEMS1 cross-site pairs (run_DE.sh crossstudy): taxa shared after each site's prevalence filter
+   e2_gems1_bangladesh / e2_gems1_kenya: 104 / 106 taxa, 89 shared
+   e2_gems1_bangladesh / e2_gems1_mali: 104 / 98 taxa, 86 shared
+   e2_gems1_bangladesh / e2_gems1_gambia: 104 / 107 taxa, 88 shared
+   e2_gems1_kenya / e2_gems1_mali: 106 / 98 taxa, 87 shared
+   e2_gems1_kenya / e2_gems1_gambia: 106 / 107 taxa, 95 shared
+   e2_gems1_mali / e2_gems1_gambia: 98 / 107 taxa, 87 shared
+
+conf2 data check FAILED: e2_asd_dan2020
+
+== repeated-measures templates (rm_suite.R --dry; cells need 40 subjects with two samples)
+template hmp_stool: 348 samples matched; 301 after de-duplication, 205 subjects, 94 with >= 2 samples; pairs: earliest
+template hmp_gingiva: 330 samples matched; 298 after de-duplication, 206 subjects, 90 with >= 2 samples; pairs: earliest
+template hmp_skin_ear: 691 samples matched; 289 after de-duplication, 208 subjects, 79 with >= 2 samples; pairs: earliest
+template rm_buccal: 333 samples matched; 296 after de-duplication, 200 subjects, 94 with >= 2 samples; pairs: earliest
+template rm_throat: 332 samples matched; 283 after de-duplication, 197 subjects, 84 with >= 2 samples; pairs: earliest
+template rm_baboon: 16230 samples matched; 16230 after de-duplication, 585 subjects, 523 with >= 2 samples; pairs: random
+  hmp_stool: 1295 taxa; samples per subject min 1, median 1, max 3; OK (94 >= 40 subjects with 2 samples)
+  hmp_gingiva: 364 taxa; samples per subject min 1, median 1, max 3; OK (90 >= 40 subjects with 2 samples)
+  hmp_skin_ear: 307 taxa; samples per subject min 1, median 1, max 3; OK (79 >= 40 subjects with 2 samples)
+  rm_buccal: 547 taxa; samples per subject min 1, median 1, max 3; OK (94 >= 40 subjects with 2 samples)
+  rm_throat: 533 taxa; samples per subject min 1, median 1, max 3; OK (84 >= 40 subjects with 2 samples)
+  rm_baboon: 613 taxa; samples per subject min 1, median 18, max 177; OK (523 >= 40 subjects with 2 samples)
+rm dry check: all templates usable 
+
+commit 08585f88; data check exit 1, rm check exit 0
