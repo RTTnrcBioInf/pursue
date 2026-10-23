@@ -1,0 +1,892 @@
+>> smoke: wilcoxon_tss on every task
+>> contrast: Watershed vs Lake (477 vs 498 samples)
+>> contrast: ASD vs Control (139 vs 139 samples)
+>> contrast: bacterial_vaginosis vs healthy (97 vs 248 samples)
+>> contrast: CDI vs H (91 vs 154 samples)
+>> contrast: Cancer vs Normal (191 vs 251 samples)
+>> contrast: Case vs Control (95 vs 111 samples)
+>> contrast: Case vs Control (138 vs 131 samples)
+>> contrast: Case vs Control (166 vs 140 samples)
+>> contrast: Case vs Control (110 vs 102 samples)
+>> contrast: Case vs Control (95 vs 111 samples)
+>> contrast: Case vs Control (138 vs 131 samples)
+>> contrast: Case vs Control (95 vs 111 samples)
+>> contrast: Case vs Control (166 vs 140 samples)
+>> contrast: Case vs Control (95 vs 111 samples)
+>> contrast: Case vs Control (110 vs 102 samples)
+>> contrast: Case vs Control (166 vs 140 samples)
+>> contrast: Case vs Control (138 vs 131 samples)
+>> contrast: Case vs Control (166 vs 140 samples)
+>> contrast: Case vs Control (110 vs 102 samples)
+>> contrast: Case vs Control (110 vs 102 samples)
+>> contrast: Case vs Control (138 vs 131 samples)
+>> contrast: supragingival_plaque vs subgingival_plaque (158 vs 150 samples)
+>> contrast: PAR vs H (74 vs 73 samples)
+>> contrast: CD vs no (324 vs 190 samples)
+>> contrast: CD vs healthy (29 vs 66 samples)
+>> 18 methods x 20 tasks, 24 at a time
+ok   gingival wilcoxon_tss
+ok   bv wilcoxon_tss
+ok   spikein wilcoxon_tss
+ok   crc wilcoxon_tss
+ok   risk wilcoxon_tss
+ok   vandeputte wilcoxon_tss
+ok   cdi wilcoxon_tss
+ok   pd wilcoxon_tss
+ok   arctic wilcoxon_tss
+ok   asd wilcoxon_tss
+ok   gems_bangladesh wilcoxon_tss
+ok   gems_kenya wilcoxon_tss
+ok   gems_mali wilcoxon_tss
+ok   gems_gambia wilcoxon_tss
+ok   gemsx_bangladesh_kenya wilcoxon_tss
+ok   gemsx_bangladesh_mali wilcoxon_tss
+ok   gemsx_bangladesh_gambia wilcoxon_tss
+ok   gemsx_kenya_gambia wilcoxon_tss
+ok   gemsx_kenya_mali wilcoxon_tss
+ok   gemsx_mali_gambia wilcoxon_tss
+ok   bv lm_logtss
+ok   bv limma_logtss
+ok   vandeputte lm_logtss
+ok   crc lm_logtss
+ok   asd lm_logtss
+ok   crc limma_logtss
+ok   vandeputte limma_logtss
+ok   gingival lm_logtss
+ok   pd lm_logtss
+ok   gingival limma_logtss
+ok   cdi lm_logtss
+ok   pd limma_logtss
+ok   asd limma_logtss
+ok   gems_bangladesh lm_logtss
+ok   gems_kenya lm_logtss
+ok   gems_mali lm_logtss
+ok   spikein lm_logtss
+ok   gems_gambia lm_logtss
+ok   cdi limma_logtss
+ok   bv logistic_presence
+ok   spikein limma_logtss
+ok   gemsx_bangladesh_gambia lm_logtss
+ok   gems_kenya limma_logtss
+ok   gemsx_kenya_gambia lm_logtss
+ok   gemsx_mali_gambia lm_logtss
+ok   gemsx_kenya_mali lm_logtss
+ok   gemsx_bangladesh_kenya lm_logtss
+ok   gemsx_bangladesh_mali lm_logtss
+ok   gems_mali limma_logtss
+ok   gems_gambia limma_logtss
+ok   gems_bangladesh limma_logtss
+ok   vandeputte logistic_presence
+ok   pd logistic_presence
+ok   crc logistic_presence
+ok   gemsx_bangladesh_kenya limma_logtss
+ok   gemsx_bangladesh_mali limma_logtss
+ok   gemsx_bangladesh_gambia limma_logtss
+ok   gemsx_kenya_mali limma_logtss
+ok   gemsx_kenya_gambia limma_logtss
+ok   gemsx_mali_gambia limma_logtss
+ok   gems_bangladesh logistic_presence
+ok   gems_mali logistic_presence
+ok   gems_kenya logistic_presence
+ok   cdi logistic_presence
+ok   gingival logistic_presence
+ok   gems_gambia logistic_presence
+ok   asd logistic_presence
+ok   gemsx_bangladesh_kenya logistic_presence
+ok   gemsx_bangladesh_mali logistic_presence
+ok   gemsx_bangladesh_gambia logistic_presence
+ok   bv pursue
+ok   gemsx_kenya_mali logistic_presence
+ok   gemsx_kenya_gambia logistic_presence
+ok   gemsx_mali_gambia logistic_presence
+ok   risk lm_logtss
+ok   risk limma_logtss
+ok   gemsx_bangladesh_mali pursue
+ok   gemsx_bangladesh_kenya pursue
+ok   gemsx_kenya_mali pursue
+ok   gemsx_bangladesh_gambia pursue
+ok   gemsx_kenya_gambia pursue
+ok   gemsx_mali_gambia pursue
+ok   bv linda
+ok   risk logistic_presence
+ok   spikein logistic_presence
+ok   vandeputte linda
+FAIL vandeputte pursue
+ok   pd pursue
+ok   gingival linda
+ok   gems_mali pursue
+ok   crc linda
+ok   gems_bangladesh pursue
+ok   gems_kenya pursue
+ok   cdi linda
+ok   pd linda
+ok   arctic lm_logtss
+ok   gems_gambia pursue
+ok   arctic limma_logtss
+ok   gemsx_bangladesh_kenya linda
+ok   gemsx_bangladesh_mali linda
+ok   gems_kenya linda
+ok   gems_bangladesh linda
+ok   asd linda
+ok   gems_gambia linda
+ok   gems_mali linda
+ok   gemsx_bangladesh_gambia linda
+ok   gemsx_kenya_mali linda
+ok   cdi pursue
+ok   bv ancombc2
+ok   gemsx_kenya_gambia linda
+FAIL vandeputte ancombc2
+ok   risk linda
+ok   gemsx_mali_gambia linda
+ok   gingival ancombc2
+ok   arctic logistic_presence
+ok   crc ancombc2
+ok   pd ancombc2
+ok   cdi ancombc2
+ok   asd ancombc2
+ok   gemsx_bangladesh_kenya ancombc2
+ok   gemsx_bangladesh_mali ancombc2
+ok   gemsx_bangladesh_gambia ancombc2
+ok   gemsx_kenya_mali ancombc2
+ok   gems_mali ancombc2
+ok   gems_bangladesh ancombc2
+ok   gems_kenya ancombc2
+ok   gems_gambia ancombc2
+ok   gemsx_kenya_gambia ancombc2
+ok   risk ancombc2
+ok   gemsx_mali_gambia ancombc2
+ok   bv maaslin3
+ok   spikein linda
+ok   spikein ancombc2
+ok   arctic linda
+FAIL vandeputte maaslin3
+ok   gemsx_bangladesh_kenya maaslin3
+ok   gemsx_bangladesh_mali maaslin3
+ok   crc pursue
+ok   arctic ancombc2
+ok   gemsx_bangladesh_gambia maaslin3
+ok   gemsx_kenya_mali maaslin3
+ok   gems_mali maaslin3
+ok   gems_bangladesh maaslin3
+ok   cdi maaslin3
+ok   gems_kenya maaslin3
+ok   pd maaslin3
+ok   gems_gambia maaslin3
+ok   gemsx_kenya_gambia maaslin3
+ok   gemsx_mali_gambia maaslin3
+ok   bv aldex2
+ok   crc maaslin3
+ok   vandeputte aldex2
+ok   pd aldex2
+ok   gems_bangladesh aldex2
+ok   gemsx_bangladesh_kenya aldex2
+ok   gingival maaslin3
+ok   gems_mali aldex2
+ok   cdi aldex2
+ok   gemsx_bangladesh_mali aldex2
+ok   gems_gambia aldex2
+ok   bv corncob
+ok   gems_kenya aldex2
+ok   gemsx_kenya_mali aldex2
+ok   gemsx_bangladesh_gambia aldex2
+ok   gemsx_mali_gambia aldex2
+ok   gemsx_kenya_gambia aldex2
+FAIL vandeputte corncob
+ok   asd maaslin3
+ok   pd corncob
+ok   cdi corncob
+ok   gems_bangladesh corncob
+ok   crc aldex2
+ok   gems_mali corncob
+ok   gems_kenya corncob
+ok   gemsx_bangladesh_kenya corncob
+ok   gemsx_bangladesh_mali corncob
+ok   gingival pursue
+ok   asd pursue
+ok   gemsx_bangladesh_gambia corncob
+ok   gems_gambia corncob
+ok   gemsx_kenya_mali corncob
+ok   gemsx_mali_gambia corncob
+ok   gemsx_kenya_gambia corncob
+ok   bv ldm
+ok   crc corncob
+ok   arctic maaslin3
+FAIL vandeputte ldm
+ok   risk maaslin3
+ok   asd aldex2
+ok   cdi ldm
+ok   pd ldm
+ok   crc ldm
+ok   gems_bangladesh ldm
+ok   gemsx_bangladesh_kenya ldm
+ok   gemsx_bangladesh_mali ldm
+ok   asd corncob
+ok   gems_mali ldm
+ok   gemsx_bangladesh_gambia ldm
+ok   bv locom
+ok   gingival aldex2
+ok   gemsx_kenya_mali ldm
+ok   gems_kenya ldm
+ok   gemsx_kenya_gambia ldm
+ok   gemsx_mali_gambia ldm
+ok   gingival corncob
+ok   gems_gambia ldm
+ok   cdi locom
+ok   arctic pursue
+ok   vandeputte locom
+ok   spikein ldm
+ok   risk pursue
+ok   spikein aldex2
+ok   gemsx_bangladesh_kenya locom
+ok   gingival ldm
+ok   gemsx_bangladesh_mali locom
+ok   gemsx_bangladesh_gambia locom
+ok   gems_bangladesh locom
+ok   gemsx_kenya_mali locom
+ok   gems_mali locom
+ok   gemsx_mali_gambia locom
+ok   bv locom2
+ok   gemsx_kenya_gambia locom
+FAIL vandeputte locom2
+ok   pd locom
+ok   gems_kenya locom
+ok   asd ldm
+ok   pd locom2
+ok   spikein maaslin3
+ok   gems_gambia locom
+ok   cdi locom2
+ok   crc locom2
+ok   risk aldex2
+ok   gemsx_bangladesh_kenya locom2
+ok   gemsx_bangladesh_mali locom2
+ok   gems_bangladesh locom2
+ok   gemsx_bangladesh_gambia locom2
+ok   gemsx_kenya_mali locom2
+ok   gems_mali locom2
+ok   gemsx_kenya_gambia locom2
+ok   gems_kenya locom2
+ok   gemsx_mali_gambia locom2
+ok   gems_gambia locom2
+ok   risk corncob
+ok   bv zicoseq
+ok   spikein pursue
+FAIL vandeputte zicoseq
+ok   pd zicoseq
+ok   arctic locom
+ok   arctic ldm
+ok   cdi zicoseq
+ok   arctic aldex2
+ok   asd locom2
+ok   arctic corncob
+ok   spikein corncob
+ok   risk ldm
+ok   gingival locom2
+ok   gemsx_bangladesh_mali zicoseq
+ok   gemsx_bangladesh_kenya zicoseq
+ok   bv fastancom
+ok   gingival fastancom
+ok   crc fastancom
+ok   gemsx_bangladesh_gambia zicoseq
+ok   gemsx_kenya_mali zicoseq
+ok   vandeputte fastancom
+ok   spikein fastancom
+ok   pd fastancom
+ok   cdi fastancom
+ok   asd fastancom
+ok   gems_bangladesh fastancom
+ok   gems_kenya fastancom
+ok   gems_mali fastancom
+ok   gems_gambia fastancom
+ok   gemsx_kenya_gambia zicoseq
+ok   risk fastancom
+ok   gemsx_bangladesh_kenya fastancom
+ok   gemsx_mali_gambia zicoseq
+ok   gemsx_bangladesh_mali fastancom
+ok   gemsx_bangladesh_gambia fastancom
+ok   gemsx_kenya_mali fastancom
+ok   gemsx_kenya_gambia fastancom
+ok   gemsx_mali_gambia fastancom
+ok   bv adapt
+ok   gingival adapt
+ok   vandeputte adapt
+ok   gems_bangladesh zicoseq
+ok   gems_mali zicoseq
+ok   crc adapt
+ok   arctic fastancom
+ok   cdi adapt
+ok   risk adapt
+ok   pd adapt
+ok   gems_kenya zicoseq
+ok   asd adapt
+ok   gems_bangladesh adapt
+ok   gems_kenya adapt
+ok   gemsx_bangladesh_kenya adapt
+ok   gems_mali adapt
+ok   gemsx_bangladesh_mali adapt
+ok   gems_gambia adapt
+ok   gemsx_bangladesh_gambia adapt
+ok   gemsx_kenya_mali adapt
+ok   gems_gambia zicoseq
+ok   gemsx_kenya_gambia adapt
+ok   gemsx_mali_gambia adapt
+ok   arctic adapt
+ok   spikein adapt
+ok   crc zicoseq
+ok   arctic locom2
+ok   spikein locom2
+ok   crc locom
+ok   asd locom
+ok   risk locom2
+ok   gingival zicoseq
+ok   asd zicoseq
+ok   gemsx_bangladesh_kenya fastemu
+ok   gemsx_kenya_mali fastemu
+ok   gemsx_bangladesh_gambia fastemu
+ok   gemsx_bangladesh_mali fastemu
+ok   bv pursue03_epermc13
+ok   bv fastemu
+ok   gems_kenya fastemu
+ok   gems_gambia fastemu
+ok   gems_mali fastemu
+ok   vandeputte pursue03_epermc13
+ok   gingival pursue03_epermc13
+ok   pd fastemu
+ok   spikein pursue03_epermc13
+ok   cdi pursue03_epermc13
+ok   pd pursue03_epermc13
+ok   gemsx_kenya_gambia fastemu
+ok   gems_bangladesh pursue03_epermc13
+ok   gems_mali pursue03_epermc13
+ok   gems_kenya pursue03_epermc13
+ok   gemsx_mali_gambia fastemu
+ok   gemsx_bangladesh_kenya pursue03_epermc13
+ok   gemsx_bangladesh_mali pursue03_epermc13
+ok   gems_gambia pursue03_epermc13
+ok   gemsx_bangladesh_gambia pursue03_epermc13
+ok   gemsx_kenya_mali pursue03_epermc13
+ok   gemsx_kenya_gambia pursue03_epermc13
+ok   gemsx_mali_gambia pursue03_epermc13
+ok   gingival locom
+ok   crc pursue03_epermc13
+ok   gems_bangladesh fastemu
+ok   arctic zicoseq
+ok   risk zicoseq
+ok   asd pursue03_epermc13
+ok   vandeputte fastemu
+ok   risk pursue03_epermc13
+ok   spikein zicoseq
+ok   arctic pursue03_epermc13
+ok   risk locom
+ok   cdi fastemu
+ok   crc fastemu
+ok   gingival fastemu
+ok   asd fastemu
+ok   spikein locom
+ok   arctic fastemu
+ok   risk fastemu
+ok   spikein fastemu
+>> merge
+
+== D__d2_vandeputte__qmp ==
+contrast: CD vs healthy 
+            method   estimand    arm n_tested n_calls sign_agreement recall_reference calls_outside_reference spearman_lfc_abs disagree_called disagree_absolute_direction disagree_any_called
+             linda   absolute single      674     199         0.9650           0.4690                      40            0.966               0                          NA                   7
+ pursue03_epermc13   absolute single      674     211         0.8530           0.4420                      61            0.580               1                           0                  14
+         fastancom   absolute single      674     178         0.9550           0.3860                      47            0.964               0                          NA                   6
+             adapt   absolute single      674     146         0.9250           0.3270                      35            0.619               1                           0                  10
+           fastemu   absolute single      674      20         0.8500           0.0472                       4            0.376               0                          NA                   3
+ logistic_presence prevalence single      662     299         0.9900           0.8020                      27            0.595               0                          NA                   4
+      wilcoxon_tss   relative single      674     286         0.9370           0.8290                       5            0.358               0                          NA                   1
+      limma_logtss   relative single      674     175         1.0000           0.4570                      20            0.964               0                          NA                   0
+         lm_logtss   relative single      674     177         1.0000           0.4570                      22            0.964               0                          NA                   0
+             locom   relative single      674     173         0.6590           0.3100                      68            0.429               1                           0                  16
+            aldex2   relative single      674      84         0.0119           0.2360                       4           -0.939               0                          NA                   1
+ disagree_any_absolute_direction runtime_s
+                             0.0     0.599
+                             0.0    22.300
+                             0.0     0.086
+                             0.0     0.901
+                             0.0  2990.000
+                             0.5     1.080
+                             1.0     0.359
+                              NA     0.056
+                              NA     0.043
+                             0.0    80.500
+                             1.0    22.500
+
+== D__mbd_gingival_v35__biotruth ==
+contrast: supragingival_plaque vs subgingival_plaque 
+            method       arm n_tested n_calls n_calls_annotated frac_expected_direction enrichment_or enrichment_p runtime_s
+               ldm    single     3260     696               596                      NA         0.579     3.44e-05   410.000
+           zicoseq    single     3260     657               572                      NA         0.690     7.06e-03  1500.000
+             linda    single     3260     637               548                   0.898         0.615     3.95e-04     6.290
+      wilcoxon_tss    single     3260     618               528                   0.792         0.578     7.36e-05     2.590
+           corncob    single     3260     612               532                      NA         0.684     7.08e-03   383.000
+ pursue03_epermc13    single     3260     607               522                   0.927         0.617     5.41e-04   383.000
+             adapt    single     3260     579               497                   0.956         0.610     4.33e-04     5.020
+ logistic_presence    single     3260     579               489                   0.798         0.527     3.97e-06     5.560
+          maaslin3  combined     3260     569               486                      NA         0.584     1.54e-04    95.300
+          maaslin3  presence     3260     538               455                   0.857         0.540     1.40e-05    95.300
+      limma_logtss    single     3260     458               390                   0.951         0.584     4.03e-04     0.107
+         lm_logtss    single     3260     456               388                   0.948         0.581     3.85e-04     0.076
+             locom    single     3260     447               373                   0.949         0.498     3.77e-06  3150.000
+         fastancom    single     3260     435               370                   0.876         0.582     5.60e-04     1.650
+            locom2    single     3260     378               313                      NA         0.482     4.20e-06   490.000
+           fastemu    single     3260     280               226                   0.934         0.422     1.07e-06  7780.000
+          maaslin3 abundance     3260     100                80                   0.775         0.431     2.00e-03    95.300
+            aldex2    single     3260      60                48                   0.979         0.437     1.57e-02   395.000
+            pursue abundance     3260      19                14                   0.929         0.309     3.52e-02   244.000
+            pursue  combined     3260      18                13                      NA         0.287     2.81e-02   244.000
+          ancombc2    single        0       0                 0                      NA            NA           NA     2.050
+            pursue  presence     3260       0                 0                      NA            NA           NA   244.000
+
+== D__mbd_ravel_bv__biotruth ==
+contrast: bacterial_vaginosis vs healthy 
+            method       arm n_tested n_calls n_calls_annotated frac_expected_direction enrichment_or enrichment_p runtime_s
+               ldm    single       55      50                18                      NA           Inf     1.60e-01    19.900
+ pursue03_epermc13    single       55      50                18                  0.9440           Inf     1.60e-01    18.200
+           corncob    single       55      48                18                      NA           Inf     8.24e-02     5.940
+      limma_logtss    single       55      48                17                  1.0000          3.23     4.06e-01     0.054
+         lm_logtss    single       55      48                17                  1.0000          3.23     4.06e-01     0.043
+          maaslin3  combined       55      48                17                      NA          3.23     4.06e-01     3.700
+      wilcoxon_tss    single       55      48                17                  1.0000          3.23     4.06e-01     0.082
+ logistic_presence    single       55      47                16                  1.0000          1.54     1.00e+00     0.459
+          maaslin3  presence       55      47                16                  1.0000          1.54     1.00e+00     3.700
+             adapt    single       55      45                17                  0.9410          5.33     1.40e-01     0.248
+         fastancom    single       55      44                17                  1.0000          6.14     8.02e-02     0.043
+             linda    single       55      42                18                  0.9440           Inf     4.92e-03     0.078
+           zicoseq    single       55      38                17                      NA         12.50     4.84e-03    23.400
+            aldex2    single       55      35                18                  0.0556           Inf     4.63e-05     7.500
+             locom    single       55      31                15                  1.0000          6.34     8.26e-03     4.490
+            locom2    single       55      29                13                      NA          3.34     5.10e-02    14.100
+            pursue  combined       55      29                14                      NA          4.98     1.14e-02     4.640
+           fastemu    single       55      23                10                  1.0000          2.27     2.44e-01  1820.000
+            pursue  presence       55      23                 9                  1.0000          1.63     5.61e-01     4.640
+            pursue abundance       55      20                13                  1.0000         10.50     2.21e-04     4.640
+          maaslin3 abundance       55      18                13                  1.0000         15.50     2.74e-05     3.700
+          ancombc2    single        0       0                 0                      NA            NA           NA     0.073
+
+== D__mbd_stammler_spikein__spikein ==
+            method       arm groupings mean_calls spikein_calls groupings_with_spikein_call
+            pursue abundance        50       0.16             0                           0
+             linda    single        50       0.06             0                           0
+ logistic_presence    single        50       0.06             0                           0
+      limma_logtss    single        50       0.04             0                           0
+            pursue  combined        50       0.02             0                           0
+             adapt    single        50       0.02             0                           0
+         lm_logtss    single        50       0.02             0                           0
+           zicoseq    single        50       0.02             0                           0
+          maaslin3 abundance        50       0.00             0                           0
+          maaslin3  combined        50       0.00             0                           0
+          maaslin3  presence        50       0.00             0                           0
+            pursue  presence        50       0.00             0                           0
+            aldex2    single        50       0.00             0                           0
+          ancombc2    single        50       0.00             0                           0
+         fastancom    single        50       0.00             0                           0
+           fastemu    single        50       0.00             0                           0
+               ldm    single        50       0.00             0                           0
+            locom2    single        50       0.00             0                           0
+      wilcoxon_tss    single        50       0.00             0                           0
+             locom    single        50       2.58             1                           1
+ pursue03_epermc13    single        50       0.02             1                           1
+           corncob    single        50      20.14             3                           2
+
+== E__crc_genus__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+ logistic_presence    single      5   8.6           84.30            0
+      limma_logtss    single      5   9.4           81.50            0
+             linda    single      5  10.0           81.10            0
+             adapt    single      5  10.0           80.90            0
+         lm_logtss    single      5   9.0           80.50            0
+          maaslin3  presence      5  11.6           69.30            0
+ pursue03_epermc13    single      5  11.6           69.20            0
+      wilcoxon_tss    single      5  10.8           67.00            4
+            pursue  presence      5   4.0           62.70            0
+           zicoseq    single      5  12.4           62.60            0
+            pursue  combined      5   5.2           48.20            0
+               ldm    single      5  11.2           46.10            0
+           corncob    single      5  13.2           33.20            0
+          maaslin3  combined      5  20.0           29.70            0
+             locom    single      5   5.6           12.40            0
+         fastancom    single      5   4.8           11.40            0
+            locom2    single      5   3.4            8.00            0
+          maaslin3 abundance      5  11.6            3.33            0
+            pursue abundance      5   2.4            0.00            0
+            aldex2    single      5   1.6            0.00            0
+           fastemu    single      5   0.8            0.00            0
+          ancombc2    single      5   0.0             NaN          NaN
+
+== E__e2_arctic_freshwater__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+               ldm    single      5   935            96.7       0.0000
+      limma_logtss    single      5   868            95.4       0.0000
+         lm_logtss    single      5   868            95.4       0.0000
+ logistic_presence    single      5   822            94.8       0.0000
+          maaslin3  presence      5   823            94.7       0.0000
+      wilcoxon_tss    single      5   842            93.7       1.7600
+ pursue03_epermc13    single      5   988            91.9       7.4500
+            pursue  combined      5   830            90.9       0.0000
+           corncob    single      5   786            90.7       0.0000
+            aldex2    single      5   511            89.8       0.0000
+            pursue  presence      5   747            89.1       0.1060
+             linda    single      5   676            89.1       0.0588
+         fastancom    single      5   646            89.0       0.0000
+             adapt    single      5   706            88.8       0.1680
+           zicoseq    single      5   659            87.9       0.0000
+             locom    single      5   647            85.2       0.0620
+           fastemu    single      5   609            83.8       0.0644
+            locom2    single      5   604            81.3       0.0000
+            pursue abundance      5   302            71.1       0.0000
+          maaslin3 abundance      5   312            69.2       0.2610
+          maaslin3  combined      5   882             NaN       0.0000
+          ancombc2    single      5     0             NaN          NaN
+
+== E__e2_asd_dan2020__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+             linda    single      5 298.0            64.1        0.000
+             adapt    single      5 278.0            64.0        0.000
+      limma_logtss    single      5 272.0            63.7        0.000
+ pursue03_epermc13    single      5 406.0            63.4        0.393
+         lm_logtss    single      5 272.0            63.3        0.000
+ logistic_presence    single      5 225.0            61.9        0.000
+         fastancom    single      5 245.0            61.8        0.000
+      wilcoxon_tss    single      5 301.0            61.1        3.970
+           zicoseq    single      5 257.0            58.3        0.000
+            aldex2    single      5 104.0            56.6        0.000
+               ldm    single      5 281.0            55.3        0.000
+          maaslin3  combined      5 191.0            52.8        0.000
+          maaslin3  presence      5 121.0            52.6        0.000
+            pursue  combined      5 192.0            50.5        0.000
+          maaslin3 abundance      5  79.2            48.5        0.000
+            pursue abundance      5  90.6            46.3        0.000
+            pursue  presence      5 111.0            43.2        0.000
+           corncob    single      5 202.0            39.1        0.000
+             locom    single      5 129.0            37.8        0.000
+            locom2    single      5  79.4            28.6        0.000
+           fastemu    single      5  45.4            26.8        0.000
+          ancombc2    single      5   0.0             NaN          NaN
+
+== E__e2_cdi_schubert__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+             linda    single      5 100.0            89.7         0.00
+ logistic_presence    single      5 117.0            89.4         0.00
+            aldex2    single      5  71.0            89.1         0.00
+         lm_logtss    single      5 104.0            88.6         0.00
+               ldm    single      5 130.0            88.4         0.00
+      limma_logtss    single      5 103.0            88.1         0.00
+         fastancom    single      5  86.4            82.8         0.00
+          maaslin3  presence      5  71.2            82.5         0.00
+             adapt    single      5  89.4            81.8         0.00
+ pursue03_epermc13    single      5  93.8            81.4         0.00
+      wilcoxon_tss    single      5 117.0            79.4        11.30
+           zicoseq    single      5  84.8            78.7         0.00
+          maaslin3  combined      5  77.4            78.3         0.00
+            pursue  presence      5  59.0            69.9         0.00
+             locom    single      5  76.8            69.3         0.50
+           corncob    single      5  75.2            69.2         0.00
+            pursue  combined      5  76.8            68.2         0.00
+            locom2    single      5  67.0            67.4         0.00
+           fastemu    single      5  35.0            51.1         0.00
+          maaslin3 abundance      5  29.0            48.2         0.00
+            pursue abundance      5  41.6            36.5         2.71
+          ancombc2    single      5   0.0             NaN          NaN
+
+== E__e2_gems1_bangladesh__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+             linda    single      5  33.2           61.90        0.000
+            locom2    single      5  14.4           53.20        0.000
+             adapt    single      5  22.8           51.80        0.000
+ pursue03_epermc13    single      5  49.4           48.00        0.816
+           corncob    single      5  26.2           46.70        0.000
+           zicoseq    single      5  21.4           42.90        0.000
+            aldex2    single      5   9.2           42.80        0.000
+               ldm    single      5  41.6           42.70        0.000
+         fastancom    single      5  13.4           41.90        0.000
+         lm_logtss    single      5  41.2           36.00        0.000
+             locom    single      5  18.2           35.00        0.000
+      limma_logtss    single      5  43.8           34.50        0.000
+ logistic_presence    single      5  32.4           34.10        0.000
+            pursue  combined      5  27.0           30.70        0.000
+            pursue abundance      5   9.0           30.20        0.000
+      wilcoxon_tss    single      5  34.4           28.40        3.390
+            pursue  presence      5  24.0           23.20        0.000
+           fastemu    single      5   3.0           13.30        0.000
+          maaslin3  combined      5  10.4            3.33        0.000
+          maaslin3  presence      5   9.8            2.86        0.000
+          maaslin3 abundance      5   2.2            0.00        0.000
+          ancombc2    single      5   0.0             NaN          NaN
+
+== E__e2_gems1_bangladesh-vs-e2_gems1_gambia__crossstudy ==
+            method       arm splits nhits replication_pct conflict_pct
+             adapt    single      1    38            63.2          0.0
+             linda    single      1    51            62.7          0.0
+ pursue03_epermc13    single      1    73            60.3          0.0
+         lm_logtss    single      1    72            58.3          0.0
+          maaslin3 abundance      1    14            57.1          0.0
+      limma_logtss    single      1    71            56.3          0.0
+         fastancom    single      1    29            55.2          0.0
+               ldm    single      1    65            49.2          0.0
+           corncob    single      1    37            48.6          0.0
+           zicoseq    single      1    30            46.7          0.0
+ logistic_presence    single      1    57            42.1          0.0
+            pursue  combined      1    54            40.7          0.0
+            aldex2    single      1    21            38.1          0.0
+      wilcoxon_tss    single      1    63            38.1         15.9
+          maaslin3  combined      1    48            37.5          0.0
+            pursue  presence      1    47            34.0          0.0
+           fastemu    single      1    12            33.3          0.0
+             locom    single      1    31            32.3          0.0
+          maaslin3  presence      1    45            31.1          0.0
+            locom2    single      1    26            30.8          0.0
+            pursue abundance      1    18            22.2          0.0
+          ancombc2    single      1     0             NaN          NaN
+
+== E__e2_gems1_bangladesh-vs-e2_gems1_kenya__crossstudy ==
+            method       arm splits nhits replication_pct conflict_pct
+           zicoseq    single      1    24            58.3            0
+             linda    single      1    34            47.1            0
+         lm_logtss    single      1    43            46.5            0
+      limma_logtss    single      1    44            45.5            0
+           corncob    single      1    31            45.2            0
+      wilcoxon_tss    single      1    40            45.0           10
+ pursue03_epermc13    single      1    46            43.5            0
+            pursue  combined      1    39            41.0            0
+            aldex2    single      1    16            37.5            0
+               ldm    single      1    40            35.0            0
+         fastancom    single      1    24            33.3            0
+            pursue  presence      1    25            32.0            0
+          maaslin3  combined      1    26            30.8            0
+          maaslin3  presence      1    23            26.1            0
+            locom2    single      1    23            26.1            0
+          maaslin3 abundance      1     8            25.0            0
+             adapt    single      1    27            22.2            0
+ logistic_presence    single      1    27            22.2            0
+             locom    single      1    21            19.0            0
+            pursue abundance      1    18             0.0            0
+           fastemu    single      1     7             0.0            0
+          ancombc2    single      1     0             NaN          NaN
+
+== E__e2_gems1_bangladesh-vs-e2_gems1_mali__crossstudy ==
+            method       arm splits nhits replication_pct conflict_pct
+         lm_logtss    single      1    72            83.3         0.00
+      limma_logtss    single      1    73            82.2         0.00
+            pursue  combined      1    64            78.1         0.00
+           corncob    single      1    49            77.6         0.00
+ pursue03_epermc13    single      1    75            77.3         0.00
+               ldm    single      1    76            76.3         0.00
+             adapt    single      1    37            75.7         0.00
+             linda    single      1    54            70.4         0.00
+      wilcoxon_tss    single      1    64            68.8         6.25
+          maaslin3  combined      1    39            61.5         0.00
+            aldex2    single      1    23            60.9         0.00
+            pursue abundance      1    33            60.6         0.00
+ logistic_presence    single      1    53            60.4         0.00
+         fastancom    single      1    32            56.2         0.00
+          maaslin3 abundance      1    11            54.5         0.00
+            pursue  presence      1    37            54.1         0.00
+            locom2    single      1    34            52.9         0.00
+           zicoseq    single      1    38            52.6         0.00
+             locom    single      1    35            51.4         0.00
+           fastemu    single      1    13            46.2         0.00
+          maaslin3  presence      1    35            45.7         0.00
+          ancombc2    single      1     0             NaN          NaN
+
+== E__e2_gems1_gambia__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+           corncob    single      5  14.0           53.60            0
+             linda    single      5  30.4           47.20            0
+            aldex2    single      5   6.0           41.00            0
+ pursue03_epermc13    single      5  48.0           39.70            0
+          maaslin3 abundance      5   3.6           33.30            0
+               ldm    single      5  32.0           31.80            0
+      wilcoxon_tss    single      5  30.0           28.80            0
+            locom2    single      5  11.2           24.00            0
+ logistic_presence    single      5  23.0           21.40            0
+            pursue abundance      5   7.2           21.10            0
+         lm_logtss    single      5  30.6           20.90            0
+             adapt    single      5  17.2           20.10            0
+         fastancom    single      5   8.0           18.90            0
+      limma_logtss    single      5  28.8           18.30            0
+           zicoseq    single      5  13.2           12.70            0
+             locom    single      5  12.8           12.10            0
+            pursue  combined      5  20.0           10.30            0
+          maaslin3  combined      5  12.2            9.82            0
+            pursue  presence      5  16.2            9.33            0
+          maaslin3  presence      5   6.6            0.00            0
+           fastemu    single      5   2.0            0.00            0
+          ancombc2    single      5   0.0             NaN          NaN
+
+== E__e2_gems1_kenya__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+               ldm    single      5  13.0           47.00            0
+      wilcoxon_tss    single      5  10.4           30.40            0
+           zicoseq    single      5  10.8           29.10            0
+             linda    single      5  10.8           27.10            0
+            aldex2    single      5   3.8           26.00            0
+             locom    single      5   9.2           22.00            0
+         lm_logtss    single      5   7.4           18.00            0
+            pursue  combined      5   8.8           17.60            0
+ pursue03_epermc13    single      5  14.4           15.30            0
+      limma_logtss    single      5   7.0           14.70            0
+ logistic_presence    single      5   7.4           11.30            0
+             adapt    single      5   7.2           10.20            0
+            pursue  presence      5   5.0            8.64            0
+            locom2    single      5   6.2            5.00            0
+            pursue abundance      5   5.8            3.64            0
+           corncob    single      5  10.6            3.64            0
+          maaslin3 abundance      5   0.4            0.00            0
+          maaslin3  combined      5   1.6            0.00            0
+          maaslin3  presence      5   1.2            0.00            0
+         fastancom    single      5   3.0            0.00            0
+           fastemu    single      5   1.8            0.00            0
+          ancombc2    single      5   0.0             NaN          NaN
+
+== E__e2_gems1_kenya-vs-e2_gems1_gambia__crossstudy ==
+            method       arm splits nhits replication_pct conflict_pct
+             linda    single      1    38            57.9         0.00
+            aldex2    single      1    14            57.1         0.00
+         fastancom    single      1    19            52.6         0.00
+           zicoseq    single      1    24            50.0         0.00
+      limma_logtss    single      1    42            47.6         0.00
+         lm_logtss    single      1    43            46.5         0.00
+           corncob    single      1    22            45.5         0.00
+               ldm    single      1    42            42.9         0.00
+ pursue03_epermc13    single      1    49            40.8         0.00
+      wilcoxon_tss    single      1    41            39.0         4.88
+             adapt    single      1    26            38.5         0.00
+            pursue  combined      1    34            35.3         0.00
+            locom2    single      1    18            33.3         0.00
+             locom    single      1    20            30.0         0.00
+            pursue abundance      1    14            28.6         0.00
+          maaslin3  combined      1    31            25.8         0.00
+          maaslin3 abundance      1     8            25.0         0.00
+           fastemu    single      1     8            25.0         0.00
+          maaslin3  presence      1    25            24.0         0.00
+            pursue  presence      1    28            21.4         0.00
+ logistic_presence    single      1    31            19.4         0.00
+          ancombc2    single      1     0             NaN          NaN
+
+== E__e2_gems1_kenya-vs-e2_gems1_mali__crossstudy ==
+            method       arm splits nhits replication_pct conflict_pct
+             linda    single      1    39           56.40            0
+ pursue03_epermc13    single      1    71           53.50            0
+            aldex2    single      1    15           53.30            0
+            pursue  combined      1    32           50.00            0
+           zicoseq    single      1    25           48.00            0
+            pursue abundance      1    17           47.10            0
+               ldm    single      1    48           41.70            0
+           corncob    single      1    36           38.90            0
+      wilcoxon_tss    single      1    39           35.90            0
+      limma_logtss    single      1    46           34.80            0
+         lm_logtss    single      1    46           34.80            0
+          maaslin3 abundance      1     7           28.60            0
+         fastancom    single      1    14           28.60            0
+          maaslin3  combined      1    22           27.30            0
+             adapt    single      1    19           21.10            0
+            locom2    single      1    19           21.10            0
+           fastemu    single      1    10           20.00            0
+             locom    single      1    21           19.00            0
+          maaslin3  presence      1    14           14.30            0
+            pursue  presence      1    17           11.80            0
+ logistic_presence    single      1    24            8.33            0
+          ancombc2    single      1     0             NaN          NaN
+
+== E__e2_gems1_mali__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+           corncob    single      5  22.0           45.80        0.000
+          maaslin3  combined      5   7.4           39.40        0.000
+               ldm    single      5  35.4           38.30        0.000
+         lm_logtss    single      5  29.6           31.00        0.000
+ pursue03_epermc13    single      5  40.4           30.60        0.952
+      limma_logtss    single      5  29.8           28.90        0.000
+             linda    single      5  30.4           27.00        0.000
+            aldex2    single      5   4.0           26.00        0.000
+             locom    single      5  18.0           25.90        0.000
+             adapt    single      5  15.2           25.20        0.000
+ logistic_presence    single      5  16.4           21.00        0.000
+           zicoseq    single      5  17.2           20.90        0.000
+      wilcoxon_tss    single      5  22.4           18.80        0.000
+            pursue  combined      5  19.6           16.80        0.000
+            locom2    single      5  13.0           11.50        0.000
+           fastemu    single      5   1.8           10.00        0.000
+            pursue abundance      5  13.8            9.34        0.000
+            pursue  presence      5  11.4            1.67        0.000
+          maaslin3 abundance      5   2.0            0.00        0.000
+          maaslin3  presence      5   3.4            0.00        0.000
+         fastancom    single      5   5.0            0.00        0.000
+          ancombc2    single      5   0.0             NaN          NaN
+
+== E__e2_gems1_mali-vs-e2_gems1_gambia__crossstudy ==
+            method       arm splits nhits replication_pct conflict_pct
+             linda    single      1    55            72.7         0.00
+ pursue03_epermc13    single      1    83            72.3         2.41
+               ldm    single      1    67            65.7         0.00
+             adapt    single      1    35            62.9         0.00
+             locom    single      1    28            57.1         0.00
+         lm_logtss    single      1    64            56.2         0.00
+      limma_logtss    single      1    63            54.0         0.00
+            aldex2    single      1    20            50.0         0.00
+ logistic_presence    single      1    48            50.0         0.00
+      wilcoxon_tss    single      1    57            49.1         7.02
+           corncob    single      1    37            48.6         0.00
+            locom2    single      1    25            48.0         0.00
+            pursue  combined      1    57            45.6         0.00
+          maaslin3  combined      1    41            43.9         0.00
+            pursue  presence      1    35            40.0         0.00
+          maaslin3  presence      1    31            38.7         0.00
+         fastancom    single      1    31            38.7         0.00
+           zicoseq    single      1    31            38.7         0.00
+           fastemu    single      1    13            30.8         0.00
+            pursue abundance      1    28            21.4         0.00
+          maaslin3 abundance      1    11            18.2         0.00
+          ancombc2    single      1     0             NaN          NaN
+
+== E__e2_par_scheperjans__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+           corncob    single      5   6.6            19.4            0
+          maaslin3 abundance      5   0.6             0.0            0
+            pursue abundance      5   2.2             0.0            0
+          maaslin3  combined      5   1.0             0.0            0
+            pursue  combined      5   2.0             0.0            0
+             adapt    single      5   0.4             0.0            0
+           fastemu    single      5   1.2             0.0            0
+               ldm    single      5   0.6             0.0            0
+      limma_logtss    single      5   0.6             0.0            0
+             linda    single      5   1.4             0.0            0
+         lm_logtss    single      5   0.4             0.0            0
+             locom    single      5   0.6             0.0            0
+            locom2    single      5   2.0             0.0            0
+ pursue03_epermc13    single      5   0.4             0.0            0
+      wilcoxon_tss    single      5   0.2             0.0            0
+           zicoseq    single      5   1.0             0.0            0
+          maaslin3  presence      5   0.0             NaN          NaN
+            pursue  presence      5   0.0             NaN          NaN
+            aldex2    single      5   0.0             NaN          NaN
+          ancombc2    single      5   0.0             NaN          NaN
+         fastancom    single      5   0.0             NaN          NaN
+ logistic_presence    single      5   0.0             NaN          NaN
+
+== E__risk_ileum__replicability ==
+            method       arm splits nhits replication_pct conflict_pct
+ pursue03_epermc13    single      5 524.0           62.60        0.230
+             adapt    single      5 389.0           60.50        0.000
+             linda    single      5 455.0           57.00        0.000
+          maaslin3  combined      5 472.0           56.80        0.000
+           zicoseq    single      5 352.0           55.90        0.000
+          maaslin3  presence      5 393.0           54.30        0.000
+               ldm    single      5 531.0           54.00        0.000
+      wilcoxon_tss    single      5 468.0           51.40        3.160
+           corncob    single      5 562.0           50.00        0.000
+ logistic_presence    single      5 388.0           46.80        0.000
+         fastancom    single      5 263.0           45.80        0.158
+            aldex2    single      5  82.0           42.50        0.000
+         lm_logtss    single      5 305.0           42.20        0.119
+      limma_logtss    single      5 302.0           42.00        0.118
+          maaslin3 abundance      5 158.0           39.00        0.000
+             locom    single      5 189.0           38.30        0.000
+           fastemu    single      5 159.0           36.00        0.216
+            pursue abundance      5  71.8           33.00        0.000
+            locom2    single      5 113.0           32.10        0.000
+            pursue  combined      5  64.6           30.70        0.000
+            pursue  presence      5   8.4            2.86        0.000
+          ancombc2    single      5   0.0             NaN          NaN
