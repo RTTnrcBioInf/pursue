@@ -1,0 +1,371 @@
+template hmp_stool: 348 samples matched; 301 after de-duplication, 205 subjects, 94 with >= 2 samples; pairs: earliest
+template hmp_gingiva: 330 samples matched; 298 after de-duplication, 206 subjects, 90 with >= 2 samples; pairs: earliest
+template hmp_skin_ear: 691 samples matched; 289 after de-duplication, 208 subjects, 79 with >= 2 samples; pairs: earliest
+template rm_buccal: 333 samples matched; 296 after de-duplication, 200 subjects, 94 with >= 2 samples; pairs: earliest
+template rm_throat: 332 samples matched; 283 after de-duplication, 197 subjects, 84 with >= 2 samples; pairs: earliest
+template rm_baboon: 16230 samples matched; 16230 after de-duplication, 585 subjects, 523 with >= 2 samples; pairs: random
+rm suite 'conf2_rm': 10 candidates x 720 cells, 16 cores
+hmp_stool: 301 samples, 205 subjects (94 with >= 2 samples); pairs: earliest
+hmp_gingiva: 298 samples, 206 subjects (90 with >= 2 samples); pairs: earliest
+hmp_skin_ear: 289 samples, 208 subjects (79 with >= 2 samples); pairs: earliest
+rm_buccal: 296 samples, 200 subjects (94 with >= 2 samples); pairs: earliest
+rm_throat: 283 samples, 197 subjects (84 with >= 2 samples); pairs: earliest
+rm_baboon: 16230 samples, 585 subjects (523 with >= 2 samples); pairs: random
+720 cells in 170.0 min.
+TP / FP per cell at the method's own q <= 0.05; FDR pooled; p_any_false = share of cells with any false call;
+fpr05 = share of null taxa at p < 0.05 (nominal 0.05). On .null settings every call is false.
+
+== P_pair (all templates) 
+             candidate cells n_pos   TP    FP    FDR p_any_false  fpr05 secs
+             eperm_c13   120  39.6 6.51 1.792 0.2159      0.4333 0.0523 11.1
+          ref_linda_re   120  39.6 6.50 0.600 0.0845      0.2417 0.0551 27.7
+        ref_zicoseq_st   120  39.6 5.87 0.492 0.0773      0.2500 0.0540 80.4
+ ref_logistic_presence   120  39.6 5.41 0.200 0.0357      0.1000 0.0327  0.4
+             ref_linda   120  39.6 5.04 0.158 0.0304      0.0917 0.0294  1.2
+             ref_adapt   120  39.6 4.75 0.167 0.0339      0.0750 0.0262  0.5
+            ref_ldm_cl   120  39.6 4.74 0.442 0.0852      0.2417 0.0488 50.5
+           ref_zicoseq   120  39.6 3.35 0.117 0.0337      0.0500 0.0295 78.0
+               ref_ldm   120  39.6 2.98 0.133 0.0428      0.0667 0.0271  7.0
+       ref_logistic_cr   120  39.6 2.03 0.142 0.0651      0.1000 0.0374  0.2
+
+== P_pair.null (all templates) 
+             candidate cells n_pos TP      FP FDR p_any_false  fpr05 secs
+             ref_adapt   240     0  0 0.00000   0     0.00000 0.0267  0.4
+           ref_zicoseq   240     0  0 0.02500   1     0.01667 0.0273 75.8
+               ref_ldm   240     0  0 0.00833   1     0.00833 0.0274  5.2
+             ref_linda   240     0  0 0.00833   1     0.00417 0.0285  1.2
+ ref_logistic_presence   240     0  0 0.00833   1     0.00833 0.0311  0.4
+       ref_logistic_cr   240     0  0 0.04167   1     0.04167 0.0368  0.2
+            ref_ldm_cl   240     0  0 0.02500   1     0.02500 0.0485 43.4
+             eperm_c13   240     0  0 0.65833   1     0.10000 0.0503 10.5
+        ref_zicoseq_st   240     0  0 0.09167   1     0.06250 0.0516 78.7
+          ref_linda_re   240     0  0 0.04167   1     0.02917 0.0554 27.2
+
+== P_subj (all templates) 
+             candidate cells n_pos    TP    FP    FDR p_any_false  fpr05 secs
+             ref_adapt   120  38.6 5.483 2.367 0.3015       0.525 0.0872  0.5
+             ref_linda   120  38.6 5.450 1.950 0.2635       0.525 0.0876  1.5
+ ref_logistic_presence   120  38.6 5.400 2.208 0.2903       0.633 0.0866  0.3
+           ref_zicoseq   120  38.6 4.283 2.133 0.3325       0.517 0.0872 76.0
+               ref_ldm   120  38.6 3.925 1.925 0.3291       0.408 0.0886 12.0
+             eperm_c13   120  38.6 3.558 0.383 0.0973       0.242 0.0473 11.4
+          ref_linda_re   120  38.6 3.217 0.258 0.0743       0.158 0.0505 27.7
+            ref_ldm_cl   120  38.6 1.900 0.317 0.1429       0.117 0.0522 21.9
+       ref_logistic_cr   120  38.6 0.775 0.000 0.0000       0.000 0.0376  0.3
+
+== P_subj.null (all templates) 
+             candidate cells n_pos TP     FP FDR p_any_false  fpr05 secs
+       ref_logistic_cr   240     0  0 0.0000   0      0.0000 0.0376  0.2
+             eperm_c13   240     0  0 0.3708   1      0.0750 0.0462 11.1
+            ref_ldm_cl   240     0  0 0.0333   1      0.0208 0.0487 19.0
+          ref_linda_re   240     0  0 0.0208   1      0.0167 0.0498 27.6
+ ref_logistic_presence   240     0  0 0.9292   1      0.2583 0.0837  0.4
+               ref_ldm   240     0  0 0.5250   1      0.1708 0.0838  7.9
+           ref_zicoseq   240     0  0 0.9250   1      0.2375 0.0847 76.2
+             ref_adapt   240     0  0 0.7667   1      0.2125 0.0850  0.5
+             ref_linda   240     0  0 0.7250   1      0.1833 0.0862  1.4
+
+== P_pair | hmp_gingiva 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05   secs
+          ref_linda_re    20  19.9 3.15 0.15 0.0455        0.10 0.0553 15.811
+             eperm_c13    20  19.9 3.10 0.40 0.1143        0.30 0.0502  8.300
+        ref_zicoseq_st    20  19.9 3.05 0.35 0.1029        0.15 0.0500 47.180
+ ref_logistic_presence    20  19.9 2.50 0.05 0.0196        0.05 0.0276  0.238
+             ref_linda    20  19.9 2.35 0.05 0.0208        0.05 0.0276  1.105
+            ref_ldm_cl    20  19.9 2.10 0.20 0.0870        0.05 0.0476 44.761
+             ref_adapt    20  19.9 2.00 0.05 0.0244        0.05 0.0213  0.320
+           ref_zicoseq    20  19.9 1.30 0.05 0.0370        0.05 0.0242 45.404
+       ref_logistic_cr    20  19.9 1.25 0.00 0.0000        0.00 0.0358  0.112
+               ref_ldm    20  19.9 1.20 0.00 0.0000        0.00 0.0242  5.772
+
+== P_pair | hmp_skin_ear 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05   secs
+          ref_linda_re    20    15 1.15 0.05 0.0417        0.05 0.0485 11.120
+             eperm_c13    20    15 0.95 6.40 0.8707        0.80 0.0726  4.358
+ ref_logistic_presence    20    15 0.85 0.15 0.1500        0.15 0.0417  0.138
+        ref_zicoseq_st    20    15 0.80 0.10 0.1111        0.05 0.0628 35.770
+            ref_ldm_cl    20    15 0.75 0.05 0.0625        0.05 0.0459 42.944
+             ref_linda    20    15 0.70 0.05 0.0667        0.05 0.0301  1.280
+             ref_adapt    20    15 0.60 0.05 0.0769        0.05 0.0293  0.249
+           ref_zicoseq    20    15 0.45 0.00 0.0000        0.00 0.0485 33.189
+       ref_logistic_cr    20    15 0.35 0.00 0.0000        0.00 0.0298  0.079
+               ref_ldm    20    15 0.30 0.00 0.0000        0.00 0.0278  5.317
+
+== P_pair | hmp_stool 
+             candidate cells n_pos    TP   FP    FDR p_any_false  fpr05    secs
+        ref_zicoseq_st    20  71.8 11.25 0.45 0.0385         0.3 0.0506 166.085
+             eperm_c13    20  71.8 10.25 0.35 0.0330         0.3 0.0484  12.330
+          ref_linda_re    20  71.8  9.90 0.40 0.0388         0.2 0.0481  51.170
+ ref_logistic_presence    20  71.8  8.40 0.00 0.0000         0.0 0.0201   0.864
+            ref_ldm_cl    20  71.8  8.30 0.30 0.0349         0.2 0.0474 128.820
+             ref_adapt    20  71.8  6.55 0.00 0.0000         0.0 0.0166   0.794
+             ref_linda    20  71.8  6.50 0.00 0.0000         0.0 0.0187   1.359
+           ref_zicoseq    20  71.8  4.40 0.00 0.0000         0.0 0.0183 161.001
+               ref_ldm    20  71.8  3.65 0.00 0.0000         0.0 0.0180  11.716
+       ref_logistic_cr    20  71.8  3.40 0.55 0.1392         0.5 0.0366   0.495
+
+== P_pair | rm_baboon 
+             candidate cells n_pos    TP   FP    FDR p_any_false  fpr05    secs
+          ref_linda_re    20    57 10.90 1.70 0.1349        0.35 0.0646  42.237
+             eperm_c13    20    57 10.55 2.30 0.1790        0.55 0.0553  11.037
+             ref_linda    20    57 10.00 0.75 0.0698        0.35 0.0467   1.301
+             ref_adapt    20    57  9.25 0.80 0.0796        0.25 0.0411   0.789
+ ref_logistic_presence    20    57  9.15 0.90 0.0896        0.30 0.0463   0.688
+        ref_zicoseq_st    20    57  7.45 1.05 0.1235        0.35 0.0576 128.918
+            ref_ldm_cl    20    57  6.85 1.10 0.1384        0.30 0.0536  50.950
+           ref_zicoseq    20    57  6.80 0.65 0.0872        0.25 0.0463 125.692
+               ref_ldm    20    57  5.95 0.70 0.1053        0.30 0.0442  10.368
+       ref_logistic_cr    20    57  2.35 0.25 0.0962        0.05 0.0405   0.444
+
+== P_pair | rm_buccal 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05   secs
+             eperm_c13    20  38.4 7.50 0.25 0.0323        0.20 0.0486 11.328
+          ref_linda_re    20  38.4 7.50 0.65 0.0798        0.40 0.0551 28.428
+ ref_logistic_presence    20  38.4 6.60 0.00 0.0000        0.00 0.0360  0.374
+        ref_zicoseq_st    20  38.4 6.35 0.65 0.0929        0.35 0.0508 82.643
+             ref_linda    20  38.4 5.70 0.05 0.0087        0.05 0.0287  1.186
+             ref_adapt    20  38.4 5.40 0.10 0.0182        0.10 0.0250  0.476
+            ref_ldm_cl    20  38.4 5.00 0.40 0.0741        0.40 0.0446 50.790
+           ref_zicoseq    20  38.4 3.70 0.00 0.0000        0.00 0.0248 80.765
+               ref_ldm    20  38.4 3.65 0.05 0.0135        0.05 0.0229  6.955
+       ref_logistic_cr    20  38.4 3.15 0.05 0.0156        0.05 0.0386  0.315
+
+== P_pair | rm_throat 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05   secs
+             eperm_c13    20  35.3 6.70 1.05 0.1355        0.45 0.0520 11.634
+          ref_linda_re    20  35.3 6.40 0.65 0.0922        0.35 0.0569 27.115
+        ref_zicoseq_st    20  35.3 6.30 0.35 0.0526        0.30 0.0574 76.072
+            ref_ldm_cl    20  35.3 5.45 0.60 0.0992        0.45 0.0502 62.321
+             ref_linda    20  35.3 5.00 0.05 0.0099        0.05 0.0247  1.148
+ ref_logistic_presence    20  35.3 4.95 0.10 0.0198        0.10 0.0328  0.407
+             ref_adapt    20  35.3 4.70 0.00 0.0000        0.00 0.0247  0.430
+           ref_zicoseq    20  35.3 3.45 0.00 0.0000        0.00 0.0255 75.175
+               ref_ldm    20  35.3 3.15 0.05 0.0156        0.05 0.0239  6.971
+       ref_logistic_cr    20  35.3 1.70 0.00 0.0000        0.00 0.0369  0.190
+
+== P_pair.null | hmp_gingiva 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05   secs
+             ref_adapt    40     0  0 0.000   0       0.000 0.0228  0.290
+               ref_ldm    40     0  0 0.000   0       0.000 0.0234  3.258
+           ref_zicoseq    40     0  0 0.025   1       0.025 0.0235 45.613
+             ref_linda    40     0  0 0.000   0       0.000 0.0257  1.154
+ ref_logistic_presence    40     0  0 0.025   1       0.025 0.0273  0.195
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0340  0.114
+             eperm_c13    40     0  0 0.050   1       0.025 0.0479  5.023
+        ref_zicoseq_st    40     0  0 0.050   1       0.050 0.0486 47.974
+            ref_ldm_cl    40     0  0 0.000   0       0.000 0.0488 42.376
+          ref_linda_re    40     0  0 0.000   0       0.000 0.0537 15.468
+
+== P_pair.null | hmp_skin_ear 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05    secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0293  0.0795
+             ref_adapt    40     0  0 0.000   0       0.000 0.0328  0.2345
+               ref_ldm    40     0  0 0.025   1       0.025 0.0335  3.7325
+             ref_linda    40     0  0 0.000   0       0.000 0.0374  1.3050
+           ref_zicoseq    40     0  0 0.025   1       0.025 0.0389 32.5345
+ ref_logistic_presence    40     0  0 0.025   1       0.025 0.0413  0.1345
+            ref_ldm_cl    40     0  0 0.050   1       0.050 0.0488 41.2515
+          ref_linda_re    40     0  0 0.025   1       0.025 0.0581 10.8015
+             eperm_c13    40     0  0 3.775   1       0.450 0.0588  4.0675
+        ref_zicoseq_st    40     0  0 0.150   1       0.100 0.0620 35.0170
+
+== P_pair.null | hmp_stool 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05    secs
+           ref_zicoseq    40     0  0 0.000   0       0.000 0.0175 159.409
+               ref_ldm    40     0  0 0.000   0       0.000 0.0184   6.979
+             ref_adapt    40     0  0 0.000   0       0.000 0.0185   0.792
+             ref_linda    40     0  0 0.000   0       0.000 0.0189   1.348
+ ref_logistic_presence    40     0  0 0.000   0       0.000 0.0215   1.119
+       ref_logistic_cr    40     0  0 0.225   1       0.225 0.0383   0.500
+            ref_ldm_cl    40     0  0 0.025   1       0.025 0.0475  46.319
+             eperm_c13    40     0  0 0.025   1       0.025 0.0499  12.220
+        ref_zicoseq_st    40     0  0 0.075   1       0.075 0.0527 160.738
+          ref_linda_re    40     0  0 0.000   0       0.000 0.0528  51.314
+
+== P_pair.null | rm_baboon 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05    secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0381   0.409
+             ref_adapt    40     0  0 0.000   0       0.000 0.0392   0.669
+               ref_ldm    40     0  0 0.025   1       0.025 0.0419   6.814
+ ref_logistic_presence    40     0  0 0.000   0       0.000 0.0427   0.662
+           ref_zicoseq    40     0  0 0.100   1       0.050 0.0429 123.732
+             ref_linda    40     0  0 0.050   1       0.025 0.0444   1.285
+             eperm_c13    40     0  0 0.025   1       0.025 0.0518  10.653
+            ref_ldm_cl    40     0  0 0.050   1       0.050 0.0518  45.343
+        ref_zicoseq_st    40     0  0 0.225   1       0.100 0.0531 127.170
+          ref_linda_re    40     0  0 0.125   1       0.100 0.0613  41.743
+
+== P_pair.null | rm_buccal 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05   secs
+           ref_zicoseq    40     0  0 0.000   0       0.000 0.0227 78.305
+             ref_adapt    40     0  0 0.000   0       0.000 0.0254  0.406
+               ref_ldm    40     0  0 0.000   0       0.000 0.0256  5.022
+             ref_linda    40     0  0 0.000   0       0.000 0.0260  1.181
+ ref_logistic_presence    40     0  0 0.000   0       0.000 0.0322  0.437
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0387  0.213
+        ref_zicoseq_st    40     0  0 0.025   1       0.025 0.0462 81.154
+            ref_ldm_cl    40     0  0 0.025   1       0.025 0.0480 42.912
+             eperm_c13    40     0  0 0.050   1       0.050 0.0486 11.317
+          ref_linda_re    40     0  0 0.025   1       0.025 0.0528 28.249
+
+== P_pair.null | rm_throat 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05   secs
+             ref_linda    40     0  0 0.000   0       0.000 0.0230  1.162
+               ref_ldm    40     0  0 0.000   0       0.000 0.0236  4.986
+             ref_adapt    40     0  0 0.000   0       0.000 0.0242  0.381
+           ref_zicoseq    40     0  0 0.000   0       0.000 0.0245 74.740
+ ref_logistic_presence    40     0  0 0.000   0       0.000 0.0290  0.382
+       ref_logistic_cr    40     0  0 0.025   1       0.025 0.0342  0.206
+            ref_ldm_cl    40     0  0 0.000   0       0.000 0.0457 42.739
+             eperm_c13    40     0  0 0.025   1       0.025 0.0485 11.375
+        ref_zicoseq_st    40     0  0 0.025   1       0.025 0.0504 76.600
+          ref_linda_re    40     0  0 0.075   1       0.025 0.0534 26.788
+
+== P_subj | hmp_gingiva 
+             candidate cells n_pos   TP   FP   FDR p_any_false  fpr05   secs
+             ref_adapt    20  20.6 2.60 1.55 0.373        0.40 0.0796  0.332
+ ref_logistic_presence    20  20.6 2.50 1.25 0.333        0.55 0.0777  0.195
+             ref_linda    20  20.6 2.45 1.45 0.372        0.50 0.0897  1.333
+           ref_zicoseq    20  20.6 1.80 1.20 0.400        0.50 0.0865 45.283
+               ref_ldm    20  20.6 1.50 1.20 0.444        0.25 0.0873 11.947
+             eperm_c13    20  20.6 1.45 0.35 0.194        0.20 0.0447  6.844
+          ref_linda_re    20  20.6 1.10 0.35 0.241        0.25 0.0515 15.636
+       ref_logistic_cr    20  20.6 0.65 0.00 0.000        0.00 0.0330  0.117
+            ref_ldm_cl    20  20.6 0.60 0.10 0.143        0.10 0.0491 19.267
+
+== P_subj | hmp_skin_ear 
+             candidate cells n_pos   TP   FP   FDR p_any_false  fpr05   secs
+             ref_linda    20  14.6 1.15 0.60 0.343        0.30 0.0803  1.314
+             ref_adapt    20  14.6 0.95 0.60 0.387        0.30 0.0814  0.254
+           ref_zicoseq    20  14.6 0.80 1.05 0.568        0.40 0.0784 33.399
+ ref_logistic_presence    20  14.6 0.75 0.80 0.516        0.40 0.0878  0.140
+               ref_ldm    20  14.6 0.65 1.05 0.618        0.15 0.0889  7.222
+             eperm_c13    20  14.6 0.60 0.30 0.333        0.10 0.0612  4.923
+          ref_linda_re    20  14.6 0.50 0.10 0.167        0.05 0.0541 11.202
+       ref_logistic_cr    20  14.6 0.25 0.00 0.000        0.00 0.0400  0.083
+            ref_ldm_cl    20  14.6 0.15 0.05 0.250        0.05 0.0586 18.699
+
+== P_subj | hmp_stool 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05    secs
+ ref_logistic_presence    20  69.8 9.20 7.00 0.4321        0.95 0.1065   1.200
+             ref_adapt    20  69.8 8.60 6.75 0.4397        0.85 0.1096   0.888
+             ref_linda    20  69.8 8.35 4.75 0.3626        0.90 0.1048   1.612
+           ref_zicoseq    20  69.8 8.05 6.10 0.4311        0.85 0.1038 160.421
+               ref_ldm    20  69.8 6.00 4.00 0.4000        0.85 0.1069  92.961
+             eperm_c13    20  69.8 4.05 0.50 0.1099        0.35 0.0476  11.536
+          ref_linda_re    20  69.8 3.50 0.10 0.0278        0.05 0.0503  52.598
+            ref_ldm_cl    20  69.8 1.90 0.05 0.0256        0.05 0.0513  26.546
+       ref_logistic_cr    20  69.8 0.80 0.00 0.0000        0.00 0.0367   0.507
+
+== P_subj | rm_baboon 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05    secs
+             ref_linda    20  55.8 9.20 1.05 0.1024        0.30 0.0653   1.568
+             ref_adapt    20  55.8 8.80 1.45 0.1415        0.45 0.0665   0.791
+ ref_logistic_presence    20  55.8 8.75 1.40 0.1379        0.65 0.0650   0.683
+          ref_linda_re    20  55.8 6.95 0.30 0.0414        0.15 0.0487  42.603
+             eperm_c13    20  55.8 6.85 0.40 0.0552        0.30 0.0496  15.115
+               ref_ldm    20  55.8 6.50 1.30 0.1667        0.25 0.0679  12.032
+           ref_zicoseq    20  55.8 5.85 0.90 0.1333        0.25 0.0700 125.889
+            ref_ldm_cl    20  55.8 4.25 1.10 0.2056        0.20 0.0553  25.086
+       ref_logistic_cr    20  55.8 1.10 0.00 0.0000        0.00 0.0384   0.425
+
+== P_subj | rm_buccal 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05   secs
+             ref_linda    20    36 5.85 2.70 0.3158        0.70 0.0920  1.470
+             ref_adapt    20    36 5.70 2.45 0.3006        0.65 0.0886  0.476
+ ref_logistic_presence    20    36 5.20 1.60 0.2353        0.60 0.0896  0.353
+               ref_ldm    20    36 4.30 2.95 0.4069        0.60 0.0925 27.462
+           ref_zicoseq    20    36 3.95 1.95 0.3305        0.65 0.0854 78.256
+             eperm_c13    20    36 3.75 0.40 0.0964        0.30 0.0491 11.568
+          ref_linda_re    20    36 3.70 0.55 0.1294        0.35 0.0565 28.421
+            ref_ldm_cl    20    36 2.10 0.40 0.1600        0.20 0.0569 21.784
+       ref_logistic_cr    20    36 0.80 0.00 0.0000        0.00 0.0439  0.324
+
+== P_subj | rm_throat 
+             candidate cells n_pos   TP   FP    FDR p_any_false  fpr05   secs
+             ref_adapt    20  34.6 6.25 1.40 0.1830        0.50 0.0804  0.444
+ ref_logistic_presence    20  34.6 6.00 1.20 0.1667        0.65 0.0814  0.322
+             ref_linda    20  34.6 5.70 1.15 0.1679        0.45 0.0852  1.464
+           ref_zicoseq    20  34.6 5.25 1.60 0.2336        0.45 0.0869 74.345
+             eperm_c13    20  34.6 4.65 0.35 0.0700        0.20 0.0363 13.247
+               ref_ldm    20  34.6 4.60 1.05 0.1858        0.35 0.0810  9.523
+          ref_linda_re    20  34.6 3.55 0.15 0.0405        0.10 0.0450 26.938
+            ref_ldm_cl    20  34.6 2.40 0.20 0.0769        0.10 0.0433 20.401
+       ref_logistic_cr    20  34.6 1.05 0.00 0.0000        0.00 0.0336  0.296
+
+== P_subj.null | hmp_gingiva 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05   secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0435  0.116
+             eperm_c13    40     0  0 0.225   1       0.050 0.0488  7.297
+          ref_linda_re    40     0  0 0.000   0       0.000 0.0515 15.550
+            ref_ldm_cl    40     0  0 0.000   0       0.000 0.0555 17.765
+             ref_linda    40     0  0 0.675   1       0.225 0.0954  1.294
+               ref_ldm    40     0  0 0.725   1       0.225 0.0958  8.090
+ ref_logistic_presence    40     0  0 0.975   1       0.275 0.0976  0.193
+             ref_adapt    40     0  0 0.650   1       0.225 0.0991  0.324
+           ref_zicoseq    40     0  0 0.850   1       0.275 0.1011 45.765
+
+== P_subj.null | hmp_skin_ear 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05    secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0347  0.0775
+             eperm_c13    40     0  0 0.550   1       0.150 0.0452  4.9815
+            ref_ldm_cl    40     0  0 0.025   1       0.025 0.0461 16.6930
+          ref_linda_re    40     0  0 0.000   0       0.000 0.0515 10.9370
+             ref_adapt    40     0  0 0.225   1       0.100 0.0696  0.2445
+               ref_ldm    40     0  0 0.075   1       0.075 0.0749  5.3655
+           ref_zicoseq    40     0  0 0.325   1       0.125 0.0755 32.0145
+ ref_logistic_presence    40     0  0 0.375   1       0.225 0.0772  0.1320
+             ref_linda    40     0  0 0.150   1       0.050 0.0801  1.2775
+
+== P_subj.null | hmp_stool 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05    secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0325   0.496
+             eperm_c13    40     0  0 0.000   0       0.000 0.0390  11.430
+            ref_ldm_cl    40     0  0 0.000   0       0.000 0.0440  21.772
+          ref_linda_re    40     0  0 0.025   1       0.025 0.0471  52.014
+ ref_logistic_presence    40     0  0 2.350   1       0.475 0.0936   0.957
+               ref_ldm    40     0  0 0.500   1       0.250 0.0961  25.442
+             ref_adapt    40     0  0 1.200   1       0.450 0.0967   0.879
+           ref_zicoseq    40     0  0 1.575   1       0.425 0.0988 159.361
+             ref_linda    40     0  0 0.800   1       0.400 0.0991   1.616
+
+== P_subj.null | rm_baboon 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05    secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0412   0.424
+          ref_linda_re    40     0  0 0.025   1       0.025 0.0496  42.136
+            ref_ldm_cl    40     0  0 0.150   1       0.075 0.0496  20.537
+             eperm_c13    40     0  0 1.125   1       0.125 0.0520  15.401
+           ref_zicoseq    40     0  0 0.425   1       0.125 0.0599 123.476
+               ref_ldm    40     0  0 0.650   1       0.100 0.0619   7.977
+             ref_adapt    40     0  0 0.825   1       0.125 0.0631   0.691
+             ref_linda    40     0  0 1.125   1       0.125 0.0653   1.526
+ ref_logistic_presence    40     0  0 0.675   1       0.075 0.0675   0.665
+
+== P_subj.null | rm_buccal 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05   secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0366  0.209
+             eperm_c13    40     0  0 0.225   1       0.075 0.0448 11.211
+            ref_ldm_cl    40     0  0 0.000   0       0.000 0.0506 18.942
+          ref_linda_re    40     0  0 0.050   1       0.025 0.0529 28.195
+ ref_logistic_presence    40     0  0 0.575   1       0.275 0.0773  0.426
+           ref_zicoseq    40     0  0 0.950   1       0.225 0.0808 78.483
+               ref_ldm    40     0  0 0.550   1       0.175 0.0829  7.337
+             ref_linda    40     0  0 1.000   1       0.175 0.0854  1.411
+             ref_adapt    40     0  0 0.700   1       0.200 0.0867  0.464
+
+== P_subj.null | rm_throat 
+             candidate cells n_pos TP    FP FDR p_any_false  fpr05   secs
+       ref_logistic_cr    40     0  0 0.000   0       0.000 0.0413  0.198
+          ref_linda_re    40     0  0 0.025   1       0.025 0.0508 27.049
+             eperm_c13    40     0  0 0.100   1       0.050 0.0515 12.775
+            ref_ldm_cl    40     0  0 0.025   1       0.025 0.0519 18.687
+ ref_logistic_presence    40     0  0 0.625   1       0.225 0.0902  0.364
+               ref_ldm    40     0  0 0.650   1       0.200 0.0917  7.602
+             ref_linda    40     0  0 0.600   1       0.125 0.0918  1.410
+             ref_adapt    40     0  0 1.000   1       0.175 0.0930  0.451
+           ref_zicoseq    40     0  0 1.425   1       0.250 0.0941 74.323
+
+errors (cells):
+                
+                 not applicable: exposure is fixed per subject (ZicoSeq permutes within
+  ref_zicoseq_st                                                                    360
