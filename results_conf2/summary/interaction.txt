@@ -1,0 +1,47 @@
+methods: adapt, fastancom, ldm, limma_logtss, linda, lm_logtss, logistic_presence, pursue, pursue03_epermc13, wilcoxon_tss, zicoseq 
+
+===== y_fdr =====
+Data: A
+Models:
+f0: y_fdr ~ method + simulator + method * regime_id + (1 | template)
+f1: y_fdr ~ method * simulator + method * regime_id + (1 | template)
+   npar   AIC   BIC  logLik -2*log(L)  Chisq Df Pr(>Chisq)    
+f0  292 11689 13609 -5552.7     11105                         
+f1  332 11580 13762 -5458.0     10916 189.47 40  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+            method fragility_sd_across_simulators
+ pursue03_epermc13                      0.2034384
+           zicoseq                      0.2294714
+            pursue                      0.2635509
+             adapt                      0.2995756
+         fastancom                      0.4328108
+ logistic_presence                      0.4614503
+      wilcoxon_tss                      0.4932446
+               ldm                      0.5595630
+             linda                      0.6441183
+      limma_logtss                      0.6546347
+         lm_logtss                      0.7003251
+
+===== y_tpr =====
+Data: A
+Models:
+f0: y_tpr ~ method + simulator + method * regime_id + (1 | template)
+f1: y_tpr ~ method * simulator + method * regime_id + (1 | template)
+   npar   AIC   BIC  logLik -2*log(L) Chisq Df Pr(>Chisq)    
+f0  277 13190 14993 -6318.0     12636                        
+f1  317 12755 14819 -6060.4     12121 515.2 40  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+            method fragility_sd_across_simulators
+            pursue                      0.5822673
+         fastancom                      0.8907763
+ pursue03_epermc13                      1.0935246
+               ldm                      1.1462668
+           zicoseq                      1.1950271
+      wilcoxon_tss                      1.2586473
+             adapt                      1.2732703
+      limma_logtss                      1.2925927
+             linda                      1.3059622
+         lm_logtss                      1.3175573
+ logistic_presence                      1.4018880
