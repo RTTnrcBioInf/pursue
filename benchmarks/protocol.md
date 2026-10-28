@@ -430,3 +430,12 @@ and end times, and the protocol version.
   freshwater, Parkinson's, ASD) keep the spread of effect strengths (strong CDI; moderate GEMS1, Arctic; weak PD, ASD)
   and platforms (454, HiSeq, MiSeq). ASD Dan2020's 139 controls are age- and sex-matched, one per case (139 match ids),
   not siblings (Robert).
+- 2026-10-28 — **conf2 ran to the end on the tagged code** (`conf2-code` = 85c4ea79; frozen = yes at every stage;
+  finished 2026-10-28 04:39). Two recorded deviations, neither touching a method, simulator, template or the candidate:
+  (1) **Axis C:** 22 of 2 000 cells were killed for memory — all `nullperm` on `mbd_gingival_v35` (full 8, depth
+  quintile 5, stratified 5, cluster 4; 19–23 GB each against the scheduler's 8 GB first estimate, under the shared 90 GB
+  cap). Re-run with the same code and seed and at most 3 cells at a time (conf1 lost 18 of the same cells). (2) **Axis D,
+  measured load:** the scoring stopped with an error for the 7 methods that report no effect estimate in some arm
+  (PURSUE 0.2, ANCOM-BC2, MaAsLin 3, corncob, LDM, LOCOM2, ZicoSeq): the Spearman correlation of an all-NA vector. It now
+  returns NA there (`run_axisDE.R`, one expression); only those 7 Vandeputte jobs are re-run (`hpc/run_conf2_qmpfix.sh`,
+  same seed, every other file as tagged). The other metrics are unchanged; the other 11 methods' outputs are kept.

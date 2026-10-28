@@ -84,7 +84,7 @@ if (opt$axis == "D" && isTRUE(opt$qmp)) {
     file.rename(tmp, tf) }
   cat(sprintf(">> load-scaled truth: %d taxa tested, %d in the reference set, %d of them with opposite relative direction\n", nrow(X), sum(ref), sum(dis)))
   est_class <- method_registry()$estimand; names(est_class) <- method_registry()$id
-  rows <- list()
+  rows <- list()   # conf2 deviation (protocol 13, 2026-10-28): Spearman is NA for an arm without estimates (it stopped the job)
   for (mid in methods) {
     run <- run_method(mid, d$counts, d$meta, ~ group, "group"); r <- run$result
     for (arm in unique(r$arm)) { ra <- r[r$arm == arm, ]; i <- match(rownames(X), ra$feature); sig <- !is.na(ra$q[i]) & ra$q[i] <= 0.05
@@ -92,7 +92,7 @@ if (opt$axis == "D" && isTRUE(opt$qmp)) {
       rows[[length(rows) + 1L]] <- data.frame(axis = "D", template = opt$template, contrast = paste(rev(levels(md$group)), collapse = " vs "),
         method = mid, estimand = unname(est_class[mid]), arm = arm, n_tested = sum(is.finite(ra$p[i])), n_calls = sum(sig),
         sign_agreement = if (any(se)) mean(sign(est[se]) == sign(lfc_abs[se])) else NA, recall_reference = sum(sig & ref) / max(sum(ref), 1),
-        calls_outside_reference = sum(sig & !ref), spearman_lfc_abs = suppressWarnings(stats::cor(est, lfc_abs, method = "spearman", use = "complete.obs")),
+        calls_outside_reference = sum(sig & !ref), spearman_lfc_abs = if (sum(is.finite(est) & is.finite(lfc_abs)) >= 3L) suppressWarnings(stats::cor(est, lfc_abs, method = "spearman", use = "complete.obs")) else NA,
         disagree_called = sum(sig & dis), disagree_absolute_direction = if (any(sd_)) mean(sign(est[sd_]) == sign(lfc_abs[sd_])) else NA,
         disagree_any_called = sum(sig & disall), disagree_any_absolute_direction = if (any(sa_)) mean(sign(est[sa_]) == sign(lfc_abs[sa_])) else NA,
         runtime_s = run$runtime_s) }
