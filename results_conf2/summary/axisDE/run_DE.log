@@ -890,3 +890,30 @@ contrast: bacterial_vaginosis vs healthy
             pursue  combined      5  64.6           30.70        0.000
             pursue  presence      5   8.4            2.86        0.000
           ancombc2    single      5   0.0             NaN          NaN
+[main d27ff18c] axes D/E confirmation run (conf2, seed 20261021): comparators + pursue03_epermc13
+ 21 files changed, 3299 insertions(+)
+ create mode 100644 results_conf2/summary/axisDE/D__d2_vandeputte__qmp.csv
+ create mode 100644 results_conf2/summary/axisDE/D__mbd_gingival_v35__biotruth.csv
+ create mode 100644 results_conf2/summary/axisDE/D__mbd_ravel_bv__biotruth.csv
+ create mode 100644 results_conf2/summary/axisDE/D__mbd_stammler_spikein__spikein.csv
+ create mode 100644 results_conf2/summary/axisDE/E__crc_genus__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_arctic_freshwater__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_asd_dan2020__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_cdi_schubert__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_bangladesh-vs-e2_gems1_gambia__crossstudy.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_bangladesh-vs-e2_gems1_kenya__crossstudy.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_bangladesh-vs-e2_gems1_mali__crossstudy.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_bangladesh__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_gambia__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_kenya-vs-e2_gems1_gambia__crossstudy.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_kenya-vs-e2_gems1_mali__crossstudy.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_kenya__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_mali-vs-e2_gems1_gambia__crossstudy.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_gems1_mali__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__e2_par_scheperjans__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/E__risk_ileum__replicability.csv
+ create mode 100644 results_conf2/summary/axisDE/run_DE.log
+Current branch main is up to date.
+To github.com:RTTnrcBioInf/pursue.git
+   85c4ea79..d27ff18c  main -> main
+>> done: 353 ok, 7 failed

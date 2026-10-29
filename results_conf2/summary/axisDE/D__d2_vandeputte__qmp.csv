@@ -1,12 +1,23 @@
 "axis","template","contrast","method","estimand","arm","n_tested","n_calls","sign_agreement","recall_reference","calls_outside_reference","spearman_lfc_abs","disagree_called","disagree_absolute_direction","disagree_any_called","disagree_any_absolute_direction","runtime_s"
 "D","d2_vandeputte","CD vs healthy","adapt","absolute","single",674,146,0.924657534246575,0.327433628318584,35,0.618655728051366,1,0,10,0,0.901000000000001
 "D","d2_vandeputte","CD vs healthy","aldex2","relative","single",674,84,0.0119047619047619,0.23598820058997,4,-0.938898956451789,0,NA,1,1,22.508
+"D","d2_vandeputte","CD vs healthy","ancombc2","absolute","single",0,0,NA,0,0,NA,0,NA,0,NA,0.093
+"D","d2_vandeputte","CD vs healthy","corncob","relative","single",599,252,NA,0.427728613569322,107,NA,0,NA,16,NA,23.276
 "D","d2_vandeputte","CD vs healthy","fastancom","absolute","single",674,178,0.955056179775281,0.386430678466077,47,0.964013876090102,0,NA,6,0,0.0860000000000001
 "D","d2_vandeputte","CD vs healthy","fastemu","absolute","single",674,20,0.85,0.0471976401179941,4,0.376343020450025,0,NA,3,0,2987.186
+"D","d2_vandeputte","CD vs healthy","ldm","relative","single",674,323,NA,0.793510324483776,54,NA,0,NA,6,NA,43.328
 "D","d2_vandeputte","CD vs healthy","limma_logtss","relative","single",674,175,1,0.457227138643068,20,0.964013876090102,0,NA,0,NA,0.056
 "D","d2_vandeputte","CD vs healthy","linda","absolute","single",674,199,0.964824120603015,0.469026548672566,40,0.965621002062993,0,NA,7,0,0.599
 "D","d2_vandeputte","CD vs healthy","lm_logtss","relative","single",674,177,1,0.457227138643068,22,0.964013876090102,0,NA,0,NA,0.043
 "D","d2_vandeputte","CD vs healthy","locom","relative","single",674,173,0.658959537572254,0.309734513274336,68,0.429053793973683,1,0,16,0,80.534
+"D","d2_vandeputte","CD vs healthy","locom2","relative","single",0,0,NA,0,0,NA,0,NA,0,NA,59.043
 "D","d2_vandeputte","CD vs healthy","logistic_presence","prevalence","single",662,299,0.989966555183946,0.8023598820059,27,0.594647716021592,0,NA,4,0.5,1.084
+"D","d2_vandeputte","CD vs healthy","maaslin3","absolute","abundance",599,38,0.815789473684211,0.0825958702064897,10,0.440512671621041,0,NA,3,0,16.549
+"D","d2_vandeputte","CD vs healthy","maaslin3","absolute","presence",668,74,1,0.218289085545723,0,0.596519481458487,0,NA,0,NA,16.549
+"D","d2_vandeputte","CD vs healthy","maaslin3","absolute","combined",674,96,NA,0.253687315634218,10,NA,0,NA,3,NA,16.549
+"D","d2_vandeputte","CD vs healthy","pursue","absolute","abundance",599,70,0.885714285714286,0.171091445427729,12,0.440596925756975,0,NA,2,0,27.695
+"D","d2_vandeputte","CD vs healthy","pursue","absolute","presence",662,65,0.969230769230769,0.176991150442478,5,0.512415979290222,0,NA,2,0.5,27.695
+"D","d2_vandeputte","CD vs healthy","pursue","absolute","combined",674,121,NA,0.31858407079646,13,NA,0,NA,3,NA,27.695
 "D","d2_vandeputte","CD vs healthy","pursue03_epermc13","absolute","single",674,211,0.853080568720379,0.442477876106195,61,0.579798364596668,1,0,14,0,22.266
 "D","d2_vandeputte","CD vs healthy","wilcoxon_tss","relative","single",674,286,0.937062937062937,0.828908554572271,5,0.357835008566002,0,NA,1,1,0.359
+"D","d2_vandeputte","CD vs healthy","zicoseq","relative","single",674,184,NA,0.247787610619469,100,NA,1,NA,35,NA,144.843
