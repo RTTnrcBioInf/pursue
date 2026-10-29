@@ -1,0 +1,267 @@
+>> hpc/tasks_conf2/axisC_retry.txt
+>> RAM 147330MB total, budget 82944MB (75%), floor 8192MB, max 3 jobs
+>> learned memory for 0 cell classes from logs/*.mem (reserve 125% of observed, default 8192MB)
+>> 200 cells, started 2026-10-29 15:37:51
+.. 2026-10-29 15:37:51  running 0/3  reserved 0/82944MB  used 18629MB  avail 128701MB  done 0  pending 200
+skip  C__nullperm__mbd_gingival_v35__full__r001__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r003__conf2
+.. 2026-10-29 15:47:51  running 3/3  reserved 24576/82944MB  used 46950MB  avail 100380MB  done 0  pending 195
+.. 2026-10-29 15:57:51  running 3/3  reserved 24576/82944MB  used 56197MB  avail 91133MB  done 0  pending 195
+ok    C__nullperm__mbd_gingival_v35__full__r002__conf2  1629s  est 8192MB used 19511MB
+ok    C__nullperm__mbd_gingival_v35__full__r005__conf2  1657s  est 8192MB used 21811MB
+ok    C__nullperm__mbd_gingival_v35__full__r004__conf2  1734s  est 8192MB used 20178MB
+.. 2026-10-29 16:07:51  running 3/3  reserved 78917/82944MB  used 24789MB  avail 122541MB  done 3  pending 192
+.. 2026-10-29 16:17:53  running 3/3  reserved 78917/82944MB  used 51741MB  avail 95589MB  done 3  pending 192
+.. 2026-10-29 16:27:53  running 3/3  reserved 78917/82944MB  used 56390MB  avail 90940MB  done 3  pending 192
+ok    C__nullperm__mbd_gingival_v35__full__r006__conf2  1585s  est 24389MB used 23030MB
+skip  C__nullperm__mbd_gingival_v35__full__r011__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r012__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r013__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r014__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r015__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r016__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r017__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r018__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r019__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r020__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r021__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r022__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r023__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r024__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r025__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r026__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r027__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r028__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r029__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r030__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r031__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r032__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r033__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r034__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r035__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r036__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r037__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r038__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r039__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r040__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r041__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r042__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r043__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r044__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r045__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r046__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r047__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r048__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r049__conf2
+skip  C__nullperm__mbd_gingival_v35__full__r050__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r001__conf2
+ok    C__nullperm__mbd_gingival_v35__full__r007__conf2  1602s  est 27264MB used 23251MB
+ok    C__nullperm__mbd_gingival_v35__full__r008__conf2  1632s  est 27264MB used 20039MB
+.. 2026-10-29 16:37:53  running 3/3  reserved 66320/82944MB  used 22024MB  avail 125306MB  done 6  pending 148
+.. 2026-10-29 16:47:53  running 3/3  reserved 66320/82944MB  used 51752MB  avail 95578MB  done 6  pending 148
+.. 2026-10-29 16:57:53  running 3/3  reserved 66320/82944MB  used 51099MB  avail 96231MB  done 6  pending 148
+ok    C__nullperm__mbd_gingival_v35__full__r009__conf2  1542s  est 29064MB used 19233MB
+ok    C__nullperm__mbd_gingival_v35__stratified__r002__conf2  2043s  est 8192MB used 22132MB
+skip  C__nullperm__mbd_gingival_v35__stratified__r004__conf2
+.. 2026-10-29 17:07:55  running 3/3  reserved 64922/82944MB  used 34112MB  avail 113218MB  done 8  pending 145
+ok    C__nullperm__mbd_gingival_v35__full__r010__conf2  2072s  est 29064MB used 19415MB
+.. 2026-10-29 17:17:55  running 3/3  reserved 63524/82944MB  used 52317MB  avail 95013MB  done 9  pending 144
+ok    C__nullperm__mbd_gingival_v35__stratified__r003__conf2  1654s  est 8192MB used 20116MB
+skip  C__nullperm__mbd_gingival_v35__stratified__r007__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r009__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r010__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r011__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r012__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r013__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r014__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r015__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r016__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r017__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r018__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r019__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r020__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r021__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r022__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r023__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r024__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r025__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r026__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r027__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r028__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r029__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r030__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r031__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r032__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r033__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r034__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r035__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r036__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r037__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r038__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r039__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r040__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r041__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r042__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r043__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r044__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r045__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r046__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r047__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r048__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r049__conf2
+skip  C__nullperm__mbd_gingival_v35__stratified__r050__conf2
+.. 2026-10-29 17:27:55  running 3/3  reserved 63524/82944MB  used 43510MB  avail 103820MB  done 10  pending 100
+ok    C__nullperm__mbd_gingival_v35__stratified__r005__conf2  1716s  est 27666MB used 20119MB
+ok    C__nullperm__mbd_gingival_v35__stratified__r006__conf2  1545s  est 27666MB used 21752MB
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r002__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r003__conf2
+.. 2026-10-29 17:37:55  running 3/3  reserved 44050/82944MB  used 30356MB  avail 116974MB  done 12  pending 96
+.. 2026-10-29 17:47:57  running 3/3  reserved 44050/82944MB  used 56925MB  avail 90405MB  done 12  pending 96
+ok    C__nullperm__mbd_gingival_v35__depth_quintile__r001__conf2  1680s  est 8192MB used 19369MB
+.. 2026-10-29 17:57:57  running 3/3  reserved 60070/82944MB  used 53606MB  avail 93724MB  done 13  pending 95
+ok    C__nullperm__mbd_gingival_v35__depth_quintile__r004__conf2  1518s  est 8192MB used 20091MB
+ok    C__nullperm__mbd_gingival_v35__stratified__r008__conf2  1592s  est 27666MB used 19560MB
+.. 2026-10-29 18:07:57  running 3/3  reserved 74440/82944MB  used 35828MB  avail 111502MB  done 15  pending 93
+.. 2026-10-29 18:17:57  running 3/3  reserved 74440/82944MB  used 63964MB  avail 83366MB  done 15  pending 93
+ok    C__nullperm__mbd_gingival_v35__depth_quintile__r005__conf2  1587s  est 24212MB used 19616MB
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r008__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r009__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r010__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r011__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r012__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r013__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r014__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r015__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r016__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r017__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r018__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r019__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r020__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r021__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r022__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r023__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r024__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r025__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r026__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r027__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r028__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r029__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r030__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r031__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r032__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r033__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r034__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r035__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r036__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r037__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r038__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r039__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r040__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r041__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r042__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r043__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r044__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r045__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r046__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r047__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r048__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r049__conf2
+skip  C__nullperm__mbd_gingival_v35__depth_quintile__r050__conf2
+ok    C__nullperm__mbd_gingival_v35__depth_quintile__r007__conf2  1536s  est 25114MB used 19138MB
+skip  C__nullperm__mbd_gingival_v35__cluster__r002__conf2
+.. 2026-10-29 18:27:57  running 3/3  reserved 41498/82944MB  used 33766MB  avail 113564MB  done 17  pending 47
+ok    C__nullperm__mbd_gingival_v35__depth_quintile__r006__conf2  1711s  est 25114MB used 21933MB
+.. 2026-10-29 18:37:59  running 3/3  reserved 24576/82944MB  used 49132MB  avail 98198MB  done 18  pending 46
+ok    C__nullperm__mbd_gingival_v35__cluster__r001__conf2  1637s  est 8192MB used 19019MB
+.. 2026-10-29 18:47:59  running 3/3  reserved 40158/82944MB  used 52881MB  avail 94449MB  done 19  pending 45
+ok    C__nullperm__mbd_gingival_v35__cluster__r003__conf2  1642s  est 8192MB used 21183MB
+skip  C__nullperm__mbd_gingival_v35__cluster__r006__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r007__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r008__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r009__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r010__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r011__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r012__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r013__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r014__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r015__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r016__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r017__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r018__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r019__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r020__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r021__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r022__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r023__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r024__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r025__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r026__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r027__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r028__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r029__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r030__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r031__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r032__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r033__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r034__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r035__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r036__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r037__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r038__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r039__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r040__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r041__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r042__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r043__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r044__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r045__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r046__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r047__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r048__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r049__conf2
+skip  C__nullperm__mbd_gingival_v35__cluster__r050__conf2
+ok    C__nullperm__mbd_gingival_v35__cluster__r004__conf2  1721s  est 8192MB used 20294MB
+.. 2026-10-29 18:57:59  running 1/3  reserved 23774/82944MB  used 25931MB  avail 121399MB  done 21  pending 0
+.. 2026-10-29 19:07:59  running 1/3  reserved 23774/82944MB  used 29643MB  avail 117687MB  done 21  pending 0
+ok    C__nullperm__mbd_gingival_v35__cluster__r005__conf2  1661s  est 23774MB used 19149MB
+>> finished 2026-10-29 19:15:04; peak concurrency 3, 178 skipped
+>> 13900 cells have results; 3400 not producible by that simulator.
+>> Re-run this command to retry anything that failed.
+
+realised feature count per simulator/template, m factor (requested 200/500/1000):
+                     R04  R00  R05
+house / hmp_gingiva  200  500 1000
+house / hmp_skin_ear 200  500 1000
+house / hmp_stool    200  500 1000
+house / hmp_vagina   200  500 1000
+house / risk_stool   200  500 1000
+mid / hmp_gingiva    200  364  364
+mid / hmp_skin_ear   200  307  307
+mid / hmp_stool      200  500 1000
+mid / hmp_vagina     200  374  374
+mid / risk_stool     200  500 1000
+msq / hmp_gingiva    200  364  364
+msq / hmp_skin_ear   200  307  307
+msq / hmp_stool      200  500 1000
+msq / hmp_vagina     200  374  374
+msq / risk_stool     200  500 1000
+sd2 / hmp_gingiva     NA  364   NA
+sd2 / hmp_skin_ear    NA  307   NA
+sd2 / hmp_stool       NA 1295   NA
+sd2 / hmp_vagina      NA  374   NA
+sd2 / risk_stool      NA 2044   NA
+sps / hmp_gingiva    200  363  363
+sps / hmp_skin_ear   200  306  306
+sps / hmp_stool      200  500 1000
+sps / hmp_vagina     200  373  373
+sps / risk_stool     200  500 1000
+  !! m is NOT estimable on: mid / hmp_gingiva, mid / hmp_skin_ear, mid / hmp_vagina, msq / hmp_gingiva, msq / hmp_skin_ear, msq / hmp_vagina, sps / hmp_gingiva, sps / hmp_skin_ear, sps / hmp_vagina
+     (levels collapse to the same feature count). Drop these from any m contrast.
+  4420 of 10370 axis-A cells ran at a clamped m.
+13900 cells, 361384 rows
+axis A : 1261 summary rows
+axis B : 182 summary rows
+axis C : 53 summary rows
+fixed-effect model matrix is rank deficient so dropping 4 columns / coefficients
+fixed-effect model matrix is rank deficient so dropping 4 columns / coefficients
+interaction analysis -> summary/interaction.txt

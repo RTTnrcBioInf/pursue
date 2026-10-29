@@ -1,1 +1,2 @@
 master_seed=20261021 lead=pursue03_epermc13 code=conf2-code@85c4ea79 frozen=yes stages=DE RM AC methods_AC=pursue03_epermc13,pursue,zicoseq,adapt,ldm,linda,wilcoxon_tss,logistic_presence,limma_logtss,lm_logtss,fastancom rm_candidates=eperm_c13,ref_linda,ref_linda_re,ref_ldm,ref_ldm_cl,ref_zicoseq,ref_zicoseq_st,ref_adapt,ref_logistic_presence,ref_logistic_cr rm_templates=hmp_stool,hmp_gingiva,hmp_skin_ear,rm_buccal,rm_throat,rm_baboon finished=2026-10-28 04:39:16
+retry 2026-10-29: axis C gingival nullperm, same code and seed, at most 3 at a time: 22 ok, 0 failed
