@@ -1,0 +1,10 @@
+nohup: ignoring input
+fastEmu 2.0.1 | one fit at n = 100, m = 500, defaults, started 08:21:37
+
+  8.5 min for one m = 500 cell
+  reference set actually used: 2 taxa
+
+  Full grid (17 300 cells): 2457 CPU-hours, 2 days at 44 cores.
+  Proposed slice (~300 cells): 43 CPU-hours, 1.0 hours at 44 cores.
+
+  The sixteen other methods measured 1461 CPU-hours for all of axis A.
