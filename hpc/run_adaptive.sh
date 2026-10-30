@@ -178,7 +178,10 @@ while [ "$PENDING" -gt 0 ] || [ "${#PID_ID[@]}" -gt 0 ]; do
         picked=$j; break
       fi
     done
-    [ "$picked" -lt 0 ] && break
+    # skipped (already done) cells move the window on as well: a resumed list whose first WINDOW cells were all done
+    # otherwise stalled for good with nothing running (2026-10-29, conf2's axis C retry)
+    h0=$head; while [ "$head" -lt "$total" ] && [ "${TAKEN[$head]}" -eq 1 ]; do head=$((head+1)); done
+    if [ "$picked" -lt 0 ]; then [ "$head" -gt "$h0" ] && continue; break; fi
     line="${LINES[$picked]}"; id_of "$line"; id=$_ID; est_of "$id"; est=$_EST
     [ "$est" -gt "$BUDGET_MB" ] && est=$BUDGET_MB
     TAKEN[$picked]=1; PENDING=$((PENDING-1))
