@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair","mix-rm_buccal-rm_throat",1,"eperm_c12","paired",340,29,340,4,4,0,311,8,10.9120000000003,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"eperm_c13","paired",340,29,340,4,4,0,311,14,9.90500000000065,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"eperm_c13lin","paired",340,29,340,4,4,0,311,14,10.6050000000005,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"eperm_c13lf","paired",340,29,340,4,4,0,311,14,12.1289999999999,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"eperm_c13fx","paired",340,29,340,4,4,0,311,14,12.0109999999995,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"eperm_c13ns","paired",340,29,340,4,4,0,311,14,9.41299999999956,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"eperm_c13g0","paired",340,29,340,4,4,0,311,9,1.28399999999965,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"ref_linda_re","paired",340,29,340,4,4,0,311,17,24.1410000000005,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"ref_zicoseq_st","paired",340,29,340,2,2,0,311,11,70.9100000000008,NA
+"P_pair","mix-rm_buccal-rm_throat",1,"ref_ldm_cl","paired",340,29,340,1,1,0,311,20,46.4410000000007,NA

@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","rm_buccal",32,"eperm_c12","paired",391,0,390,0,0,0,390,4,12.2250000000004,NA
+"P_pair.null","rm_buccal",32,"eperm_c13","paired",391,0,391,0,0,0,391,14,10.6310000000003,NA
+"P_pair.null","rm_buccal",32,"eperm_c13lin","paired",391,0,391,0,0,0,391,14,11.6019999999999,NA
+"P_pair.null","rm_buccal",32,"eperm_c13lf","paired",391,0,391,0,0,0,391,14,13.027,NA
+"P_pair.null","rm_buccal",32,"eperm_c13fx","paired",391,0,391,0,0,0,391,11,12.098,NA
+"P_pair.null","rm_buccal",32,"eperm_c13ns","paired",391,0,391,0,0,0,391,14,10.3530000000001,NA
+"P_pair.null","rm_buccal",32,"eperm_c13g0","paired",391,0,391,0,0,0,391,21,1.45000000000073,NA
+"P_pair.null","rm_buccal",32,"ref_linda_re","paired",391,0,391,0,0,0,391,20,29.0520000000006,NA
+"P_pair.null","rm_buccal",32,"ref_zicoseq_st","paired",391,0,391,0,0,0,391,16,84.6729999999998,NA
+"P_pair.null","rm_buccal",32,"ref_ldm_cl","paired",391,0,391,0,0,0,391,21,92.4979999999996,NA

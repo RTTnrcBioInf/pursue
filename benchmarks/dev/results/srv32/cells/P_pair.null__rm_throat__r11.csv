@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","rm_throat",11,"eperm_c12","paired",351,0,351,0,0,0,351,3,11.6480000000001,NA
+"P_pair.null","rm_throat",11,"eperm_c13","paired",351,0,351,0,0,0,351,12,1.83500000000004,NA
+"P_pair.null","rm_throat",11,"eperm_c13lin","paired",351,0,351,0,0,0,351,12,1.76299999999992,NA
+"P_pair.null","rm_throat",11,"eperm_c13lf","paired",351,0,351,0,0,0,351,12,4.22800000000007,NA
+"P_pair.null","rm_throat",11,"eperm_c13fx","paired",351,0,351,0,0,0,351,12,4.20700000000011,NA
+"P_pair.null","rm_throat",11,"eperm_c13ns","paired",351,0,351,0,0,0,351,12,2.79500000000007,NA
+"P_pair.null","rm_throat",11,"eperm_c13g0","paired",351,0,351,0,0,0,351,10,0.907999999999902,NA
+"P_pair.null","rm_throat",11,"ref_linda_re","paired",351,0,351,0,0,0,351,8,26.5940000000001,NA
+"P_pair.null","rm_throat",11,"ref_zicoseq_st","paired",351,0,351,0,0,0,351,13,75.1010000000001,NA
+"P_pair.null","rm_throat",11,"ref_ldm_cl","paired",351,0,351,0,0,0,351,12,16.809,NA

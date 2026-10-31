@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","hmp_tongue",4,"eperm_c12","paired",278,0,278,0,0,0,278,3,13.809,NA
+"P_pair.null","hmp_tongue",4,"eperm_c13","paired",278,0,278,0,0,0,278,12,9.81799999999998,NA
+"P_pair.null","hmp_tongue",4,"eperm_c13lin","paired",278,0,278,0,0,0,278,12,10.538,NA
+"P_pair.null","hmp_tongue",4,"eperm_c13lf","paired",278,0,278,0,0,0,278,12,11.433,NA
+"P_pair.null","hmp_tongue",4,"eperm_c13fx","paired",278,0,278,0,0,0,278,12,3.077,NA
+"P_pair.null","hmp_tongue",4,"eperm_c13ns","paired",278,0,278,0,0,0,278,12,9.33699999999999,NA
+"P_pair.null","hmp_tongue",4,"eperm_c13g0","paired",278,0,278,0,0,0,278,9,1.077,NA
+"P_pair.null","hmp_tongue",4,"ref_linda_re","paired",278,0,278,0,0,0,278,12,21.163,NA
+"P_pair.null","hmp_tongue",4,"ref_zicoseq_st","paired",278,0,278,0,0,0,278,8,59.172,NA
+"P_pair.null","hmp_tongue",4,"ref_ldm_cl","paired",278,0,278,0,0,0,278,10,43.757,NA

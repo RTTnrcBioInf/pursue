@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","thin-hmp_tongue",18,"eperm_c12","paired",197,0,197,0,0,0,197,4,14.4110000000001,NA
+"P_pair.null","thin-hmp_tongue",18,"eperm_c13","paired",197,0,197,0,0,0,197,10,5.90099999999984,NA
+"P_pair.null","thin-hmp_tongue",18,"eperm_c13lin","paired",197,0,197,0,0,0,197,10,5.8119999999999,NA
+"P_pair.null","thin-hmp_tongue",18,"eperm_c13lf","paired",197,0,197,0,0,0,197,9,10.7220000000002,NA
+"P_pair.null","thin-hmp_tongue",18,"eperm_c13fx","paired",197,0,197,0,0,0,197,11,3.53099999999995,NA
+"P_pair.null","thin-hmp_tongue",18,"eperm_c13ns","paired",197,0,197,0,0,0,197,10,5.59900000000016,NA
+"P_pair.null","thin-hmp_tongue",18,"eperm_c13g0","paired",197,0,197,0,0,0,197,8,1.05700000000024,NA
+"P_pair.null","thin-hmp_tongue",18,"ref_linda_re","paired",197,0,197,0,0,0,197,17,14.8420000000001,NA
+"P_pair.null","thin-hmp_tongue",18,"ref_zicoseq_st","paired",197,0,197,0,0,0,197,12,44.5519999999997,NA
+"P_pair.null","thin-hmp_tongue",18,"ref_ldm_cl","paired",197,0,197,0,0,0,197,11,53.3919999999998,NA

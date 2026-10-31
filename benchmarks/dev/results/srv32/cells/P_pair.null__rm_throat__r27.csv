@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","rm_throat",27,"eperm_c12","paired",345,0,345,0,0,0,345,5,14.6009999999997,NA
+"P_pair.null","rm_throat",27,"eperm_c13","paired",345,0,345,0,0,0,345,19,1.77500000000009,NA
+"P_pair.null","rm_throat",27,"eperm_c13lin","paired",345,0,345,0,0,0,345,19,1.72299999999996,NA
+"P_pair.null","rm_throat",27,"eperm_c13lf","paired",345,0,345,0,0,0,345,19,12.9470000000001,NA
+"P_pair.null","rm_throat",27,"eperm_c13fx","paired",345,0,345,0,0,0,345,19,11.8160000000003,NA
+"P_pair.null","rm_throat",27,"eperm_c13ns","paired",345,0,345,0,0,0,345,19,1.60799999999972,NA
+"P_pair.null","rm_throat",27,"eperm_c13g0","paired",345,0,345,0,0,0,345,19,0.891999999999825,NA
+"P_pair.null","rm_throat",27,"ref_linda_re","paired",345,0,345,0,0,0,345,9,25.1559999999999,NA
+"P_pair.null","rm_throat",27,"ref_zicoseq_st","paired",345,0,345,0,0,0,345,11,74.5570000000002,NA
+"P_pair.null","rm_throat",27,"ref_ldm_cl","paired",345,0,345,0,0,0,345,17,50.2220000000002,NA

@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair","mix-hmp_tongue-rm_buccal",6,"eperm_c12","paired",327,33,327,10,10,0,294,4,10.4620000000004,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"eperm_c13","paired",327,33,327,11,10,1,294,7,10.7530000000006,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"eperm_c13lin","paired",327,33,327,11,10,1,294,7,11.4100000000008,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"eperm_c13lf","paired",327,33,327,11,10,1,294,7,12.0480000000007,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"eperm_c13fx","paired",327,33,327,11,10,1,294,7,11.8130000000001,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"eperm_c13ns","paired",327,33,327,11,10,1,294,7,10.1710000000003,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"eperm_c13g0","paired",327,33,327,9,9,0,294,8,1.29500000000007,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"ref_linda_re","paired",327,33,327,11,11,0,294,13,23.2939999999999,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"ref_zicoseq_st","paired",327,33,327,0,0,0,294,10,70.7380000000003,NA
+"P_pair","mix-hmp_tongue-rm_buccal",6,"ref_ldm_cl","paired",327,33,327,3,3,0,294,9,47.1099999999997,NA

@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"eperm_c12","paired",318,0,318,0,0,0,318,3,13.364,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"eperm_c13","paired",318,0,318,0,0,0,318,4,10.4879999999998,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"eperm_c13lin","paired",318,0,318,0,0,0,318,4,1.47399999999971,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"eperm_c13lf","paired",318,0,318,0,0,0,318,4,3.55799999999999,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"eperm_c13fx","paired",318,0,318,0,0,0,318,4,3.45700000000033,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"eperm_c13ns","paired",318,0,318,0,0,0,318,4,9.0920000000001,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"eperm_c13g0","paired",318,0,318,0,0,0,318,5,0.849999999999909,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"ref_linda_re","paired",318,0,318,0,0,0,318,11,23.6610000000001,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"ref_zicoseq_st","paired",318,0,318,0,0,0,318,7,66.5879999999997,NA
+"P_pair.null","mix-hmp_tongue-rm_buccal",19,"ref_ldm_cl","paired",318,0,318,0,0,0,318,6,19.3969999999999,NA

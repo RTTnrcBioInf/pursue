@@ -1,0 +1,11 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","rm_baboon",19,"eperm_c12","paired",580,0,580,0,0,0,580,16,15.223,NA
+"P_pair.null","rm_baboon",19,"eperm_c13","paired",580,0,580,0,0,0,580,27,10.7370000000001,NA
+"P_pair.null","rm_baboon",19,"eperm_c13lin","paired",580,0,580,0,0,0,580,27,9.38899999999967,NA
+"P_pair.null","rm_baboon",19,"eperm_c13lf","paired",580,0,580,0,0,0,580,27,12.3620000000001,NA
+"P_pair.null","rm_baboon",19,"eperm_c13fx","paired",580,0,580,0,0,0,580,27,12.4079999999999,NA
+"P_pair.null","rm_baboon",19,"eperm_c13ns","paired",580,0,580,0,0,0,580,27,9.38699999999972,NA
+"P_pair.null","rm_baboon",19,"eperm_c13g0","paired",580,0,580,0,0,0,580,24,1.83199999999988,NA
+"P_pair.null","rm_baboon",19,"ref_linda_re","paired",580,0,580,0,0,0,580,31,41.6149999999998,NA
+"P_pair.null","rm_baboon",19,"ref_zicoseq_st","paired",580,0,580,0,0,0,580,31,123.504,NA
+"P_pair.null","rm_baboon",19,"ref_ldm_cl","paired",580,0,580,0,0,0,580,27,48.5150000000003,NA
