@@ -45,16 +45,23 @@ miss <- setdiff(sets, names(RM_SPECS)); if (length(miss)) stop("unknown settings
 
 is_house <- function(s) identical(RM_SPECS[[s]]$gen, "house")
 ptp <- strsplit(opt$template, ",")[[1]]; prand <- strsplit(opt$`pick-random`, ",")[[1]]
-TPL <- list(); if (!all(vapply(sets, is_house, logical(1)))) for (id in ptp) {
+load_rm <- function(id) {
+  # srv32 stress templates: mix-<A>-<B> (one sample from each of two sites per subject), thin-<A> (one member of each pair
+  # thinned to 10% depth); ids without ':' or '+' so cell files stay valid file names on Windows
+  if (grepl("^mix-", id)) { ab <- strsplit(sub("^mix-", "", id), "-", fixed = TRUE)[[1]]; return(rm_mixed(load_rm(ab[1]), load_rm(ab[2]), id)) }
+  if (grepl("^thin-", id)) return(rm_thinned(load_rm(sub("^thin-", "", id)), frac = 0.1, id = id))
   dv <- file.path(root, "devdata", paste0(id, ".rds"))
   x <- if (file.exists(dv)) readRDS(dv) else load_template(id)          # conf2 (protocol 13): registry templates, held-out data
   if (!is.null(x$meta$X.SampleID)) {                                      # HMP (MicrobeDS): subjects and visits from the sample map
     mp <- if (grepl("^/", opt$map)) opt$map else file.path(root, opt$map); if (!file.exists(mp)) stop("no subject map: ", mp, " (run dev/tools/hmp_subjects.R on the server)")
-    t1 <- rm_template(x, utils::read.csv(mp, stringsAsFactors = FALSE))
+    rm_template(x, utils::read.csv(mp, stringsAsFactors = FALSE))
   } else if (all(c("subject", "visit") %in% names(x$meta))) {
-    t1 <- list(counts = x$counts, meta = x$meta[, c("subject", "visit")], id = id, n_matched = ncol(x$counts), n_samples = ncol(x$counts),
-               n_subjects = length(unique(x$meta$subject)), n_subj2 = sum(table(x$meta$subject) >= 2L))
+    list(counts = x$counts, meta = x$meta[, c("subject", "visit")], id = id, n_matched = ncol(x$counts), n_samples = ncol(x$counts),
+         n_subjects = length(unique(x$meta$subject)), n_subj2 = sum(table(x$meta$subject) >= 2L))
   } else stop("template ", id, ": no subject labels (neither X.SampleID for the HMP map nor subject / visit columns)")
+}
+TPL <- list(); if (!all(vapply(sets, is_house, logical(1)))) for (id in ptp) {
+  t1 <- load_rm(id)
   t1$id <- id; t1$pick <- if (id %in% prand) "random" else "earliest"; TPL[[id]] <- t1
   cat(sprintf("template %s: %d samples matched; %d after de-duplication, %d subjects, %d with >= 2 samples; pairs: %s\n",
               id, t1$n_matched, t1$n_samples, t1$n_subjects, t1$n_subj2, t1$pick)) }
@@ -68,7 +75,7 @@ if (opt$dry) {                                                            # conf
   quit(save = "no", status = as.integer(length(bad) > 0))
 }
 htp <- strsplit(opt$`house-templates`, ",")[[1]]
-HT <- setNames(lapply(htp, function(id) readRDS(file.path(root, "devdata", paste0(id, ".rds")))), htp)
+HT <- if (any(vapply(sets, is_house, logical(1)))) setNames(lapply(htp, function(id) readRDS(file.path(root, "devdata", paste0(id, ".rds")))), htp) else list()
 cell_seed <- function(...) { k <- paste(..., sep = "|"); as.integer((opt$seed * 1e5 + sum(utf8ToInt(k) * seq_along(utf8ToInt(k)))) %% .Machine$integer.max) }
 
 jobs <- do.call(rbind, lapply(sets, function(s) expand.grid(set = s, tp = if (is_house(s)) htp else ptp,

@@ -39,6 +39,30 @@ rm_template <- function(tpl, map) {
        n_subj2 = sum(table(meta$subject) >= 2L))
 }
 
+# srv32 stress templates for the within-subject path (development data only). Both are fixed before any exposure is
+# drawn, so a random within-subject exposure stays exchangeable and an exact test must hold on them.
+#  rm_mixed: one sample from site A and one from site B per subject (earliest visit at each; HMP RSIDs shared), taxa
+#            unioned (absent = 0) -- pairs whose two members differ systematically and strongly.
+#  rm_thinned: one of each subject's first two samples (chosen at random, fixed seed) binomially thinned to `frac` of its
+#            depth -- pairs whose two members differ in depth.
+rm_mixed <- function(tA, tB, id = "mixed") {
+  pick1 <- function(t) { m <- t$meta; o <- order(m$subject, m$visit); k <- o[!duplicated(m$subject[o])]; list(ct = t$counts[, k, drop = FALSE], s = m$subject[k]) }
+  a <- pick1(tA); b <- pick1(tB); S <- intersect(a$s, b$s)
+  ia <- match(S, a$s); ib <- match(S, b$s); f <- union(rownames(a$ct), rownames(b$ct))
+  fill <- function(ct, k) { z <- matrix(0L, length(f), length(k), dimnames = list(f, colnames(ct)[k])); z[rownames(ct), ] <- ct[, k, drop = FALSE]; z }
+  ct <- cbind(fill(a$ct, ia), fill(b$ct, ib)); ct <- ct[rowSums(ct > 0) > 0, , drop = FALSE]
+  meta <- data.frame(row.names = colnames(ct), subject = c(S, S), visit = rep(1:2, each = length(S)), stringsAsFactors = FALSE)
+  list(counts = ct, meta = meta, id = id, n_matched = ncol(ct), n_samples = ncol(ct), n_subjects = length(S), n_subj2 = length(S))
+}
+rm_thinned <- function(t, frac = 0.1, seed = 3201L, id = "thinned") {
+  m <- t$meta; ct <- t$counts; s2 <- names(which(table(m$subject) >= 2L))
+  .with_seed <- function(sd, e) { old <- if (exists(".Random.seed", envir = globalenv())) get(".Random.seed", envir = globalenv()); set.seed(sd)
+    on.exit(if (!is.null(old)) assign(".Random.seed", old, envir = globalenv())); e }
+  .with_seed(seed, for (s in s2) { w <- which(m$subject == s); w <- w[order(m$visit[w])][1:2]; j <- w[sample.int(2L, 1L)]
+    ct[, j] <- stats::rbinom(nrow(ct), ct[, j], frac) })
+  storage.mode(ct) <- "integer"; t$counts <- ct; t$id <- id; t
+}
+
 # implant()'s effect block, applied to a given exposure vector x (0/1)
 .rm_effects <- function(X, x, spec) {
   m <- nrow(X); es <- effect_sizes(spec$effect); n_da <- round(spec$da_frac * m)

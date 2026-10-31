@@ -17,8 +17,12 @@
 # no within-subject contrast and are left out. Every other design runs c12 unchanged.
 .epp_memo <- new.env()
 .epp_fit <- function(counts, meta, formula, tested_term, thr = 1e-3, margin = 1L, B = 4000L, B2 = 40000L, winsor = 0.03,
-                     adet = TRUE, pk = "pos", minsw = 2L) {
-  key <- list(counts, meta, formula, tested_term, thr, margin, B, B2, winsor, adet, pk, minsw, getOption("pursue.own"))
+                     adet = TRUE, pk = "pos", minsw = 2L, lin = FALSE, kapfree = 0L, rho1 = FALSE, nosel = FALSE, g0 = FALSE) {
+  # srv32 diagnostics (83_pairdiag.R; defaults = c13): lin -- observed statistic re-centred by the same linearisation as
+  # the permutations (t at gamma 0 + kap x shift) instead of re-thinned at gamma; kapfree -- kap averaged over that many
+  # within-subject flips instead of taken at the observed labels; rho1 -- rho fixed at 1 (label-free); nosel -- the lead
+  # kernel's p only; g0 -- no compositional centre (fixed scores, exact by construction)
+  key <- list(counts, meta, formula, tested_term, thr, margin, B, B2, winsor, adet, pk, minsw, getOption("pursue.own"), lin, kapfree, rho1, nosel, g0)
   if (!is.null(.epp_memo$key) && identical(.epp_memo$key, key)) return(.epp_memo$val)
   d <- .epg_design(meta, formula, tested_term); depth0 <- if (!is.null(meta$depth)) meta$depth else colSums(counts)
   cl0 <- d$cl; both <- tapply(d$x, cl0, function(v) length(unique(v)) == 2L); use <- cl0 %in% names(both)[both]
@@ -32,7 +36,7 @@
   gen <- if (two) { A <- vapply(blk, function(b) b$i[1], 1L); Z <- vapply(blk, function(b) b$i[2], 1L); nb <- length(blk)
     function() { f <- stats::runif(nb) < 0.5; A * f + Z * (!f) } } else
     function() unlist(lapply(blk, function(b) b$i[sample.int(length(b$i), b$k)]), use.names = FALSE)
-  rho <- round(.rho_design(depth, g1), 2)
+  rho <- if (rho1) 1 else round(.rho_design(depth, g1), 2)
   sf <- if (rho == 1) .size_factors(counts, depth) else rep(0, n)
   raw <- counts; if (winsor > 0 && rho == 1) counts <- .winsorize_counts(counts, depth, winsor)
   rows <- .with_seed(7L, if (nrow(counts) > 300L) sort(sample.int(nrow(counts), 300L)) else seq_len(nrow(counts)))
@@ -47,22 +51,28 @@
   tstat <- function(SS) matrix(sapply(hs, function(h) tw(SS[[h]])), ncol = length(hs), dimnames = list(NULL, hs))
   medt <- function(gm) stats::median(tw(sc(ct, gm, "log")))
   flo <- medt(-2); fhi <- medt(2)
-  gm <- if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(medt, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
+  gm <- if (g0) 0 else if (is.finite(flo) && is.finite(fhi) && sign(flo) != sign(fhi)) stats::uniroot(medt, c(-2, 2), f.lower = flo, f.upper = fhi, tol = 2e-3)$root else 0
   cok <- counts[ok, , drop = FALSE]
   S <- lapply(hs, function(h) sc(cok, gm, h)); S0 <- lapply(hs, function(h) sc(cok, 0, h))
   t1 <- tstat(S); t0 <- tstat(S0)
   kap <- if (abs(gm) >= 0.02) (t1 - t0) / gm else (tstat(lapply(hs, function(h) sc(cok, 0.05, h))) - t0) / 0.05
-  kap[!is.finite(kap)] <- 0
+  if (kapfree > 0L) kap <- .with_seed(101L, Reduce(`+`, lapply(seq_len(kapfree), function(r) {   # label-free: mean over within-subject flips
+    ex <- gen(); xr <- seq_len(n) %in% ex; Gr <- matrix(as.numeric(xr), n, 1)
+    twr <- function(a) { a <- a - rowMeans(a); v <- .perm_tstat(a, a^2, Gr, sum(xr), n - sum(xr))[, 1]; v[!is.finite(v)] <- 0; v }
+    scr <- function(h) { bb <- exp(0.05 * xr + sf); if (h == "pos") .perm_scores_pos(cok, depth, bb, E, rho = rho) else .perm_scores(cok, depth, bb, h, E, rho = rho) }
+    (sapply(hs, function(h) twr(scr(h))) - sapply(hs, function(h) twr(S0[[h]]))) / 0.05 })) / kapfree)
+  kap <- matrix(kap, ncol = length(hs), dimnames = list(NULL, hs)); kap[!is.finite(kap)] <- 0; if (g0) kap[] <- 0
   med <- which(rownames(cok) %in% rownames(ct))
-  tobs <- t1 + kap * .root_shift(t1[med, "log", drop = FALSE], kap[med, "log"])
+  tb <- if (lin) t0 else t1
+  tobs <- tb + kap * .root_shift(tb[med, "log", drop = FALSE], kap[med, "log"])
   own <- intersect(getOption("pursue.own", character(0)), setdiff(colnames(t1), "log"))
-  for (h in own) tobs[, h] <- t1[, h] + kap[, h] * .root_shift(t1[med, h, drop = FALSE], kap[med, h])
-  pm <- .perm_multi(S0, g1, combos, B = B, B2 = B2, tobs = tobs, kap = kap, med = med, own = own, gen = gen)
+  for (h in own) tobs[, h] <- tb[, h] + kap[, h] * .root_shift(tb[med, h, drop = FALSE], kap[med, h])
+  pm <- .perm_multi(S0, g1, combos, B = B, B2 = B2, tobs = tobs, kap = if (g0) NULL else kap, med = med, own = if (g0) character(0) else own, gen = gen)
   P <- matrix(NA_real_, length(feats), ncol(pm$p), dimnames = list(feats, colnames(pm$p))); P[ok, ] <- pm$p
   pl <- P[, "lead"]; Q <- P[, c("lead", alts), drop = FALSE]
   hit <- apply(Q, 2, function(p) { q <- rep(1, length(p)); f <- is.finite(p); q[f] <- stats::p.adjust(p[f], "BH"); q <= 0.05 })
   loo <- sweep(-hit, 2, colSums(hit), "+"); la <- loo[, alts, drop = FALSE]; ia <- max.col(la, ties.method = "last"); altn <- la[cbind(seq_len(nrow(la)), ia)]
-  usek <- altn >= loo[, "lead"] + margin & altn >= minsw; pfull <- ifelse(usek, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
+  usek <- altn >= loo[, "lead"] + margin & altn >= minsw & !nosel; pfull <- ifelse(usek, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
   est <- rep(NA_real_, length(feats)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / sum(x[E[, 1]] != x[E[, 2]]) / log(2)
   val <- list(feature = feats, p_full = pfull, p_ms = pl, est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = "pair",
               n_subj = length(blk), choice = ifelse(usek, alts[ia], "lead"), P = P)
