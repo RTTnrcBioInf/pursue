@@ -48,8 +48,10 @@ ptp <- strsplit(opt$template, ",")[[1]]; prand <- strsplit(opt$`pick-random`, ",
 load_rm <- function(id) {
   # srv32 stress templates: mix-<A>-<B> (one sample from each of two sites per subject), thin-<A> (one member of each pair
   # thinned to 10% depth); ids without ':' or '+' so cell files stay valid file names on Windows
-  if (grepl("^mix-", id)) { ab <- strsplit(sub("^mix-", "", id), "-", fixed = TRUE)[[1]]; return(rm_mixed(load_rm(ab[1]), load_rm(ab[2]), id)) }
+  # (srv33) scr-<A>: A with its taxon labels permuted; mix-<A>-<B> splits at the first dash after A, so B may be scr-<C>
+  if (grepl("^mix-", id)) return(rm_mixed(load_rm(sub("^mix-([^-]+)-(.+)$", "\\1", id)), load_rm(sub("^mix-([^-]+)-(.+)$", "\\2", id)), id))
   if (grepl("^thin-", id)) return(rm_thinned(load_rm(sub("^thin-", "", id)), frac = 0.1, id = id))
+  if (grepl("^scr-", id)) return(rm_scrambled(load_rm(sub("^scr-", "", id)), id = id))
   dv <- file.path(root, "devdata", paste0(id, ".rds"))
   x <- if (file.exists(dv)) readRDS(dv) else load_template(id)          # conf2 (protocol 13): registry templates, held-out data
   if (!is.null(x$meta$X.SampleID)) {                                      # HMP (MicrobeDS): subjects and visits from the sample map

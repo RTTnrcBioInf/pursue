@@ -22,6 +22,10 @@ RM_SPECS <- list(
   P_pair = list(design = "paired",  n_subj = 40L, da_frac = 0.10, effect = "medium", signal_type = "mixed", balance = "balanced"))
 RM_SPECS[["P_subj.null"]] <- utils::modifyList(RM_SPECS$P_subj, list(da_frac = 0))
 RM_SPECS[["P_pair.null"]] <- utils::modifyList(RM_SPECS$P_pair, list(da_frac = 0))
+# srv33: more than two samples per subject on real data -- k = 4 per subject, exactly two exposed (a balanced within-
+# subject design, so the exact within-subject path is taken; needs subjects with >= 4 samples: the baboons)
+RM_SPECS[["P_pair4"]] <- utils::modifyList(RM_SPECS$P_pair, list(k = 4L))
+RM_SPECS[["P_pair4.null"]] <- utils::modifyList(RM_SPECS$P_pair4, list(da_frac = 0))
 
 rm_template <- function(tpl, map) {
   srs <- sub("^[^.]+[.]([^.]+)[.].*$", "\\1", tpl$meta$X.SampleID)
@@ -53,6 +57,10 @@ rm_mixed <- function(tA, tB, id = "mixed") {
   ct <- cbind(fill(a$ct, ia), fill(b$ct, ib)); ct <- ct[rowSums(ct > 0) > 0, , drop = FALSE]
   meta <- data.frame(row.names = colnames(ct), subject = c(S, S), visit = rep(1:2, each = length(S)), stringsAsFactors = FALSE)
   list(counts = ct, meta = meta, id = id, n_matched = ncol(ct), n_samples = ncol(ct), n_subjects = length(S), n_subj2 = length(S))
+}
+rm_scrambled <- function(t, seed = 3301L, id = "scrambled") {            # srv33: the site's taxon labels permuted (fixed seed):
+  set.seed(seed); rownames(t$counts) <- rownames(t$counts)[sample.int(nrow(t$counts))]   # a "site" unlike any real one,
+  t$id <- id; t                                                           # for mixed pairs that differ as much as possible
 }
 rm_thinned <- function(t, frac = 0.1, seed = 3201L, id = "thinned") {
   m <- t$meta; ct <- t$counts; s2 <- names(which(table(m$subject) >= 2L))
@@ -93,14 +101,15 @@ rm_thinned <- function(t, frac = 0.1, seed = 3201L, id = "thinned") {
 
 rm_cell <- function(tpl, spec, seed = 1L) {
   set.seed(seed)
-  v <- tpl$meta; subj2 <- names(which(table(v$subject) >= 2L))
-  if (length(subj2) < spec$n_subj) return(list(unsupported = sprintf("subjects_with_2_visits[%d<%d]", length(subj2), spec$n_subj)))
+  k <- if (is.null(spec$k)) 2L else spec$k                                 # samples per subject (2 unless P_pair4)
+  v <- tpl$meta; subj2 <- names(which(table(v$subject) >= k))
+  if (length(subj2) < spec$n_subj) return(list(unsupported = sprintf("subjects_with_%d_visits[%d<%d]", k, length(subj2), spec$n_subj)))
   S <- sort(sample(subj2, spec$n_subj))
   rnd <- identical(tpl$pick, "random")                                     # conf2 baboons: two samples per animal at random
-  idx <- unlist(lapply(S, function(s) { w <- which(v$subject == s); w <- w[order(v$visit[w])]; if (rnd) w[sort(sample.int(length(w), 2L))] else w[1:2] }))
+  idx <- unlist(lapply(S, function(s) { w <- which(v$subject == s); w <- w[order(v$visit[w])]; if (rnd) w[sort(sample.int(length(w), k))] else w[seq_len(k)] }))
   X <- tpl$counts[, idx, drop = FALSE]; sj <- v$subject[idx]; vis <- v$visit[idx]; n <- length(idx)
   x <- if (spec$design == "subject") { cs <- sample(S, spec$n_subj %/% 2L); as.integer(sj %in% cs) } else
-    as.integer(unlist(lapply(seq_along(S), function(k) sample(c(0L, 1L)))))                    # pairs are adjacent: 2k-1, 2k
+    as.integer(unlist(lapply(seq_along(S), function(i) sample(rep(c(0L, 1L), k %/% 2L)))))     # a subject's k samples are adjacent; half exposed
   ef <- .rm_effects(X, x, spec)
   N <- colSums(X); m <- nrow(X)
   Xn <- sapply(seq_len(n), function(i) { p <- ef$Xf[, i]; if (sum(p) <= 0) rep(0L, m) else stats::rmultinom(1L, N[i], p / sum(p))[, 1] })
@@ -124,6 +133,10 @@ RM_SPECS[["HW5"]] <- list(gen = "house", design = "within", vis = 5L, vis_range 
 RM_SPECS[["HWv"]] <- utils::modifyList(RM_SPECS$HW5, list(vis_range = 2:8, mixed = 0.8))
 RM_SPECS[["HW5.null"]] <- utils::modifyList(RM_SPECS$HW5, list(da_frac = 0))
 RM_SPECS[["HWv.null"]] <- utils::modifyList(RM_SPECS$HWv, list(da_frac = 0))
+# srv33: balanced crossover, 4 visits with exactly 2 exposed per subject -- all of the exposure's variance is within
+# subjects, so (unlike HW5 / HWv) the exact within-subject path is taken with more than two visits
+RM_SPECS[["HW4h"]] <- utils::modifyList(RM_SPECS$HW5, list(vis = 4L, half = TRUE))
+RM_SPECS[["HW4h.null"]] <- utils::modifyList(RM_SPECS$HW4h, list(da_frac = 0))
 
 simulate_house_within <- function(template, spec, seed = 1L) {
   set.seed(seed)
@@ -132,7 +145,8 @@ simulate_house_within <- function(template, spec, seed = 1L) {
   subject <- rep(seq_len(n_subj), v); n <- length(subject)
   mix <- seq_len(n_subj) %in% sample.int(n_subj, round(spec$mixed * n_subj))
   x <- integer(n)
-  for (s in which(mix)) { ii <- which(subject == s); x[ii[sample.int(length(ii), sample.int(length(ii) - 1L, 1L))]] <- 1L }
+  for (s in which(mix)) { ii <- which(subject == s)
+    x[ii[sample.int(length(ii), if (isTRUE(spec$half)) length(ii) %/% 2L else sample.int(length(ii) - 1L, 1L))]] <- 1L }
   N <- pmax(sample(prof$depth, n, replace = TRUE), 200L)
   idx <- sample(seq_len(prof$n_features), m, replace = m > prof$n_features)
   psi <- pmin(pmax(prof$prevalence[idx], 0.05), 0.995)
