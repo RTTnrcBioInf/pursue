@@ -68,8 +68,9 @@
     loo <- sweep(-hit, 2, colSums(hit), "+"); la <- loo[, alts, drop = FALSE]; ia <- max.col(la, ties.method = "last"); altn <- la[cbind(seq_len(nrow(la)), ia)]
     use <- altn >= loo[, "lead"] + margin & altn >= minsw; pfull <- ifelse(use, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
     ncross <- sum(g1[E[, 1]] != g1[E[, 2]]); est <- rep(NA_real_, nrow(counts)); est[ok] <- rowSums(S$log[, g1, drop = FALSE]) / ncross / log(2)
+    Tm <- matrix(NA_real_, nrow(counts), ncol(tobs), dimnames = list(rownames(counts), colnames(tobs))); Tm[ok, ] <- tobs   # signed statistic per kernel (sign diagnostics)
     val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = if (length(ps)) "two_ps" else "two",
-                choice = ifelse(use, alts[ia], "lead"), P = P)
+                choice = ifelse(use, alts[ia], "lead"), P = P, T = Tm)
   }
   .eps_memo$key <- key; .eps_memo$val <- val; val
 }

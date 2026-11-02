@@ -132,8 +132,9 @@
     use <- altn >= loo[, "lead"] + margin & altn >= minsw; pfull <- ifelse(use, Q[cbind(seq_len(nrow(Q)), 1L + ia)], pl)
     xc <- x - mean(x); deg <- 2 * nrow(E) / n; est <- rep(NA_real_, nrow(counts))
     est[ok] <- if (type == "clus") rowSums(S$log[, x == 1, drop = FALSE]) / sum(x[E[, 1]] != x[E[, 2]]) / log(2) else drop(.fl_resid(S$log, pr) %*% pr$w) / deg / log(2)
+    Tm <- matrix(NA_real_, nrow(counts), ncol(tobs), dimnames = list(rownames(counts), colnames(tobs))); Tm[ok, ] <- tobs   # signed statistic per kernel (sign diagnostics)
     val <- list(feature = rownames(counts), p_full = pfull, p_ms = pl, p_det = P[, "det"], p_log = P[, "log"], p_sqrt = P[, "sqrt"],
-                est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = type, choice = ifelse(use, alts[ia], "lead"), P = P)
+                est = est, gam = gm, rho = rho, perm = TRUE, fallback = FALSE, path = type, choice = ifelse(use, alts[ia], "lead"), P = P, T = Tm)
   }
   .epg_memo$key <- key; .epg_memo$val <- val; val
 }
