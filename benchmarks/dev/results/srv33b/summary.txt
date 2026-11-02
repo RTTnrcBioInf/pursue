@@ -1,0 +1,95 @@
+rm_baboon: 16230 samples, 585 subjects (523 with >= 2 samples); pairs: random
+300 cells in 65.2 min.
+TP / FP per cell at the method's own q <= 0.05; FDR pooled; p_any_false = share of cells with any false call;
+fpr05 = share of null taxa at p < 0.05 (nominal 0.05). On .null settings every call is false.
+
+== HW4h (all templates) 
+    candidate cells n_pos   TP    FP    FDR p_any_false  fpr05 secs
+    eperm_c14    40  35.1 4.78 0.575 0.1075       0.325 0.0486 24.1
+ ref_linda_re    40  35.1 4.58 0.625 0.1202       0.375 0.0563 27.2
+  eperm_c13g0    40  35.1 4.55 0.425 0.0854       0.225 0.0479  9.1
+    eperm_c13    40  35.1 4.47 0.525 0.1050       0.300 0.0497 17.8
+    eperm_c12    40  35.1 2.85 0.150 0.0500       0.125 0.0364 12.9
+   ref_ldm_cl    40  35.1 2.20 0.200 0.0833       0.125 0.0485 27.8
+
+== HW4h.null (all templates) 
+    candidate cells n_pos TP      FP FDR p_any_false  fpr05 secs
+    eperm_c12   160     0  0 0.00625   1     0.00625 0.0371 12.4
+   ref_ldm_cl   160     0  0 0.03125   1     0.03125 0.0480 25.6
+    eperm_c13   160     0  0 0.02500   1     0.02500 0.0490 17.6
+  eperm_c13g0   160     0  0 0.04375   1     0.03750 0.0493  9.0
+    eperm_c14   160     0  0 0.04375   1     0.03750 0.0496 23.5
+ ref_linda_re   160     0  0 0.05000   1     0.05000 0.0551 26.8
+
+== P_pair4 (all templates) 
+    candidate cells n_pos   TP   FP    FDR p_any_false  fpr05 secs
+ ref_linda_re    20  58.4 19.9 1.60 0.0744        0.65 0.0504 45.8
+    eperm_c14    20  58.4 19.1 1.40 0.0681        0.60 0.0433 48.0
+    eperm_c13    20  58.4 19.1 1.40 0.0685        0.60 0.0426 28.6
+  eperm_c13g0    20  58.4 18.9 1.30 0.0642        0.55 0.0443 19.1
+   ref_ldm_cl    20  58.4 18.3 1.75 0.0873        0.80 0.0498 89.4
+    eperm_c12    20  58.4 15.2 0.30 0.0194        0.20 0.0234 36.3
+
+== P_pair4.null (all templates) 
+    candidate cells n_pos TP     FP FDR p_any_false  fpr05 secs
+    eperm_c12    80     0  0 0.1000   1      0.0250 0.0281 35.5
+  eperm_c13g0    80     0  0 0.0250   1      0.0250 0.0496 18.7
+    eperm_c13    80     0  0 0.0250   1      0.0250 0.0496 28.6
+   ref_ldm_cl    80     0  0 0.0625   1      0.0500 0.0498 52.3
+    eperm_c14    80     0  0 0.0750   1      0.0375 0.0501 47.9
+ ref_linda_re    80     0  0 0.0625   1      0.0500 0.0536 45.1
+
+== HW4h | hmp_tongue 
+    candidate cells n_pos   TP   FP    FDR p_any_false  fpr05  secs
+    eperm_c13    20  30.6 2.50 0.05 0.0196        0.05 0.0480 17.64
+    eperm_c14    20  30.6 2.45 0.10 0.0392        0.05 0.0462 22.93
+  eperm_c13g0    20  30.6 2.40 0.10 0.0400        0.05 0.0474  8.84
+ ref_linda_re    20  30.6 2.00 0.15 0.0698        0.10 0.0490 23.15
+   ref_ldm_cl    20  30.6 1.15 0.10 0.0800        0.05 0.0466 27.40
+    eperm_c12    20  30.6 0.60 0.00 0.0000        0.00 0.0273 11.25
+
+== HW4h | twinsuk_stool 
+    candidate cells n_pos   TP   FP    FDR p_any_false  fpr05  secs
+ ref_linda_re    20  39.5 7.15 1.10 0.1333        0.65 0.0617 30.58
+    eperm_c14    20  39.5 7.10 1.05 0.1288        0.60 0.0503 25.64
+  eperm_c13g0    20  39.5 6.70 0.75 0.1007        0.40 0.0483  9.32
+    eperm_c13    20  39.5 6.45 1.00 0.1342        0.55 0.0509 17.87
+    eperm_c12    20  39.5 5.10 0.30 0.0556        0.25 0.0432 13.38
+   ref_ldm_cl    20  39.5 3.25 0.30 0.0845        0.20 0.0499 27.87
+
+== HW4h.null | hmp_tongue 
+    candidate cells n_pos TP     FP FDR p_any_false  fpr05  secs
+    eperm_c12    80     0  0 0.0000   0      0.0000 0.0318 11.31
+   ref_ldm_cl    80     0  0 0.0250   1      0.0250 0.0479 25.41
+    eperm_c13    80     0  0 0.0375   1      0.0375 0.0481 17.30
+    eperm_c14    80     0  0 0.0750   1      0.0625 0.0481 22.26
+  eperm_c13g0    80     0  0 0.0375   1      0.0375 0.0489  8.69
+ ref_linda_re    80     0  0 0.0375   1      0.0375 0.0529 23.61
+
+== HW4h.null | twinsuk_stool 
+    candidate cells n_pos TP     FP FDR p_any_false  fpr05  secs
+    eperm_c12    80     0  0 0.0125   1      0.0125 0.0411 13.36
+   ref_ldm_cl    80     0  0 0.0375   1      0.0375 0.0480 25.86
+    eperm_c13    80     0  0 0.0125   1      0.0125 0.0496 17.81
+  eperm_c13g0    80     0  0 0.0500   1      0.0375 0.0496  9.22
+    eperm_c14    80     0  0 0.0125   1      0.0125 0.0507 25.27
+ ref_linda_re    80     0  0 0.0625   1      0.0625 0.0569 29.82
+
+== P_pair4 | rm_baboon 
+    candidate cells n_pos   TP   FP    FDR p_any_false  fpr05 secs
+ ref_linda_re    20  58.4 19.9 1.60 0.0744        0.65 0.0504 45.8
+    eperm_c14    20  58.4 19.1 1.40 0.0681        0.60 0.0433 48.0
+    eperm_c13    20  58.4 19.1 1.40 0.0685        0.60 0.0426 28.6
+  eperm_c13g0    20  58.4 18.9 1.30 0.0642        0.55 0.0443 19.1
+   ref_ldm_cl    20  58.4 18.3 1.75 0.0873        0.80 0.0498 89.4
+    eperm_c12    20  58.4 15.2 0.30 0.0194        0.20 0.0234 36.3
+
+== P_pair4.null | rm_baboon 
+    candidate cells n_pos TP     FP FDR p_any_false  fpr05 secs
+    eperm_c12    80     0  0 0.1000   1      0.0250 0.0281 35.5
+  eperm_c13g0    80     0  0 0.0250   1      0.0250 0.0496 18.7
+    eperm_c13    80     0  0 0.0250   1      0.0250 0.0496 28.6
+   ref_ldm_cl    80     0  0 0.0625   1      0.0500 0.0498 52.3
+    eperm_c14    80     0  0 0.0750   1      0.0375 0.0501 47.9
+ ref_linda_re    80     0  0 0.0625   1      0.0500 0.0536 45.1
+

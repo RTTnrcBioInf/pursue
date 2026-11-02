@@ -1,0 +1,7 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"HW4h.null","twinsuk_stool",30,"eperm_c12","within",366,0,366,0,0,0,366,20,14.5839999999998,NA
+"HW4h.null","twinsuk_stool",30,"eperm_c13","within",366,0,366,0,0,0,366,26,17.828,NA
+"HW4h.null","twinsuk_stool",30,"eperm_c14","within",366,0,366,0,0,0,366,27,25.9549999999999,NA
+"HW4h.null","twinsuk_stool",30,"eperm_c13g0","within",366,0,366,0,0,0,366,21,9.096,NA
+"HW4h.null","twinsuk_stool",30,"ref_linda_re","within",366,0,366,0,0,0,366,29,28.5930000000003,NA
+"HW4h.null","twinsuk_stool",30,"ref_ldm_cl","within",366,0,366,0,0,0,366,19,26.5500000000002,NA
