@@ -1,0 +1,47 @@
+sign diagnostics 'srv34' (2026-11-02 15:48:49): 397 cells; c14 true positives 7470
+
+c14 true positives: share whose reported estimate has the true sign (est), whose calling kernel's statistic has it (kernel),
+and where estimate and calling kernel agree (est=kernel). Truth: change type's own direction; opposite taxa against mean abundance.
+
+ truth_type    n   est kernel est_kernel
+  abundance  218 1.000  1.000      1.000
+       both 2794 1.000  1.000      1.000
+        opp  972 0.522  0.519      0.995
+ prevalence 3486 1.000  1.000      1.000
+
+ c14_choice    n   est kernel est_kernel
+        det 2996 0.891  0.890      0.999
+       lead 3926 0.965  0.965      1.000
+        log  219 1.000  1.000      1.000
+        pos   21 0.952  1.000      0.952
+       sqrt  308 1.000  1.000      1.000
+
+By setting:
+         setting    n   est kernel est_kernel
+       house:R00  367 1.000  1.000      1.000
+       house:R11  428 1.000  1.000      1.000
+       house:R13  816 1.000  1.000      1.000
+       house:R16  356 1.000  1.000      1.000
+ implant:B_abund   22 1.000  1.000      1.000
+ implant:B_allup 1150 1.000  1.000      1.000
+  implant:B_mix4 1078 0.917  0.916      0.999
+   implant:B_opp  765 0.510  0.507      0.995
+  implant:B_prev 1399 1.000  1.000      1.000
+   implant:B_ref 1089 1.000  1.000      1.000
+
+Opposite taxa (presence one way, abundance among the present the other): c14's estimate sign against each estimand
+   n presence abund_given_presence mean_abundance mean_log_small_pseudocount
+ 972    0.973                0.027          0.522                      0.995
+ mean_vs_logmean_agree
+                 0.516
+
+LinDA true positives on the same cells (est = its estimate has the true sign):
+ truth_type    n   est
+  abundance  202 1.000
+       both 2609 1.000
+        opp  167 0.844
+ prevalence 2407 1.000
+
+LinDA on opposite taxa:
+   n presence abund_given_presence mean_abundance mean_log_small_pseudocount
+ 167    0.928                0.072          0.844                      1.000
