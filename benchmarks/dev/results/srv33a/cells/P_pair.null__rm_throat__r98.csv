@@ -1,0 +1,7 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","rm_throat",98,"eperm_c12","paired",355,0,355,0,0,0,355,9,12.4440000000004,NA
+"P_pair.null","rm_throat",98,"eperm_c13","paired",355,0,355,0,0,0,355,22,1.78400000000011,NA
+"P_pair.null","rm_throat",98,"eperm_c14","paired",355,0,355,0,0,0,355,23,3.86800000000039,NA
+"P_pair.null","rm_throat",98,"eperm_c13g0","paired",355,0,355,0,0,0,355,21,0.911000000000058,NA
+"P_pair.null","rm_throat",98,"ref_linda_re","paired",355,0,355,0,0,0,355,16,26.1979999999999,NA
+"P_pair.null","rm_throat",98,"ref_ldm_cl","paired",355,0,355,0,0,0,355,24,43.107,NA

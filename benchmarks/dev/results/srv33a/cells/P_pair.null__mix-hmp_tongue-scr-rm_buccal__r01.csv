@@ -1,0 +1,7 @@
+"setting","template","rep","candidate","design","m","n_pos","tested","rej","tp","fp","null_n","null_p05","secs","error"
+"P_pair.null","mix-hmp_tongue-scr-rm_buccal",1,"eperm_c12","paired",403,0,403,0,0,0,403,2,19.135,NA
+"P_pair.null","mix-hmp_tongue-scr-rm_buccal",1,"eperm_c13","paired",403,0,403,17,0,17,403,18,6.686,NA
+"P_pair.null","mix-hmp_tongue-scr-rm_buccal",1,"eperm_c14","paired",403,0,403,0,0,0,403,2,4.51300000000001,NA
+"P_pair.null","mix-hmp_tongue-scr-rm_buccal",1,"eperm_c13g0","paired",403,0,403,0,0,0,403,3,1.04,NA
+"P_pair.null","mix-hmp_tongue-scr-rm_buccal",1,"ref_linda_re","paired",403,0,403,0,0,0,403,9,28.83,NA
+"P_pair.null","mix-hmp_tongue-scr-rm_buccal",1,"ref_ldm_cl","paired",403,0,403,0,0,0,403,7,22.355,NA
