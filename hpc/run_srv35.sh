@@ -12,7 +12,9 @@
 #   3. srv35m: the same cells, MaAsLin 3 (combined arm, as the benchmark scores it) and LOCOM2 (NEWLIB).
 #   4. srv35n / srv35mn: global nulls (house / msq / mid / sd2 / sps R06, implant B_null), 40 reps, the same four methods.
 # Cells are identical across the runs (same seeds, single-threaded BLAS), so compare.R merges them. ~90 CPU-hours: ~8 h at
-# 12 cores. hpc/guard.sh: shared memory cap (MEMTOTAL), OOM-killer first choice, single-threaded BLAS. Resumable: finished
+# 12 cores -- an underestimate: SimulateMSeq refitted its template for every cell (~25 min per twinsuk_stool cell). Since
+# 2026-11-04 that fit is cached (benchmarks/dev/tools/msq_cache.R; step 1b checks the cells are unchanged), so a relaunch
+# resumes without it. hpc/guard.sh: shared memory cap (MEMTOTAL), OOM-killer first choice, single-threaded BLAS. Resumable: finished
 # cells are kept, so relaunching continues. Each stage pushes.
 #   git pull && mkdir -p logs && (MEMTOTAL=90G CORES=12 nohup nice -n 10 bash hpc/run_srv35.sh > logs/run_srv35.log 2>&1 &)
 source "$(dirname "${BASH_SOURCE[0]}")/guard.sh" "$@"
@@ -56,6 +58,18 @@ echo ">> bank $B ($(date '+%F %T'))"
 Rscript benchmarks/dev/tools/bank_cells.R --settings msq:R00,msq:R02,msq:R03,msq:R10,msq:R13,msq:R06,mid:R10,mid:R11 --templates hmp_tongue,twinsuk_stool \
   --reps 5 --candidates eperm_c14,ref_ldm,ref_zicoseq --out "$B" --cores "$CORES" || exit 1
 MSG="dev bank5: msq R00 / R02 / R03 / R10 / R13 / R06, mid R10 / R11 with c14, LDM, ZicoSeq p-values (tuning templates)" push "$B"
+
+# 1b. the SimulateMSeq fit cache (added 2026-11-04, on relaunch): rebuild two of bank5's cells (made without the cache) with it
+#     and stop unless they are identical -- counts, truth and metadata. The bank step above has already fitted the templates.
+CK="$(mktemp -d)"
+Rscript benchmarks/dev/tools/bank_cells.R --settings msq:R00 --templates hmp_tongue,twinsuk_stool --reps 1 --candidates lm_logtss \
+  --out "$CK" --cores 2 > logs/run_srv35_msqcheck.log 2>&1
+CK="$CK" B="$B" Rscript -e 'ck <- Sys.getenv("CK"); b <- Sys.getenv("B"); f <- list.files(ck, "[.]rds$")
+  same <- vapply(f, function(x) { u <- readRDS(file.path(ck, x)); v <- readRDS(file.path(b, x))
+    identical(u$counts, v$counts) && identical(u$truth, v$truth) && identical(u$meta, v$meta) }, logical(1))
+  print(same); quit(status = if (length(f) == 2L && all(same)) 0 else 1)' \
+  || { echo ">> msq cache check FAILED -- cells differ from bank5 (see logs/run_srv35_msqcheck.log); rerun with PURSUE_MSQ_CACHE=0"; exit 1; }
+rm -rf "$CK"; echo ">> msq cache check passed: cells identical to bank5 ($(date '+%F %T'))"
 
 # 2-3. the dev suite: c14 and LDM in the benchmark environment; MaAsLin 3 and LOCOM2 from NEWLIB
 L=srv35; echo ">> dev suite $L ($(date '+%F %T'))"

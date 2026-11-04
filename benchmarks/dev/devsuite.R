@@ -91,6 +91,10 @@ if (nzchar(opt$extra)) for (id in strsplit(opt$extra, ",")[[1]]) {
   } else S[[length(S) + 1L]] <- list(id = id, sim = sm, regime = rg, null = nul) }
 tpls <- strsplit(opt$templates, ",")[[1]]
 TPL <- setNames(lapply(tpls, function(id) readRDS(file.path(root, "devdata", paste0(id, ".rds")))), tpls)
+# SimulateMSeq: dirmult() template fit cached on disk, fitted once before the workers fork; cells bit-identical
+# (dev/tools/msq_cache.R, 2026-11-04).
+source(file.path(root, "dev", "tools", "msq_cache.R"))
+if (any(vapply(S, function(s) identical(s$sim, "msq"), logical(1))) && .msq_cache_on(cache_dir)) .msq_cache_warm(TPL, opt$cores)
 
 source(file.path(root, "dev", "tools", "stress.R"))
 make_cell <- function(s, tpl, seed) {

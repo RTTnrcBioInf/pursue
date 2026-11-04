@@ -38,6 +38,8 @@ TPL <- setNames(lapply(tpls, function(id) readRDS(file.path(root, "devdata", pas
 dir.create(opt$out, recursive = TRUE, showWarnings = FALSE)
 jobs <- expand.grid(id = strsplit(opt$settings, ",")[[1]], tp = tpls, rep = seq_len(opt$reps), stringsAsFactors = FALSE)
 jobs <- jobs[!(grepl("^sps:", jobs$id) & jobs$tp != "hmp_tongue"), ]          # sps: hmp_tongue only (no SPsimSeq group in twinsuk)
+source(file.path(root, "dev", "tools", "msq_cache.R"))                          # SimulateMSeq template fit cached (bit-identical cells)
+if (any(grepl("^msq:", jobs$id)) && .msq_cache_on(cache_dir)) .msq_cache_warm(TPL, opt$cores)
 run <- function(k) {
   id <- jobs$id[k]; tid <- jobs$tp[k]; rp <- jobs$rep[k]
   f <- file.path(opt$out, sprintf("%s__%s__r%02d.rds", gsub("[:]", "-", id), tid, rp)); if (file.exists(f)) return(f)
